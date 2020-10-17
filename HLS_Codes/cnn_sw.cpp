@@ -135,7 +135,7 @@ void mobilenet_preprocess(
 
   // Load weights
   cout << "Loading weight..." << endl;
-  file_path = string(prj_path_c) + "/data/weight_reorg.dat"; 
+  file_path = string(prj_path_c) + "/data/weight_tiling.dat"; 
   ifstream weight_file(file_path.c_str()); 
   //ifstream weight_file(file_path.c_str(), ios::binary | ios::in);
   //bin_input = new char[sizeof(data_t1) * WEIGHT_SIZE];

@@ -2441,13 +2441,19 @@ uint LAYER_IN_H_T,
 uint LAYER_IN_W_T,
 uint FILTER_S,
 uint STRIDE,
-uint iter_num
+uint iter_num,
+uint layer_id
 ){
 #pragma HLS INLINE off
 
-	if(iter_num==0){
+	if(layer_id==0){
 		FILE *f;
-		f = fopen(strcat(project_path, "data/test/debug_conv_3L_1.dat"), "w");
+		char dir[100] = PROJ_DIR;
+		strcat(dir, "data/test/debug_conv_");
+		char L[5];
+		strcat(dir, itoa(iter_num, L, 10));
+		strcat(dir, "_16x16.dat");
+		f = fopen(dir, "w");
 		for (int o = 0; o < LAYER_OUT_NUM_T; o++)
 			for (int h = 0; h < LAYER_IN_H_T / STRIDE; h++)
 				for (int w = 0; w < LAYER_IN_W_T / STRIDE; w++){
@@ -2496,7 +2502,8 @@ void kernel(
  hls::stream<WeightLoadData1Type> &fifo_weight,
  hls::stream<ConvData0Type>       &fifo_cout,
  hls::stream<ConfigInst>          &fifo_config_in,
- hls::stream<ConfigInst>          &fifo_config_out
+ hls::stream<ConfigInst>          &fifo_config_out,
+ uint							  layer_id
 ){
  data_t0 cin_local[IN_H_T + K_T - 1][IN_W_T + K_T - 1][IN_NUM_T];
 #pragma HLS ARRAY_PARTITIOn variable=cin_local dim=3 cyclic factor=8  
@@ -2703,7 +2710,7 @@ if(DEPTH_CONV_EN){
 //    }
 //#endif    
    
-       conv_core(cin_local, weight_local, cout_local, (in_num_iter == 0), LAYER_IN_NUM_T, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T, FILTER_S, stride2, iter_num);
+       conv_core(cin_local, weight_local, cout_local, (in_num_iter == 0), LAYER_IN_NUM_T, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T, FILTER_S, stride2, iter_num, layer_id);
 
 
 //#ifdef DEBUG
@@ -3118,7 +3125,8 @@ void conv(
 		hls::stream<WeightLoadData1Type> &fifo_weight,
 		hls::stream<ConfigInst>          &fifo_config_in,
 		hls::stream<ConvData0Type>       &fifo_cout,
-		hls::stream<ConfigInst>          &fifo_config_out
+		hls::stream<ConfigInst>          &fifo_config_out,
+		uint							 layer_id
 ){
 #pragma HLS INLINE off 
 	uint in_num_iter = 0;
@@ -3315,7 +3323,7 @@ void conv(
 		// Refer to README to see how to add the systolic array
 		// You can replace it with your own implementations
 		// If you want to check with a simple implementation, uncomment the "kernel" module in this file
-		kernel(fifo_cin, fifo_weight, fifo_cout, fifo_config_in, fifo_config_out);
+		kernel(fifo_cin, fifo_weight, fifo_cout, fifo_config_in, fifo_config_out, layer_id);
 #ifdef DEBUG_kernel
 		cout << "after kernel" << endl;
 #endif
@@ -5626,12 +5634,13 @@ layer_id++;
 #ifdef DEBUG_engine
 	cout << "passed cin load" << endl;
 #endif
-	// if(layer_id==3){
+	// if(layer_id==5){
 	// 	FILE *f;
 	// 	char dir[100] = PROJ_DIR;
-	//  strcat(dir, "data/test/cin_L");	// 	char L[5];
+	//  	strcat(dir, "data/test/cin_L");
+	// 	char L[5];
 	// 	strcat(dir, itoa(layer_id, L, 10));
-	// 	strcat(dir, "_8x32.dat");
+	// 	strcat(dir, "_16x16.dat");
 	// 	f = fopen(dir, "w");
 	// 	// uint count = 0;
 	// 	// static ReluData0Type arr[224640];
@@ -5713,17 +5722,19 @@ layer_id++;
 			fifo_relu6_0, fifo_weight_load_1,
 			config_conv,
 			fifo_conv_0,
-			config_relu
+			config_relu,
+			layer_id
 	);
 #ifdef DEBUG_engine
 	cout << "passed conv" << endl;
 #endif
-	// if(layer_id==2){
+	// if(layer_id==5){
 	// 	FILE *f;
 	// 	char dir[100] = PROJ_DIR;
-	//  strcat(dir, "data/test/conv_L");	// 	char L[5];
+	//  	strcat(dir, "data/test/conv_L");	
+	//  	char L[5];
 	// 	strcat(dir, itoa(layer_id, L, 10));
-	// 	strcat(dir, "_8.dat");
+	// 	strcat(dir, "_16x16_fixed.dat");
 	// 	f = fopen(dir, "w");
 	// 	// f = fopen("E:/Research/UCLA/FlexCNN_YOLO/data/conv_L13.dat", "w");
 	// 	// for(int j=0; j<(1024*13*13)/8+1; j++){
@@ -5853,26 +5864,26 @@ layer_id++;
 	cout << "passed inter write" << endl;
 #endif
 */
-	if(layer_id==3){
-		FILE *f;
-		char dir[100] = PROJ_DIR;
-		strcat(dir, "data/test/output_L");
-		char L[5];
-		strcat(dir, itoa(layer_id, L, 10));
-		strcat(dir, "_16x16v1.dat");
-		f = fopen(dir, "w");
-		while(!fifo_pool_0.empty()){
-			ReluData0Type item = fifo_pool_0.read();
-			data_t2 num[8];
-			for(int i=0; i<8; i++){
-				num[i] = Reinterpret<data_t2>((ap_uint<32>)item((i+1)*32-1, 32*i));
-				fprintf(f, "%f\t", num[i]);
-			}
-			// cout<<"done"<<endl;
-			fprintf(f, "\n");
-		}
-		fclose(f);
-	}
+	// if(layer_id==5){
+	// 	FILE *f;
+	// 	char dir[100] = PROJ_DIR;
+	// 	strcat(dir, "data/test/output_L");
+	// 	char L[5];
+	// 	strcat(dir, itoa(layer_id, L, 10));
+	// 	strcat(dir, "_16x64.dat");
+	// 	f = fopen(dir, "w");
+	// 	while(!fifo_pool_0.empty()){
+	// 		ReluData0Type item = fifo_pool_0.read();
+	// 		data_t2 num[8];
+	// 		for(int i=0; i<8; i++){
+	// 			num[i] = Reinterpret<data_t2>((ap_uint<32>)item((i+1)*32-1, 32*i));
+	// 			fprintf(f, "%f\t", num[i]);
+	// 		}
+	// 		// cout<<"done"<<endl;
+	// 		fprintf(f, "\n");
+	// 	}
+	// 	fclose(f);
+	// }
 	cout_write(
 			//fifo_inter_write_0,
 			// fifo_merge_0,
@@ -5922,7 +5933,7 @@ extern "C" {
 		int cur_layer_batch = 1;
 		int nxt_layer_batch = 1;
 		int layer_id = 0;
-		while(layer_id < 3){
+		while(layer_id < 5){
 			cur_layer_batch = nxt_layer_batch;
 #ifdef DEBUG_layer
 		cout << "Passed" << layer_id << endl;
