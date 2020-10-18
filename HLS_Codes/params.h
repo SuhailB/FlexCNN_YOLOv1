@@ -1,9 +1,9 @@
 #define IN_NUM_T 64
 #define OUT_NUM_T 64
 #define OUT_W_T2 64
-#define IN_H_T 2
+#define IN_H_T 13
 #define IN_W_T 26
-#define OUT_H_T 2
+#define OUT_H_T 13
 #define OUT_W_T 26
 #define K_T 3
 #define K_T_S 5
@@ -15,7 +15,7 @@
 #define STAGE2_LAYERS 5
 #define STAGE2_ITER 5
 #define MAX_IN_W_T 26
-#define MAX_IN_H_T 2
+#define MAX_IN_H_T 13
 #define IN_OUT_OFFSET 1191968
 #define LAYER1_IN_NUM 3
 #define LAYER1_OUT_NUM 16
@@ -49,8 +49,8 @@
 #define STAGE2R_OUT_H_HW 50
 #define STAGE2R_OUT_W_HW 50
 #define STAGE2R_K 3
-#define CIN_SIZE 12625160
-#define WEIGHT_SIZE 560032
+#define CIN_SIZE 14000000
+#define WEIGHT_SIZE 11230848//11227264//560032
 #define BIAS_SIZE 16544
 #define STAGE2L_OFFSET 12160160
 #define STAGE2R_OFFSET 12280160

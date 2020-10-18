@@ -2446,7 +2446,7 @@ uint layer_id
 ){
 #pragma HLS INLINE off
 
-	if(layer_id==0){
+	if(layer_id == 15 && iter_num == 1){
 		FILE *f;
 		char dir[100] = PROJ_DIR;
 		strcat(dir, "data/test/debug_conv_");
@@ -3847,11 +3847,13 @@ void relu(
 #pragma HLS UNROLL    
 						data_t0 cin_data = cin_buf[lane];
 						data_t0 tmp = cin_data;
-						if (bias_en || BATCH_NORM_EN)
+						if ((bias_en || BATCH_NORM_EN) && layer_id!=15)
 							tmp = ((cin_data-mean_buf[o][lane])/(sqrt(variance_buf[o][lane])+0.000001))*scale_buf[o][lane]+bias_buf[o][lane];
 						//else if(BATCH_NORM_EN)
 						//	tmp = gamma_buf[o][lane]*tmp + beta_buf[o][lane];
-						if (RELU6_EN && !BATCH_NORM_EN_DEPTH)
+						if(layer_id==15)//for layer 15
+							tmp = cin_data + mean_buf[o][lane];
+						else if (RELU6_EN && !BATCH_NORM_EN_DEPTH)
 							tmp = max(tmp, (tmp*0.1));
 						else if (RELU_EN)
 							tmp = max(0, tmp);
@@ -4752,7 +4754,8 @@ void cout_write_fifo_read(
 		uint LAYER_IN_H_T,
 		uint LAYER_IN_W_T,
 		uint in_h_iter,
-		uint in_w_iter
+		uint in_w_iter,
+		uint layer_id
 ){
 	PoolData0Type cout_buf[DATA_SEL_FACTOR0];
 #pragma HLS ARRAY_PARTITION variable=cout_buf complete
@@ -4767,7 +4770,7 @@ void cout_write_fifo_read(
 	if (en == 0 && up_sample == 0) write = 0; // normal writing
 	else if (en == 1 && up_sample == 0) write = 1; // writing after pooling
 	else if (up_sample == 1) write = 2; // writing after upsampling
-  
+	if(layer_id==12) write=0;
 	// Should store the data as Th * Tw * Tn
     int num = 0;
 	switch(write){
@@ -4991,7 +4994,8 @@ void cout_write_ddr_write(
 		uint ind_w,
 		uint cout_offset,
 		bool change_layout,
-		bool run
+		bool run,
+		uint layer_id
 ){
 	// Set up the writing mode
 	uint write = 0;
@@ -5001,7 +5005,7 @@ void cout_write_ddr_write(
 	// The default data layout is ceil(N / Tn) * H * ceil(W / Tw) * Tw * Tn
 	// If filter size is 1, the data layout should change to ceil(N / Tn) * ceil(H / Th) * ceil(W / Tw) * Th * Tw * Tn
 	if (change_layout) write += 3; 
-  
+	if(layer_id==12) write=0;
   
 	if (run){
 		switch(write){
@@ -5261,7 +5265,7 @@ void cout_write(
 						LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
 						LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
 						LAYER_IN_H_T, LAYER_IN_W_T,
-						in_h_iter, in_w_iter
+						in_h_iter, in_w_iter, layer_id
 				);
 			} else {
 				// Apply double buffering for reading the data from FIFO and writing to DRAM
@@ -5271,7 +5275,7 @@ void cout_write(
 							LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
 							LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
 							LAYER_IN_H_T, LAYER_IN_W_T,
-							in_h_iter, in_w_iter
+							in_h_iter, in_w_iter, layer_id
 					);
 
 					cout_write_ddr_write(
@@ -5287,7 +5291,7 @@ void cout_write(
 							ind_w_prev,
 							cout_offset_prev,
 							change_layout_prev,
-							!write_done
+							!write_done, layer_id
 					);
 				} else {
 					cout_write_fifo_read(
@@ -5295,7 +5299,7 @@ void cout_write(
 							LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
 							LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
 							LAYER_IN_H_T, LAYER_IN_W_T,
-							in_h_iter, in_w_iter
+							in_h_iter, in_w_iter, layer_id
 					);
 					cout_write_ddr_write(
 							cout_burst_buf_pong, global_cout,
@@ -5310,7 +5314,7 @@ void cout_write(
 							ind_w_prev,
 							cout_offset_prev,
 							change_layout_prev,
-							!write_done
+							!write_done, layer_id
 					);
 				}
 			}
@@ -5437,7 +5441,7 @@ void cout_write(
 					ind_w_prev,
 					cout_offset_prev,
 					change_layout_prev,
-					!write_done
+					!write_done, layer_id
 			);
 		} else {
 			cout_write_ddr_write(
@@ -5453,7 +5457,7 @@ void cout_write(
 					ind_w_prev,
 					cout_offset_prev,
 					change_layout_prev,
-					!write_done
+					!write_done, layer_id
 			);
 		}
 	}
@@ -5734,7 +5738,7 @@ layer_id++;
 	//  	strcat(dir, "data/test/conv_L");	
 	//  	char L[5];
 	// 	strcat(dir, itoa(layer_id, L, 10));
-	// 	strcat(dir, "_16x16_fixed.dat");
+	// 	strcat(dir, "_16x16.dat");
 	// 	f = fopen(dir, "w");
 	// 	// f = fopen("E:/Research/UCLA/FlexCNN_YOLO/data/conv_L13.dat", "w");
 	// 	// for(int j=0; j<(1024*13*13)/8+1; j++){
@@ -5864,26 +5868,26 @@ layer_id++;
 	cout << "passed inter write" << endl;
 #endif
 */
-	// if(layer_id==5){
-	// 	FILE *f;
-	// 	char dir[100] = PROJ_DIR;
-	// 	strcat(dir, "data/test/output_L");
-	// 	char L[5];
-	// 	strcat(dir, itoa(layer_id, L, 10));
-	// 	strcat(dir, "_16x64.dat");
-	// 	f = fopen(dir, "w");
-	// 	while(!fifo_pool_0.empty()){
-	// 		ReluData0Type item = fifo_pool_0.read();
-	// 		data_t2 num[8];
-	// 		for(int i=0; i<8; i++){
-	// 			num[i] = Reinterpret<data_t2>((ap_uint<32>)item((i+1)*32-1, 32*i));
-	// 			fprintf(f, "%f\t", num[i]);
-	// 		}
-	// 		// cout<<"done"<<endl;
-	// 		fprintf(f, "\n");
-	// 	}
-	// 	fclose(f);
-	// }
+	if(layer_id==15){
+		FILE *f;
+		char dir[100] = PROJ_DIR;
+		strcat(dir, "data/test/output_L");
+		char L[5];
+		strcat(dir, itoa(layer_id, L, 10));
+		strcat(dir, "_16x16.dat");
+		f = fopen(dir, "w");
+		while(!fifo_pool_0.empty()){
+			ReluData0Type item = fifo_pool_0.read();
+			data_t2 num[8];
+			for(int i=0; i<8; i++){
+				num[i] = Reinterpret<data_t2>((ap_uint<32>)item((i+1)*32-1, 32*i));
+				fprintf(f, "%f\t", num[i]);
+			}
+			// cout<<"done"<<endl;
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
 	cout_write(
 			//fifo_inter_write_0,
 			// fifo_merge_0,
@@ -5933,7 +5937,7 @@ extern "C" {
 		int cur_layer_batch = 1;
 		int nxt_layer_batch = 1;
 		int layer_id = 0;
-		while(layer_id < 5){
+		while(layer_id < 15){
 			cur_layer_batch = nxt_layer_batch;
 #ifdef DEBUG_layer
 		cout << "Passed" << layer_id << endl;
