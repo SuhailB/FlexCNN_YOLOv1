@@ -5,9 +5,9 @@ void instInit(
   uint* config
 ){
   cout << "Loading instructions..." << endl;
-  char* prj_path_c = getenv("PRJ_PATH");
+  char* prj_path_c = "E:/UCLA/FlexCNN_Syn/FlexCNN";
   string prj_path = prj_path_c;
-  string file_path = prj_path + "/auto_compile/inst_gen/network.insts";
+  string file_path = prj_path + "/data/openpose.insts";
   ifstream in_file(file_path.c_str());
   
   // model configuration
@@ -35,7 +35,7 @@ void instInit(
 
 int main(){
   // working path
-  char* prj_path = getenv("PRJ_PATH");
+  char* prj_path = "E:/UCLA/FlexCNN_Syn/FlexCNN";
   if (prj_path != NULL){
     cout << "Your working PATH is: " << prj_path << endl;
   } else {
@@ -67,12 +67,12 @@ int main(){
   
   
 
-  data_t0 LAYER_out_sw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
-  data_t0 LAYER_out_hw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
-  data_t0 LAYER_out[out_h2][out_w2][out_num2];
+  // data_t0 LAYER_out_sw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
+  // data_t0 LAYER_out_hw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
+  // data_t0 LAYER_out[out_h2][out_w2][out_num2];
 
   
-  mobilenet_preprocess(cin_hw, weight_hw, bias_hw, LAYER_out_sw);
+  mobilenet_preprocess(cin_hw, weight_hw, bias_hw);
 
 
   cout << "HW acceleration..." << endl;
@@ -85,49 +85,49 @@ int main(){
       (bus_t3*)config);
 
 
-  int size = 24*24*32;
+//   int size = 24*24*32;
   
   
   
-  for (int h = 0; h < out_h2; h++)
-    for (int w = 0; w < out_w2; w++)
-      for (int o = 0; o < out_num2; o++){
-        data_t0 hw_result = LAYER_out[h][w][o];
-      }
+//   for (int h = 0; h < out_h2; h++)
+//     for (int w = 0; w < out_w2; w++)
+//       for (int o = 0; o < out_num2; o++){
+//         data_t0 hw_result = LAYER_out[h][w][o];
+//       }
 	  
   
 
-  // Extract hardware outputs
-  openpose_postprocess(cin_hw, LAYER_out_hw);   
+//   // Extract hardware outputs
+//   openpose_postprocess(cin_hw, LAYER_out_hw);   
 
-  // Results comparison
-  cout << "Results comparison..." << endl;
-  int err_cnt = 0;
-  bool test = true;
-  if(test){
-  for (int h = 0; h < STAGE2L_OUT_H; h++)
-    for (int w = 0; w < STAGE2L_OUT_W; w++)
-      for (int o = 0; o < STAGE2L_OUT_NUM + STAGE2R_OUT_NUM; o++){
-        data_t0 sw_result = LAYER_out_sw[h][w][o];
-        data_t0 hw_result = LAYER_out_hw[h][w][o];
-        if (abs(sw_result - hw_result) > 0.001){
-          err_cnt++;
-          cout << "Mismatch: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
-        } else {
-//          cout << "Match: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
-        }
-      }
-  }
-  delete[] cin_hw;
-  delete[] weight_hw;
-  delete[] bias_hw;
-  delete[] config;
+//   // Results comparison
+//   cout << "Results comparison..." << endl;
+//   int err_cnt = 0;
+//   bool test = true;
+//   if(test){
+//   for (int h = 0; h < STAGE2L_OUT_H; h++)
+//     for (int w = 0; w < STAGE2L_OUT_W; w++)
+//       for (int o = 0; o < STAGE2L_OUT_NUM + STAGE2R_OUT_NUM; o++){
+//         data_t0 sw_result = LAYER_out_sw[h][w][o];
+//         data_t0 hw_result = LAYER_out_hw[h][w][o];
+//         if (abs(sw_result - hw_result) > 0.001){
+//           err_cnt++;
+//           cout << "Mismatch: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
+//         } else {
+// //          cout << "Match: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
+//         }
+//       }
+//   }
+//   delete[] cin_hw;
+//   delete[] weight_hw;
+//   delete[] bias_hw;
+//   delete[] config;
 
-  if (err_cnt > 0){
-    cout << "Failed! " << err_cnt << " errors!" << endl;
-    return -1;
-  } else {
-    cout << "Success!" << endl;
-    return 0;
-  }
+//   if (err_cnt > 0){
+//     cout << "Failed! " << err_cnt << " errors!" << endl;
+//     return -1;
+//   } else {
+//     cout << "Success!" << endl;
+//     return 0;
+//   }
 }

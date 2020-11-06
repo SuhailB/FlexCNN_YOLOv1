@@ -1,0 +1,259 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'engine'" level="0">
+<item name = "Date">Thu Nov  5 03:55:36 2020
+</item>
+<item name = "Version">2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)</item>
+<item name = "Project">pose_prj</item>
+<item name = "Solution">solution1</item>
+<item name = "Product family">virtex7</item>
+<item name = "Target device">xc7vx690tffg1761-2</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing (ns)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">3.00, 5.349, 0.38</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency (clock cycles)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">, min, max, min, max, Type</keys>
+<column name="">?, ?, ?, ?, dataflow</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="7">Instance, Module, min, max, min, max, Type</keys>
+<column name="pool_U0">pool, ?, ?, ?, ?, none</column>
+<column name="cout_write_U0">cout_write, ?, ?, ?, ?, none</column>
+<column name="relu_U0">relu, ?, ?, ?, ?, none</column>
+<column name="cin_load13_U0">cin_load13, ?, ?, ?, ?, none</column>
+<column name="conv_U0">conv, ?, ?, ?, ?, none</column>
+<column name="weight_load_U0">weight_load, ?, ?, ?, ?, none</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP48E, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 34, -</column>
+<column name="FIFO">160, -, 2978, 2410, -</column>
+<column name="Instance">418, 293, 119729, 72091, 56</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, 36, -</column>
+<column name="Register">-, -, 6, -, -</column>
+<specialColumn name="Available">2940, 3600, 866400, 433200, -</specialColumn>
+<specialColumn name="Utilization (%)">19, 8, 14, 17, -</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="6">Instance, Module, BRAM_18K, DSP48E, FF, LUT</keys>
+<column name="cin_load13_U0">cin_load13, 0, 42, 20062, 12293</column>
+<column name="conv_U0">conv, 384, 17, 12279, 10566</column>
+<column name="cout_write_U0">cout_write, 0, 78, 20908, 14902</column>
+<column name="pool_U0">pool, 0, 7, 29221, 12919</column>
+<column name="relu_U0">relu, 34, 128, 23923, 16600</column>
+<column name="weight_load_U0">weight_load, 0, 21, 13336, 4811</column>
+</table>
+</item>
+<item name = "DSP48"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="9">Memory, Module, BRAM_18K, FF, LUT, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="7">Name, BRAM_18K, FF, LUT, Depth, Bits, Size:D*B</keys>
+<column name="config_conv_V_V_U">11, 208, 102, 16, 192, 3072</column>
+<column name="config_data_write_V_s_U">11, 208, 102, 16, 192, 3072</column>
+<column name="config_pool_V_V_U">11, 208, 102, 16, 192, 3072</column>
+<column name="config_relu_V_V_U">11, 208, 102, 16, 192, 3072</column>
+<column name="config_weight_load_V_U">11, 208, 102, 16, 192, 3072</column>
+<column name="fifo_beta_conv_V_V_U">15, 272, 126, 16, 256, 4096</column>
+<column name="fifo_cin_load_0_V_V_U">15, 279, 249, 128, 256, 32768</column>
+<column name="fifo_conv_0_V_V_U">15, 275, 297, 64, 256, 16384</column>
+<column name="fifo_gamma_conv_V_V_U">15, 272, 126, 16, 256, 4096</column>
+<column name="fifo_pool_0_V_V_U">15, 275, 297, 64, 256, 16384</column>
+<column name="fifo_relu_0_V_V_U">15, 275, 297, 64, 256, 16384</column>
+<column name="fifo_weight_load_1_V_U">15, 275, 297, 64, 256, 16384</column>
+<column name="global_bias_V_offset_5_U">0, 5, 70, 2, 58, 116</column>
+<column name="global_cout_V_offset_2_U">0, 5, 71, 6, 58, 348</column>
+<column name="global_weight_V_offs_3_U">0, 5, 70, 2, 58, 116</column>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP48E, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="cin_load13_U0_ap_ready_count">+, 0, 0, 10, 2, 1</column>
+<column name="weight_load_U0_ap_ready_count">+, 0, 0, 10, 2, 1</column>
+<column name="ap_idle">and, 0, 0, 2, 1, 1</column>
+<column name="ap_sync_ready">and, 0, 0, 2, 1, 1</column>
+<column name="cin_load13_U0_ap_start">and, 0, 0, 2, 1, 1</column>
+<column name="cin_load13_U0_start_full_n">and, 0, 0, 2, 1, 1</column>
+<column name="weight_load_U0_ap_start">and, 0, 0, 2, 1, 1</column>
+<column name="ap_sync_cin_load13_U0_ap_ready">or, 0, 0, 2, 1, 1</column>
+<column name="ap_sync_weight_load_U0_ap_ready">or, 0, 0, 2, 1, 1</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="ap_sync_reg_cin_load13_U0_ap_ready">9, 2, 1, 2</column>
+<column name="ap_sync_reg_weight_load_U0_ap_ready">9, 2, 1, 2</column>
+<column name="cin_load13_U0_ap_ready_count">9, 2, 2, 4</column>
+<column name="weight_load_U0_ap_ready_count">9, 2, 2, 4</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="ap_sync_reg_cin_load13_U0_ap_ready">1, 0, 1, 0</column>
+<column name="ap_sync_reg_weight_load_U0_ap_ready">1, 0, 1, 0</column>
+<column name="cin_load13_U0_ap_ready_count">2, 0, 2, 0</column>
+<column name="weight_load_U0_ap_ready_count">2, 0, 2, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="m_axi_global_cin_V_AWVALID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWREADY">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWADDR">out, 64, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWLEN">out, 32, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWSIZE">out, 3, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWBURST">out, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWLOCK">out, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWCACHE">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWPROT">out, 3, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWQOS">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWREGION">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_AWUSER">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WVALID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WREADY">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WDATA">out, 512, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WSTRB">out, 64, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WLAST">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_WUSER">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARVALID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARREADY">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARADDR">out, 64, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARID">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARLEN">out, 32, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARSIZE">out, 3, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARBURST">out, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARLOCK">out, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARCACHE">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARPROT">out, 3, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARQOS">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARREGION">out, 4, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_ARUSER">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RVALID">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RREADY">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RDATA">in, 512, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RLAST">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RID">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RUSER">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_RRESP">in, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_BVALID">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_BREADY">out, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_BRESP">in, 2, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_BID">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="m_axi_global_cin_V_BUSER">in, 1, m_axi, global_cin_V, pointer</column>
+<column name="global_cin_V_offset">in, 58, ap_none, global_cin_V_offset, scalar</column>
+<column name="global_cin_V_offset_ap_vld">in, 1, ap_none, global_cin_V_offset, scalar</column>
+<column name="m_axi_global_weight_V_AWVALID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWREADY">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWADDR">out, 64, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWLEN">out, 32, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWSIZE">out, 3, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWBURST">out, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWLOCK">out, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWCACHE">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWPROT">out, 3, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWQOS">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWREGION">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_AWUSER">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WVALID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WREADY">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WDATA">out, 512, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WSTRB">out, 64, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WLAST">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_WUSER">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARVALID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARREADY">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARADDR">out, 64, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARID">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARLEN">out, 32, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARSIZE">out, 3, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARBURST">out, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARLOCK">out, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARCACHE">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARPROT">out, 3, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARQOS">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARREGION">out, 4, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_ARUSER">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RVALID">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RREADY">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RDATA">in, 512, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RLAST">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RID">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RUSER">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_RRESP">in, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_BVALID">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_BREADY">out, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_BRESP">in, 2, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_BID">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="m_axi_global_weight_V_BUSER">in, 1, m_axi, global_weight_V, pointer</column>
+<column name="global_weight_V_offset">in, 58, ap_none, global_weight_V_offset, scalar</column>
+<column name="global_weight_V_offset_ap_vld">in, 1, ap_none, global_weight_V_offset, scalar</column>
+<column name="global_bias_V_offset">in, 58, ap_none, global_bias_V_offset, scalar</column>
+<column name="global_bias_V_offset_ap_vld">in, 1, ap_none, global_bias_V_offset, scalar</column>
+<column name="global_cout_V_offset">in, 58, ap_none, global_cout_V_offset, scalar</column>
+<column name="global_cout_V_offset_ap_vld">in, 1, ap_none, global_cout_V_offset, scalar</column>
+<column name="config_r_address0">out, 5, ap_memory, config_r, array</column>
+<column name="config_r_ce0">out, 1, ap_memory, config_r, array</column>
+<column name="config_r_d0">out, 32, ap_memory, config_r, array</column>
+<column name="config_r_q0">in, 32, ap_memory, config_r, array</column>
+<column name="config_r_we0">out, 1, ap_memory, config_r, array</column>
+<column name="config_r_address1">out, 5, ap_memory, config_r, array</column>
+<column name="config_r_ce1">out, 1, ap_memory, config_r, array</column>
+<column name="config_r_d1">out, 32, ap_memory, config_r, array</column>
+<column name="config_r_q1">in, 32, ap_memory, config_r, array</column>
+<column name="config_r_we1">out, 1, ap_memory, config_r, array</column>
+<column name="ap_clk">in, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, engine, return value</column>
+<column name="ap_continue">in, 1, ap_ctrl_hs, engine, return value</column>
+</table>
+</item>
+</section>
+</profile>
