@@ -32,7 +32,7 @@
 				</Value>
 				<direction>0</direction>
 				<if_type>1</if_type>
-				<array_size>3240</array_size>
+				<array_size>5488</array_size>
 				<bit_vecs class_id="7" tracking_level="0" version="0">
 					<count>0</count>
 					<item_version>0</item_version>
@@ -190,7 +190,7 @@
 						<name>FILTER_S_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>87</lineNumber>
+						<lineNumber>7768</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -205,7 +205,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>87</second>
+										<second>7768</second>
 									</item>
 								</second>
 							</item>
@@ -239,7 +239,7 @@
 						<name>LAYER_IN_W_T_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>87</lineNumber>
+						<lineNumber>7768</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -254,7 +254,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>87</second>
+										<second>7768</second>
 									</item>
 								</second>
 							</item>
@@ -288,7 +288,7 @@
 						<name>LAYER_IN_H_T_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>87</lineNumber>
+						<lineNumber>7768</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -303,7 +303,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>87</second>
+										<second>7768</second>
 									</item>
 								</second>
 							</item>
@@ -337,7 +337,7 @@
 						<name>LAYER_IN_NUM_T_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>87</lineNumber>
+						<lineNumber>7768</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -352,7 +352,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>87</second>
+										<second>7768</second>
 									</item>
 								</second>
 							</item>
@@ -386,7 +386,7 @@
 						<name>tmp16</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -401,7 +401,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -435,7 +435,7 @@
 						<name>tmp_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -450,7 +450,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -481,10 +481,10 @@
 					<Obj>
 						<type>0</type>
 						<id>15</id>
-						<name>tmp_364</name>
+						<name>tmp_389</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -499,7 +499,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -530,10 +530,10 @@
 					<Obj>
 						<type>0</type>
 						<id>16</id>
-						<name>tmp_365</name>
+						<name>tmp_390</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>239</lineNumber>
+						<lineNumber>7920</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -548,7 +548,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>239</second>
+										<second>7920</second>
 									</item>
 								</second>
 							</item>
@@ -584,7 +584,7 @@
 						<name>tmp</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>239</lineNumber>
+						<lineNumber>7920</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -599,7 +599,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>239</second>
+										<second>7920</second>
 									</item>
 								</second>
 							</item>
@@ -632,7 +632,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>98</lineNumber>
+						<lineNumber>7779</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -647,7 +647,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>98</second>
+										<second>7779</second>
 									</item>
 								</second>
 							</item>
@@ -680,7 +680,7 @@
 						<name>ii</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>233</lineNumber>
+						<lineNumber>7914</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -695,7 +695,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>233</second>
+										<second>7914</second>
 									</item>
 								</second>
 							</item>
@@ -731,7 +731,7 @@
 						<name>hh</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>235</lineNumber>
+						<lineNumber>7916</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -746,7 +746,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>235</second>
+										<second>7916</second>
 									</item>
 								</second>
 							</item>
@@ -782,7 +782,7 @@
 						<name>ww</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>233</lineNumber>
+						<lineNumber>7914</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -797,7 +797,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>233</second>
+										<second>7914</second>
 									</item>
 								</second>
 							</item>
@@ -833,7 +833,7 @@
 						<name>done</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -848,7 +848,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -884,7 +884,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>98</lineNumber>
+						<lineNumber>7779</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -899,7 +899,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>98</second>
+										<second>7779</second>
 									</item>
 								</second>
 							</item>
@@ -931,10 +931,10 @@
 					<Obj>
 						<type>0</type>
 						<id>28</id>
-						<name>tmp_366</name>
+						<name>tmp_391</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -949,7 +949,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -980,10 +980,10 @@
 					<Obj>
 						<type>0</type>
 						<id>29</id>
-						<name>tmp_367</name>
+						<name>tmp_392</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -998,7 +998,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -1029,10 +1029,10 @@
 					<Obj>
 						<type>0</type>
 						<id>30</id>
-						<name>tmp_368</name>
+						<name>tmp_393</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1047,7 +1047,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -1078,10 +1078,10 @@
 					<Obj>
 						<type>0</type>
 						<id>31</id>
-						<name>tmp_564</name>
+						<name>tmp_590</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1096,7 +1096,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -1130,7 +1130,7 @@
 						<name>local_cin_idx</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>101</lineNumber>
+						<lineNumber>7782</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1145,7 +1145,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>101</second>
+										<second>7782</second>
 									</item>
 								</second>
 							</item>
@@ -1179,7 +1179,7 @@
 						<name>bus_cin_idx</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>102</lineNumber>
+						<lineNumber>7783</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1194,7 +1194,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>102</second>
+										<second>7783</second>
 									</item>
 								</second>
 							</item>
@@ -1227,10 +1227,10 @@
 					<Obj>
 						<type>0</type>
 						<id>34</id>
-						<name>tmp_370</name>
+						<name>tmp_395</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>104</lineNumber>
+						<lineNumber>7785</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1245,7 +1245,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>104</second>
+										<second>7785</second>
 									</item>
 								</second>
 							</item>
@@ -1278,7 +1278,7 @@
 						<name>cin_burst_buf_V_addr</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>104</lineNumber>
+						<lineNumber>7785</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1293,7 +1293,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>104</second>
+										<second>7785</second>
 									</item>
 								</second>
 							</item>
@@ -1302,7 +1302,7 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>12</bitwidth>
+					<bitwidth>13</bitwidth>
 				</Value>
 				<oprand_edges>
 					<count>3</count>
@@ -1328,7 +1328,7 @@
 						<name>bus_cin_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>104</lineNumber>
+						<lineNumber>7785</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1343,7 +1343,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>104</second>
+										<second>7785</second>
 									</item>
 								</second>
 							</item>
@@ -1373,10 +1373,10 @@
 					<Obj>
 						<type>0</type>
 						<id>37</id>
-						<name>tmp_565</name>
+						<name>tmp_591</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>113</lineNumber>
+						<lineNumber>7794</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1391,7 +1391,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>113</second>
+										<second>7794</second>
 									</item>
 								</second>
 							</item>
@@ -1426,7 +1426,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>113</lineNumber>
+						<lineNumber>7794</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1441,7 +1441,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>113</second>
+										<second>7794</second>
 									</item>
 								</second>
 							</item>
@@ -1476,7 +1476,7 @@
 						<name>fifo_cin_data_V_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>115</lineNumber>
+						<lineNumber>7796</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1491,7 +1491,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>115</second>
+										<second>7796</second>
 									</item>
 								</second>
 							</item>
@@ -1524,7 +1524,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>116</lineNumber>
+						<lineNumber>7797</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1539,7 +1539,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>116</second>
+										<second>7797</second>
 									</item>
 								</second>
 							</item>
@@ -1572,7 +1572,7 @@
 						<name>fifo_cin_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>118</lineNumber>
+						<lineNumber>7799</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1587,7 +1587,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>118</second>
+										<second>7799</second>
 									</item>
 								</second>
 							</item>
@@ -1623,7 +1623,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>119</lineNumber>
+						<lineNumber>7800</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1638,7 +1638,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>119</second>
+										<second>7800</second>
 									</item>
 								</second>
 							</item>
@@ -1708,7 +1708,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>215</lineNumber>
+						<lineNumber>7896</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1723,7 +1723,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>215</second>
+										<second>7896</second>
 									</item>
 								</second>
 							</item>
@@ -1758,7 +1758,7 @@
 						<name>ww_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>232</lineNumber>
+						<lineNumber>7913</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1773,7 +1773,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>232</second>
+										<second>7913</second>
 									</item>
 								</second>
 							</item>
@@ -1804,10 +1804,10 @@
 					<Obj>
 						<type>0</type>
 						<id>49</id>
-						<name>tmp_371</name>
+						<name>tmp_396</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>233</lineNumber>
+						<lineNumber>7914</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1822,7 +1822,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>233</second>
+										<second>7914</second>
 									</item>
 								</second>
 							</item>
@@ -1856,7 +1856,7 @@
 						<name>hh_5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>235</lineNumber>
+						<lineNumber>7916</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1871,7 +1871,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>235</second>
+										<second>7916</second>
 									</item>
 								</second>
 							</item>
@@ -1902,10 +1902,10 @@
 					<Obj>
 						<type>0</type>
 						<id>51</id>
-						<name>tmp_372</name>
+						<name>tmp_397</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1920,7 +1920,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -1954,7 +1954,7 @@
 						<name>ii_4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>238</lineNumber>
+						<lineNumber>7919</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1969,7 +1969,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>238</second>
+										<second>7919</second>
 									</item>
 								</second>
 							</item>
@@ -2000,10 +2000,10 @@
 					<Obj>
 						<type>0</type>
 						<id>53</id>
-						<name>tmp_373</name>
+						<name>tmp_398</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>239</lineNumber>
+						<lineNumber>7920</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2018,7 +2018,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>239</second>
+										<second>7920</second>
 									</item>
 								</second>
 							</item>
@@ -2052,7 +2052,7 @@
 						<name>p_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>239</lineNumber>
+						<lineNumber>7920</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2067,7 +2067,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>239</second>
+										<second>7920</second>
 									</item>
 								</second>
 							</item>
@@ -2102,7 +2102,7 @@
 						<name>sel_tmp</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2117,7 +2117,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -2151,7 +2151,7 @@
 						<name>sel_tmp1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2166,7 +2166,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -2201,7 +2201,7 @@
 						<name>ii_3</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>233</lineNumber>
+						<lineNumber>7914</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2216,7 +2216,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>233</second>
+										<second>7914</second>
 									</item>
 								</second>
 							</item>
@@ -2251,7 +2251,7 @@
 						<name>sel_tmp5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>235</lineNumber>
+						<lineNumber>7916</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2266,7 +2266,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>235</second>
+										<second>7916</second>
 									</item>
 								</second>
 							</item>
@@ -2301,7 +2301,7 @@
 						<name>hh_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>235</lineNumber>
+						<lineNumber>7916</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2316,7 +2316,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>235</second>
+										<second>7916</second>
 									</item>
 								</second>
 							</item>
@@ -2351,7 +2351,7 @@
 						<name>ww_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>233</lineNumber>
+						<lineNumber>7914</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2366,7 +2366,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>233</second>
+										<second>7914</second>
 									</item>
 								</second>
 							</item>
@@ -2401,7 +2401,7 @@
 						<name>done_3</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>236</lineNumber>
+						<lineNumber>7917</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2416,7 +2416,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>236</second>
+										<second>7917</second>
 									</item>
 								</second>
 							</item>
@@ -2450,7 +2450,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>245</lineNumber>
+						<lineNumber>7926</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2465,7 +2465,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>245</second>
+										<second>7926</second>
 									</item>
 								</second>
 							</item>
@@ -2498,7 +2498,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>247</lineNumber>
+						<lineNumber>7928</lineNumber>
 						<contextFuncName>cin_load_fifo_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2513,7 +2513,7 @@
 											<first>kernel.cpp</first>
 											<second>cin_load_fifo_write</second>
 										</first>
-										<second>247</second>
+										<second>7928</second>
 									</item>
 								</second>
 							</item>
@@ -5664,7 +5664,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_364_fu_185</first>
+			<first>tmp_389_fu_185</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5672,7 +5672,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_365_fu_190</first>
+			<first>tmp_390_fu_190</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5680,7 +5680,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_367_fu_297</first>
+			<first>tmp_392_fu_297</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5688,7 +5688,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_370_fu_335</first>
+			<first>tmp_395_fu_335</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5696,7 +5696,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_371_fu_210</first>
+			<first>tmp_396_fu_210</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5704,7 +5704,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_372_fu_234</first>
+			<first>tmp_397_fu_234</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5712,7 +5712,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_373_fu_244</first>
+			<first>tmp_398_fu_244</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5720,7 +5720,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_564_fu_306</first>
+			<first>tmp_590_fu_306</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -5728,7 +5728,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_565_fu_327</first>
+			<first>tmp_591_fu_327</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6169,7 +6169,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_364_reg_370</first>
+			<first>tmp_389_reg_370</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6177,7 +6177,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_366_reg_413</first>
+			<first>tmp_391_reg_413</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6185,7 +6185,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_367_reg_418</first>
+			<first>tmp_392_reg_418</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6193,7 +6193,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_368_reg_423</first>
+			<first>tmp_393_reg_423</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6201,7 +6201,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_371_reg_380</first>
+			<first>tmp_396_reg_380</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>
@@ -6209,7 +6209,7 @@
 			</second>
 		</item>
 		<item>
-			<first>tmp_565_reg_433</first>
+			<first>tmp_591_reg_433</first>
 			<second>
 				<count>1</count>
 				<item_version>0</item_version>

@@ -3,7 +3,7 @@
 	"modules": {
 		"top_kernel": {
 			"proto_instances": {
-				"grp_engine_fu_228/cin_load13_U0/cin_load13_U0_activity": {
+				"grp_engine_fu_229/cin_load13_U0/cin_load13_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},
@@ -14,7 +14,7 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_engine_fu_228/conv_U0/conv_U0_activity": {
+				"grp_engine_fu_229/conv_U0/conv_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},
@@ -25,7 +25,7 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_engine_fu_228/cout_write_U0/cout_write_U0_activity": {
+				"grp_engine_fu_229/cout_write_U0/cout_write_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},
@@ -36,7 +36,7 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_engine_fu_228/pool_U0/pool_U0_activity": {
+				"grp_engine_fu_229/pool_U0/pool_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},
@@ -47,7 +47,7 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_engine_fu_228/relu_U0/relu_U0_activity": {
+				"grp_engine_fu_229/relu_U0/relu_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},
@@ -58,7 +58,7 @@
 						"AP_START": { "actual": "ap_start"}
 					}
 				},
-				"grp_engine_fu_228/weight_load_U0/weight_load_U0_activity": {
+				"grp_engine_fu_229/weight_load_U0/weight_load_U0_activity": {
 					"interface": "xilinx.com:interface:internal_hls_dataflow:1.0",
 					"ports": {
 						"AP_CLK": { "actual": "ap_clk"},

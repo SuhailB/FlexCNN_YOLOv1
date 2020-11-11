@@ -302,15 +302,15 @@ set clk_width 1
 set clk_signed 0
 set reset_width 1
 set reset_signed 0
-set in0_width 11
+set in0_width 12
 set in0_signed 1
-set in1_width 7
+set in1_width 8
 set in1_signed 0
 set ce_width 1
 set ce_signed 0
-set out_width 11
+set out_width 12
 set exp i0*i1
-set arg_lists {i0 {11 1 +} i1 {7 0 +} p {11 1 +} acc {0} }
+set arg_lists {i0 {12 1 +} i1 {8 0 +} p {12 1 +} acc {0} }
 set TrueReset 0
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mul] == "ap_gen_simcore_mul"} {
@@ -403,7 +403,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_0 \
     op interface \
-    ports { cin_0_address0 { O 13 vector } cin_0_ce0 { O 1 bit } cin_0_q0 { I 32 vector } } \
+    ports { cin_0_address0 { O 14 vector } cin_0_ce0 { O 1 bit } cin_0_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_0'"
@@ -422,7 +422,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_1 \
     op interface \
-    ports { cin_1_address0 { O 13 vector } cin_1_ce0 { O 1 bit } cin_1_q0 { I 32 vector } } \
+    ports { cin_1_address0 { O 14 vector } cin_1_ce0 { O 1 bit } cin_1_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_1'"
@@ -441,7 +441,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_2 \
     op interface \
-    ports { cin_2_address0 { O 13 vector } cin_2_ce0 { O 1 bit } cin_2_q0 { I 32 vector } } \
+    ports { cin_2_address0 { O 14 vector } cin_2_ce0 { O 1 bit } cin_2_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_2'"
@@ -460,7 +460,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_3 \
     op interface \
-    ports { cin_3_address0 { O 13 vector } cin_3_ce0 { O 1 bit } cin_3_q0 { I 32 vector } } \
+    ports { cin_3_address0 { O 14 vector } cin_3_ce0 { O 1 bit } cin_3_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_3'"
@@ -479,7 +479,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_4 \
     op interface \
-    ports { cin_4_address0 { O 13 vector } cin_4_ce0 { O 1 bit } cin_4_q0 { I 32 vector } } \
+    ports { cin_4_address0 { O 14 vector } cin_4_ce0 { O 1 bit } cin_4_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_4'"
@@ -498,7 +498,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_5 \
     op interface \
-    ports { cin_5_address0 { O 13 vector } cin_5_ce0 { O 1 bit } cin_5_q0 { I 32 vector } } \
+    ports { cin_5_address0 { O 14 vector } cin_5_ce0 { O 1 bit } cin_5_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_5'"
@@ -517,7 +517,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_6 \
     op interface \
-    ports { cin_6_address0 { O 13 vector } cin_6_ce0 { O 1 bit } cin_6_q0 { I 32 vector } } \
+    ports { cin_6_address0 { O 14 vector } cin_6_ce0 { O 1 bit } cin_6_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_6'"
@@ -536,7 +536,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_7 \
     op interface \
-    ports { cin_7_address0 { O 13 vector } cin_7_ce0 { O 1 bit } cin_7_q0 { I 32 vector } } \
+    ports { cin_7_address0 { O 14 vector } cin_7_ce0 { O 1 bit } cin_7_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_7'"
@@ -707,7 +707,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_0 \
     op interface \
-    ports { cout_kernel_0_address0 { O 13 vector } cout_kernel_0_ce0 { O 1 bit } cout_kernel_0_we0 { O 1 bit } cout_kernel_0_d0 { O 32 vector } cout_kernel_0_q0 { I 32 vector } } \
+    ports { cout_kernel_0_address0 { O 14 vector } cout_kernel_0_ce0 { O 1 bit } cout_kernel_0_we0 { O 1 bit } cout_kernel_0_d0 { O 32 vector } cout_kernel_0_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_0'"
@@ -726,7 +726,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_1 \
     op interface \
-    ports { cout_kernel_1_address0 { O 13 vector } cout_kernel_1_ce0 { O 1 bit } cout_kernel_1_we0 { O 1 bit } cout_kernel_1_d0 { O 32 vector } cout_kernel_1_q0 { I 32 vector } } \
+    ports { cout_kernel_1_address0 { O 14 vector } cout_kernel_1_ce0 { O 1 bit } cout_kernel_1_we0 { O 1 bit } cout_kernel_1_d0 { O 32 vector } cout_kernel_1_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_1'"
@@ -745,7 +745,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_2 \
     op interface \
-    ports { cout_kernel_2_address0 { O 13 vector } cout_kernel_2_ce0 { O 1 bit } cout_kernel_2_we0 { O 1 bit } cout_kernel_2_d0 { O 32 vector } cout_kernel_2_q0 { I 32 vector } } \
+    ports { cout_kernel_2_address0 { O 14 vector } cout_kernel_2_ce0 { O 1 bit } cout_kernel_2_we0 { O 1 bit } cout_kernel_2_d0 { O 32 vector } cout_kernel_2_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_2'"
@@ -764,7 +764,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_3 \
     op interface \
-    ports { cout_kernel_3_address0 { O 13 vector } cout_kernel_3_ce0 { O 1 bit } cout_kernel_3_we0 { O 1 bit } cout_kernel_3_d0 { O 32 vector } cout_kernel_3_q0 { I 32 vector } } \
+    ports { cout_kernel_3_address0 { O 14 vector } cout_kernel_3_ce0 { O 1 bit } cout_kernel_3_we0 { O 1 bit } cout_kernel_3_d0 { O 32 vector } cout_kernel_3_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_3'"
@@ -783,7 +783,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_4 \
     op interface \
-    ports { cout_kernel_4_address0 { O 13 vector } cout_kernel_4_ce0 { O 1 bit } cout_kernel_4_we0 { O 1 bit } cout_kernel_4_d0 { O 32 vector } cout_kernel_4_q0 { I 32 vector } } \
+    ports { cout_kernel_4_address0 { O 14 vector } cout_kernel_4_ce0 { O 1 bit } cout_kernel_4_we0 { O 1 bit } cout_kernel_4_d0 { O 32 vector } cout_kernel_4_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_4'"
@@ -802,7 +802,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_5 \
     op interface \
-    ports { cout_kernel_5_address0 { O 13 vector } cout_kernel_5_ce0 { O 1 bit } cout_kernel_5_we0 { O 1 bit } cout_kernel_5_d0 { O 32 vector } cout_kernel_5_q0 { I 32 vector } } \
+    ports { cout_kernel_5_address0 { O 14 vector } cout_kernel_5_ce0 { O 1 bit } cout_kernel_5_we0 { O 1 bit } cout_kernel_5_d0 { O 32 vector } cout_kernel_5_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_5'"
@@ -821,7 +821,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_6 \
     op interface \
-    ports { cout_kernel_6_address0 { O 13 vector } cout_kernel_6_ce0 { O 1 bit } cout_kernel_6_we0 { O 1 bit } cout_kernel_6_d0 { O 32 vector } cout_kernel_6_q0 { I 32 vector } } \
+    ports { cout_kernel_6_address0 { O 14 vector } cout_kernel_6_ce0 { O 1 bit } cout_kernel_6_we0 { O 1 bit } cout_kernel_6_d0 { O 32 vector } cout_kernel_6_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_6'"
@@ -840,7 +840,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir IO \
     corename cout_kernel_7 \
     op interface \
-    ports { cout_kernel_7_address0 { O 13 vector } cout_kernel_7_ce0 { O 1 bit } cout_kernel_7_we0 { O 1 bit } cout_kernel_7_d0 { O 32 vector } cout_kernel_7_q0 { I 32 vector } } \
+    ports { cout_kernel_7_address0 { O 14 vector } cout_kernel_7_ce0 { O 1 bit } cout_kernel_7_we0 { O 1 bit } cout_kernel_7_d0 { O 32 vector } cout_kernel_7_q0 { I 32 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_kernel_7'"

@@ -162,7 +162,7 @@
 						<name>in_num_iter_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1314</lineNumber>
+						<lineNumber>8995</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -177,7 +177,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1314</second>
+										<second>8995</second>
 									</item>
 								</second>
 							</item>
@@ -211,7 +211,7 @@
 						<name>inst3_V_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1314</lineNumber>
+						<lineNumber>8995</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -226,7 +226,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1314</second>
+										<second>8995</second>
 									</item>
 								</second>
 							</item>
@@ -260,7 +260,7 @@
 						<name>inst1_V_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1314</lineNumber>
+						<lineNumber>8995</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -275,7 +275,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1314</second>
+										<second>8995</second>
 									</item>
 								</second>
 							</item>
@@ -309,7 +309,7 @@
 						<name>LAYER_IN_NUM_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1331</lineNumber>
+						<lineNumber>9012</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -324,7 +324,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1331</second>
+										<second>9012</second>
 									</item>
 								</second>
 							</item>
@@ -357,7 +357,7 @@
 						<name>LAYER_IN_NUM_T_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1348</lineNumber>
+						<lineNumber>9029</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -372,7 +372,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1348</second>
+										<second>9029</second>
 									</item>
 								</second>
 							</item>
@@ -408,7 +408,7 @@
 						<name>tmp</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1361</lineNumber>
+						<lineNumber>9042</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -423,7 +423,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1361</second>
+										<second>9042</second>
 									</item>
 								</second>
 							</item>
@@ -458,7 +458,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1361</lineNumber>
+						<lineNumber>9042</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -473,7 +473,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1361</second>
+										<second>9042</second>
 									</item>
 								</second>
 							</item>
@@ -508,7 +508,7 @@
 						<name>lhs_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -523,7 +523,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -556,7 +556,7 @@
 						<name>rhs_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -571,7 +571,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -604,7 +604,7 @@
 						<name>ret_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -619,7 +619,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -653,7 +653,7 @@
 						<name>tmp_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -668,7 +668,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -701,7 +701,7 @@
 						<name>tmp_11</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -716,7 +716,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -750,7 +750,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1362</lineNumber>
+						<lineNumber>9043</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -765,7 +765,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1362</second>
+										<second>9043</second>
 									</item>
 								</second>
 							</item>
@@ -800,7 +800,7 @@
 						<name>tmp_12</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -815,7 +815,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -851,7 +851,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -866,7 +866,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -936,7 +936,7 @@
 						<name>exitcond</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -951,7 +951,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -985,7 +985,7 @@
 						<name>oo</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1000,7 +1000,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -1034,7 +1034,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1049,7 +1049,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -1084,7 +1084,7 @@
 						<name>bus_b_offset</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1099,7 +1099,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -1132,7 +1132,7 @@
 						<name>bus_b_idx</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1366</lineNumber>
+						<lineNumber>9047</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1147,7 +1147,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1366</second>
+										<second>9047</second>
 									</item>
 								</second>
 							</item>
@@ -1183,7 +1183,7 @@
 						<name>tmp_14</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1368</lineNumber>
+						<lineNumber>9049</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1198,7 +1198,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1368</second>
+										<second>9049</second>
 									</item>
 								</second>
 							</item>
@@ -1231,7 +1231,7 @@
 						<name>bias_burst_buf_V_add</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1368</lineNumber>
+						<lineNumber>9049</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1246,7 +1246,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1368</second>
+										<second>9049</second>
 									</item>
 								</second>
 							</item>
@@ -1281,7 +1281,7 @@
 						<name>bus_b_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1368</lineNumber>
+						<lineNumber>9049</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1296,7 +1296,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1368</second>
+										<second>9049</second>
 									</item>
 								</second>
 							</item>
@@ -1329,7 +1329,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1377</lineNumber>
+						<lineNumber>9058</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1344,7 +1344,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1377</second>
+										<second>9058</second>
 									</item>
 								</second>
 							</item>
@@ -1379,7 +1379,7 @@
 						<name>fifo_b_data_V_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1379</lineNumber>
+						<lineNumber>9060</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1394,7 +1394,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1379</second>
+										<second>9060</second>
 									</item>
 								</second>
 							</item>
@@ -1427,7 +1427,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1380</lineNumber>
+						<lineNumber>9061</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1442,7 +1442,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1380</second>
+										<second>9061</second>
 									</item>
 								</second>
 							</item>
@@ -1475,7 +1475,7 @@
 						<name>fifo_b_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1382</lineNumber>
+						<lineNumber>9063</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1490,7 +1490,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1382</second>
+										<second>9063</second>
 									</item>
 								</second>
 							</item>
@@ -1526,7 +1526,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1383</lineNumber>
+						<lineNumber>9064</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1541,7 +1541,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1383</second>
+										<second>9064</second>
 									</item>
 								</second>
 							</item>
@@ -1611,7 +1611,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1479</lineNumber>
+						<lineNumber>9160</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1626,7 +1626,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1479</second>
+										<second>9160</second>
 									</item>
 								</second>
 							</item>
@@ -1661,7 +1661,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1363</lineNumber>
+						<lineNumber>9044</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1676,7 +1676,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1363</second>
+										<second>9044</second>
 									</item>
 								</second>
 							</item>
@@ -1743,7 +1743,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1482</lineNumber>
+						<lineNumber>9163</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1758,7 +1758,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1482</second>
+										<second>9163</second>
 									</item>
 								</second>
 							</item>
@@ -1791,7 +1791,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1483</lineNumber>
+						<lineNumber>9164</lineNumber>
 						<contextFuncName>weight_load_bias_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1806,7 +1806,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_bias_write</second>
 										</first>
-										<second>1483</second>
+										<second>9164</second>
 									</item>
 								</second>
 							</item>

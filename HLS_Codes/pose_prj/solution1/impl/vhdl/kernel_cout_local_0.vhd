@@ -1,5 +1,5 @@
 -- ==============================================================
--- File generated on Thu Nov 05 03:55:53 -0600 2020
+-- File generated on Tue Nov 10 23:51:06 -0600 2020
 -- Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 -- SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 -- IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -14,8 +14,8 @@ entity kernel_cout_local_0_ram is
     generic(
             MEM_TYPE    : string := "block"; 
             DWIDTH     : integer := 32; 
-            AWIDTH     : integer := 13; 
-            MEM_SIZE    : integer := 5408
+            AWIDTH     : integer := 14; 
+            MEM_SIZE    : integer := 9216
     ); 
     port (
           addr0     : in std_logic_vector(AWIDTH-1 downto 0); 
@@ -75,8 +75,8 @@ use IEEE.std_logic_1164.all;
 entity kernel_cout_local_0 is
     generic (
         DataWidth : INTEGER := 32;
-        AddressRange : INTEGER := 5408;
-        AddressWidth : INTEGER := 13);
+        AddressRange : INTEGER := 9216;
+        AddressWidth : INTEGER := 14);
     port (
         reset : IN STD_LOGIC;
         clk : IN STD_LOGIC;

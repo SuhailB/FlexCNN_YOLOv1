@@ -460,7 +460,7 @@
 						<name>fifo_cin_load_0_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5544</lineNumber>
+						<lineNumber>13575</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -475,7 +475,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5544</second>
+										<second>13575</second>
 									</item>
 								</second>
 							</item>
@@ -508,7 +508,7 @@
 						<name>fifo_weight_load_1_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5551</lineNumber>
+						<lineNumber>13582</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -523,7 +523,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5551</second>
+										<second>13582</second>
 									</item>
 								</second>
 							</item>
@@ -556,7 +556,7 @@
 						<name>fifo_conv_0_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5572</lineNumber>
+						<lineNumber>13603</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -571,7 +571,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5572</second>
+										<second>13603</second>
 									</item>
 								</second>
 							</item>
@@ -604,7 +604,7 @@
 						<name>fifo_relu_0_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5582</lineNumber>
+						<lineNumber>13613</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -619,7 +619,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5582</second>
+										<second>13613</second>
 									</item>
 								</second>
 							</item>
@@ -652,7 +652,7 @@
 						<name>fifo_pool_0_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5587</lineNumber>
+						<lineNumber>13618</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -667,7 +667,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5587</second>
+										<second>13618</second>
 									</item>
 								</second>
 							</item>
@@ -700,7 +700,7 @@
 						<name>fifo_beta_conv_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5630</lineNumber>
+						<lineNumber>13661</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -715,7 +715,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5630</second>
+										<second>13661</second>
 									</item>
 								</second>
 							</item>
@@ -748,7 +748,7 @@
 						<name>fifo_gamma_conv_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5632</lineNumber>
+						<lineNumber>13663</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -763,7 +763,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5632</second>
+										<second>13663</second>
 									</item>
 								</second>
 							</item>
@@ -796,7 +796,7 @@
 						<name>config_weight_load_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5642</lineNumber>
+						<lineNumber>13673</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -811,7 +811,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5642</second>
+										<second>13673</second>
 									</item>
 								</second>
 							</item>
@@ -844,7 +844,7 @@
 						<name>config_conv_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5646</lineNumber>
+						<lineNumber>13677</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -859,7 +859,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5646</second>
+										<second>13677</second>
 									</item>
 								</second>
 							</item>
@@ -892,7 +892,7 @@
 						<name>config_relu_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5648</lineNumber>
+						<lineNumber>13679</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -907,7 +907,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5648</second>
+										<second>13679</second>
 									</item>
 								</second>
 							</item>
@@ -940,7 +940,7 @@
 						<name>config_pool_V_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5649</lineNumber>
+						<lineNumber>13680</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -955,7 +955,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5649</second>
+										<second>13680</second>
 									</item>
 								</second>
 							</item>
@@ -988,7 +988,7 @@
 						<name>config_data_write_V_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5653</lineNumber>
+						<lineNumber>13684</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1003,7 +1003,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5653</second>
+										<second>13684</second>
 									</item>
 								</second>
 							</item>
@@ -1125,7 +1125,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5724</lineNumber>
+						<lineNumber>13757</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1140,7 +1140,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5724</second>
+										<second>13757</second>
 									</item>
 								</second>
 							</item>
@@ -1180,7 +1180,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5757</lineNumber>
+						<lineNumber>13792</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1195,7 +1195,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5757</second>
+										<second>13792</second>
 									</item>
 								</second>
 							</item>
@@ -1236,7 +1236,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5800</lineNumber>
+						<lineNumber>13853</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1251,7 +1251,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5800</second>
+										<second>13853</second>
 									</item>
 								</second>
 							</item>
@@ -1330,7 +1330,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5885</lineNumber>
+						<lineNumber>13939</lineNumber>
 						<contextFuncName>engine</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1345,7 +1345,7 @@
 											<first>kernel.cpp</first>
 											<second>engine</second>
 										</first>
-										<second>5885</second>
+										<second>13939</second>
 									</item>
 								</second>
 							</item>

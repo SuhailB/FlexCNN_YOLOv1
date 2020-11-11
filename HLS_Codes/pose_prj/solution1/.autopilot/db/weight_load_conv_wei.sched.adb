@@ -134,7 +134,7 @@
 						<name>inst3_V_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1117</lineNumber>
+						<lineNumber>8798</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -149,7 +149,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1117</second>
+										<second>8798</second>
 									</item>
 								</second>
 							</item>
@@ -183,7 +183,7 @@
 						<name>inst2_V_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1117</lineNumber>
+						<lineNumber>8798</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -198,7 +198,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1117</second>
+										<second>8798</second>
 									</item>
 								</second>
 							</item>
@@ -232,7 +232,7 @@
 						<name>FILTER_S2_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1146</lineNumber>
+						<lineNumber>8827</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -247,7 +247,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1146</second>
+										<second>8827</second>
 									</item>
 								</second>
 							</item>
@@ -283,7 +283,7 @@
 						<name>LAYER_IN_NUM_T_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1151</lineNumber>
+						<lineNumber>8832</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -298,7 +298,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1151</second>
+										<second>8832</second>
 									</item>
 								</second>
 							</item>
@@ -334,7 +334,7 @@
 						<name>LAYER_OUT_NUM_T_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1152</lineNumber>
+						<lineNumber>8833</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -349,7 +349,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1152</second>
+										<second>8833</second>
 									</item>
 								</second>
 							</item>
@@ -385,7 +385,7 @@
 						<name>tmp</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1164</lineNumber>
+						<lineNumber>8845</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -400,7 +400,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1164</second>
+										<second>8845</second>
 									</item>
 								</second>
 							</item>
@@ -435,7 +435,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1164</lineNumber>
+						<lineNumber>8845</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -450,7 +450,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1164</second>
+										<second>8845</second>
 									</item>
 								</second>
 							</item>
@@ -485,7 +485,7 @@
 						<name>tmp_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -500,7 +500,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -533,7 +533,7 @@
 						<name>tmp_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -548,7 +548,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -581,7 +581,7 @@
 						<name>ret_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -596,7 +596,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -632,7 +632,7 @@
 						<name>tmp_5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -647,7 +647,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -680,7 +680,7 @@
 						<name>tmp_6</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1298</lineNumber>
+						<lineNumber>8979</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -695,7 +695,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1298</second>
+										<second>8979</second>
 									</item>
 								</second>
 							</item>
@@ -728,7 +728,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1170</lineNumber>
+						<lineNumber>8851</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -743,7 +743,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1170</second>
+										<second>8851</second>
 									</item>
 								</second>
 							</item>
@@ -776,7 +776,7 @@
 						<name>i_op_assign</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -791,7 +791,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -827,7 +827,7 @@
 						<name>i_op_assign_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1294</lineNumber>
+						<lineNumber>8975</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -842,7 +842,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1294</second>
+										<second>8975</second>
 									</item>
 								</second>
 							</item>
@@ -878,7 +878,7 @@
 						<name>i_op_assign_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -893,7 +893,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -929,7 +929,7 @@
 						<name>ii</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -944,7 +944,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -980,7 +980,7 @@
 						<name>done</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -995,7 +995,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -1031,7 +1031,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1170</lineNumber>
+						<lineNumber>8851</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1046,7 +1046,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1170</second>
+										<second>8851</second>
 									</item>
 								</second>
 							</item>
@@ -1081,7 +1081,7 @@
 						<name>tmp_7</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1096,7 +1096,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1130,7 +1130,7 @@
 						<name>tmp_11</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1145,7 +1145,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1179,7 +1179,7 @@
 						<name>tmp5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1194,7 +1194,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1228,7 +1228,7 @@
 						<name>tmp6</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1243,7 +1243,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1277,7 +1277,7 @@
 						<name>tmp4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1292,7 +1292,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -1326,7 +1326,7 @@
 						<name>tmp7</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1341,7 +1341,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1375,7 +1375,7 @@
 						<name>local_w_idx</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1176</lineNumber>
+						<lineNumber>8857</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1390,7 +1390,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1176</second>
+										<second>8857</second>
 									</item>
 								</second>
 							</item>
@@ -1424,7 +1424,7 @@
 						<name>bus_w_idx</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1177</lineNumber>
+						<lineNumber>8858</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1439,7 +1439,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1177</second>
+										<second>8858</second>
 									</item>
 								</second>
 							</item>
@@ -1475,7 +1475,7 @@
 						<name>tmp_9</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1179</lineNumber>
+						<lineNumber>8860</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1490,7 +1490,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1179</second>
+										<second>8860</second>
 									</item>
 								</second>
 							</item>
@@ -1523,7 +1523,7 @@
 						<name>weight_burst_buf2_V_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1179</lineNumber>
+						<lineNumber>8860</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1538,7 +1538,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1179</second>
+										<second>8860</second>
 									</item>
 								</second>
 							</item>
@@ -1573,7 +1573,7 @@
 						<name>bus_w_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1179</lineNumber>
+						<lineNumber>8860</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1588,7 +1588,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1179</second>
+										<second>8860</second>
 									</item>
 								</second>
 							</item>
@@ -1621,7 +1621,7 @@
 						<name>tmp_12</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1184</lineNumber>
+						<lineNumber>8865</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1636,7 +1636,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1184</second>
+										<second>8865</second>
 									</item>
 								</second>
 							</item>
@@ -1671,7 +1671,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1184</lineNumber>
+						<lineNumber>8865</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1686,7 +1686,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1184</second>
+										<second>8865</second>
 									</item>
 								</second>
 							</item>
@@ -1721,7 +1721,7 @@
 						<name>fifo_w_data_V_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1186</lineNumber>
+						<lineNumber>8867</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1736,7 +1736,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1186</second>
+										<second>8867</second>
 									</item>
 								</second>
 							</item>
@@ -1769,7 +1769,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1187</lineNumber>
+						<lineNumber>8868</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1784,7 +1784,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1187</second>
+										<second>8868</second>
 									</item>
 								</second>
 							</item>
@@ -1817,7 +1817,7 @@
 						<name>fifo_w_data_V</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1189</lineNumber>
+						<lineNumber>8870</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1832,7 +1832,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1189</second>
+										<second>8870</second>
 									</item>
 								</second>
 							</item>
@@ -1868,7 +1868,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1190</lineNumber>
+						<lineNumber>8871</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1883,7 +1883,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1190</second>
+										<second>8871</second>
 									</item>
 								</second>
 							</item>
@@ -1953,7 +1953,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1286</lineNumber>
+						<lineNumber>8967</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1968,7 +1968,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1286</second>
+										<second>8967</second>
 									</item>
 								</second>
 							</item>
@@ -2003,7 +2003,7 @@
 						<name>ii_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1288</lineNumber>
+						<lineNumber>8969</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2018,7 +2018,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1288</second>
+										<second>8969</second>
 									</item>
 								</second>
 							</item>
@@ -2052,7 +2052,7 @@
 						<name>tmp_4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2067,7 +2067,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -2101,7 +2101,7 @@
 						<name>q</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1291</lineNumber>
+						<lineNumber>8972</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2116,7 +2116,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1291</second>
+										<second>8972</second>
 									</item>
 								</second>
 							</item>
@@ -2150,7 +2150,7 @@
 						<name>tmp_8</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2165,7 +2165,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -2199,7 +2199,7 @@
 						<name>p</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1294</lineNumber>
+						<lineNumber>8975</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2214,7 +2214,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1294</second>
+										<second>8975</second>
 									</item>
 								</second>
 							</item>
@@ -2248,7 +2248,7 @@
 						<name>tmp_3</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2263,7 +2263,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -2297,7 +2297,7 @@
 						<name>oo</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1297</lineNumber>
+						<lineNumber>8978</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2312,7 +2312,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1297</second>
+										<second>8978</second>
 									</item>
 								</second>
 							</item>
@@ -2346,7 +2346,7 @@
 						<name>tmp_10</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1298</lineNumber>
+						<lineNumber>8979</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2361,7 +2361,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1298</second>
+										<second>8979</second>
 									</item>
 								</second>
 							</item>
@@ -2395,7 +2395,7 @@
 						<name>p_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1298</lineNumber>
+						<lineNumber>8979</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2410,7 +2410,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1298</second>
+										<second>8979</second>
 									</item>
 								</second>
 							</item>
@@ -2445,7 +2445,7 @@
 						<name>tmp1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2460,7 +2460,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -2494,7 +2494,7 @@
 						<name>sel_tmp1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2509,7 +2509,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -2543,7 +2543,7 @@
 						<name>sel_tmp2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2558,7 +2558,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -2593,7 +2593,7 @@
 						<name>sel_tmp4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2608,7 +2608,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -2643,7 +2643,7 @@
 						<name>sel_tmp5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2658,7 +2658,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -2692,7 +2692,7 @@
 						<name>sel_tmp6</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2707,7 +2707,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -2741,7 +2741,7 @@
 						<name>oo_4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2756,7 +2756,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -2791,7 +2791,7 @@
 						<name>sel_tmp</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1294</lineNumber>
+						<lineNumber>8975</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2806,7 +2806,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1294</second>
+										<second>8975</second>
 									</item>
 								</second>
 							</item>
@@ -2841,7 +2841,7 @@
 						<name>sel_tmp3</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1294</lineNumber>
+						<lineNumber>8975</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2856,7 +2856,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1294</second>
+										<second>8975</second>
 									</item>
 								</second>
 							</item>
@@ -2891,7 +2891,7 @@
 						<name>p_3</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1294</lineNumber>
+						<lineNumber>8975</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2906,7 +2906,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1294</second>
+										<second>8975</second>
 									</item>
 								</second>
 							</item>
@@ -2941,7 +2941,7 @@
 						<name>sel_tmp7</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2956,7 +2956,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -2991,7 +2991,7 @@
 						<name>q_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1292</lineNumber>
+						<lineNumber>8973</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -3006,7 +3006,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1292</second>
+										<second>8973</second>
 									</item>
 								</second>
 							</item>
@@ -3041,7 +3041,7 @@
 						<name>ii_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1289</lineNumber>
+						<lineNumber>8970</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -3056,7 +3056,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1289</second>
+										<second>8970</second>
 									</item>
 								</second>
 							</item>
@@ -3091,7 +3091,7 @@
 						<name>done_4</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1295</lineNumber>
+						<lineNumber>8976</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -3106,7 +3106,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1295</second>
+										<second>8976</second>
 									</item>
 								</second>
 							</item>
@@ -3140,7 +3140,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1305</lineNumber>
+						<lineNumber>8986</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -3155,7 +3155,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1305</second>
+										<second>8986</second>
 									</item>
 								</second>
 							</item>
@@ -3222,7 +3222,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>1307</lineNumber>
+						<lineNumber>8988</lineNumber>
 						<contextFuncName>weight_load_conv_weight_write</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -3237,7 +3237,7 @@
 											<first>kernel.cpp</first>
 											<second>weight_load_conv_weight_write</second>
 										</first>
-										<second>1307</second>
+										<second>8988</second>
 									</item>
 								</second>
 							</item>

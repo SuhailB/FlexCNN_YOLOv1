@@ -8,21 +8,21 @@ port (
     clk: in std_logic;
     rst: in std_logic;
     ce: in std_logic;
-    a: in std_logic_vector(11 - 1 downto 0);
-    b: in std_logic_vector(7 - 1 downto 0);
-    p: out std_logic_vector(11 - 1 downto 0));
+    a: in std_logic_vector(12 - 1 downto 0);
+    b: in std_logic_vector(8 - 1 downto 0);
+    p: out std_logic_vector(12 - 1 downto 0));
 
 end entity;
 
 architecture behav of top_kernel_mul_muudo_DSP48_4 is
-    signal a_cvt: signed(11 - 1 downto 0);
-    signal b_cvt: unsigned(7 - 1 downto 0);
-    signal p_cvt: signed(11 - 1 downto 0);
+    signal a_cvt: signed(12 - 1 downto 0);
+    signal b_cvt: unsigned(8 - 1 downto 0);
+    signal p_cvt: signed(12 - 1 downto 0);
 
-    signal p_reg: signed(11 - 1 downto 0);
+    signal p_reg: signed(12 - 1 downto 0);
 
-    signal a_reg: signed(11 - 1 downto 0) ; 
-    signal b_reg: unsigned(7 - 1 downto 0) ; 
+    signal a_reg: signed(12 - 1 downto 0) ; 
+    signal b_reg: unsigned(8 - 1 downto 0) ; 
 begin
 
     a_cvt <= signed(a);
@@ -39,7 +39,7 @@ begin
         end if;
     end process;
 
-    p_cvt <= signed (resize(unsigned (signed (a_reg) * signed ('0' & b_reg)), 11));
+    p_cvt <= signed (resize(unsigned (signed (a_reg) * signed ('0' & b_reg)), 12));
     p <= std_logic_vector(p_reg);
 
 end architecture;

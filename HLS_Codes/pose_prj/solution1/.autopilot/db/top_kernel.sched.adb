@@ -696,7 +696,7 @@
 						<name>config</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5918</lineNumber>
+						<lineNumber>13972</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -711,7 +711,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5918</second>
+										<second>13972</second>
 									</item>
 								</second>
 							</item>
@@ -744,7 +744,7 @@
 						<name>config_addr</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5929</lineNumber>
+						<lineNumber>13983</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -759,7 +759,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5929</second>
+										<second>13983</second>
 									</item>
 								</second>
 							</item>
@@ -794,7 +794,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5922</lineNumber>
+						<lineNumber>13976</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -809,7 +809,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5922</second>
+										<second>13976</second>
 									</item>
 								</second>
 							</item>
@@ -889,7 +889,7 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>3</bitwidth>
+					<bitwidth>4</bitwidth>
 				</Value>
 				<oprand_edges>
 					<count>4</count>
@@ -916,7 +916,7 @@
 						<name>exitcond</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5922</lineNumber>
+						<lineNumber>13976</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -931,7 +931,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5922</second>
+										<second>13976</second>
 									</item>
 								</second>
 							</item>
@@ -953,7 +953,7 @@
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
-				<m_delay>0.67</m_delay>
+				<m_delay>0.87</m_delay>
 				<m_topoIndex>17</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
@@ -962,59 +962,10 @@
 					<Obj>
 						<type>0</type>
 						<id>46</id>
-						<name>layer_id_1</name>
-						<fileName>kernel.cpp</fileName>
-						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5934</lineNumber>
-						<contextFuncName>top_kernel</contextFuncName>
-						<inlineStackInfo>
-							<count>1</count>
-							<item_version>0</item_version>
-							<item>
-								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
-								<second>
-									<count>1</count>
-									<item_version>0</item_version>
-									<item>
-										<first>
-											<first>kernel.cpp</first>
-											<second>top_kernel</second>
-										</first>
-										<second>5934</second>
-									</item>
-								</second>
-							</item>
-						</inlineStackInfo>
-						<originalName>layer_id</originalName>
-						<rtlName></rtlName>
-						<coreName></coreName>
-					</Obj>
-					<bitwidth>3</bitwidth>
-				</Value>
-				<oprand_edges>
-					<count>2</count>
-					<item_version>0</item_version>
-					<item>145</item>
-					<item>147</item>
-				</oprand_edges>
-				<opcode>add</opcode>
-				<m_Display>0</m_Display>
-				<m_isOnCriticalPath>0</m_isOnCriticalPath>
-				<m_isLCDNode>0</m_isLCDNode>
-				<m_isStartOfPath>0</m_isStartOfPath>
-				<m_delay>0.93</m_delay>
-				<m_topoIndex>18</m_topoIndex>
-				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
-			</item>
-			<item class_id_reference="9" object_id="_29">
-				<Value>
-					<Obj>
-						<type>0</type>
-						<id>47</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5922</lineNumber>
+						<lineNumber>13976</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1029,7 +980,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5922</second>
+										<second>13976</second>
 									</item>
 								</second>
 							</item>
@@ -1043,9 +994,9 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>148</item>
-					<item>149</item>
-					<item>150</item>
+					<item>145</item>
+					<item>146</item>
+					<item>147</item>
 				</oprand_edges>
 				<opcode>br</opcode>
 				<m_Display>0</m_Display>
@@ -1053,18 +1004,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.00</m_delay>
-				<m_topoIndex>19</m_topoIndex>
+				<m_topoIndex>18</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_30">
+			<item class_id_reference="9" object_id="_29">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>49</id>
+						<id>48</id>
 						<name>tmp_s</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1079,7 +1030,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1088,16 +1039,65 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>8</bitwidth>
+					<bitwidth>9</bitwidth>
 				</Value>
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
+					<item>149</item>
+					<item>150</item>
 					<item>152</item>
+				</oprand_edges>
+				<opcode>bitconcatenate</opcode>
+				<m_Display>0</m_Display>
+				<m_isOnCriticalPath>0</m_isOnCriticalPath>
+				<m_isLCDNode>0</m_isLCDNode>
+				<m_isStartOfPath>0</m_isStartOfPath>
+				<m_delay>0.00</m_delay>
+				<m_topoIndex>19</m_topoIndex>
+				<m_clusterGroupNumber>1</m_clusterGroupNumber>
+			</item>
+			<item class_id_reference="9" object_id="_30">
+				<Value>
+					<Obj>
+						<type>0</type>
+						<id>49</id>
+						<name>tmp_15</name>
+						<fileName>kernel.cpp</fileName>
+						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
+						<lineNumber>13981</lineNumber>
+						<contextFuncName>top_kernel</contextFuncName>
+						<inlineStackInfo>
+							<count>1</count>
+							<item_version>0</item_version>
+							<item>
+								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
+								<second>
+									<count>1</count>
+									<item_version>0</item_version>
+									<item>
+										<first>
+											<first>kernel.cpp</first>
+											<second>top_kernel</second>
+										</first>
+										<second>13981</second>
+									</item>
+								</second>
+							</item>
+						</inlineStackInfo>
+						<originalName></originalName>
+						<rtlName></rtlName>
+						<coreName></coreName>
+					</Obj>
+					<bitwidth>9</bitwidth>
+				</Value>
+				<oprand_edges>
+					<count>2</count>
+					<item_version>0</item_version>
 					<item>153</item>
 					<item>155</item>
 				</oprand_edges>
-				<opcode>bitconcatenate</opcode>
+				<opcode>or</opcode>
 				<m_Display>0</m_Display>
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
@@ -1111,10 +1111,10 @@
 					<Obj>
 						<type>0</type>
 						<id>50</id>
-						<name>tmp_15</name>
+						<name>tmp_60_cast</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1129,7 +1129,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1138,15 +1138,14 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>8</bitwidth>
+					<bitwidth>63</bitwidth>
 				</Value>
 				<oprand_edges>
-					<count>2</count>
+					<count>1</count>
 					<item_version>0</item_version>
 					<item>156</item>
-					<item>158</item>
 				</oprand_edges>
-				<opcode>or</opcode>
+				<opcode>zext</opcode>
 				<m_Display>0</m_Display>
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
@@ -1160,58 +1159,10 @@
 					<Obj>
 						<type>0</type>
 						<id>51</id>
-						<name>tmp_60_cast</name>
-						<fileName>kernel.cpp</fileName>
-						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
-						<contextFuncName>top_kernel</contextFuncName>
-						<inlineStackInfo>
-							<count>1</count>
-							<item_version>0</item_version>
-							<item>
-								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
-								<second>
-									<count>1</count>
-									<item_version>0</item_version>
-									<item>
-										<first>
-											<first>kernel.cpp</first>
-											<second>top_kernel</second>
-										</first>
-										<second>5927</second>
-									</item>
-								</second>
-							</item>
-						</inlineStackInfo>
-						<originalName></originalName>
-						<rtlName></rtlName>
-						<coreName></coreName>
-					</Obj>
-					<bitwidth>63</bitwidth>
-				</Value>
-				<oprand_edges>
-					<count>1</count>
-					<item_version>0</item_version>
-					<item>159</item>
-				</oprand_edges>
-				<opcode>zext</opcode>
-				<m_Display>0</m_Display>
-				<m_isOnCriticalPath>0</m_isOnCriticalPath>
-				<m_isLCDNode>0</m_isLCDNode>
-				<m_isStartOfPath>0</m_isStartOfPath>
-				<m_delay>0.00</m_delay>
-				<m_topoIndex>22</m_topoIndex>
-				<m_clusterGroupNumber>1</m_clusterGroupNumber>
-			</item>
-			<item class_id_reference="9" object_id="_33">
-				<Value>
-					<Obj>
-						<type>0</type>
-						<id>52</id>
 						<name>layer_config_V12_sum</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1226,7 +1177,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1240,8 +1191,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>160</item>
-					<item>161</item>
+					<item>157</item>
+					<item>158</item>
 				</oprand_edges>
 				<opcode>add</opcode>
 				<m_Display>0</m_Display>
@@ -1249,18 +1200,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>1.78</m_delay>
-				<m_topoIndex>23</m_topoIndex>
+				<m_topoIndex>22</m_topoIndex>
 				<m_clusterGroupNumber>1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_34">
+			<item class_id_reference="9" object_id="_33">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>53</id>
+						<id>52</id>
 						<name>layer_config_V12_sum_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1275,7 +1226,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1289,9 +1240,58 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>162</item>
+					<item>159</item>
 				</oprand_edges>
 				<opcode>zext</opcode>
+				<m_Display>0</m_Display>
+				<m_isOnCriticalPath>0</m_isOnCriticalPath>
+				<m_isLCDNode>0</m_isLCDNode>
+				<m_isStartOfPath>0</m_isStartOfPath>
+				<m_delay>0.00</m_delay>
+				<m_topoIndex>23</m_topoIndex>
+				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
+			</item>
+			<item class_id_reference="9" object_id="_34">
+				<Value>
+					<Obj>
+						<type>0</type>
+						<id>53</id>
+						<name>gcontrol_addr</name>
+						<fileName>kernel.cpp</fileName>
+						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
+						<lineNumber>13981</lineNumber>
+						<contextFuncName>top_kernel</contextFuncName>
+						<inlineStackInfo>
+							<count>1</count>
+							<item_version>0</item_version>
+							<item>
+								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
+								<second>
+									<count>1</count>
+									<item_version>0</item_version>
+									<item>
+										<first>
+											<first>kernel.cpp</first>
+											<second>top_kernel</second>
+										</first>
+										<second>13981</second>
+									</item>
+								</second>
+							</item>
+						</inlineStackInfo>
+						<originalName></originalName>
+						<rtlName></rtlName>
+						<coreName></coreName>
+					</Obj>
+					<bitwidth>32</bitwidth>
+				</Value>
+				<oprand_edges>
+					<count>2</count>
+					<item_version>0</item_version>
+					<item>160</item>
+					<item>161</item>
+				</oprand_edges>
+				<opcode>getelementptr</opcode>
 				<m_Display>0</m_Display>
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
@@ -1305,59 +1305,10 @@
 					<Obj>
 						<type>0</type>
 						<id>54</id>
-						<name>gcontrol_addr</name>
-						<fileName>kernel.cpp</fileName>
-						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
-						<contextFuncName>top_kernel</contextFuncName>
-						<inlineStackInfo>
-							<count>1</count>
-							<item_version>0</item_version>
-							<item>
-								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
-								<second>
-									<count>1</count>
-									<item_version>0</item_version>
-									<item>
-										<first>
-											<first>kernel.cpp</first>
-											<second>top_kernel</second>
-										</first>
-										<second>5927</second>
-									</item>
-								</second>
-							</item>
-						</inlineStackInfo>
-						<originalName></originalName>
-						<rtlName></rtlName>
-						<coreName></coreName>
-					</Obj>
-					<bitwidth>32</bitwidth>
-				</Value>
-				<oprand_edges>
-					<count>2</count>
-					<item_version>0</item_version>
-					<item>163</item>
-					<item>164</item>
-				</oprand_edges>
-				<opcode>getelementptr</opcode>
-				<m_Display>0</m_Display>
-				<m_isOnCriticalPath>0</m_isOnCriticalPath>
-				<m_isLCDNode>0</m_isLCDNode>
-				<m_isStartOfPath>0</m_isStartOfPath>
-				<m_delay>0.00</m_delay>
-				<m_topoIndex>25</m_topoIndex>
-				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
-			</item>
-			<item class_id_reference="9" object_id="_36">
-				<Value>
-					<Obj>
-						<type>0</type>
-						<id>55</id>
 						<name>tmp_27</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1372,7 +1323,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1386,8 +1337,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>165</item>
-					<item>167</item>
+					<item>162</item>
+					<item>164</item>
 				</oprand_edges>
 				<opcode>shl</opcode>
 				<m_Display>0</m_Display>
@@ -1395,18 +1346,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.00</m_delay>
-				<m_topoIndex>31</m_topoIndex>
+				<m_topoIndex>30</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_37">
+			<item class_id_reference="9" object_id="_36">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>56</id>
+						<id>55</id>
 						<name>tmp_28</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5928</lineNumber>
+						<lineNumber>13982</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1421,7 +1372,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5928</second>
+										<second>13982</second>
 									</item>
 								</second>
 							</item>
@@ -1435,9 +1386,59 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>168</item>
+					<item>165</item>
 				</oprand_edges>
 				<opcode>trunc</opcode>
+				<m_Display>0</m_Display>
+				<m_isOnCriticalPath>0</m_isOnCriticalPath>
+				<m_isLCDNode>0</m_isLCDNode>
+				<m_isStartOfPath>0</m_isStartOfPath>
+				<m_delay>0.00</m_delay>
+				<m_topoIndex>26</m_topoIndex>
+				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
+			</item>
+			<item class_id_reference="9" object_id="_37">
+				<Value>
+					<Obj>
+						<type>0</type>
+						<id>56</id>
+						<name>tmp_cast</name>
+						<fileName>kernel.cpp</fileName>
+						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
+						<lineNumber>13981</lineNumber>
+						<contextFuncName>top_kernel</contextFuncName>
+						<inlineStackInfo>
+							<count>1</count>
+							<item_version>0</item_version>
+							<item>
+								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
+								<second>
+									<count>1</count>
+									<item_version>0</item_version>
+									<item>
+										<first>
+											<first>kernel.cpp</first>
+											<second>top_kernel</second>
+										</first>
+										<second>13981</second>
+									</item>
+								</second>
+							</item>
+						</inlineStackInfo>
+						<originalName></originalName>
+						<rtlName></rtlName>
+						<coreName></coreName>
+					</Obj>
+					<bitwidth>30</bitwidth>
+				</Value>
+				<oprand_edges>
+					<count>3</count>
+					<item_version>0</item_version>
+					<item>167</item>
+					<item>168</item>
+					<item>169</item>
+				</oprand_edges>
+				<opcode>bitconcatenate</opcode>
 				<m_Display>0</m_Display>
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
@@ -1451,10 +1452,10 @@
 					<Obj>
 						<type>0</type>
 						<id>57</id>
-						<name>tmp_cast</name>
+						<name>tmp_73_add_i32_shr_c</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1469,7 +1470,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1478,16 +1479,14 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>30</bitwidth>
+					<bitwidth>32</bitwidth>
 				</Value>
 				<oprand_edges>
-					<count>3</count>
+					<count>1</count>
 					<item_version>0</item_version>
 					<item>170</item>
-					<item>171</item>
-					<item>172</item>
 				</oprand_edges>
-				<opcode>bitconcatenate</opcode>
+				<opcode>zext</opcode>
 				<m_Display>0</m_Display>
 				<m_isOnCriticalPath>0</m_isOnCriticalPath>
 				<m_isLCDNode>0</m_isLCDNode>
@@ -1501,58 +1500,10 @@
 					<Obj>
 						<type>0</type>
 						<id>58</id>
-						<name>tmp_73_add_i32_shr_c</name>
-						<fileName>kernel.cpp</fileName>
-						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
-						<contextFuncName>top_kernel</contextFuncName>
-						<inlineStackInfo>
-							<count>1</count>
-							<item_version>0</item_version>
-							<item>
-								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
-								<second>
-									<count>1</count>
-									<item_version>0</item_version>
-									<item>
-										<first>
-											<first>kernel.cpp</first>
-											<second>top_kernel</second>
-										</first>
-										<second>5927</second>
-									</item>
-								</second>
-							</item>
-						</inlineStackInfo>
-						<originalName></originalName>
-						<rtlName></rtlName>
-						<coreName></coreName>
-					</Obj>
-					<bitwidth>32</bitwidth>
-				</Value>
-				<oprand_edges>
-					<count>1</count>
-					<item_version>0</item_version>
-					<item>173</item>
-				</oprand_edges>
-				<opcode>zext</opcode>
-				<m_Display>0</m_Display>
-				<m_isOnCriticalPath>0</m_isOnCriticalPath>
-				<m_isLCDNode>0</m_isLCDNode>
-				<m_isStartOfPath>0</m_isStartOfPath>
-				<m_delay>0.00</m_delay>
-				<m_topoIndex>29</m_topoIndex>
-				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
-			</item>
-			<item class_id_reference="9" object_id="_40">
-				<Value>
-					<Obj>
-						<type>0</type>
-						<id>59</id>
 						<name>gcontrol_addr_rd_req</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1567,7 +1518,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1581,9 +1532,9 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>175</item>
-					<item>176</item>
-					<item>177</item>
+					<item>172</item>
+					<item>173</item>
+					<item>174</item>
 				</oprand_edges>
 				<opcode>readreq</opcode>
 				<m_Display>0</m_Display>
@@ -1591,18 +1542,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>2.62</m_delay>
-				<m_topoIndex>30</m_topoIndex>
+				<m_topoIndex>29</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_41">
+			<item class_id_reference="9" object_id="_40">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>60</id>
+						<id>59</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1617,7 +1568,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1631,7 +1582,7 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>178</item>
+					<item>175</item>
 				</oprand_edges>
 				<opcode>br</opcode>
 				<m_Display>0</m_Display>
@@ -1639,18 +1590,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.85</m_delay>
-				<m_topoIndex>32</m_topoIndex>
+				<m_topoIndex>31</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_42">
+			<item class_id_reference="9" object_id="_41">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>62</id>
+						<id>61</id>
 						<name>indvar</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1665,7 +1616,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1679,10 +1630,10 @@
 				<oprand_edges>
 					<count>4</count>
 					<item_version>0</item_version>
+					<item>177</item>
+					<item>178</item>
+					<item>179</item>
 					<item>180</item>
-					<item>181</item>
-					<item>182</item>
-					<item>183</item>
 				</oprand_edges>
 				<opcode>phi</opcode>
 				<m_Display>0</m_Display>
@@ -1690,18 +1641,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.00</m_delay>
-				<m_topoIndex>33</m_topoIndex>
+				<m_topoIndex>32</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_43">
+			<item class_id_reference="9" object_id="_42">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>63</id>
+						<id>62</id>
 						<name>exitcond6</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1716,7 +1667,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1730,8 +1681,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>184</item>
-					<item>185</item>
+					<item>181</item>
+					<item>182</item>
 				</oprand_edges>
 				<opcode>icmp</opcode>
 				<m_Display>0</m_Display>
@@ -1739,18 +1690,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>1.25</m_delay>
-				<m_topoIndex>34</m_topoIndex>
+				<m_topoIndex>33</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_44">
+			<item class_id_reference="9" object_id="_43">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>65</id>
+						<id>64</id>
 						<name>indvar_next5</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1765,7 +1716,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1779,8 +1730,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>186</item>
-					<item>188</item>
+					<item>183</item>
+					<item>185</item>
 				</oprand_edges>
 				<opcode>add</opcode>
 				<m_Display>0</m_Display>
@@ -1788,18 +1739,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>1.48</m_delay>
-				<m_topoIndex>35</m_topoIndex>
+				<m_topoIndex>34</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_45">
+			<item class_id_reference="9" object_id="_44">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>66</id>
+						<id>65</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1814,7 +1765,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1828,9 +1779,9 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>189</item>
-					<item>190</item>
-					<item>191</item>
+					<item>186</item>
+					<item>187</item>
+					<item>188</item>
 				</oprand_edges>
 				<opcode>br</opcode>
 				<m_Display>0</m_Display>
@@ -1838,18 +1789,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.00</m_delay>
-				<m_topoIndex>36</m_topoIndex>
+				<m_topoIndex>35</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_46">
+			<item class_id_reference="9" object_id="_45">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>70</id>
+						<id>69</id>
 						<name>indvar1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1864,7 +1815,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1878,7 +1829,7 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>192</item>
+					<item>189</item>
 				</oprand_edges>
 				<opcode>zext</opcode>
 				<m_Display>0</m_Display>
@@ -1889,15 +1840,15 @@
 				<m_topoIndex>39</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_47">
+			<item class_id_reference="9" object_id="_46">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>71</id>
+						<id>70</id>
 						<name>gcontrol_addr_read</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1912,7 +1863,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1926,8 +1877,8 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>194</item>
-					<item>195</item>
+					<item>191</item>
+					<item>192</item>
 					<item>470</item>
 				</oprand_edges>
 				<opcode>read</opcode>
@@ -1936,18 +1887,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>2.62</m_delay>
-				<m_topoIndex>37</m_topoIndex>
+				<m_topoIndex>36</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_48">
+			<item class_id_reference="9" object_id="_47">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>72</id>
+						<id>71</id>
 						<name>config_addr_2</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -1962,7 +1913,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -1976,9 +1927,9 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>196</item>
-					<item>197</item>
-					<item>198</item>
+					<item>193</item>
+					<item>194</item>
+					<item>195</item>
 				</oprand_edges>
 				<opcode>getelementptr</opcode>
 				<m_Display>0</m_Display>
@@ -1989,15 +1940,15 @@
 				<m_topoIndex>40</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_49">
+			<item class_id_reference="9" object_id="_48">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>73</id>
+						<id>72</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2012,7 +1963,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -2026,8 +1977,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>199</item>
-					<item>200</item>
+					<item>196</item>
+					<item>197</item>
 				</oprand_edges>
 				<opcode>store</opcode>
 				<m_Display>0</m_Display>
@@ -2038,15 +1989,15 @@
 				<m_topoIndex>41</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_50">
+			<item class_id_reference="9" object_id="_49">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>75</id>
+						<id>74</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5927</lineNumber>
+						<lineNumber>13981</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2061,7 +2012,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5927</second>
+										<second>13981</second>
 									</item>
 								</second>
 							</item>
@@ -2075,7 +2026,7 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>201</item>
+					<item>198</item>
 				</oprand_edges>
 				<opcode>br</opcode>
 				<m_Display>0</m_Display>
@@ -2086,15 +2037,15 @@
 				<m_topoIndex>42</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_51">
+			<item class_id_reference="9" object_id="_50">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>77</id>
+						<id>76</id>
 						<name>tmp_16</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5928</lineNumber>
+						<lineNumber>13982</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2109,7 +2060,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5928</second>
+										<second>13982</second>
 									</item>
 								</second>
 							</item>
@@ -2123,8 +2074,8 @@
 				<oprand_edges>
 					<count>2</count>
 					<item_version>0</item_version>
-					<item>202</item>
-					<item>204</item>
+					<item>199</item>
+					<item>201</item>
 				</oprand_edges>
 				<opcode>add</opcode>
 				<m_Display>0</m_Display>
@@ -2132,18 +2083,18 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>1.51</m_delay>
-				<m_topoIndex>38</m_topoIndex>
+				<m_topoIndex>37</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_52">
+			<item class_id_reference="9" object_id="_51">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>78</id>
+						<id>77</id>
 						<name>tmp_17</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5928</lineNumber>
+						<lineNumber>13982</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2158,7 +2109,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5928</second>
+										<second>13982</second>
 									</item>
 								</second>
 							</item>
@@ -2172,7 +2123,7 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>205</item>
+					<item>202</item>
 				</oprand_edges>
 				<opcode>sext</opcode>
 				<m_Display>0</m_Display>
@@ -2183,15 +2134,15 @@
 				<m_topoIndex>43</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_53">
+			<item class_id_reference="9" object_id="_52">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>79</id>
+						<id>78</id>
 						<name>config_addr_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5928</lineNumber>
+						<lineNumber>13982</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2206,7 +2157,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5928</second>
+										<second>13982</second>
 									</item>
 								</second>
 							</item>
@@ -2220,9 +2171,9 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>206</item>
-					<item>207</item>
-					<item>208</item>
+					<item>203</item>
+					<item>204</item>
+					<item>205</item>
 				</oprand_edges>
 				<opcode>getelementptr</opcode>
 				<m_Display>0</m_Display>
@@ -2233,15 +2184,15 @@
 				<m_topoIndex>44</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_54">
+			<item class_id_reference="9" object_id="_53">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>80</id>
+						<id>79</id>
 						<name>nxt_layer_batch</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5928</lineNumber>
+						<lineNumber>13982</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2256,7 +2207,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5928</second>
+										<second>13982</second>
 									</item>
 								</second>
 							</item>
@@ -2270,7 +2221,7 @@
 				<oprand_edges>
 					<count>1</count>
 					<item_version>0</item_version>
-					<item>209</item>
+					<item>206</item>
 				</oprand_edges>
 				<opcode>load</opcode>
 				<m_Display>0</m_Display>
@@ -2281,15 +2232,15 @@
 				<m_topoIndex>45</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_55">
+			<item class_id_reference="9" object_id="_54">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>81</id>
+						<id>80</id>
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5929</lineNumber>
+						<lineNumber>13983</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2304,7 +2255,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5929</second>
+										<second>13983</second>
 									</item>
 								</second>
 							</item>
@@ -2318,8 +2269,8 @@
 				<oprand_edges>
 					<count>3</count>
 					<item_version>0</item_version>
-					<item>210</item>
-					<item>211</item>
+					<item>207</item>
+					<item>208</item>
 					<item>469</item>
 				</oprand_edges>
 				<opcode>store</opcode>
@@ -2331,15 +2282,15 @@
 				<m_topoIndex>46</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
-			<item class_id_reference="9" object_id="_56">
+			<item class_id_reference="9" object_id="_55">
 				<Value>
 					<Obj>
 						<type>0</type>
-						<id>82</id>
-						<name></name>
+						<id>81</id>
+						<name>layer_id_1</name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5932</lineNumber>
+						<lineNumber>13986</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2354,7 +2305,56 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5932</second>
+										<second>13986</second>
+									</item>
+								</second>
+							</item>
+						</inlineStackInfo>
+						<originalName>layer_id</originalName>
+						<rtlName></rtlName>
+						<coreName></coreName>
+					</Obj>
+					<bitwidth>4</bitwidth>
+				</Value>
+				<oprand_edges>
+					<count>2</count>
+					<item_version>0</item_version>
+					<item>209</item>
+					<item>211</item>
+				</oprand_edges>
+				<opcode>add</opcode>
+				<m_Display>0</m_Display>
+				<m_isOnCriticalPath>0</m_isOnCriticalPath>
+				<m_isLCDNode>0</m_isLCDNode>
+				<m_isStartOfPath>0</m_isStartOfPath>
+				<m_delay>1.01</m_delay>
+				<m_topoIndex>38</m_topoIndex>
+				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
+			</item>
+			<item class_id_reference="9" object_id="_56">
+				<Value>
+					<Obj>
+						<type>0</type>
+						<id>82</id>
+						<name></name>
+						<fileName>kernel.cpp</fileName>
+						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
+						<lineNumber>13988</lineNumber>
+						<contextFuncName>top_kernel</contextFuncName>
+						<inlineStackInfo>
+							<count>1</count>
+							<item_version>0</item_version>
+							<item>
+								<first>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</first>
+								<second>
+									<count>1</count>
+									<item_version>0</item_version>
+									<item>
+										<first>
+											<first>kernel.cpp</first>
+											<second>top_kernel</second>
+										</first>
+										<second>13988</second>
 									</item>
 								</second>
 							</item>
@@ -2395,7 +2395,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5935</lineNumber>
+						<lineNumber>13995</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2410,7 +2410,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5935</second>
+										<second>13995</second>
 									</item>
 								</second>
 							</item>
@@ -2443,7 +2443,7 @@
 						<name></name>
 						<fileName>kernel.cpp</fileName>
 						<fileDirectory>E:\UCLA\FlexCNN_Syn\FlexCNN\HLS_Codes</fileDirectory>
-						<lineNumber>5936</lineNumber>
+						<lineNumber>13996</lineNumber>
 						<contextFuncName>top_kernel</contextFuncName>
 						<inlineStackInfo>
 							<count>1</count>
@@ -2458,7 +2458,7 @@
 											<first>kernel.cpp</first>
 											<second>top_kernel</second>
 										</first>
-										<second>5936</second>
+										<second>13996</second>
 									</item>
 								</second>
 							</item>
@@ -2479,7 +2479,7 @@
 				<m_isLCDNode>0</m_isLCDNode>
 				<m_isStartOfPath>0</m_isStartOfPath>
 				<m_delay>0.00</m_delay>
-				<m_topoIndex>26</m_topoIndex>
+				<m_topoIndex>25</m_topoIndex>
 				<m_clusterGroupNumber>-1</m_clusterGroupNumber>
 			</item>
 		</nodes>
@@ -2665,10 +2665,10 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>3</bitwidth>
+					<bitwidth>4</bitwidth>
 				</Value>
 				<const_type>0</const_type>
-				<content>0</content>
+				<content>10</content>
 			</item>
 			<item class_id_reference="16" object_id="_67">
 				<Value>
@@ -2688,16 +2688,16 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>3</bitwidth>
+					<bitwidth>4</bitwidth>
 				</Value>
 				<const_type>0</const_type>
-				<content>5</content>
+				<content>15</content>
 			</item>
 			<item class_id_reference="16" object_id="_68">
 				<Value>
 					<Obj>
 						<type>2</type>
-						<id>146</id>
+						<id>151</id>
 						<name>empty</name>
 						<fileName></fileName>
 						<fileDirectory></fileDirectory>
@@ -2711,10 +2711,10 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>3</bitwidth>
+					<bitwidth>5</bitwidth>
 				</Value>
 				<const_type>0</const_type>
-				<content>1</content>
+				<content>0</content>
 			</item>
 			<item class_id_reference="16" object_id="_69">
 				<Value>
@@ -2734,39 +2734,16 @@
 						<rtlName></rtlName>
 						<coreName></coreName>
 					</Obj>
-					<bitwidth>5</bitwidth>
+					<bitwidth>9</bitwidth>
 				</Value>
 				<const_type>0</const_type>
-				<content>0</content>
+				<content>5</content>
 			</item>
 			<item class_id_reference="16" object_id="_70">
 				<Value>
 					<Obj>
 						<type>2</type>
-						<id>157</id>
-						<name>empty</name>
-						<fileName></fileName>
-						<fileDirectory></fileDirectory>
-						<lineNumber>0</lineNumber>
-						<contextFuncName></contextFuncName>
-						<inlineStackInfo>
-							<count>0</count>
-							<item_version>0</item_version>
-						</inlineStackInfo>
-						<originalName></originalName>
-						<rtlName></rtlName>
-						<coreName></coreName>
-					</Obj>
-					<bitwidth>8</bitwidth>
-				</Value>
-				<const_type>0</const_type>
-				<content>5</content>
-			</item>
-			<item class_id_reference="16" object_id="_71">
-				<Value>
-					<Obj>
-						<type>2</type>
-						<id>166</id>
+						<id>163</id>
 						<name>empty</name>
 						<fileName></fileName>
 						<fileDirectory></fileDirectory>
@@ -2785,11 +2762,11 @@
 				<const_type>0</const_type>
 				<content>5</content>
 			</item>
-			<item class_id_reference="16" object_id="_72">
+			<item class_id_reference="16" object_id="_71">
 				<Value>
 					<Obj>
 						<type>2</type>
-						<id>179</id>
+						<id>176</id>
 						<name>empty</name>
 						<fileName></fileName>
 						<fileDirectory></fileDirectory>
@@ -2808,11 +2785,11 @@
 				<const_type>0</const_type>
 				<content>0</content>
 			</item>
-			<item class_id_reference="16" object_id="_73">
+			<item class_id_reference="16" object_id="_72">
 				<Value>
 					<Obj>
 						<type>2</type>
-						<id>187</id>
+						<id>184</id>
 						<name>empty</name>
 						<fileName></fileName>
 						<fileDirectory></fileDirectory>
@@ -2831,11 +2808,11 @@
 				<const_type>0</const_type>
 				<content>1</content>
 			</item>
-			<item class_id_reference="16" object_id="_74">
+			<item class_id_reference="16" object_id="_73">
 				<Value>
 					<Obj>
 						<type>2</type>
-						<id>203</id>
+						<id>200</id>
 						<name>empty</name>
 						<fileName></fileName>
 						<fileDirectory></fileDirectory>
@@ -2853,6 +2830,29 @@
 				</Value>
 				<const_type>0</const_type>
 				<content>4294967289</content>
+			</item>
+			<item class_id_reference="16" object_id="_74">
+				<Value>
+					<Obj>
+						<type>2</type>
+						<id>210</id>
+						<name>empty</name>
+						<fileName></fileName>
+						<fileDirectory></fileDirectory>
+						<lineNumber>0</lineNumber>
+						<contextFuncName></contextFuncName>
+						<inlineStackInfo>
+							<count>0</count>
+							<item_version>0</item_version>
+						</inlineStackInfo>
+						<originalName></originalName>
+						<rtlName></rtlName>
+						<coreName></coreName>
+					</Obj>
+					<bitwidth>4</bitwidth>
+				</Value>
+				<const_type>0</const_type>
+				<content>1</content>
 			</item>
 			<item class_id_reference="16" object_id="_75">
 				<Value>
@@ -2920,7 +2920,7 @@
 			<item class_id_reference="18" object_id="_77">
 				<Obj>
 					<type>3</type>
-					<id>48</id>
+					<id>47</id>
 					<name></name>
 					<fileName></fileName>
 					<fileDirectory></fileDirectory>
@@ -2935,19 +2935,18 @@
 					<coreName></coreName>
 				</Obj>
 				<node_objs>
-					<count>5</count>
+					<count>4</count>
 					<item_version>0</item_version>
 					<item>42</item>
 					<item>43</item>
 					<item>44</item>
 					<item>46</item>
-					<item>47</item>
 				</node_objs>
 			</item>
 			<item class_id_reference="18" object_id="_78">
 				<Obj>
 					<type>3</type>
-					<id>61</id>
+					<id>60</id>
 					<name></name>
 					<fileName></fileName>
 					<fileDirectory></fileDirectory>
@@ -2964,6 +2963,7 @@
 				<node_objs>
 					<count>12</count>
 					<item_version>0</item_version>
+					<item>48</item>
 					<item>49</item>
 					<item>50</item>
 					<item>51</item>
@@ -2975,13 +2975,12 @@
 					<item>57</item>
 					<item>58</item>
 					<item>59</item>
-					<item>60</item>
 				</node_objs>
 			</item>
 			<item class_id_reference="18" object_id="_79">
 				<Obj>
 					<type>3</type>
-					<id>67</id>
+					<id>66</id>
 					<name>burst.rd.header11</name>
 					<fileName></fileName>
 					<fileDirectory></fileDirectory>
@@ -2998,16 +2997,16 @@
 				<node_objs>
 					<count>4</count>
 					<item_version>0</item_version>
+					<item>61</item>
 					<item>62</item>
-					<item>63</item>
+					<item>64</item>
 					<item>65</item>
-					<item>66</item>
 				</node_objs>
 			</item>
 			<item class_id_reference="18" object_id="_80">
 				<Obj>
 					<type>3</type>
-					<id>76</id>
+					<id>75</id>
 					<name>burst.rd.body12</name>
 					<fileName></fileName>
 					<fileDirectory></fileDirectory>
@@ -3024,11 +3023,11 @@
 				<node_objs>
 					<count>5</count>
 					<item_version>0</item_version>
+					<item>69</item>
 					<item>70</item>
 					<item>71</item>
 					<item>72</item>
-					<item>73</item>
-					<item>75</item>
+					<item>74</item>
 				</node_objs>
 			</item>
 			<item class_id_reference="18" object_id="_81">
@@ -3049,8 +3048,9 @@
 					<coreName></coreName>
 				</Obj>
 				<node_objs>
-					<count>7</count>
+					<count>8</count>
 					<item_version>0</item_version>
+					<item>76</item>
 					<item>77</item>
 					<item>78</item>
 					<item>79</item>
@@ -3265,7 +3265,7 @@
 			<item class_id_reference="20" object_id="_108">
 				<id>131</id>
 				<edge_type>2</edge_type>
-				<source_obj>48</source_obj>
+				<source_obj>47</source_obj>
 				<sink_obj>40</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
@@ -3286,7 +3286,7 @@
 			<item class_id_reference="20" object_id="_111">
 				<id>135</id>
 				<edge_type>1</edge_type>
-				<source_obj>80</source_obj>
+				<source_obj>79</source_obj>
 				<sink_obj>42</sink_obj>
 				<is_back_edge>1</is_back_edge>
 			</item>
@@ -3314,7 +3314,7 @@
 			<item class_id_reference="20" object_id="_115">
 				<id>140</id>
 				<edge_type>1</edge_type>
-				<source_obj>46</source_obj>
+				<source_obj>81</source_obj>
 				<sink_obj>43</sink_obj>
 				<is_back_edge>1</is_back_edge>
 			</item>
@@ -3342,42 +3342,42 @@
 			<item class_id_reference="20" object_id="_119">
 				<id>145</id>
 				<edge_type>1</edge_type>
-				<source_obj>43</source_obj>
+				<source_obj>44</source_obj>
 				<sink_obj>46</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_120">
-				<id>147</id>
-				<edge_type>1</edge_type>
-				<source_obj>146</source_obj>
+				<id>146</id>
+				<edge_type>2</edge_type>
+				<source_obj>60</source_obj>
 				<sink_obj>46</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_121">
-				<id>148</id>
-				<edge_type>1</edge_type>
-				<source_obj>44</source_obj>
-				<sink_obj>47</sink_obj>
+				<id>147</id>
+				<edge_type>2</edge_type>
+				<source_obj>86</source_obj>
+				<sink_obj>46</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_122">
-				<id>149</id>
-				<edge_type>2</edge_type>
-				<source_obj>61</source_obj>
-				<sink_obj>47</sink_obj>
+				<id>150</id>
+				<edge_type>1</edge_type>
+				<source_obj>43</source_obj>
+				<sink_obj>48</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_123">
-				<id>150</id>
-				<edge_type>2</edge_type>
-				<source_obj>86</source_obj>
-				<sink_obj>47</sink_obj>
+				<id>152</id>
+				<edge_type>1</edge_type>
+				<source_obj>151</source_obj>
+				<sink_obj>48</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_124">
 				<id>153</id>
 				<edge_type>1</edge_type>
-				<source_obj>43</source_obj>
+				<source_obj>48</source_obj>
 				<sink_obj>49</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
@@ -3396,51 +3396,51 @@
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_127">
-				<id>158</id>
+				<id>157</id>
 				<edge_type>1</edge_type>
-				<source_obj>157</source_obj>
-				<sink_obj>50</sink_obj>
+				<source_obj>17</source_obj>
+				<sink_obj>51</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_128">
-				<id>159</id>
+				<id>158</id>
 				<edge_type>1</edge_type>
 				<source_obj>50</source_obj>
 				<sink_obj>51</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_129">
-				<id>160</id>
-				<edge_type>1</edge_type>
-				<source_obj>17</source_obj>
-				<sink_obj>52</sink_obj>
-				<is_back_edge>0</is_back_edge>
-			</item>
-			<item class_id_reference="20" object_id="_130">
-				<id>161</id>
+				<id>159</id>
 				<edge_type>1</edge_type>
 				<source_obj>51</source_obj>
 				<sink_obj>52</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
+			<item class_id_reference="20" object_id="_130">
+				<id>160</id>
+				<edge_type>1</edge_type>
+				<source_obj>4</source_obj>
+				<sink_obj>53</sink_obj>
+				<is_back_edge>0</is_back_edge>
+			</item>
 			<item class_id_reference="20" object_id="_131">
-				<id>162</id>
+				<id>161</id>
 				<edge_type>1</edge_type>
 				<source_obj>52</source_obj>
 				<sink_obj>53</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_132">
-				<id>163</id>
+				<id>162</id>
 				<edge_type>1</edge_type>
-				<source_obj>4</source_obj>
+				<source_obj>42</source_obj>
 				<sink_obj>54</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_133">
 				<id>164</id>
 				<edge_type>1</edge_type>
-				<source_obj>53</source_obj>
+				<source_obj>163</source_obj>
 				<sink_obj>54</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
@@ -3452,101 +3452,101 @@
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_135">
-				<id>167</id>
+				<id>168</id>
 				<edge_type>1</edge_type>
-				<source_obj>166</source_obj>
-				<sink_obj>55</sink_obj>
+				<source_obj>55</source_obj>
+				<sink_obj>56</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_136">
-				<id>168</id>
+				<id>169</id>
 				<edge_type>1</edge_type>
-				<source_obj>42</source_obj>
+				<source_obj>151</source_obj>
 				<sink_obj>56</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_137">
-				<id>171</id>
+				<id>170</id>
 				<edge_type>1</edge_type>
 				<source_obj>56</source_obj>
 				<sink_obj>57</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_138">
-				<id>172</id>
+				<id>173</id>
 				<edge_type>1</edge_type>
-				<source_obj>154</source_obj>
-				<sink_obj>57</sink_obj>
+				<source_obj>53</source_obj>
+				<sink_obj>58</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_139">
-				<id>173</id>
+				<id>174</id>
 				<edge_type>1</edge_type>
 				<source_obj>57</source_obj>
 				<sink_obj>58</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_140">
-				<id>176</id>
-				<edge_type>1</edge_type>
-				<source_obj>54</source_obj>
+				<id>175</id>
+				<edge_type>2</edge_type>
+				<source_obj>66</source_obj>
 				<sink_obj>59</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_141">
 				<id>177</id>
 				<edge_type>1</edge_type>
-				<source_obj>58</source_obj>
-				<sink_obj>59</sink_obj>
+				<source_obj>176</source_obj>
+				<sink_obj>61</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_142">
 				<id>178</id>
 				<edge_type>2</edge_type>
-				<source_obj>67</source_obj>
-				<sink_obj>60</sink_obj>
+				<source_obj>60</source_obj>
+				<sink_obj>61</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_143">
-				<id>180</id>
+				<id>179</id>
 				<edge_type>1</edge_type>
-				<source_obj>179</source_obj>
-				<sink_obj>62</sink_obj>
-				<is_back_edge>0</is_back_edge>
+				<source_obj>64</source_obj>
+				<sink_obj>61</sink_obj>
+				<is_back_edge>1</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_144">
-				<id>181</id>
+				<id>180</id>
 				<edge_type>2</edge_type>
+				<source_obj>75</source_obj>
+				<sink_obj>61</sink_obj>
+				<is_back_edge>1</is_back_edge>
+			</item>
+			<item class_id_reference="20" object_id="_145">
+				<id>181</id>
+				<edge_type>1</edge_type>
 				<source_obj>61</source_obj>
 				<sink_obj>62</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
-			<item class_id_reference="20" object_id="_145">
+			<item class_id_reference="20" object_id="_146">
 				<id>182</id>
 				<edge_type>1</edge_type>
-				<source_obj>65</source_obj>
+				<source_obj>56</source_obj>
 				<sink_obj>62</sink_obj>
-				<is_back_edge>1</is_back_edge>
-			</item>
-			<item class_id_reference="20" object_id="_146">
-				<id>183</id>
-				<edge_type>2</edge_type>
-				<source_obj>76</source_obj>
-				<sink_obj>62</sink_obj>
-				<is_back_edge>1</is_back_edge>
+				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_147">
-				<id>184</id>
+				<id>183</id>
 				<edge_type>1</edge_type>
-				<source_obj>62</source_obj>
-				<sink_obj>63</sink_obj>
+				<source_obj>61</source_obj>
+				<sink_obj>64</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_148">
 				<id>185</id>
 				<edge_type>1</edge_type>
-				<source_obj>57</source_obj>
-				<sink_obj>63</sink_obj>
+				<source_obj>184</source_obj>
+				<sink_obj>64</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_149">
@@ -3557,149 +3557,149 @@
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_150">
-				<id>188</id>
-				<edge_type>1</edge_type>
-				<source_obj>187</source_obj>
+				<id>187</id>
+				<edge_type>2</edge_type>
+				<source_obj>75</source_obj>
 				<sink_obj>65</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_151">
-				<id>189</id>
-				<edge_type>1</edge_type>
-				<source_obj>63</source_obj>
-				<sink_obj>66</sink_obj>
+				<id>188</id>
+				<edge_type>2</edge_type>
+				<source_obj>84</source_obj>
+				<sink_obj>65</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_152">
-				<id>190</id>
-				<edge_type>2</edge_type>
-				<source_obj>76</source_obj>
-				<sink_obj>66</sink_obj>
+				<id>189</id>
+				<edge_type>1</edge_type>
+				<source_obj>61</source_obj>
+				<sink_obj>69</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_153">
-				<id>191</id>
-				<edge_type>2</edge_type>
-				<source_obj>84</source_obj>
-				<sink_obj>66</sink_obj>
-				<is_back_edge>0</is_back_edge>
-			</item>
-			<item class_id_reference="20" object_id="_154">
 				<id>192</id>
 				<edge_type>1</edge_type>
-				<source_obj>62</source_obj>
+				<source_obj>53</source_obj>
 				<sink_obj>70</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
-			<item class_id_reference="20" object_id="_155">
-				<id>195</id>
+			<item class_id_reference="20" object_id="_154">
+				<id>193</id>
 				<edge_type>1</edge_type>
-				<source_obj>54</source_obj>
+				<source_obj>27</source_obj>
+				<sink_obj>71</sink_obj>
+				<is_back_edge>0</is_back_edge>
+			</item>
+			<item class_id_reference="20" object_id="_155">
+				<id>194</id>
+				<edge_type>1</edge_type>
+				<source_obj>127</source_obj>
 				<sink_obj>71</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_156">
-				<id>196</id>
+				<id>195</id>
 				<edge_type>1</edge_type>
-				<source_obj>27</source_obj>
-				<sink_obj>72</sink_obj>
+				<source_obj>69</source_obj>
+				<sink_obj>71</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_157">
-				<id>197</id>
-				<edge_type>1</edge_type>
-				<source_obj>127</source_obj>
-				<sink_obj>72</sink_obj>
-				<is_back_edge>0</is_back_edge>
-			</item>
-			<item class_id_reference="20" object_id="_158">
-				<id>198</id>
+				<id>196</id>
 				<edge_type>1</edge_type>
 				<source_obj>70</source_obj>
 				<sink_obj>72</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
-			<item class_id_reference="20" object_id="_159">
-				<id>199</id>
+			<item class_id_reference="20" object_id="_158">
+				<id>197</id>
 				<edge_type>1</edge_type>
 				<source_obj>71</source_obj>
-				<sink_obj>73</sink_obj>
+				<sink_obj>72</sink_obj>
+				<is_back_edge>0</is_back_edge>
+			</item>
+			<item class_id_reference="20" object_id="_159">
+				<id>198</id>
+				<edge_type>2</edge_type>
+				<source_obj>66</source_obj>
+				<sink_obj>74</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_160">
-				<id>200</id>
+				<id>199</id>
 				<edge_type>1</edge_type>
-				<source_obj>72</source_obj>
-				<sink_obj>73</sink_obj>
+				<source_obj>54</source_obj>
+				<sink_obj>76</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_161">
 				<id>201</id>
-				<edge_type>2</edge_type>
-				<source_obj>67</source_obj>
-				<sink_obj>75</sink_obj>
+				<edge_type>1</edge_type>
+				<source_obj>200</source_obj>
+				<sink_obj>76</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_162">
 				<id>202</id>
 				<edge_type>1</edge_type>
-				<source_obj>55</source_obj>
+				<source_obj>76</source_obj>
 				<sink_obj>77</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_163">
-				<id>204</id>
+				<id>203</id>
 				<edge_type>1</edge_type>
-				<source_obj>203</source_obj>
-				<sink_obj>77</sink_obj>
+				<source_obj>27</source_obj>
+				<sink_obj>78</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_164">
+				<id>204</id>
+				<edge_type>1</edge_type>
+				<source_obj>127</source_obj>
+				<sink_obj>78</sink_obj>
+				<is_back_edge>0</is_back_edge>
+			</item>
+			<item class_id_reference="20" object_id="_165">
 				<id>205</id>
 				<edge_type>1</edge_type>
 				<source_obj>77</source_obj>
 				<sink_obj>78</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
-			<item class_id_reference="20" object_id="_165">
-				<id>206</id>
-				<edge_type>1</edge_type>
-				<source_obj>27</source_obj>
-				<sink_obj>79</sink_obj>
-				<is_back_edge>0</is_back_edge>
-			</item>
 			<item class_id_reference="20" object_id="_166">
-				<id>207</id>
-				<edge_type>1</edge_type>
-				<source_obj>127</source_obj>
-				<sink_obj>79</sink_obj>
-				<is_back_edge>0</is_back_edge>
-			</item>
-			<item class_id_reference="20" object_id="_167">
-				<id>208</id>
+				<id>206</id>
 				<edge_type>1</edge_type>
 				<source_obj>78</source_obj>
 				<sink_obj>79</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
-			<item class_id_reference="20" object_id="_168">
-				<id>209</id>
+			<item class_id_reference="20" object_id="_167">
+				<id>207</id>
 				<edge_type>1</edge_type>
-				<source_obj>79</source_obj>
+				<source_obj>42</source_obj>
+				<sink_obj>80</sink_obj>
+				<is_back_edge>0</is_back_edge>
+			</item>
+			<item class_id_reference="20" object_id="_168">
+				<id>208</id>
+				<edge_type>1</edge_type>
+				<source_obj>39</source_obj>
 				<sink_obj>80</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_169">
-				<id>210</id>
+				<id>209</id>
 				<edge_type>1</edge_type>
-				<source_obj>42</source_obj>
+				<source_obj>43</source_obj>
 				<sink_obj>81</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_170">
 				<id>211</id>
 				<edge_type>1</edge_type>
-				<source_obj>39</source_obj>
+				<source_obj>210</source_obj>
 				<sink_obj>81</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
@@ -3762,7 +3762,7 @@
 			<item class_id_reference="20" object_id="_179">
 				<id>221</id>
 				<edge_type>2</edge_type>
-				<source_obj>48</source_obj>
+				<source_obj>47</source_obj>
 				<sink_obj>83</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
@@ -3770,77 +3770,77 @@
 				<id>460</id>
 				<edge_type>2</edge_type>
 				<source_obj>41</source_obj>
-				<sink_obj>48</sink_obj>
+				<sink_obj>47</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_181">
 				<id>461</id>
 				<edge_type>2</edge_type>
-				<source_obj>48</source_obj>
+				<source_obj>47</source_obj>
 				<sink_obj>86</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_182">
 				<id>462</id>
 				<edge_type>2</edge_type>
-				<source_obj>48</source_obj>
-				<sink_obj>61</sink_obj>
+				<source_obj>47</source_obj>
+				<sink_obj>60</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_183">
 				<id>463</id>
 				<edge_type>2</edge_type>
-				<source_obj>61</source_obj>
-				<sink_obj>67</sink_obj>
+				<source_obj>60</source_obj>
+				<sink_obj>66</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_184">
 				<id>464</id>
 				<edge_type>2</edge_type>
-				<source_obj>67</source_obj>
+				<source_obj>66</source_obj>
 				<sink_obj>84</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_185">
 				<id>465</id>
 				<edge_type>2</edge_type>
-				<source_obj>67</source_obj>
-				<sink_obj>76</sink_obj>
+				<source_obj>66</source_obj>
+				<sink_obj>75</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_186">
 				<id>466</id>
 				<edge_type>2</edge_type>
-				<source_obj>76</source_obj>
-				<sink_obj>67</sink_obj>
+				<source_obj>75</source_obj>
+				<sink_obj>66</sink_obj>
 				<is_back_edge>1</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_187">
 				<id>467</id>
 				<edge_type>2</edge_type>
 				<source_obj>84</source_obj>
-				<sink_obj>48</sink_obj>
+				<sink_obj>47</sink_obj>
 				<is_back_edge>1</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_188">
 				<id>468</id>
 				<edge_type>4</edge_type>
-				<source_obj>81</source_obj>
+				<source_obj>80</source_obj>
 				<sink_obj>82</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_189">
 				<id>469</id>
 				<edge_type>4</edge_type>
-				<source_obj>80</source_obj>
-				<sink_obj>81</sink_obj>
+				<source_obj>79</source_obj>
+				<sink_obj>80</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 			<item class_id_reference="20" object_id="_190">
 				<id>470</id>
 				<edge_type>4</edge_type>
-				<source_obj>59</source_obj>
-				<sink_obj>71</sink_obj>
+				<source_obj>58</source_obj>
+				<sink_obj>70</sink_obj>
 				<is_back_edge>0</is_back_edge>
 			</item>
 		</edges>
@@ -3929,8 +3929,8 @@
 			<basic_blocks>
 				<count>2</count>
 				<item_version>0</item_version>
-				<item>48</item>
-				<item>61</item>
+				<item>47</item>
+				<item>60</item>
 			</basic_blocks>
 			<mII>-1</mII>
 			<mDepth>-1</mDepth>
@@ -3952,8 +3952,8 @@
 			<basic_blocks>
 				<count>2</count>
 				<item_version>0</item_version>
-				<item>67</item>
-				<item>76</item>
+				<item>66</item>
+				<item>75</item>
 			</basic_blocks>
 			<mII>-1</mII>
 			<mDepth>-1</mDepth>
@@ -4141,7 +4141,7 @@
 			</second>
 		</item>
 		<item>
-			<first>47</first>
+			<first>48</first>
 			<second>
 				<first>1</first>
 				<second>0</second>
@@ -4185,14 +4185,14 @@
 		<item>
 			<first>54</first>
 			<second>
-				<first>1</first>
+				<first>8</first>
 				<second>0</second>
 			</second>
 		</item>
 		<item>
 			<first>55</first>
 			<second>
-				<first>8</first>
+				<first>2</first>
 				<second>0</second>
 			</second>
 		</item>
@@ -4214,20 +4214,20 @@
 			<first>58</first>
 			<second>
 				<first>2</first>
-				<second>0</second>
+				<second>6</second>
 			</second>
 		</item>
 		<item>
 			<first>59</first>
 			<second>
-				<first>2</first>
-				<second>6</second>
+				<first>8</first>
+				<second>0</second>
 			</second>
 		</item>
 		<item>
-			<first>60</first>
+			<first>61</first>
 			<second>
-				<first>8</first>
+				<first>9</first>
 				<second>0</second>
 			</second>
 		</item>
@@ -4239,7 +4239,7 @@
 			</second>
 		</item>
 		<item>
-			<first>63</first>
+			<first>64</first>
 			<second>
 				<first>9</first>
 				<second>0</second>
@@ -4253,23 +4253,23 @@
 			</second>
 		</item>
 		<item>
-			<first>66</first>
-			<second>
-				<first>9</first>
-				<second>0</second>
-			</second>
-		</item>
-		<item>
-			<first>70</first>
+			<first>69</first>
 			<second>
 				<first>10</first>
 				<second>0</second>
 			</second>
 		</item>
 		<item>
-			<first>71</first>
+			<first>70</first>
 			<second>
 				<first>9</first>
+				<second>0</second>
+			</second>
+		</item>
+		<item>
+			<first>71</first>
+			<second>
+				<first>10</first>
 				<second>0</second>
 			</second>
 		</item>
@@ -4281,23 +4281,23 @@
 			</second>
 		</item>
 		<item>
-			<first>73</first>
+			<first>74</first>
 			<second>
 				<first>10</first>
 				<second>0</second>
 			</second>
 		</item>
 		<item>
-			<first>75</first>
+			<first>76</first>
 			<second>
-				<first>10</first>
+				<first>9</first>
 				<second>0</second>
 			</second>
 		</item>
 		<item>
 			<first>77</first>
 			<second>
-				<first>9</first>
+				<first>11</first>
 				<second>0</second>
 			</second>
 		</item>
@@ -4312,20 +4312,20 @@
 			<first>79</first>
 			<second>
 				<first>11</first>
-				<second>0</second>
+				<second>1</second>
 			</second>
 		</item>
 		<item>
 			<first>80</first>
 			<second>
-				<first>11</first>
-				<second>1</second>
+				<first>12</first>
+				<second>0</second>
 			</second>
 		</item>
 		<item>
 			<first>81</first>
 			<second>
-				<first>12</first>
+				<first>9</first>
 				<second>0</second>
 			</second>
 		</item>
@@ -4362,28 +4362,28 @@
 			</second>
 		</item>
 		<item>
-			<first>48</first>
+			<first>47</first>
 			<second>
 				<first>1</first>
 				<second>1</second>
 			</second>
 		</item>
 		<item>
-			<first>61</first>
+			<first>60</first>
 			<second>
 				<first>1</first>
 				<second>8</second>
 			</second>
 		</item>
 		<item>
-			<first>67</first>
+			<first>66</first>
 			<second>
 				<first>9</first>
 				<second>9</second>
 			</second>
 		</item>
 		<item>
-			<first>76</first>
+			<first>75</first>
 			<second>
 				<first>9</first>
 				<second>10</second>

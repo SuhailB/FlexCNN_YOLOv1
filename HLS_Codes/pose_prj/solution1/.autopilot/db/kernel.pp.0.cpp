@@ -25155,7 +25155,7 @@ _assert (const char *_Message, const char *_File, unsigned _Line);
 
 using namespace std;
 using namespace hls;
-# 43 "./util.h"
+# 47 "./util.h"
 typedef float data_t0;
 typedef float data_t1;
 typedef float data_t2;
@@ -25168,7 +25168,7 @@ typedef ap_uint<512> bus_t0;
 typedef ap_uint<512> bus_t1;
 typedef ap_uint<512> bus_t2;
 typedef ap_uint<32> bus_t3;
-# 64 "./util.h"
+# 68 "./util.h"
 typedef unsigned int uint;
 typedef ap_uint<192> ConfigInst;
 
@@ -25203,15 +25203,21 @@ void top_kernel(
   bus_t3 *layer_config
 );
 }
-# 109 "./util.h"
+# 113 "./util.h"
 void mobilenet_preprocess(
   data_t0* cin_hw,
   data_t1* weight_hw,
-  data_t2* bias_hw
+  data_t2* bias_hw,
+  data_t0 LAYER_out[12][12][425]
 );
 
-void instInit(uint config[16*32]);
-# 139 "./util.h"
+void instInit(uint config[15*32]);
+
+void openpose_postprocess(
+  data_t0* cin_hw,
+  data_t0 LAYER_out[12][12][425]
+);
+# 144 "./util.h"
 void extract_layer(
   data_t0* cin_hw,
   uint* config,
@@ -25219,7 +25225,7 @@ void extract_layer(
 );
 
 void compute_layer();
-# 160 "./util.h"
+# 165 "./util.h"
 void kernel(
   stream<DepthConvData0Type> &fifo_cin,
   stream<WeightLoadData1Type> &fifo_weight,
@@ -25253,12 +25259,12 @@ void stencil_w3(
  T_data_t0 line_buf1[T_UNROLL][T_IN_W_T];
   T_data_t0 line_buf2[T_UNROLL][T_IN_W_T];
   T_data_t0 line_buf3[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=1 complete
-#pragma HLS ARRAY_PARTITIOn variable=&line_buf1 dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf3 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf3 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITIOn variable=line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf3 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf3 dim=2 complete
 
  bool col_skip = 0;
   bool row_skip = 0;
@@ -25268,11 +25274,11 @@ void stencil_w3(
   uint inner_trans_cnt = 0;
 
   ap_uint<T_DATA_WIDTH0> utmp[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&utmp complete
+#pragma HLS ARRAY_PARTITION variable=utmp complete
  T_data_t0 sums[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&sums complete
+#pragma HLS ARRAY_PARTITION variable=sums complete
 
- (void) ((!!((layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98))) || (_assert("(layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98)","./util.h",212),0));
+ (void) ((!!((layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98))) || (_assert("(layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98)","./util.h",217),0));
   int oo = 0;
   int iter = 0;
   int oo_bound = layer_in_num_t / T_UNROLL;
@@ -25327,7 +25333,7 @@ void stencil_w3(
       if (iter < layer_in_h_t * layer_in_w_t){
 
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 319 "./util.h"
+# 324 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25354,7 +25360,7 @@ void stencil_w3(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 376 "./util.h"
+# 381 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
         line_buf1[dup][0] = 0.0;
@@ -25460,21 +25466,21 @@ void stencil_w1(
 ){
 #pragma HLS INLINE off
  T_data_t0 line_buf1[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=2 complete
 
 
  ap_uint<T_DATA_WIDTH0> utmp[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&utmp complete
+#pragma HLS ARRAY_PARTITION variable=utmp complete
  T_data_t0 sums[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&sums complete
+#pragma HLS ARRAY_PARTITION variable=sums complete
 
  bool col_skip = 0;
   bool row_skip = 0;
   bool col_strip_skip = 0;
   bool row_strip_skip = 0;
 
-  (void) ((!!((layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96))) || (_assert("(layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96)","./util.h",495),0));
+  (void) ((!!((layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96))) || (_assert("(layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96)","./util.h",500),0));
 
   int oo = 0;
   int iter = 0;
@@ -25506,7 +25512,7 @@ void stencil_w1(
       if (iter < layer_in_h_t * layer_in_w_t){
 
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 579 "./util.h"
+# 584 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25533,7 +25539,7 @@ void stencil_w1(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 636 "./util.h"
+# 641 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
         line_buf1[dup][0] = 0.0;
@@ -25617,14 +25623,14 @@ void upsample_w2(
 #pragma HLS INLINE off
  T_data_t0 line_buf1[T_UNROLL][T_IN_W_T+T_WS];
   T_data_t0 line_buf2[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=2 complete
 
  T_data_t0 line_buf_inp[T_UNROLL][T_IN_W_T+T_WS];
-#pragma HLS ARRAY_PARTITION variable=&line_buf_inp dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf_inp dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf_inp dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf_inp dim=2 complete
 
  bool col_skip = 0;
   bool row_skip = 0;
@@ -25635,18 +25641,18 @@ void upsample_w2(
 
 
   ap_uint<T_DATA_WIDTH0> utmp[T_WS][T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&utmp dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&utmp dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=utmp dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=utmp dim=2 complete
  T_data_t0 sums[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&sums dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&sums dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=sums dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=sums dim=2 complete
 
  ap_uint<T_DATA_WIDTH0> utmp_inp[T_WS][T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&utmp_inp dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&utmp_inp dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=utmp_inp dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=utmp_inp dim=2 complete
  T_data_t0 sums_inp[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&sums_inp dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&sums_inp dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=sums_inp dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=sums_inp dim=2 complete
 
  int oo =0;
   int iter = 0;
@@ -25688,7 +25694,7 @@ void upsample_w2(
 
       if (iter < layer_in_h_t * T_IN_W_T){
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 842 "./util.h"
+# 847 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25715,7 +25721,7 @@ void upsample_w2(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 899 "./util.h"
+# 904 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
         line_buf_inp[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
@@ -25801,7 +25807,7 @@ void upsample_w2(
 
             );
         fifo_out1.write(wide_data);
-# 992 "./util.h"
+# 997 "./util.h"
       }
     }
 
@@ -25850,13 +25856,7 @@ void upsample_w2(
     }
   }
 }
-
-
-
-
-
-
-
+# 1528 "./util.h"
 template <class T_data_t0, int T_IN_H_T, int T_IN_W_T, int T_UNROLL, int T_WS, int T_DATA_WIDTH0>
 void maxpool_w2(
   hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_in,
@@ -25864,15 +25864,19 @@ void maxpool_w2(
   uint stride,
   bool max_en,
   uint layer_out_num_t,
-  uint layer_in_h_t
+  uint layer_in_h_t,
+  uint layer_in_w_t
 ){
+
+if(stride==1) layer_in_w_t++;
+
 #pragma HLS INLINE off
- T_data_t0 line_buf1[T_UNROLL][T_IN_W_T];
+ T_data_t0 line_buf1[T_UNROLL][T_IN_W_T+1];
   T_data_t0 line_buf2[T_UNROLL][T_WS];
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=1 complete
-#pragma HLS ARRAY_PARTITION variable=&line_buf2 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=2 complete
 
  bool col_skip = 0;
   bool row_skip = 0;
@@ -25883,134 +25887,7718 @@ void maxpool_w2(
 
 
   ap_uint<T_DATA_WIDTH0> utmp[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&utmp complete
+#pragma HLS ARRAY_PARTITION variable=utmp complete
  T_data_t0 sums[T_UNROLL];
-#pragma HLS ARRAY_PARTITION variable=&sums complete
+#pragma HLS ARRAY_PARTITION variable=sums complete
 
  int oo =0;
   int iter = 0;
-  int oo_bound = layer_out_num_t / T_UNROLL;
-  int iter_bound = layer_in_h_t * T_IN_W_T + (T_WS - 1) * T_IN_W_T + T_WS - 1;
+  int oo_bound = (layer_out_num_t)/(T_UNROLL);
+  int iter_bound = layer_in_h_t * layer_in_w_t + (T_WS - 1) * layer_in_w_t + T_WS - 1;
   int total_bound = oo_bound * iter_bound;
 
-  for (int total_iter = 0; total_iter < total_bound; total_iter++){
+    for (int total_iter = 0; total_iter < total_bound; total_iter++){
 #pragma HLS PIPELINE II=1
  if (iter == 0){
-      trans_cnt = 0;
-    }
+        trans_cnt = 0;
+      }
 
-    ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
-    if (iter < layer_in_h_t * T_IN_W_T){
-      wide_data_in = fifo_in.read();
-    }
+      ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
 
-    for (int dup = 0; dup < T_UNROLL; dup++){
+      if (iter < layer_in_h_t * layer_in_w_t && !(iter%layer_in_w_t==layer_in_w_t-1 && stride==1)){
+        wide_data_in = fifo_in.read();
+      }
 
-      T_data_t0 tmp1 = line_buf1[dup][T_IN_W_T - 1];
-      for (int i = T_IN_W_T - 1; i >= 1; i--){
+      for (int dup = 0; dup < T_UNROLL; dup++){
+
+        T_data_t0 tmp1 = line_buf1[dup][layer_in_w_t - 1];
+        for (int i = T_IN_W_T - 1; i >= 1; i--){
 #pragma HLS UNROLL
  line_buf1[dup][i] = line_buf1[dup][i - 1];
-      }
-      for (int i = T_WS - 1; i >= 1; i--){
+        }
+        for (int i = T_WS - 1; i >= 1; i--){
 #pragma HLS UNROLL
  line_buf2[dup][i] = line_buf2[dup][i - 1];
-      }
-
-      if (iter < layer_in_h_t * T_IN_W_T){
-
-        ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 1161 "./util.h"
-        switch(dup){
-          case 0:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
-            break;
-          case 1:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
-            break;
-          case 2:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
-            break;
-          case 3:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
-            break;
-          case 4:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
-            break;
-          case 5:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
-            break;
-          case 6:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
-            break;
-          case 7:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
-            break;
-        }
-# 1218 "./util.h"
-        line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
-      } else {
-        line_buf1[dup][0] = -100.0;
-      }
-      line_buf2[dup][0] = tmp1;
-
-
-      T_data_t0 mux_0_0 = ((line_buf2[dup][T_WS - 1])>(line_buf2[dup][T_WS - 2])?(line_buf2[dup][T_WS - 1]):(line_buf2[dup][T_WS - 2]));
-      T_data_t0 mux_0_1 = ((line_buf1[dup][T_WS - 1])>(line_buf1[dup][T_WS - 2])?(line_buf1[dup][T_WS - 1]):(line_buf1[dup][T_WS - 2]));
-      T_data_t0 mux_1_0 = ((mux_0_0)>(mux_0_1)?(mux_0_0):(mux_0_1));
-
-      if (max_en == 1)
-        sums[dup] = mux_1_0;
-      else
-        sums[dup] = line_buf1[dup][T_WS - 2];
-    }
-
-
-
-    if (iter >= (T_WS - 1) * T_IN_W_T + T_WS - 1){
-
-      col_skip = (trans_cnt % stride != 0);
-      row_skip = ((trans_cnt / T_IN_W_T) % stride != 0);
-      if (!col_skip && !row_skip){
-        for (int ii = 0; ii < T_UNROLL; ii++){
-          T_data_t0 sum_tmp = sums[ii];
-          ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
-          utmp[ii] = utmp_tmp;
         }
 
-        ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+        if (iter%layer_in_w_t==layer_in_w_t-1 && stride==1){
+          line_buf1[dup][0] = -10.0;
+        }
+        else if (iter < layer_in_h_t * layer_in_w_t){
+
+          ap_uint<T_DATA_WIDTH0> sel_tmp;
+# 1650 "./util.h"
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+          }
+# 1707 "./util.h"
+          line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
+        } else {
+          line_buf1[dup][0] = -10.0;
+        }
+        line_buf2[dup][0] = tmp1;
 
 
+        T_data_t0 mux_0_0 = ((line_buf2[dup][T_WS - 1])>(line_buf2[dup][T_WS - 2])?(line_buf2[dup][T_WS - 1]):(line_buf2[dup][T_WS - 2]));
+        T_data_t0 mux_0_1 = ((line_buf1[dup][T_WS - 1])>(line_buf1[dup][T_WS - 2])?(line_buf1[dup][T_WS - 1]):(line_buf1[dup][T_WS - 2]));
+        T_data_t0 mux_1_0 = ((mux_0_0)>(mux_0_1)?(mux_0_0):(mux_0_1));
 
-
-
-
-            utmp[7], utmp[6], utmp[5], utmp[4],
-            utmp[3], utmp[2], utmp[1], utmp[0]
-
-
-
-
-
-
-
-            );
-        fifo_out.write(wide_data);
+        if (max_en == 1)
+          sums[dup] = mux_1_0;
+        else
+          sums[dup] = line_buf1[dup][T_WS - 2];
       }
-      trans_cnt++;
-    }
 
-    iter++;
-    if (iter == iter_bound){
-      iter = 0;
-      oo++;
-      if (oo == oo_bound){
-        oo = 0;
+
+
+      if (iter >= (T_WS - 1) * layer_in_w_t + T_WS - 1 && !(iter%layer_in_w_t==0 && stride==1)){
+
+        col_skip = (trans_cnt % stride != 0);
+        row_skip = ((trans_cnt / layer_in_w_t) % stride != 0);
+        if (!col_skip && !row_skip){
+          for (int ii = 0; ii < T_UNROLL; ii++){
+            T_data_t0 sum_tmp = sums[ii];
+            ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
+            utmp[ii] = utmp_tmp;
+          }
+
+          ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+
+
+
+
+
+
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]
+
+
+
+
+
+
+
+              );
+          fifo_out.write(wide_data);
+        }
+        trans_cnt++;
+      }
+
+      iter++;
+      if (iter == iter_bound){
+        iter = 0;
+        oo++;
+        if (oo == oo_bound){
+          oo = 0;
+        }
       }
     }
-  }
 }
 # 1 "kernel.cpp" 2
-# 27 "kernel.cpp"
+# 12 "kernel.cpp"
+# 1 "E:/Programs/vivado18/Vivado/2018.3/common/technology/autopilot\\ap_int.h" 1
+# 12 "kernel.cpp" 2
+
+
+
+
+
+
+
+using namespace hls;
+
+
+
+typedef ap_uint<192> U1_ConfigInst;
+
+
+typedef float U1_data_t0;
+typedef ap_uint<512> U1_bus_t0;
+
+
+typedef float U1_data_t1;
+typedef ap_uint<512> U1_bus_t1;
+
+
+typedef float U1_data_t2;
+typedef ap_uint<512> U1_bus_t2;
+
+
+typedef unsigned int uint;
+union ufloat{
+ float f;
+ unsigned int u;
+};
+# 92 "kernel.cpp"
+struct U1_Data0TransferChannelType{
+ U1_Data0TransferChannelType(){}
+ U1_Data0TransferChannelType(
+   ap_uint<32*8> data_t,
+   unsigned int feeder_id_t,
+   bool new_pair_t,
+   bool last_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  feeder_id = feeder_id_t;
+  new_pair = new_pair_t;
+  last_pair = last_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ ap_uint<32*8> data;
+ unsigned int feeder_id;
+ bool new_pair;
+ bool last_pair;
+ unsigned int FILTER_S;
+};
+
+struct U1_Data1TransferChannelType{
+ U1_Data1TransferChannelType(){}
+ U1_Data1TransferChannelType(
+   ap_uint<32*8> data_t,
+   unsigned int feeder_id_t,
+   bool new_pair_t,
+   bool last_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  feeder_id = feeder_id_t;
+  new_pair = new_pair_t;
+  last_pair = last_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ ap_uint<32*8> data;
+ unsigned int feeder_id;
+ bool new_pair;
+ bool last_pair;
+ unsigned int FILTER_S;
+};
+
+struct U1_Data2TransferChannelType{
+ U1_Data2TransferChannelType(){}
+ U1_Data2TransferChannelType(
+   ap_uint<32*8> data_t){
+  data = data_t;
+ }
+ ap_uint<32*8> data;
+};
+
+struct U1_Data0PEChannelType{
+ U1_Data0PEChannelType(){}
+ U1_Data0PEChannelType(
+   ap_uint<256> data_t
+ ){
+  data = data_t;
+ }
+ U1_Data0PEChannelType(
+   ap_uint<256> data_t,
+   bool new_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  new_pair = new_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ U1_Data0PEChannelType(
+   ap_uint<256> data_t,
+   bool new_pair_t,
+   bool last_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  new_pair = new_pair_t;
+  last_pair = last_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ ap_uint<256> data;
+ bool new_pair;
+ bool last_pair;
+ unsigned int FILTER_S;
+};
+
+typedef ap_uint<256> U1_Data0SIMDType;
+
+struct U1_Data1PEChannelType{
+ U1_Data1PEChannelType(){}
+ U1_Data1PEChannelType(
+   ap_uint<256> data_t
+ ){
+  data = data_t;
+ }
+ U1_Data1PEChannelType(
+   ap_uint<256> data_t,
+   bool new_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  new_pair = new_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ U1_Data1PEChannelType(
+   ap_uint<256> data_t,
+   bool new_pair_t,
+   bool last_pair_t,
+   unsigned int filter_s_t
+ ){
+  data = data_t;
+  new_pair = new_pair_t;
+  last_pair = last_pair_t;
+  FILTER_S = filter_s_t;
+ }
+ ap_uint<256> data;
+ bool new_pair;
+ bool last_pair;
+ unsigned int FILTER_S;
+};
+
+typedef ap_uint<256> U1_Data1SIMDType;
+
+struct U1_Data2PEChannelType{
+ U1_Data2PEChannelType(){}
+ U1_Data2PEChannelType(
+   U1_data_t2 data_t){
+  data = data_t;
+ }
+ U1_data_t2 data;
+};
+
+void U1_DataFeed0Head_Shim(
+  U1_bus_t0* cin,
+  stream<ap_uint<32 * 8> > &fifo_transfer_cin,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_BATCH,
+  uint LAYER_STRIDE,
+  stream<U1_ConfigInst> &fifo_kernel_config_out
+);
+
+void U1_DataFeed0Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out0,
+  stream<U1_ConfigInst> &fifo_kernel_config_in,
+  stream<U1_ConfigInst> &fifo_kernel_config_out,
+  stream<uint> &fifo_config_out0,
+  stream<uint> &fifo_config_out1
+);
+
+void U1_DataFeed1Head_Shim(
+  U1_bus_t1* weight,
+  stream<ap_uint<32 * 8> > &fifo_transfer_weight,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_BATCH,
+  uint LAYER_STRIDE
+);
+
+void U1_DataFeed1Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out0,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+);
+
+void U1_DataCollect2Head_Shim(
+  U1_bus_t2* cout,
+  stream<ap_uint<32 * 8> > &fifo_transfer_cout,
+  stream<U1_ConfigInst> &fifo_kernel_config_in,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE
+);
+
+void U1_DataCollect2Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_out,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in0,
+  stream<uint> &fifo_config_in
+);
+
+void U1_DataFeed0Engine0_wrapper(
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0,
+  stream<uint> &fifo_config_out1
+);
+
+void U1_DataFeed0EngineLast(
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out1
+);
+
+void U1_DataFeed1Engine0_wrapper(
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0
+);
+
+void U1_DataFeed1EngineLast(
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in
+);
+
+void U1_DataCollect2Engine0_wrapper(
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in0,
+  stream<uint> &fifo_config_in1,
+  stream<uint> &fifo_config_out
+);
+
+void U1_DataCollect2EngineLast(
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in0,
+  stream<uint> &fifo_config_out
+);
+
+void U1_kernel(
+  U1_bus_t0* cin,
+  U1_bus_t1* weight,
+  U1_bus_t2* cout,
+  bool init,
+  unsigned int FILTER_S
+);
+
+
+
+
+
+
+template<class data_t, class bus_t, int WIDTH>
+data_t data_select(
+  bus_t bus_data,
+  uint offset
+){
+ data_t ret;
+ ret = Reinterpret<data_t>((ap_uint<WIDTH>)bus_data(WIDTH-1 + offset*WIDTH, offset*WIDTH));
+ return ret;
+}
+# 385 "kernel.cpp"
+void U1_DataFeed0Head_Shim(
+  U1_bus_t0* cin,
+  stream<ap_uint<32 * 8> > &fifo_transfer_cin,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_BATCH,
+  stream<U1_ConfigInst> &fifo_kernel_config_out
+){
+#pragma HLS INLINE off
+
+ uint LAYER_TASK_NUM1 = (LAYER_IN_NUM / LAYER_IN_NUM_T) * (LAYER_OUT_NUM / LAYER_OUT_NUM_T) * (LAYER_OUT_IMG_H / LAYER_IN_IMG_H_T * LAYER_STRIDE) * (LAYER_OUT_IMG_W / LAYER_IN_IMG_W_T * LAYER_STRIDE);
+ uint LAYER_TASK_NUM2 = (LAYER_OUT_NUM / LAYER_OUT_NUM_T) * (LAYER_OUT_IMG_H / LAYER_IN_IMG_H_T * LAYER_STRIDE) * (LAYER_OUT_IMG_W / LAYER_IN_IMG_W_T * LAYER_STRIDE);
+ uint LAYER_LOCAL_ACCUM_NUM = LAYER_IN_NUM_T / 8 * LAYER_FILTER_S * LAYER_FILTER_S;
+ uint LAYER_LOCAL_REG_NUM = (LAYER_IN_IMG_H_T / LAYER_STRIDE) * (LAYER_IN_IMG_W_T / 8 / LAYER_STRIDE) * LAYER_OUT_NUM_T / 8;
+ uint LAYER_ROW_IL_FACTOR = LAYER_OUT_NUM_T / 8;
+ uint LAYER_COL_IL_FACTOR = LAYER_IN_IMG_W_T / 8 / LAYER_STRIDE;
+
+ ap_uint<32> CIN_OFFSET = 0;
+ ap_uint<32> WEIGHT_OFFSET = 0;
+ ap_uint<32> BIAS_OFFSET = 0;
+ ap_uint<32> COUT_OFFSET = 0;
+ ap_uint<16> FILTER_S1 = LAYER_FILTER_S;
+ ap_uint<16> FILTER_S2 = LAYER_FILTER_S;
+ ap_uint<32> STRIDE = LAYER_STRIDE;
+ ap_uint<32> LAYER_EN = 0;
+ ap_uint<32> LAYER_IN_NUM_cast = LAYER_IN_NUM;
+ ap_uint<32> LAYER_OUT_NUM_cast = LAYER_OUT_NUM;
+ ap_uint<32> LAYER_IN_NUM_T_cast = LAYER_IN_NUM_T;
+ ap_uint<32> LAYER_OUT_NUM_T_cast = LAYER_OUT_NUM_T;
+ ap_uint<32> LAYER_IN_IMG_H_T_cast = LAYER_IN_IMG_H_T;
+ ap_uint<32> LAYER_IN_IMG_W_T_cast = LAYER_IN_IMG_W_T;
+ ap_uint<32> LAYER_IN_IMG_H_cast = LAYER_IN_IMG_H;
+ ap_uint<32> LAYER_IN_IMG_W_cast = LAYER_IN_IMG_W;
+ ap_uint<32> LAYER_OUT_IMG_H_cast = LAYER_OUT_IMG_H;
+ ap_uint<32> LAYER_OUT_IMG_W_cast = LAYER_OUT_IMG_W;
+ ap_uint<32> LAYER_BATCH_cast = LAYER_BATCH;
+
+ ap_uint<32> LAYER_TASK_NUM1_cast = LAYER_TASK_NUM1;
+ ap_uint<32> LAYER_TASK_NUM2_cast = LAYER_TASK_NUM2;
+ ap_uint<32> LAYER_LOCAL_ACCUM_NUM_cast = LAYER_LOCAL_ACCUM_NUM;
+ ap_uint<32> LAYER_LOCAL_REG_NUM_cast = LAYER_LOCAL_REG_NUM;
+ ap_uint<32> LAYER_ROW_IL_FACTOR_cast = LAYER_ROW_IL_FACTOR;
+ ap_uint<32> LAYER_COL_IL_FACTOR_cast = LAYER_COL_IL_FACTOR;
+
+ U1_bus_t0 cin_buf[672000 / (512/32)];
+ ap_uint<32 * 8> sel_tmp[(512/32) / 8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp complete dim=1
+
+ for (ap_uint<2> layer_iter = 0; layer_iter < LAYER_BATCH; layer_iter++){
+  U1_ConfigInst inst0 = (LAYER_OUT_IMG_W_cast, LAYER_OUT_IMG_H_cast, LAYER_IN_IMG_W_cast, LAYER_IN_IMG_H_cast, LAYER_OUT_NUM_cast, LAYER_IN_NUM_cast);
+  U1_ConfigInst inst1 = (LAYER_OUT_IMG_W_cast, LAYER_OUT_IMG_H_cast, LAYER_IN_IMG_W_cast, LAYER_IN_IMG_H_cast, LAYER_OUT_NUM_cast, LAYER_IN_NUM_cast);
+  U1_ConfigInst inst2 = (STRIDE, FILTER_S2, FILTER_S1, COUT_OFFSET, BIAS_OFFSET, WEIGHT_OFFSET, CIN_OFFSET);
+  U1_ConfigInst inst3 = (LAYER_BATCH_cast, LAYER_IN_IMG_W_T_cast, LAYER_IN_IMG_H_T_cast, LAYER_OUT_NUM_T_cast, LAYER_IN_NUM_T_cast, LAYER_EN);
+  U1_ConfigInst inst4 = (LAYER_COL_IL_FACTOR_cast, LAYER_ROW_IL_FACTOR_cast, LAYER_LOCAL_REG_NUM_cast, LAYER_LOCAL_ACCUM_NUM_cast, LAYER_TASK_NUM2_cast, LAYER_TASK_NUM1_cast);
+
+  fifo_kernel_config_out.write(inst0);
+  fifo_kernel_config_out.write(inst1);
+  fifo_kernel_config_out.write(inst2);
+  fifo_kernel_config_out.write(inst3);
+  fifo_kernel_config_out.write(inst4);
+
+  for (int out_img_h_t = 0; out_img_h_t < LAYER_OUT_IMG_H; out_img_h_t += LAYER_IN_IMG_H_T / LAYER_STRIDE){
+   for (int out_img_w_t = 0; out_img_w_t < LAYER_OUT_IMG_W; out_img_w_t += LAYER_IN_IMG_W_T / LAYER_STRIDE){
+    for (int out_num_t = 0; out_num_t < LAYER_OUT_NUM; out_num_t += LAYER_OUT_NUM_T){
+     uint chunk_offset = out_img_h_t * LAYER_IN_IMG_W * LAYER_IN_NUM;
+     for (int in_img_h_t = 0; in_img_h_t < LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1; in_img_h_t++){
+      uint local_chunk_offset = chunk_offset + in_img_h_t * LAYER_IN_IMG_W * LAYER_IN_NUM + out_img_w_t * LAYER_IN_NUM;
+      memcpy((void*)(cin_buf + in_img_h_t * (LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1) * LAYER_IN_NUM / (512/32)), (void*)(cin + local_chunk_offset / (512/32)), sizeof(U1_data_t0) * (LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1) * LAYER_IN_NUM);
+     }
+     for (int in_num_t = 0; in_num_t < LAYER_IN_NUM; in_num_t += LAYER_IN_NUM_T){
+      for (int ii = 0; ii < LAYER_IN_NUM_T / 8; ii++){
+       for (int hh = 0; hh < LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1; hh++){
+        for (int ww = 0; ww < LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1; ww++){
+#pragma HLS PIPELINE II=1
+ uint cin_local_idx = hh * (LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1) * LAYER_IN_NUM + ww * LAYER_IN_NUM + (in_num_t + ii * 8);
+         uint cin_bus_idx = cin_local_idx / (512/32);
+         uint cin_bus_offset = cin_local_idx % (512/32);
+         U1_bus_t0 bus_data = cin_buf[cin_bus_idx];
+         ap_uint<32 * 8> fifo_cin_data;
+         for (ap_uint<2> s = 0; s < (512/32) / 8; s++){
+#pragma HLS UNROLL
+ sel_tmp[s] = bus_data(32 * 8 - 1, 0);
+          bus_data = bus_data >> (32 * 8);
+         }
+         fifo_cin_data = sel_tmp[cin_bus_offset / 8];
+         fifo_transfer_cin.write(fifo_cin_data);
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_DataFeed0Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out0,
+  stream<U1_ConfigInst> &fifo_kernel_config_in,
+  stream<U1_ConfigInst> &fifo_kernel_config_out,
+  stream<uint> &fifo_config_out0,
+  stream<uint> &fifo_config_out1
+){
+#pragma HLS INLINE off
+#pragma HLS DATA_PACK variable=fifo_transfer_out0
+
+
+ ap_uint<32 * 8> cin_buf[96 * 14 * 50 / 8];
+#pragma HLS ARRAY_PARTITION variable=cin_buf dim=1 block factor=1
+
+
+ U1_ConfigInst inst0 = fifo_kernel_config_in.read();
+ fifo_kernel_config_out.write(inst0);
+ U1_ConfigInst inst1 = fifo_kernel_config_in.read();
+ fifo_kernel_config_out.write(inst1);
+ U1_ConfigInst inst2 = fifo_kernel_config_in.read();
+ fifo_kernel_config_out.write(inst2);
+ U1_ConfigInst inst3 = fifo_kernel_config_in.read();
+ fifo_kernel_config_out.write(inst3);
+ U1_ConfigInst inst4 = fifo_kernel_config_in.read();
+ fifo_kernel_config_out.write(inst4);
+ ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   inst0 = fifo_kernel_config_in.read();
+   fifo_kernel_config_out.write(inst0);
+   inst1 = fifo_kernel_config_in.read();
+   fifo_kernel_config_out.write(inst1);
+   inst2 = fifo_kernel_config_in.read();
+   fifo_kernel_config_out.write(inst2);
+   inst3 = fifo_kernel_config_in.read();
+   fifo_kernel_config_out.write(inst3);
+   inst4 = fifo_kernel_config_in.read();
+   fifo_kernel_config_out.write(inst4);
+  }
+  ap_uint<32> EXT_LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
+  ap_uint<32> EXT_LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
+  ap_uint<32> EXT_LAYER_IN_H_HW = inst0(32*2+31, 32*2);
+  ap_uint<32> EXT_LAYER_IN_W_HW = inst0(32*3+31, 32*3);
+  ap_uint<32> EXT_LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
+  ap_uint<32> EXT_LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
+
+  ap_uint<32> EXT_LAYER_IN_NUM = inst1(32*0+31, 32*0);
+  ap_uint<32> EXT_LAYER_OUT_NUM = inst1(32*1+31, 32*1);
+  ap_uint<32> EXT_LAYER_IN_H = inst1(32*2+31, 32*2);
+  ap_uint<32> EXT_LAYER_IN_W = inst1(32*3+31, 32*3);
+  ap_uint<32> EXT_LAYER_OUT_H = inst1(32*4+31, 32*4);
+  ap_uint<32> EXT_LAYER_OUT_W = inst1(32*5+31, 32*5);
+
+  ap_uint<32> EXT_CIN_OFFSET = inst2(32*0+31, 32*0);
+  ap_uint<32> EXT_WEIGHT_OFFSET = inst2(32*1+31, 32*1);
+  ap_uint<32> EXT_BIAS_OFFSET = inst2(32*2+31, 32*2);
+  ap_uint<32> EXT_COUT_OFFSET = inst2(32*3+31, 32*3);
+  ap_uint<16> EXT_FILTER_S1 = inst2(32*4+15, 32*4);
+  ap_uint<16> EXT_FILTER_S2 = inst2(32*4+31, 32*4+16);
+  ap_uint<32> EXT_STRIDE = inst2(32*5+31, 32*5);
+
+  ap_uint<32> EXT_LAYER_EN = inst3(32*0+31, 32*0);
+  ap_uint<32> EXT_PREV_CIN_OFFSET = inst3(32*1+32, 32*1);
+  ap_uint<16> EXT_LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
+  ap_uint<16> EXT_LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
+  ap_uint<32> EXT_LAYER_IN_IMG_H_T = inst3(32*3+31, 32*3);
+  ap_uint<32> EXT_LAYER_IN_IMG_W_T = inst3(32*4+31, 32*4);
+  ap_uint<1> EXT_CONV_1ST_EN = EXT_LAYER_EN[0];
+  ap_uint<1> EXT_DEPTH_CONV_EN = EXT_LAYER_EN[1];
+  ap_uint<1> EXT_CONV_EN = EXT_LAYER_EN[2];
+  ap_uint<1> EXT_RELU_EN = EXT_LAYER_EN[3];
+  ap_uint<1> EXT_RELU6_EN = EXT_LAYER_EN[4];
+  ap_uint<1> EXT_POOL_EN = EXT_LAYER_EN[5];
+
+  ap_uint<32> EXT_LAYER_TASK_NUM1 = inst4(32*0+31, 32*0);
+  ap_uint<32> EXT_LAYER_TASK_NUM2 = inst4(32*1+31, 32*1);
+  ap_uint<32> EXT_LAYER_LOCAL_ACCUM_NUM = inst4(32*2+31, 32*2);
+  ap_uint<32> EXT_LAYER_LOCAL_REG_NUM = inst4(32*3+31, 32*3);
+  ap_uint<32> EXT_LAYER_ROW_IL_FACTOR = inst4(32*4+31, 32*4);
+  ap_uint<32> EXT_LAYER_COL_IL_FACTOR = inst4(32*5+31, 32*5);
+
+  uint EXT_FILTER_S = (EXT_CONV_EN == 1)? (uint)EXT_FILTER_S2: 1;
+  bool separable_conv = (EXT_DEPTH_CONV_EN == 1) && (EXT_CONV_EN == 1);
+  bool conv2d = (EXT_DEPTH_CONV_EN == 0) && (EXT_CONV_EN == 1);
+  bool max_pool = (EXT_DEPTH_CONV_EN == 0) && (EXT_CONV_EN == 0);
+  uint stride1 = (EXT_DEPTH_CONV_EN == 0)? 1 : (uint)EXT_STRIDE;
+  uint stride2 = (EXT_DEPTH_CONV_EN == 0)? (uint)EXT_STRIDE : 1;
+
+  uint LAYER_IN_IMG_H = (EXT_DEPTH_CONV_EN == 1)? (uint)EXT_LAYER_IN_H_HW - (uint)EXT_FILTER_S1 + 1: (uint)EXT_LAYER_IN_H_HW;
+  uint LAYER_IN_IMG_W = (EXT_DEPTH_CONV_EN == 1)? (uint)EXT_LAYER_IN_W_HW - (uint)EXT_FILTER_S1 + 1: (uint)EXT_LAYER_IN_W_HW;
+  uint LAYER_OUT_IMG_H = EXT_LAYER_OUT_H;
+  uint LAYER_OUT_IMG_W = EXT_LAYER_OUT_W;
+  uint LAYER_IN_NUM = EXT_LAYER_IN_NUM_HW;
+  uint LAYER_OUT_NUM = EXT_LAYER_OUT_NUM_HW;
+  uint LAYER_IN_NUM_T = EXT_LAYER_IN_NUM_T;
+
+  uint LAYER_OUT_NUM_T = EXT_LAYER_OUT_NUM_T;
+  uint LAYER_IN_IMG_H_T;
+  uint LAYER_IN_IMG_W_T;
+  if (stride1 == 1){
+   LAYER_IN_IMG_H_T = EXT_LAYER_IN_IMG_H_T;
+   LAYER_IN_IMG_W_T = EXT_LAYER_IN_IMG_W_T;
+  } else if (stride1 == 2){
+   LAYER_IN_IMG_H_T = EXT_LAYER_IN_IMG_H_T / 2;
+   LAYER_IN_IMG_W_T = EXT_LAYER_IN_IMG_W_T / 2;
+  }
+  uint LAYER_FILTER_S = EXT_FILTER_S2;
+  uint LAYER_STRIDE = stride2;
+
+  uint LAYER_TASK_NUM1 = EXT_LAYER_TASK_NUM1;
+  uint LAYER_TASK_NUM2 = EXT_LAYER_TASK_NUM2;
+  uint LAYER_LOCAL_ACCUM_NUM = EXT_LAYER_LOCAL_ACCUM_NUM;
+  uint LAYER_LOCAL_REG_NUM = EXT_LAYER_LOCAL_REG_NUM;
+  uint LAYER_ROW_IL_FACTOR = EXT_LAYER_ROW_IL_FACTOR;
+  uint LAYER_COL_IL_FACTOR = EXT_LAYER_COL_IL_FACTOR;
+
+
+  fifo_config_out0.write(LAYER_IN_NUM_T);
+  fifo_config_out0.write(LAYER_OUT_NUM_T);
+  fifo_config_out0.write(LAYER_IN_IMG_H_T);
+  fifo_config_out0.write(LAYER_IN_IMG_W_T);
+  fifo_config_out0.write(LAYER_FILTER_S);
+  fifo_config_out0.write(LAYER_TASK_NUM1);
+  fifo_config_out0.write(LAYER_TASK_NUM2);
+  fifo_config_out0.write(LAYER_LOCAL_ACCUM_NUM);
+  fifo_config_out0.write(LAYER_LOCAL_REG_NUM);
+  fifo_config_out0.write(LAYER_ROW_IL_FACTOR);
+  fifo_config_out0.write(LAYER_COL_IL_FACTOR);
+  fifo_config_out0.write(LAYER_STRIDE);
+  fifo_config_out0.write(LAYER_BATCH);
+
+  fifo_config_out1.write(LAYER_IN_NUM);
+  fifo_config_out1.write(LAYER_IN_NUM_T);
+  fifo_config_out1.write(LAYER_OUT_NUM_T);
+  fifo_config_out1.write(LAYER_IN_IMG_H_T);
+  fifo_config_out1.write(LAYER_IN_IMG_W_T);
+  fifo_config_out1.write(LAYER_FILTER_S);
+  fifo_config_out1.write(LAYER_TASK_NUM1);
+  fifo_config_out1.write(LAYER_TASK_NUM2);
+  fifo_config_out1.write(LAYER_LOCAL_ACCUM_NUM);
+  fifo_config_out1.write(LAYER_LOCAL_REG_NUM);
+  fifo_config_out1.write(LAYER_ROW_IL_FACTOR);
+  fifo_config_out1.write(LAYER_COL_IL_FACTOR);
+  fifo_config_out1.write(LAYER_STRIDE);
+  fifo_config_out1.write(LAYER_BATCH);
+
+  ap_uint<29> task_iter = 0;
+  ap_uint<11> in_num_t = 0;
+  bool done2 = 0;
+  while(!done2){
+   if (LAYER_FILTER_S > 1){
+    bool done3 = 0;
+    ap_uint<11> ii = 0;
+    ap_uint<10> hh = 0;
+    ap_uint<10> ww = 0;
+    while(!done3){
+#pragma HLS PIPELINE II=1
+ uint cin_local_idx = hh * (LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1) * LAYER_IN_NUM_T + ww * LAYER_IN_NUM_T + ii * 8;
+     cin_buf[cin_local_idx / 8] = fifo_transfer_in.read();
+     ww++;
+     if (ww == LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1){
+      ww = 0;
+      hh++;
+      if (hh == LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1){
+       hh = 0;
+       ii++;
+       if (ii == LAYER_IN_NUM_T / 8){
+        ii = 0;
+        done3 = 1;
+       }
+      }
+     }
+    }
+   }
+   bool init_final = (in_num_t == 0);
+   bool last = (in_num_t == (LAYER_IN_NUM - LAYER_IN_NUM_T));
+
+   ap_uint<32 * 8> sel_tmp0[(512/32) / 8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp0 complete dim=1
+ ap_uint<11> t3 = 0;
+   ap_uint<10> t1 = 0;
+   ap_uint<4> t0 = 0;
+   ap_uint<7> t2 = 0;
+   bool done4 = 0;
+   while(!done4){
+#pragma HLS PIPELINE II=1
+ uint local_in_img_w = t0 * (LAYER_IN_IMG_W_T / 8) + t2;
+    uint local_in_num = in_num_t + t3 * 8;
+    uint local_in_img_h = t1;
+    uint feeder_id = t0 / 1;
+    ap_uint<32 * 8> wide_data0;
+    if (LAYER_FILTER_S > 1){
+     uint cin_local_index = local_in_img_h * (LAYER_IN_IMG_W_T + LAYER_FILTER_S - 1) * LAYER_IN_NUM_T + local_in_img_w * LAYER_IN_NUM_T + t3 * 8;
+     uint cin_bus_index = cin_local_index / 8;
+     wide_data0 = cin_buf[cin_bus_index];
+    } else {
+     wide_data0 = fifo_transfer_in.read();
+    }
+    fifo_transfer_out0.write(U1_Data0TransferChannelType(
+      wide_data0,
+      (uint)feeder_id, init_final, last, LAYER_FILTER_S));
+
+    t2++;
+    if (t2 == LAYER_IN_IMG_W_T / 8 + LAYER_FILTER_S - 1){
+     t2 = 0;
+     t0++;
+     if (t0 == 8 / 1){
+      t0 = 0;
+      t1++;
+      if (t1 == LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1){
+       t1 = 0;
+       t3++;
+       if (t3 == LAYER_IN_NUM_T / 8){
+        t3 = 0;
+        done4 = 1;
+       }
+      }
+     }
+    }
+   }
+
+   in_num_t += LAYER_IN_NUM_T;
+   if (in_num_t == LAYER_IN_NUM){
+    in_num_t = 0;
+    task_iter++;
+    if (task_iter == LAYER_TASK_NUM2){
+     task_iter = 0;
+     done2 = 1;
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_DataFeed1Head_Shim(
+  U1_bus_t1* weight,
+  stream<ap_uint<32 * 8> > &fifo_transfer_weight,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_BATCH
+){
+#pragma HLS INLINE off
+ U1_bus_t1 weight_buf[829440 / (512/32)];
+ ap_uint<32 * 8> sel_tmp[(512/32) / 8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp complete dim=1
+
+ for (ap_uint<2> layer_iter = 0; layer_iter < LAYER_BATCH; layer_iter++){
+  for (int out_img_h_t = 0; out_img_h_t < LAYER_OUT_IMG_H; out_img_h_t += LAYER_IN_IMG_H_T / LAYER_STRIDE){
+   for (int out_img_w_t = 0; out_img_w_t < LAYER_OUT_IMG_W; out_img_w_t += LAYER_IN_IMG_W_T / LAYER_STRIDE){
+    for (int out_num_t = 0; out_num_t < LAYER_OUT_NUM; out_num_t += LAYER_OUT_NUM_T){
+     uint chunk_offset = out_num_t * FILTER_S * FILTER_S * LAYER_IN_NUM;
+     memcpy((void*)weight_buf, (void*)(weight + chunk_offset / (512/32)), sizeof(U1_data_t1) * LAYER_OUT_NUM_T * FILTER_S * FILTER_S * LAYER_IN_NUM);
+     for (int in_num_t = 0; in_num_t < LAYER_IN_NUM; in_num_t += LAYER_IN_NUM_T){
+      for (int oo =0; oo < LAYER_OUT_NUM_T; oo++){
+       for (int p = 0; p < FILTER_S; p++){
+        for (int q = 0; q < FILTER_S; q++){
+         for (int ii = 0; ii < LAYER_IN_NUM_T / 8; ii++){
+#pragma HLS PIPELINE II=1
+ uint weight_local_idx = oo * FILTER_S * FILTER_S * LAYER_IN_NUM + p * FILTER_S * LAYER_IN_NUM + q * LAYER_IN_NUM + (in_num_t + ii * 8);
+          uint weight_bus_idx = weight_local_idx / (512/32);
+          uint weight_bus_offset = weight_local_idx % (512/32);
+          U1_bus_t1 bus_data = weight_buf[weight_bus_idx];
+          ap_uint<32 * 8> fifo_weight_data;
+          for (ap_uint<2> s = 0; s < (512/32) / 8; s++){
+#pragma HLS UNROLL
+ sel_tmp[s] = bus_data(32 * 8 - 1, 0);
+           bus_data = bus_data >> (32 * 8);
+          }
+          fifo_weight_data = sel_tmp[weight_bus_offset / 8];
+          fifo_transfer_weight.write(fifo_weight_data);
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_DataFeed1Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out0,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS INLINE off
+#pragma HLS DATA_PACK variable=fifo_transfer_out0
+
+
+ uint LAYER_IN_NUM = fifo_config_in.read();
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ ap_uint<32 * 8> weight_buf[96 * 96 * 3 * 3 / 8];
+#pragma HLS ARRAY_PARTITION variable=weight_buf dim=1 block factor=1
+
+ bool done1 = 0;
+ ap_uint<2> layer_iter = 0;
+ while(!done1){
+  if (layer_iter > 0){
+   LAYER_IN_NUM = fifo_config_in.read();
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+  }
+
+  fifo_config_out.write(LAYER_IN_NUM_T);
+  fifo_config_out.write(LAYER_OUT_NUM_T);
+  fifo_config_out.write(LAYER_IN_IMG_H_T);
+  fifo_config_out.write(LAYER_IN_IMG_W_T);
+  fifo_config_out.write(LAYER_FILTER_S);
+  fifo_config_out.write(LAYER_TASK_NUM1);
+  fifo_config_out.write(LAYER_TASK_NUM2);
+  fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+  fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+  fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+  fifo_config_out.write(LAYER_COL_IL_FACTOR);
+  fifo_config_out.write(LAYER_STRIDE);
+  fifo_config_out.write(LAYER_BATCH);
+
+  bool done2 = 0;
+  uint task_iter = 0;
+  ap_uint<11> in_num_t = 0;
+  while(!done2){
+   bool init_final = (in_num_t == 0);
+   bool last = (in_num_t == (LAYER_IN_NUM - LAYER_IN_NUM_T));
+
+   ap_uint<32 * 8> sel_tmp0[(512/32) / 8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp0 complete dim=1
+ ap_uint<4> t0 = 0;
+   ap_uint<5> t1 = 0;
+   ap_uint<3> t2 = 0;
+   ap_uint<3> t3 = 0;
+   ap_uint<11> t4 = 0;
+   bool done3 = 0;
+   while(!done3){
+#pragma HLS PIPELINE II=1
+ ap_uint<4> feeder_id = t0 / 1;
+    ap_uint<32 * 8> wide_data0;
+    wide_data0 = fifo_transfer_in.read();
+    fifo_transfer_out0.write(U1_Data1TransferChannelType(
+      wide_data0,
+      (uint)feeder_id, init_final, last, LAYER_FILTER_S));
+
+    t4++;
+    if (t4 == LAYER_IN_NUM_T / 8){
+     t4 = 0;
+     t3++;
+     if (t3 == LAYER_FILTER_S){
+      t3 = 0;
+      t2++;
+      if (t2 == LAYER_FILTER_S){
+       t2 = 0;
+       t1++;
+       if (t1 == LAYER_ROW_IL_FACTOR){
+        t1 = 0;
+        t0++;
+        if (t0 == 8 / 1){
+         t0 = 0;
+         done3 = 1;
+        }
+       }
+      }
+     }
+    }
+   }
+
+   in_num_t += LAYER_IN_NUM_T;
+   if (in_num_t == LAYER_IN_NUM){
+    in_num_t = 0;
+    task_iter++;
+    if (task_iter == LAYER_TASK_NUM2){
+     task_iter = 0;
+     done2 = 1;
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_DataCollect2Head_Shim(
+  U1_bus_t2* cout,
+  stream<ap_uint<32 * 8> > &fifo_transfer_cout,
+  stream<U1_ConfigInst> &fifo_kernel_config_in,
+  uint LAYER_IN_NUM,
+  uint LAYER_OUT_NUM,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H,
+  uint LAYER_IN_IMG_W,
+  uint LAYER_OUT_IMG_H,
+  uint LAYER_OUT_IMG_W,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE
+){
+#pragma HLS INLINE off
+
+ U1_ConfigInst inst0 = fifo_kernel_config_in.read();
+ U1_ConfigInst inst1 = fifo_kernel_config_in.read();
+ U1_ConfigInst inst2 = fifo_kernel_config_in.read();
+ U1_ConfigInst inst3 = fifo_kernel_config_in.read();
+ U1_ConfigInst inst4 = fifo_kernel_config_in.read();
+ ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
+
+ U1_bus_t2 cout_buf[552960 / (512/32)];
+ ap_uint<32 * 8> sel_tmp[(512/32) / 8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp complete dim=1
+
+ for (ap_uint<2> layer_iter = 0; layer_iter < LAYER_BATCH; layer_iter++){
+  if (layer_iter > 0){
+   U1_ConfigInst inst0 = fifo_kernel_config_in.read();
+   U1_ConfigInst inst1 = fifo_kernel_config_in.read();
+   U1_ConfigInst inst2 = fifo_kernel_config_in.read();
+   U1_ConfigInst inst3 = fifo_kernel_config_in.read();
+   U1_ConfigInst inst4 = fifo_kernel_config_in.read();
+  }
+  for (int out_img_h_t = 0; out_img_h_t < LAYER_OUT_IMG_H; out_img_h_t += LAYER_IN_IMG_H_T / LAYER_STRIDE){
+   for (int out_img_w_t = 0; out_img_w_t < LAYER_OUT_IMG_W; out_img_w_t += LAYER_IN_IMG_W_T / LAYER_STRIDE){
+    for (int out_num_t = 0; out_num_t < LAYER_OUT_NUM; out_num_t += LAYER_OUT_NUM_T){
+     for (int o = 0; o < LAYER_OUT_NUM_T / (512/32); o++){
+      for (int oo = 0; oo < (512/32) / 8; oo++){
+       for (int h = 0; h < LAYER_IN_IMG_H_T / LAYER_STRIDE; h++){
+        for (int w = 0; w < LAYER_IN_IMG_W_T / LAYER_STRIDE; w++){
+#pragma HLS PIPELINE II=1
+#pragma HLS DEPENDENCE INTER false variable=cout_buf
+ uint cout_local_index = h * LAYER_IN_IMG_W_T / LAYER_STRIDE * LAYER_OUT_NUM + w * LAYER_OUT_NUM + o * (512/32) + oo * 8 + out_num_t;
+         U1_bus_t2 bus_data = cout_buf[cout_local_index / (512/32)];
+         for (ap_uint<2> s = 0; s < (512/32) / 8; s++){
+#pragma HLS UNROLL
+ sel_tmp[s] = bus_data(32 * 8 - 1, 0);
+          bus_data = bus_data >> (32 * 8);
+         }
+         ap_uint<32 * 8> fifo_cout_data = fifo_transfer_cout.read();
+         sel_tmp[oo] = fifo_cout_data;
+         U1_bus_t2 wide_pack = (
+
+
+
+             sel_tmp[1], sel_tmp[0]
+# 993 "kernel.cpp"
+         );
+         cout_buf[cout_local_index / (512/32)] = wide_pack;
+        }
+       }
+      }
+     }
+    }
+    unsigned int chunk_offset = out_img_h_t * 384 * LAYER_OUT_NUM;
+    for (int h = 0; h < LAYER_IN_IMG_H_T / LAYER_STRIDE; h++){
+     uint local_chunk_offset = chunk_offset + h * 384 * LAYER_OUT_NUM + out_img_w_t * LAYER_OUT_NUM;
+     memcpy((void*)(cout + local_chunk_offset / (512/32)), (void*)(cout_buf + h * 48 * LAYER_OUT_NUM / (512/32)), sizeof(U1_data_t2) * LAYER_IN_IMG_W_T / LAYER_STRIDE * LAYER_OUT_NUM);
+    }
+   }
+  }
+ }
+}
+
+void U1_DataCollect2Head(
+  stream<ap_uint<32 * 8> > &fifo_transfer_out,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in0,
+  stream<uint> &fifo_config_in
+){
+#pragma HLS INLINE off
+#pragma HLS DATA_PACK variable=fifo_transfer_in0
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ ap_uint<32 * 8> cout_buf[12 * 48 * 96 / 8];
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+  }
+  int task_num = 0;
+  ap_uint<11> t3 = 0;
+  ap_uint<5> t1 = 0;
+  ap_uint<5> t1_bound = LAYER_IN_IMG_H_T / LAYER_STRIDE;
+  ap_uint<4> t0 = 0;
+  ap_uint<4> t2 = 0;
+  ap_uint<4> t2_bound = LAYER_IN_IMG_W_T / 8 / LAYER_STRIDE;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+ U1_Data2TransferChannelType fifo_data0 = fifo_transfer_in0.read();
+   fifo_transfer_out.write(fifo_data0.data);
+   t2++;
+   if (t2 == t2_bound){
+    t2 = 0;
+    t0++;
+    if (t0 == 8 / 1){
+     t0 = 0;
+     t1++;
+     if (t1 == t1_bound){
+      t1 = 0;
+      t3++;
+      if (t3 == LAYER_OUT_NUM_T / 8){
+       t3 = 0;
+       task_num++;
+       if (task_num == LAYER_TASK_NUM2){
+        task_num = 0;
+        done2 = 1;
+       }
+      }
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+# 1104 "kernel.cpp"
+void U1_Data0FeedData0(
+  U1_Data0TransferChannelType buffer[1][10752/8],
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool more_to_feed_to_sys_arr = true;
+
+ ap_uint<5> c0_counter = 0;
+ ap_uint<5> c1_counter = 0;
+ ap_uint<4> c2_counter = 0;
+ ap_uint<3> c3_counter = 0;
+ ap_uint<3> c4_counter = 0;
+ ap_uint<5> c5_counter = 0;
+
+ ap_uint<5> c0_counter_bound;
+ if (LAYER_STRIDE == 1){
+  c0_counter_bound = LAYER_IN_IMG_H_T;
+ } else if (LAYER_STRIDE == 2){
+  c0_counter_bound = LAYER_IN_IMG_H_T / 2;
+ }
+
+ ap_uint<32*8> sel_tmp_0[8/8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp_0 complete dim=1
+
+ while(more_to_feed_to_sys_arr){
+#pragma HLS PIPELINE II=1
+ ap_uint<15> buffer_ind_to_feed_to_sys_arr;
+  ap_uint<15> w_idx, h_idx;
+  if (LAYER_STRIDE == 1){
+   w_idx = c2_counter + c4_counter;
+   h_idx = c0_counter + c3_counter;
+  } else if (LAYER_STRIDE == 2){
+   w_idx = c2_counter * 2 + 1 + c4_counter;
+   h_idx = c0_counter * 2 + 1 + c3_counter;
+  }
+  ap_uint<15> w_bound = LAYER_COL_IL_FACTOR * LAYER_STRIDE + LAYER_FILTER_S - 1;
+  ap_uint<15> h_bound = LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1;
+  buffer_ind_to_feed_to_sys_arr = (w_idx + h_idx * w_bound + c5_counter * 8 / 8 * h_bound * w_bound) * 8 + c5_counter * 8 % 8;
+
+  ap_uint<15> wide_index = buffer_ind_to_feed_to_sys_arr / 8;
+  ap_uint<15> wide_offset = buffer_ind_to_feed_to_sys_arr % 8;
+
+  U1_Data0TransferChannelType buf_data_0 = buffer[0][wide_index];
+  ap_uint<32*8> wide_data_0 = buf_data_0.data;
+  ap_uint<32*8> data_to_feed_0;
+  for (int s = 0; s < 8 / 8; s++){
+#pragma HLS UNROLL
+ sel_tmp_0[s] = wide_data_0(32 * 8 -1, 0);
+   wide_data_0 = wide_data_0 >> (32 * 8);
+  }
+  data_to_feed_0 = sel_tmp_0[wide_offset / 8];
+
+  U1_Data0PEChannelType fifo_data_to_feed_0;
+  fifo_data_to_feed_0 = U1_Data0PEChannelType(data_to_feed_0, buf_data_0.new_pair, buf_data_0.last_pair, buf_data_0.FILTER_S);
+  fifo_feed_0.write(fifo_data_to_feed_0);
+
+
+  c0_counter++;
+  if (c0_counter == c0_counter_bound){
+   c0_counter = 0;
+   c1_counter++;
+   if (c1_counter == LAYER_ROW_IL_FACTOR){
+    c1_counter = 0;
+    c2_counter++;
+    if (c2_counter == LAYER_COL_IL_FACTOR){
+     c2_counter = 0;
+     c3_counter++;
+     if (c3_counter == LAYER_FILTER_S){
+      c3_counter = 0;
+      c4_counter++;
+      if (c4_counter == LAYER_FILTER_S){
+       c4_counter = 0;
+       c5_counter++;
+       if (c5_counter == LAYER_IN_NUM_T / 8){
+        c5_counter = 0;
+        more_to_feed_to_sys_arr = false;
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_Data1FeedData0(
+  U1_Data1TransferChannelType buffer[1][10368/8],
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool more_to_feed_to_sys_arr = true;
+
+ ap_uint<5> c0_counter = 0;
+ ap_uint<5> c1_counter = 0;
+ ap_uint<4> c2_counter = 0;
+ ap_uint<3> c3_counter = 0;
+ ap_uint<3> c4_counter = 0;
+ ap_uint<5> c5_counter = 0;
+
+ ap_uint<5> c0_counter_bound;
+ if (LAYER_STRIDE == 1){
+  c0_counter_bound = LAYER_IN_IMG_H_T;
+ } else if (LAYER_STRIDE == 2){
+  c0_counter_bound = LAYER_IN_IMG_H_T / 2;
+ }
+
+ ap_uint<32*8> sel_tmp_0[8/8];
+#pragma HLS ARRAY_PARTITION variable=sel_tmp_0 complete dim=1
+
+ while(more_to_feed_to_sys_arr){
+#pragma HLS PIPELINE II=1
+ ap_uint<15> buffer_ind_to_feed_to_sys_arr;
+  buffer_ind_to_feed_to_sys_arr = c1_counter * LAYER_FILTER_S * LAYER_FILTER_S * LAYER_IN_NUM_T + c3_counter * LAYER_FILTER_S * LAYER_IN_NUM_T + c4_counter * LAYER_IN_NUM_T + c5_counter * 8;
+  ap_uint<15> wide_index = buffer_ind_to_feed_to_sys_arr / 8;
+  ap_uint<15> wide_offset = buffer_ind_to_feed_to_sys_arr % 8;
+
+  U1_Data1TransferChannelType buf_data_0 = buffer[0][wide_index];
+  ap_uint<32*8> wide_data_0 = buf_data_0.data;
+  ap_uint<32*8> data_to_feed_0;
+  for (int s = 0; s < 8/8; s++){
+#pragma HLS UNROLL
+ sel_tmp_0[s] = wide_data_0(32 * 8 -1, 0);
+   wide_data_0 = wide_data_0 >> (32 * 8);
+  }
+  data_to_feed_0 = sel_tmp_0[wide_offset / 8];
+
+  U1_Data1PEChannelType fifo_data_to_feed_0;
+  fifo_data_to_feed_0 = U1_Data1PEChannelType(data_to_feed_0, buf_data_0.new_pair, buf_data_0.last_pair, buf_data_0.FILTER_S);
+  fifo_feed_0.write(fifo_data_to_feed_0);
+
+
+  c0_counter++;
+  if (c0_counter == c0_counter_bound){
+   c0_counter = 0;
+   c1_counter++;
+   if (c1_counter == LAYER_ROW_IL_FACTOR){
+    c1_counter = 0;
+    c2_counter++;
+    if (c2_counter == LAYER_COL_IL_FACTOR){
+     c2_counter = 0;
+     c3_counter++;
+     if (c3_counter == LAYER_FILTER_S){
+      c3_counter = 0;
+      c4_counter++;
+      if (c4_counter == LAYER_FILTER_S){
+       c4_counter = 0;
+       c5_counter++;
+       if (c5_counter == LAYER_IN_NUM_T / 8){
+        c5_counter = 0;
+        more_to_feed_to_sys_arr = false;
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_Data0ReadData0(
+  U1_Data0TransferChannelType buffer[1][10752 / 8],
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out,
+  unsigned int engine_id,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+ ap_uint<15> transfer_counter = 0;
+ ap_uint<15> data0_buf_size;
+ ap_uint<15> local_transfer_size;
+ bool more_to_write_to_buffer = true;
+ bool more_to_feed_to_sys_arr = false;
+ bool more_to_forward = true;
+ ap_uint<12> buffer_write_counter = 0;
+ ap_uint<1> buffer_gs_id = 0;
+
+
+ data0_buf_size = LAYER_IN_NUM_T * (LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1) * (LAYER_COL_IL_FACTOR * LAYER_STRIDE + LAYER_FILTER_S - 1) / 8;
+ local_transfer_size = data0_buf_size * (8 / 1 - engine_id) * 1;
+
+ while(more_to_forward){
+#pragma HLS PIPELINE II=1
+ U1_Data0TransferChannelType data_read_from_fifo = fifo_transfer_in.read();
+  bool data_is_to_buffer;
+  bool data_is_to_forward;
+  unsigned int feeder_id = data_read_from_fifo.feeder_id;
+  data_is_to_buffer = LAST_ENGINE || (!LAST_ENGINE && feeder_id == engine_id);
+  data_is_to_forward = !LAST_ENGINE && (feeder_id != engine_id);
+  if (!LAST_ENGINE){
+   if (data_is_to_forward){
+    fifo_transfer_out.write(data_read_from_fifo);
+   }
+  }
+  ap_uint<12> buffer_ind_to_write_to_buffer = buffer_write_counter;
+
+  if (data_is_to_buffer){
+   buffer[buffer_gs_id][buffer_ind_to_write_to_buffer] = data_read_from_fifo;
+   buffer_write_counter++;
+   if (buffer_write_counter == data0_buf_size){
+    buffer_write_counter = 0;
+    buffer_gs_id++;
+    if (buffer_gs_id == 1){
+     buffer_gs_id = 0;
+     more_to_write_to_buffer = false;
+    }
+   }
+  }
+  transfer_counter++;
+  if (transfer_counter == local_transfer_size){
+   transfer_counter = 0;
+   more_to_forward = false;
+  }
+ }
+
+}
+
+void U1_Data0ReadDataLast(
+  U1_Data0TransferChannelType buffer[1][10752 / 8],
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  unsigned int engine_id,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+ bool buffer_id_to_write_to_buffer = 0;
+ bool buffer_id_to_feed_to_sys_arr = 1;
+ ap_uint<15> transfer_counter = 0;
+ ap_uint<15> data0_buf_size;
+ ap_uint<15> local_transfer_size;
+ bool more_to_write_to_buffer = true;
+ bool more_to_feed_to_sys_arr = false;
+ bool more_to_forward = true;
+ ap_uint<12> buffer_write_counter = 0;
+ ap_uint<1> buffer_gs_id = 0;
+
+
+ data0_buf_size = LAYER_IN_NUM_T * (LAYER_IN_IMG_H_T + LAYER_FILTER_S - 1) * (LAYER_COL_IL_FACTOR * LAYER_STRIDE + LAYER_FILTER_S - 1) / 8;
+ local_transfer_size = data0_buf_size * (8 / 1 - engine_id) * 1;
+
+ while(more_to_forward){
+#pragma HLS PIPELINE II=1
+ U1_Data0TransferChannelType data_read_from_fifo = fifo_transfer_in.read();
+  bool data_is_to_buffer;
+  bool data_is_to_forward;
+  unsigned int feeder_id = data_read_from_fifo.feeder_id;
+  data_is_to_buffer = LAST_ENGINE || (!LAST_ENGINE && feeder_id == engine_id);
+  data_is_to_forward = !LAST_ENGINE && (feeder_id != engine_id);
+  ap_uint<12> buffer_ind_to_write_to_buffer = buffer_write_counter;
+
+  if (data_is_to_buffer){
+   buffer[buffer_gs_id][buffer_ind_to_write_to_buffer] = data_read_from_fifo;
+   buffer_write_counter++;
+   if (buffer_write_counter == data0_buf_size){
+    buffer_write_counter = 0;
+    buffer_gs_id++;
+    if (buffer_gs_id == 1){
+     buffer_gs_id = 0;
+     more_to_write_to_buffer = false;
+    }
+   }
+  }
+  transfer_counter++;
+  if (transfer_counter == local_transfer_size){
+   transfer_counter = 0;
+   more_to_forward = false;
+  }
+ }
+
+}
+
+void U1_Data1ReadData0(
+  U1_Data1TransferChannelType buffer[1][10368 / 8],
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out,
+  unsigned int engine_id,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+ ap_uint<15> transfer_counter = 0;
+ ap_uint<15> data1_buf_size;
+ ap_uint<15> local_transfer_size;
+ bool more_to_write_to_buffer = true;
+ bool more_to_feed_to_sys_arr = false;
+ bool more_to_forward = true;
+ ap_uint<12> buffer_write_counter = 0;
+ ap_uint<1> buffer_gs_id = 0;
+
+
+ data1_buf_size = LAYER_IN_NUM_T * LAYER_ROW_IL_FACTOR * LAYER_FILTER_S * LAYER_FILTER_S / 8;
+ local_transfer_size = data1_buf_size * (8 / 1 - engine_id) * 1;
+
+ while(more_to_forward){
+#pragma HLS PIPELINE II=1
+ U1_Data1TransferChannelType data_read_from_fifo = fifo_transfer_in.read();
+  bool data_is_to_buffer;
+  bool data_is_to_forward;
+  unsigned int feeder_id = data_read_from_fifo.feeder_id;
+  data_is_to_buffer = LAST_ENGINE || (!LAST_ENGINE && feeder_id == engine_id);
+  data_is_to_forward = !LAST_ENGINE && (feeder_id != engine_id);
+  if (!LAST_ENGINE){
+   if (data_is_to_forward){
+    fifo_transfer_out.write(data_read_from_fifo);
+   }
+  }
+  ap_uint<12> buffer_ind_to_write_to_buffer = buffer_write_counter;
+
+  if (data_is_to_buffer){
+   buffer[buffer_gs_id][buffer_ind_to_write_to_buffer] = data_read_from_fifo;
+   buffer_write_counter++;
+   if (buffer_write_counter == data1_buf_size){
+    buffer_write_counter = 0;
+    buffer_gs_id++;
+    if (buffer_gs_id == 1){
+     buffer_gs_id = 0;
+     more_to_write_to_buffer = false;
+    }
+   }
+  }
+  transfer_counter++;
+  if (transfer_counter == local_transfer_size){
+   transfer_counter = 0;
+   more_to_forward = false;
+  }
+ }
+
+}
+
+void U1_Data1ReadDataLast(
+  U1_Data1TransferChannelType buffer[1][10368 / 8],
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  unsigned int engine_id,
+  uint LAYER_IN_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_FILTER_S,
+  uint LAYER_STRIDE,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR
+){
+#pragma HLS INLINE off
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+ bool buffer_id_to_write_to_buffer = 0;
+ bool buffer_id_to_feed_to_sys_arr = 1;
+ ap_uint<15> transfer_counter = 0;
+ ap_uint<15> data1_buf_size;
+ ap_uint<15> local_transfer_size;
+ bool more_to_write_to_buffer = true;
+ bool more_to_feed_to_sys_arr = false;
+ bool more_to_forward = true;
+ ap_uint<12> buffer_write_counter = 0;
+ ap_uint<1> buffer_gs_id = 0;
+
+
+ data1_buf_size = LAYER_IN_NUM_T * LAYER_ROW_IL_FACTOR * LAYER_FILTER_S * LAYER_FILTER_S / 8;
+ local_transfer_size = data1_buf_size * (8 / 1 - engine_id) * 1;
+
+ while(more_to_forward){
+#pragma HLS PIPELINE II=1
+ U1_Data1TransferChannelType data_read_from_fifo = fifo_transfer_in.read();
+  bool data_is_to_buffer;
+  bool data_is_to_forward;
+  unsigned int feeder_id = data_read_from_fifo.feeder_id;
+  data_is_to_buffer = LAST_ENGINE || (!LAST_ENGINE && feeder_id == engine_id);
+  data_is_to_forward = !LAST_ENGINE && (feeder_id != engine_id);
+  ap_uint<12> buffer_ind_to_write_to_buffer = buffer_write_counter;
+
+  if (data_is_to_buffer){
+   buffer[buffer_gs_id][buffer_ind_to_write_to_buffer] = data_read_from_fifo;
+   buffer_write_counter++;
+   if (buffer_write_counter == data1_buf_size){
+    buffer_write_counter = 0;
+    buffer_gs_id++;
+    if (buffer_gs_id == 1){
+     buffer_gs_id = 0;
+     more_to_write_to_buffer = false;
+    }
+   }
+  }
+  transfer_counter++;
+  if (transfer_counter == local_transfer_size){
+   transfer_counter = 0;
+   more_to_forward = false;
+  }
+ }
+
+}
+
+void U1_DataFeed0Engine0(
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0,
+  stream<uint> &fifo_config_out1
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_in
+#pragma HLS DATA_PACK variable=fifo_transfer_out
+#pragma HLS DATA_PACK variable=fifo_feed_0
+#pragma HLS INLINE off
+
+ uint task_iter = 0;
+ uint LAYER_IN_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_FILTER_S_prev;
+ uint LAYER_STRIDE_prev;
+ uint LAYER_ROW_IL_FACTOR_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint dummy;
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out0.write(LAYER_IN_NUM_T);
+ fifo_config_out0.write(LAYER_OUT_NUM_T);
+ fifo_config_out0.write(LAYER_IN_IMG_H_T);
+ fifo_config_out0.write(LAYER_IN_IMG_W_T);
+ fifo_config_out0.write(LAYER_FILTER_S);
+ fifo_config_out0.write(LAYER_TASK_NUM1);
+ fifo_config_out0.write(LAYER_TASK_NUM2);
+ fifo_config_out0.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out0.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out0.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out0.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out0.write(LAYER_STRIDE);
+ fifo_config_out0.write(LAYER_BATCH);
+
+ fifo_config_out1.write(LAYER_IN_NUM_T);
+ fifo_config_out1.write(LAYER_OUT_NUM_T);
+ fifo_config_out1.write(LAYER_IN_IMG_H_T);
+ fifo_config_out1.write(LAYER_IN_IMG_W_T);
+ fifo_config_out1.write(LAYER_FILTER_S);
+ fifo_config_out1.write(LAYER_TASK_NUM1);
+ fifo_config_out1.write(LAYER_TASK_NUM2);
+ fifo_config_out1.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out1.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out1.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out1.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out1.write(LAYER_STRIDE);
+ fifo_config_out1.write(LAYER_BATCH);
+
+ U1_Data0TransferChannelType ping_buffer[1][10752 / 8];
+ U1_Data0TransferChannelType pong_buffer[1][10752 / 8];
+#pragma HLS RESOURCE variable=ping_buffer core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=pong_buffer core=RAM_2P_BRAM
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=1 complete
+
+ unsigned int initial_round = 0;
+
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   dummy = fifo_config_in.read();
+
+
+   fifo_config_out0.write(LAYER_IN_NUM_T);
+   fifo_config_out0.write(LAYER_OUT_NUM_T);
+   fifo_config_out0.write(LAYER_IN_IMG_H_T);
+   fifo_config_out0.write(LAYER_IN_IMG_W_T);
+   fifo_config_out0.write(LAYER_FILTER_S);
+   fifo_config_out0.write(LAYER_TASK_NUM1);
+   fifo_config_out0.write(LAYER_TASK_NUM2);
+   fifo_config_out0.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out0.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out0.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out0.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out0.write(LAYER_STRIDE);
+   fifo_config_out0.write(LAYER_BATCH);
+
+   fifo_config_out1.write(LAYER_IN_NUM_T);
+   fifo_config_out1.write(LAYER_OUT_NUM_T);
+   fifo_config_out1.write(LAYER_IN_IMG_H_T);
+   fifo_config_out1.write(LAYER_IN_IMG_W_T);
+   fifo_config_out1.write(LAYER_FILTER_S);
+   fifo_config_out1.write(LAYER_TASK_NUM1);
+   fifo_config_out1.write(LAYER_TASK_NUM2);
+   fifo_config_out1.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out1.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out1.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out1.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out1.write(LAYER_STRIDE);
+   fifo_config_out1.write(LAYER_BATCH);
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data0ReadData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data0ReadData0(pong_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data0FeedData0(
+      ping_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   } else {
+    U1_Data0ReadData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data0FeedData0(
+      pong_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   }
+  }
+
+  initial_round++;
+  LAYER_IN_NUM_T_prev = LAYER_IN_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_FILTER_S_prev = LAYER_FILTER_S;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+  LAYER_ROW_IL_FACTOR_prev = LAYER_ROW_IL_FACTOR;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+
+  task_iter++;
+  if (task_iter == LAYER_TASK_NUM1){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data0FeedData0(
+    ping_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ } else {
+  U1_Data0FeedData0(
+    pong_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ }
+}
+
+void U1_DataFeed0Engine0_wrapper(
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0,
+  stream<uint> &fifo_config_out1
+){
+ U1_DataFeed0Engine0(
+   fifo_transfer_in,
+   fifo_transfer_out,
+   fifo_feed_0,
+   engine_id,
+   fifo_config_in,
+   fifo_config_out0,
+   fifo_config_out1
+ );
+}
+
+void U1_DataFeed0EngineLast(
+  stream<U1_Data0TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data0PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out1
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_in
+#pragma HLS DATA_PACK variable=fifo_feed_0
+#pragma HLS INLINE off
+
+ uint task_iter = 0;
+ uint LAYER_IN_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_FILTER_S_prev;
+ uint LAYER_STRIDE_prev;
+ uint LAYER_ROW_IL_FACTOR_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint dummy;
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out1.write(LAYER_IN_NUM_T);
+ fifo_config_out1.write(LAYER_OUT_NUM_T);
+ fifo_config_out1.write(LAYER_IN_IMG_H_T);
+ fifo_config_out1.write(LAYER_IN_IMG_W_T);
+ fifo_config_out1.write(LAYER_FILTER_S);
+ fifo_config_out1.write(LAYER_TASK_NUM1);
+ fifo_config_out1.write(LAYER_TASK_NUM2);
+ fifo_config_out1.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out1.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out1.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out1.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out1.write(LAYER_STRIDE);
+ fifo_config_out1.write(LAYER_BATCH);
+
+ U1_Data0TransferChannelType ping_buffer[1][10752 / 8];
+ U1_Data0TransferChannelType pong_buffer[1][10752 / 8];
+#pragma HLS RESOURCE variable=ping_buffer core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=pong_buffer core=RAM_2P_BRAM
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=1 complete
+
+ unsigned int initial_round = 0;
+
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   dummy = fifo_config_in.read();
+
+
+   fifo_config_out1.write(LAYER_IN_NUM_T);
+   fifo_config_out1.write(LAYER_OUT_NUM_T);
+   fifo_config_out1.write(LAYER_IN_IMG_H_T);
+   fifo_config_out1.write(LAYER_IN_IMG_W_T);
+   fifo_config_out1.write(LAYER_FILTER_S);
+   fifo_config_out1.write(LAYER_TASK_NUM1);
+   fifo_config_out1.write(LAYER_TASK_NUM2);
+   fifo_config_out1.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out1.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out1.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out1.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out1.write(LAYER_STRIDE);
+   fifo_config_out1.write(LAYER_BATCH);
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data0ReadDataLast(ping_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data0ReadDataLast(pong_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data0FeedData0(
+      ping_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   } else {
+    U1_Data0ReadDataLast(ping_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data0FeedData0(
+      pong_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   }
+  }
+
+  initial_round++;
+  LAYER_IN_NUM_T_prev = LAYER_IN_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_FILTER_S_prev = LAYER_FILTER_S;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+  LAYER_ROW_IL_FACTOR_prev = LAYER_ROW_IL_FACTOR;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+
+  task_iter++;
+  if (task_iter == LAYER_TASK_NUM1){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data0FeedData0(
+    ping_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ } else {
+  U1_Data0FeedData0(
+    pong_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ }
+}
+
+void U1_DataFeed1Engine0(
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_in
+#pragma HLS DATA_PACK variable=fifo_transfer_out
+#pragma HLS DATA_PACK variable=fifo_feed_0
+#pragma HLS INLINE off
+
+ uint task_iter = 0;
+ uint LAYER_IN_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_FILTER_S_prev;
+ uint LAYER_STRIDE_prev;
+ uint LAYER_ROW_IL_FACTOR_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint dummy;
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out0.write(LAYER_IN_NUM_T);
+ fifo_config_out0.write(LAYER_OUT_NUM_T);
+ fifo_config_out0.write(LAYER_IN_IMG_H_T);
+ fifo_config_out0.write(LAYER_IN_IMG_W_T);
+ fifo_config_out0.write(LAYER_FILTER_S);
+ fifo_config_out0.write(LAYER_TASK_NUM1);
+ fifo_config_out0.write(LAYER_TASK_NUM2);
+ fifo_config_out0.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out0.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out0.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out0.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out0.write(LAYER_STRIDE);
+ fifo_config_out0.write(LAYER_BATCH);
+ U1_Data1TransferChannelType ping_buffer[1][10368 / 8];
+ U1_Data1TransferChannelType pong_buffer[1][10368 / 8];
+#pragma HLS RESOURCE variable=ping_buffer core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=pong_buffer core=RAM_2P_BRAM
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=1 complete
+
+ unsigned int initial_round = 0;
+
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   dummy = fifo_config_in.read();
+
+
+   fifo_config_out0.write(LAYER_IN_NUM_T);
+   fifo_config_out0.write(LAYER_OUT_NUM_T);
+   fifo_config_out0.write(LAYER_IN_IMG_H_T);
+   fifo_config_out0.write(LAYER_IN_IMG_W_T);
+   fifo_config_out0.write(LAYER_FILTER_S);
+   fifo_config_out0.write(LAYER_TASK_NUM1);
+   fifo_config_out0.write(LAYER_TASK_NUM2);
+   fifo_config_out0.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out0.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out0.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out0.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out0.write(LAYER_STRIDE);
+   fifo_config_out0.write(LAYER_BATCH);
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data1ReadData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data1ReadData0(pong_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data1FeedData0(
+      ping_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   } else {
+    U1_Data1ReadData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data1FeedData0(
+      pong_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   }
+  }
+
+  initial_round++;
+  LAYER_IN_NUM_T_prev = LAYER_IN_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_FILTER_S_prev = LAYER_FILTER_S;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+  LAYER_ROW_IL_FACTOR_prev = LAYER_ROW_IL_FACTOR;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+
+  task_iter++;
+  if (task_iter == LAYER_TASK_NUM1){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data1FeedData0(
+    ping_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ } else {
+  U1_Data1FeedData0(
+    pong_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ }
+}
+
+void U1_DataFeed1Engine0_wrapper(
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out0
+){
+ U1_DataFeed1Engine0(
+   fifo_transfer_in,
+   fifo_transfer_out,
+   fifo_feed_0,
+   engine_id,
+   fifo_config_in,
+   fifo_config_out0
+ );
+}
+
+void U1_DataFeed1EngineLast(
+  stream<U1_Data1TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data1PEChannelType> &fifo_feed_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_in
+#pragma HLS DATA_PACK variable=fifo_feed_0
+#pragma HLS INLINE off
+
+ uint task_iter = 0;
+ uint LAYER_IN_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_FILTER_S_prev;
+ uint LAYER_STRIDE_prev;
+ uint LAYER_ROW_IL_FACTOR_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint dummy;
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+ U1_Data1TransferChannelType ping_buffer[1][10368 / 8];
+ U1_Data1TransferChannelType pong_buffer[1][10368 / 8];
+#pragma HLS RESOURCE variable=ping_buffer core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=pong_buffer core=RAM_2P_BRAM
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=1 complete
+
+ unsigned int initial_round = 0;
+
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   dummy = fifo_config_in.read();
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data1ReadDataLast(ping_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data1ReadDataLast(pong_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data1FeedData0(
+      ping_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   } else {
+    U1_Data1ReadDataLast(ping_buffer, fifo_transfer_in, engine_id, LAYER_IN_NUM_T, LAYER_IN_IMG_H_T, LAYER_FILTER_S, LAYER_STRIDE, LAYER_ROW_IL_FACTOR, LAYER_COL_IL_FACTOR);
+    U1_Data1FeedData0(
+      pong_buffer,
+      fifo_feed_0,
+      LAYER_IN_NUM_T_prev,
+      LAYER_IN_IMG_H_T_prev,
+      LAYER_FILTER_S_prev,
+      LAYER_STRIDE_prev,
+      LAYER_ROW_IL_FACTOR_prev,
+      LAYER_COL_IL_FACTOR_prev);
+   }
+  }
+
+  initial_round++;
+  LAYER_IN_NUM_T_prev = LAYER_IN_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_FILTER_S_prev = LAYER_FILTER_S;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+  LAYER_ROW_IL_FACTOR_prev = LAYER_ROW_IL_FACTOR;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+
+  task_iter++;
+  if (task_iter == LAYER_TASK_NUM1){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data1FeedData0(
+    ping_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ } else {
+  U1_Data1FeedData0(
+    pong_buffer,
+    fifo_feed_0,
+    LAYER_IN_NUM_T_prev,
+    LAYER_IN_IMG_H_T_prev,
+    LAYER_FILTER_S_prev,
+    LAYER_STRIDE_prev,
+    LAYER_ROW_IL_FACTOR_prev,
+    LAYER_COL_IL_FACTOR_prev);
+ }
+}
+# 2246 "kernel.cpp"
+void U1_Data2WriteData0(
+  U1_data_t2 buffer[1][6912 / 8][8],
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  unsigned int engine_id,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_COL_IL_FACTOR,
+  uint LAYER_STRIDE
+){
+#pragma HLS INLINE off
+
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+
+ bool more_to_read_from_buffer = true;
+ bool more_to_collect_from_sys_arr = true;
+ bool data_is_from_local_buffer;
+ bool data_is_from_external_buffer;
+ ap_uint<8> oo = 0;
+ ap_uint<5> h = 0;
+ ap_uint<5> h_bound = LAYER_IN_IMG_H_T / LAYER_STRIDE;
+ ap_uint<7> w = 0;
+ ap_uint<7> w_bound = LAYER_IN_IMG_W_T / LAYER_STRIDE;
+ bool done = 0;
+
+ while(!done){
+#pragma HLS PIPELINE II=1
+ ap_uint<18> local_buf_idx = h * LAYER_COL_IL_FACTOR * LAYER_OUT_NUM_T + (w % LAYER_COL_IL_FACTOR) * LAYER_OUT_NUM_T + oo * 8;
+  if (w >= engine_id * LAYER_COL_IL_FACTOR){
+   ap_uint<7> collector_id = w / LAYER_COL_IL_FACTOR;
+   data_is_from_local_buffer = (collector_id == engine_id);
+   data_is_from_external_buffer = !data_is_from_local_buffer;
+
+   U1_Data2TransferChannelType data_write_to_fifo;
+
+   if (data_is_from_external_buffer){
+    data_write_to_fifo = fifo_transfer_in.read();
+   } else {
+    U1_data_t2 data0 = buffer[0][local_buf_idx / 8][0];
+    ap_uint<32> data0_cast = Reinterpret<ap_uint<32> >(data0);
+    U1_data_t2 data1 = buffer[0][local_buf_idx / 8][1];
+    ap_uint<32> data1_cast = Reinterpret<ap_uint<32> >(data1);
+    U1_data_t2 data2 = buffer[0][local_buf_idx / 8][2];
+    ap_uint<32> data2_cast = Reinterpret<ap_uint<32> >(data2);
+    U1_data_t2 data3 = buffer[0][local_buf_idx / 8][3];
+    ap_uint<32> data3_cast = Reinterpret<ap_uint<32> >(data3);
+    U1_data_t2 data4 = buffer[0][local_buf_idx / 8][4];
+    ap_uint<32> data4_cast = Reinterpret<ap_uint<32> >(data4);
+    U1_data_t2 data5 = buffer[0][local_buf_idx / 8][5];
+    ap_uint<32> data5_cast = Reinterpret<ap_uint<32> >(data5);
+    U1_data_t2 data6 = buffer[0][local_buf_idx / 8][6];
+    ap_uint<32> data6_cast = Reinterpret<ap_uint<32> >(data6);
+    U1_data_t2 data7 = buffer[0][local_buf_idx / 8][7];
+    ap_uint<32> data7_cast = Reinterpret<ap_uint<32> >(data7);
+    ap_uint<32 * 8> pack_data = (
+      data7_cast,
+      data6_cast,
+      data5_cast,
+      data4_cast,
+      data3_cast,
+      data2_cast,
+      data1_cast,
+      data0_cast
+    );
+    data_write_to_fifo.data = pack_data;
+   }
+
+   fifo_transfer_out.write(data_write_to_fifo);
+  }
+  w++;
+  if (w == w_bound){
+   w = 0;
+   h++;
+   if (h == h_bound){
+    h = 0;
+    oo++;
+    if (oo == LAYER_OUT_NUM_T / 8){
+     oo = 0;
+     done = 1;
+    }
+   }
+  }
+ }
+
+}
+
+void U1_Data2WriteDataLast(
+  U1_data_t2 buffer[1][6912 / 8][8],
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  unsigned int engine_id,
+  uint LAYER_OUT_NUM_T,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_IN_IMG_W_T,
+  uint LAYER_COL_IL_FACTOR,
+  uint LAYER_STRIDE
+){
+#pragma HLS INLINE off
+
+ bool LAST_ENGINE = (engine_id == 8 / 1 - 1);
+
+ bool more_to_read_from_buffer = true;
+ bool more_to_collect_from_sys_arr = true;
+ bool data_is_from_local_buffer;
+ bool data_is_from_external_buffer;
+ ap_uint<8> oo = 0;
+ ap_uint<5> h = 0;
+ ap_uint<5> h_bound = LAYER_IN_IMG_H_T / LAYER_STRIDE;
+ ap_uint<7> w = 0;
+ ap_uint<7> w_bound = LAYER_IN_IMG_W_T / LAYER_STRIDE;
+ bool done = 0;
+
+ while(!done){
+#pragma HLS PIPELINE II=1
+ ap_uint<18> local_buf_idx = h * LAYER_COL_IL_FACTOR * LAYER_OUT_NUM_T + (w % LAYER_COL_IL_FACTOR) * LAYER_OUT_NUM_T + oo * 8;
+  if (w >= engine_id * LAYER_COL_IL_FACTOR){
+   ap_uint<7> collector_id = w / LAYER_COL_IL_FACTOR;
+   data_is_from_local_buffer = (collector_id == engine_id);
+   data_is_from_external_buffer = !data_is_from_local_buffer;
+
+   U1_Data2TransferChannelType data_write_to_fifo;
+
+   if (data_is_from_external_buffer){
+   } else {
+    U1_data_t2 data0 = buffer[0][local_buf_idx / 8][0];
+    ap_uint<32> data0_cast = Reinterpret<ap_uint<32> >(data0);
+    U1_data_t2 data1 = buffer[0][local_buf_idx / 8][1];
+    ap_uint<32> data1_cast = Reinterpret<ap_uint<32> >(data1);
+    U1_data_t2 data2 = buffer[0][local_buf_idx / 8][2];
+    ap_uint<32> data2_cast = Reinterpret<ap_uint<32> >(data2);
+    U1_data_t2 data3 = buffer[0][local_buf_idx / 8][3];
+    ap_uint<32> data3_cast = Reinterpret<ap_uint<32> >(data3);
+    U1_data_t2 data4 = buffer[0][local_buf_idx / 8][4];
+    ap_uint<32> data4_cast = Reinterpret<ap_uint<32> >(data4);
+    U1_data_t2 data5 = buffer[0][local_buf_idx / 8][5];
+    ap_uint<32> data5_cast = Reinterpret<ap_uint<32> >(data5);
+    U1_data_t2 data6 = buffer[0][local_buf_idx / 8][6];
+    ap_uint<32> data6_cast = Reinterpret<ap_uint<32> >(data6);
+    U1_data_t2 data7 = buffer[0][local_buf_idx / 8][7];
+    ap_uint<32> data7_cast = Reinterpret<ap_uint<32> >(data7);
+    ap_uint<32 * 8> pack_data = (
+      data7_cast,
+      data6_cast,
+      data5_cast,
+      data4_cast,
+      data3_cast,
+      data2_cast,
+      data1_cast,
+      data0_cast
+    );
+    data_write_to_fifo.data = pack_data;
+   }
+
+   fifo_transfer_out.write(data_write_to_fifo);
+  }
+  w++;
+  if (w == w_bound){
+   w = 0;
+   h++;
+   if (h == h_bound){
+    h = 0;
+    oo++;
+    if (oo == LAYER_OUT_NUM_T / 8){
+     oo = 0;
+     done = 1;
+    }
+   }
+  }
+ }
+
+}
+
+void U1_Data2ReadData0(
+  U1_data_t2 buffer[1][6912 / 8][8],
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  uint LAYER_IN_IMG_H_T,
+  uint LAYER_ROW_IL_FACTOR,
+  uint LAYER_COL_IL_FACTOR,
+  uint LAYER_STRIDE
+){
+#pragma HLS INLINE off
+
+ bool more_to_collect_from_sys_arr = true;
+ ap_uint<1> buffer_gs_id = 0;
+ ap_uint<14> buffer_read_counter = 0;
+ ap_uint<5> c0_counter = 0;
+ ap_uint<5> c1_counter = 0;
+ ap_uint<4> c2_counter = 0;
+ ap_uint<4> c3_counter = 0;
+ ap_uint<5> c0_counter_bound = LAYER_IN_IMG_H_T / LAYER_STRIDE;
+
+ while(more_to_collect_from_sys_arr){
+#pragma HLS PIPELINE II=1
+ ap_uint<14> buffer_ind_to_collect_from_sys_arr = c0_counter * LAYER_COL_IL_FACTOR * 8 * LAYER_ROW_IL_FACTOR + c2_counter * 8 * LAYER_ROW_IL_FACTOR + ((8 - 1 - c3_counter) * LAYER_ROW_IL_FACTOR + c1_counter);
+
+  U1_Data2PEChannelType data_to_collect_0;
+  data_to_collect_0 = fifo_collect_0.read();
+  buffer[0][buffer_ind_to_collect_from_sys_arr / 8][buffer_ind_to_collect_from_sys_arr % 8] = data_to_collect_0.data;
+
+
+  c0_counter++;
+  if (c0_counter == c0_counter_bound){
+   c0_counter = 0;
+   c1_counter++;
+   if (c1_counter == LAYER_ROW_IL_FACTOR){
+    c1_counter = 0;
+    c2_counter++;
+    if (c2_counter == LAYER_COL_IL_FACTOR){
+     c2_counter = 0;
+     c3_counter++;
+     if (c3_counter == 8){
+      c3_counter = 0;
+      more_to_collect_from_sys_arr = false;
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_DataCollect2Engine0(
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in0,
+  stream<uint> &fifo_config_in1,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_in
+#pragma HLS DATA_PACK variable=fifo_transfer_out
+#pragma HLS DATA_PACK variable=fifo_collect_0
+#pragma HLS INLINE off
+
+ uint LAYER_OUT_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_IN_IMG_W_T_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint LAYER_STRIDE_prev;
+ uint task_iter = 0;
+
+ uint LAYER_IN_NUM_T = fifo_config_in0.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in0.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in0.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in0.read();
+ uint LAYER_FILTER_S = fifo_config_in0.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in0.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in0.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in0.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in0.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in0.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in0.read();
+ uint LAYER_STRIDE = fifo_config_in0.read();
+ uint LAYER_BATCH = fifo_config_in0.read();
+
+
+ LAYER_IN_NUM_T = fifo_config_in1.read();
+ LAYER_OUT_NUM_T = fifo_config_in1.read();
+ LAYER_IN_IMG_H_T = fifo_config_in1.read();
+ LAYER_IN_IMG_W_T = fifo_config_in1.read();
+ LAYER_FILTER_S = fifo_config_in1.read();
+ LAYER_TASK_NUM1 = fifo_config_in1.read();
+ LAYER_TASK_NUM2 = fifo_config_in1.read();
+ LAYER_LOCAL_ACCUM_NUM = fifo_config_in1.read();
+ LAYER_LOCAL_REG_NUM = fifo_config_in1.read();
+ LAYER_ROW_IL_FACTOR = fifo_config_in1.read();
+ LAYER_COL_IL_FACTOR = fifo_config_in1.read();
+ LAYER_STRIDE = fifo_config_in1.read();
+ LAYER_BATCH = fifo_config_in1.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ U1_data_t2 ping_buffer[1][6912 / 8][8];
+ U1_data_t2 pong_buffer[1][6912 / 8][8];
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=3 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=3 complete
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+
+ unsigned int initial_round = 0;
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in0.read();
+   LAYER_OUT_NUM_T = fifo_config_in0.read();
+   LAYER_IN_IMG_H_T = fifo_config_in0.read();
+   LAYER_IN_IMG_W_T = fifo_config_in0.read();
+   LAYER_FILTER_S = fifo_config_in0.read();
+   LAYER_TASK_NUM1 = fifo_config_in0.read();
+   LAYER_TASK_NUM2 = fifo_config_in0.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in0.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in0.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in0.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in0.read();
+   LAYER_STRIDE = fifo_config_in0.read();
+   LAYER_BATCH = fifo_config_in0.read();
+
+
+   LAYER_IN_NUM_T = fifo_config_in1.read();
+   LAYER_OUT_NUM_T = fifo_config_in1.read();
+   LAYER_IN_IMG_H_T = fifo_config_in1.read();
+   LAYER_IN_IMG_W_T = fifo_config_in1.read();
+   LAYER_FILTER_S = fifo_config_in1.read();
+   LAYER_TASK_NUM1 = fifo_config_in1.read();
+   LAYER_TASK_NUM2 = fifo_config_in1.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in1.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in1.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in1.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in1.read();
+   LAYER_STRIDE = fifo_config_in1.read();
+   LAYER_BATCH = fifo_config_in1.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data2ReadData0(
+     ping_buffer,
+     fifo_collect_0,
+     LAYER_IN_IMG_H_T,
+     LAYER_ROW_IL_FACTOR,
+     LAYER_COL_IL_FACTOR,
+     LAYER_STRIDE
+   );
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data2ReadData0(
+      pong_buffer,
+      fifo_collect_0,
+      LAYER_IN_IMG_H_T,
+      LAYER_ROW_IL_FACTOR,
+      LAYER_COL_IL_FACTOR,
+      LAYER_STRIDE
+    );
+    U1_Data2WriteData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+   } else {
+    U1_Data2ReadData0(
+      ping_buffer,
+      fifo_collect_0,
+      LAYER_IN_IMG_H_T,
+      LAYER_ROW_IL_FACTOR,
+      LAYER_COL_IL_FACTOR,
+      LAYER_STRIDE
+    );
+    U1_Data2WriteData0(pong_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+   }
+  }
+  initial_round++;
+  LAYER_OUT_NUM_T_prev = LAYER_OUT_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_IN_IMG_W_T_prev = LAYER_IN_IMG_W_T;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+
+  task_iter += 1;
+  if (task_iter == LAYER_TASK_NUM2){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data2WriteData0(ping_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+ } else {
+  U1_Data2WriteData0(pong_buffer, fifo_transfer_in, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+ }
+}
+
+void U1_DataCollect2Engine0_wrapper(
+  stream<U1_Data2TransferChannelType> &fifo_transfer_in,
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in0,
+  stream<uint> &fifo_config_in1,
+  stream<uint> &fifo_config_out
+){
+ U1_DataCollect2Engine0(
+   fifo_transfer_in,
+   fifo_transfer_out,
+   fifo_collect_0,
+   engine_id,
+   fifo_config_in0,
+   fifo_config_in1,
+   fifo_config_out
+ );
+}
+
+void U1_DataCollect2EngineLast(
+  stream<U1_Data2TransferChannelType> &fifo_transfer_out,
+  stream<U1_Data2PEChannelType> &fifo_collect_0,
+  unsigned int engine_id,
+  stream<uint> &fifo_config_in0,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo_transfer_out
+#pragma HLS DATA_PACK variable=fifo_collect_0
+#pragma HLS INLINE off
+
+ uint LAYER_OUT_NUM_T_prev;
+ uint LAYER_IN_IMG_H_T_prev;
+ uint LAYER_IN_IMG_W_T_prev;
+ uint LAYER_COL_IL_FACTOR_prev;
+ uint LAYER_STRIDE_prev;
+
+ uint task_iter = 0;
+
+ uint LAYER_IN_NUM_T = fifo_config_in0.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in0.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in0.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in0.read();
+ uint LAYER_FILTER_S = fifo_config_in0.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in0.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in0.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in0.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in0.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in0.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in0.read();
+ uint LAYER_STRIDE = fifo_config_in0.read();
+ uint LAYER_BATCH = fifo_config_in0.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ U1_data_t2 ping_buffer[1][6912 / 8][8];
+ U1_data_t2 pong_buffer[1][6912 / 8][8];
+#pragma HLS ARRAY_PARTITION variable=ping_buffer dim=3 complete
+#pragma HLS ARRAY_PARTITION variable=pong_buffer dim=3 complete
+#pragma HLS DATA_PACK variable=ping_buffer
+#pragma HLS DATA_PACK variable=pong_buffer
+
+ unsigned int initial_round = 0;
+ bool done = 0;
+ ap_uint<2> layer_iter = 0;
+ bool layer_start = 0;
+ while(!done){
+  if (layer_start){
+
+   LAYER_IN_NUM_T = fifo_config_in0.read();
+   LAYER_OUT_NUM_T = fifo_config_in0.read();
+   LAYER_IN_IMG_H_T = fifo_config_in0.read();
+   LAYER_IN_IMG_W_T = fifo_config_in0.read();
+   LAYER_FILTER_S = fifo_config_in0.read();
+   LAYER_TASK_NUM1 = fifo_config_in0.read();
+   LAYER_TASK_NUM2 = fifo_config_in0.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in0.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in0.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in0.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in0.read();
+   LAYER_STRIDE = fifo_config_in0.read();
+   LAYER_BATCH = fifo_config_in0.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+
+   layer_start = 0;
+  }
+
+  if (initial_round == 0){
+   U1_Data2ReadData0(
+     ping_buffer,
+     fifo_collect_0,
+     LAYER_IN_IMG_H_T,
+     LAYER_ROW_IL_FACTOR,
+     LAYER_COL_IL_FACTOR,
+     LAYER_STRIDE
+   );
+  } else {
+   if (initial_round % 2 == 1){
+    U1_Data2ReadData0(
+      pong_buffer,
+      fifo_collect_0,
+      LAYER_IN_IMG_H_T,
+      LAYER_ROW_IL_FACTOR,
+      LAYER_COL_IL_FACTOR,
+      LAYER_STRIDE
+    );
+    U1_Data2WriteDataLast(ping_buffer, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+   } else {
+    U1_Data2ReadData0(
+      ping_buffer,
+      fifo_collect_0,
+      LAYER_IN_IMG_H_T,
+      LAYER_ROW_IL_FACTOR,
+      LAYER_COL_IL_FACTOR,
+      LAYER_STRIDE
+    );
+    U1_Data2WriteDataLast(pong_buffer, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+   }
+  }
+  initial_round++;
+  LAYER_OUT_NUM_T_prev = LAYER_OUT_NUM_T;
+  LAYER_IN_IMG_H_T_prev = LAYER_IN_IMG_H_T;
+  LAYER_IN_IMG_W_T_prev = LAYER_IN_IMG_W_T;
+  LAYER_COL_IL_FACTOR_prev = LAYER_COL_IL_FACTOR;
+  LAYER_STRIDE_prev = LAYER_STRIDE;
+
+  task_iter += 1;
+  if (task_iter == LAYER_TASK_NUM2){
+   task_iter = 0;
+   layer_iter += 1;
+   layer_start = 1;
+   if (layer_iter == LAYER_BATCH){
+    layer_iter = 0;
+    done = 1;
+   }
+  }
+ }
+
+ if (initial_round % 2 == 1){
+  U1_Data2WriteDataLast(ping_buffer, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+ } else {
+  U1_Data2WriteDataLast(pong_buffer, fifo_transfer_out, engine_id, LAYER_OUT_NUM_T_prev, LAYER_IN_IMG_H_T_prev, LAYER_IN_IMG_W_T_prev, LAYER_COL_IL_FACTOR_prev, LAYER_STRIDE_prev);
+ }
+}
+# 2830 "kernel.cpp"
+void U1_PE_MAC(
+  U1_Data0SIMDType op0,
+  U1_Data1SIMDType op1,
+  U1_data_t2* op2,
+  bool init
+){
+#pragma HLS INLINE
+#pragma HLS DATA_PACK variable=op0
+#pragma HLS DATA_PACK variable=op1
+ ap_uint<256> op0_data = op0;
+ ap_uint<256> op1_data = op1;
+
+ float op0_u[8];
+#pragma HLS ARRAY_PARTITION variable=op0_u complete
+ float op1_u[8];
+#pragma HLS ARRAY_PARTITION variable=op1_u complete
+
+ for (int i = 0; i < 8; i++){
+#pragma HLS UNROLL
+ ap_uint<32> sel0 = op0_data(32 -1, 0);
+  op0_u[i] = Reinterpret<U1_data_t0>(sel0);
+  op0_data = op0_data >> 32;
+  ap_uint<32> sel1 = op1_data(32 -1, 0);
+  op1_u[i] = Reinterpret<U1_data_t1>(sel1);
+  op1_data = op1_data >> 32;
+ }
+
+ U1_data_t2 sum = (init == 1)? (U1_data_t2) 0: *op2;
+
+ U1_data_t2 mult0 = op0_u[0] * op1_u[0];
+ U1_data_t2 mult1 = op0_u[1] * op1_u[1];
+ U1_data_t2 mult2 = op0_u[2] * op1_u[2];
+ U1_data_t2 mult3 = op0_u[3] * op1_u[3];
+ U1_data_t2 mult4 = op0_u[4] * op1_u[4];
+ U1_data_t2 mult5 = op0_u[5] * op1_u[5];
+ U1_data_t2 mult6 = op0_u[6] * op1_u[6];
+ U1_data_t2 mult7 = op0_u[7] * op1_u[7];
+
+ U1_data_t2 sum2_0 = mult0 + mult1;
+ U1_data_t2 sum2_1 = mult2 + mult3;
+ U1_data_t2 sum2_2 = mult4 + mult5;
+ U1_data_t2 sum2_3 = mult6 + mult7;
+
+ U1_data_t2 sum1_0 = sum2_0 + sum2_1;
+ U1_data_t2 sum1_1 = sum2_2 + sum2_3;
+
+ U1_data_t2 sum0_0 = sum1_0 + sum1_1;
+
+ sum += sum0_0;
+
+ *op2 = sum;
+}
+
+void U1_op0_transfer(
+  stream<U1_Data0PEChannelType> &fifo0_in,
+  stream<U1_Data0PEChannelType> &fifo0_out,
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo0_in
+#pragma HLS DATA_PACK variable=fifo0_out
+#pragma HLS DATA_PACK variable=fifo0_local
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  ap_uint<38> task_num = 0;
+  ap_uint<12> la_counter = 0;
+  ap_uint<11> local_reg_id = 0;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+ U1_Data0PEChannelType fifo0_in_data;
+   fifo0_in_data = fifo0_in.read();
+   fifo0_out.write(fifo0_in_data);
+   fifo0_local.write(fifo0_in_data);
+   local_reg_id++;
+   if (local_reg_id == LAYER_LOCAL_REG_NUM){
+    local_reg_id = 0;
+    la_counter++;
+    if (la_counter == LAYER_LOCAL_ACCUM_NUM){
+     la_counter = 0;
+     task_num++;
+     if (task_num == LAYER_TASK_NUM1){
+      task_num = 0;
+      done2 = 1;
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_op0_transfer_wrapper(
+  stream<U1_Data0PEChannelType> &fifo0_in,
+  stream<U1_Data0PEChannelType> &fifo0_out,
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_op0_transfer(
+   fifo0_in,
+   fifo0_out,
+   fifo0_local,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_op0_transfer_last(
+  stream<U1_Data0PEChannelType> &fifo0_in,
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo0_in
+#pragma HLS DATA_PACK variable=fifo0_local
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  ap_uint<38> task_num = 0;
+  ap_uint<12> la_counter = 0;
+  ap_uint<11> local_reg_id = 0;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+ U1_Data0PEChannelType fifo0_in_data;
+   fifo0_in_data = fifo0_in.read();
+   fifo0_local.write(fifo0_in_data);
+   local_reg_id++;
+   if (local_reg_id == LAYER_LOCAL_REG_NUM){
+    local_reg_id = 0;
+    la_counter++;
+    if (la_counter == LAYER_LOCAL_ACCUM_NUM){
+     la_counter = 0;
+     task_num++;
+     if (task_num == LAYER_TASK_NUM1){
+      task_num = 0;
+      done2 = 1;
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_op0_transfer_last_wrapper(
+  stream<U1_Data0PEChannelType> &fifo0_in,
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_op0_transfer_last(
+   fifo0_in,
+   fifo0_local,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_op1_transfer(
+  stream<U1_Data1PEChannelType> &fifo1_in,
+  stream<U1_Data1PEChannelType> &fifo1_out,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo1_in
+#pragma HLS DATA_PACK variable=fifo1_out
+#pragma HLS DATA_PACK variable=fifo1_local
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  ap_uint<38> task_num = 0;
+  ap_uint<12> la_counter = 0;
+  ap_uint<11> local_reg_id = 0;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+ U1_Data1PEChannelType fifo1_in_data;
+   fifo1_in_data = fifo1_in.read();
+   fifo1_out.write(fifo1_in_data);
+   fifo1_local.write(fifo1_in_data);
+   local_reg_id++;
+   if (local_reg_id == LAYER_LOCAL_REG_NUM){
+    local_reg_id = 0;
+    la_counter++;
+    if (la_counter == LAYER_LOCAL_ACCUM_NUM){
+     la_counter = 0;
+     task_num++;
+     if (task_num == LAYER_TASK_NUM1){
+      task_num = 0;
+      done2 = 1;
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_op1_transfer_wrapper(
+  stream<U1_Data1PEChannelType> &fifo1_in,
+  stream<U1_Data1PEChannelType> &fifo1_out,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_op1_transfer(
+   fifo1_in,
+   fifo1_out,
+   fifo1_local,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_op1_transfer_last(
+  stream<U1_Data1PEChannelType> &fifo1_in,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo1_in
+#pragma HLS DATA_PACK variable=fifo1_local
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  ap_uint<38> task_num = 0;
+  ap_uint<12> la_counter = 0;
+  ap_uint<11> local_reg_id = 0;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+ U1_Data1PEChannelType fifo1_in_data;
+   fifo1_in_data = fifo1_in.read();
+   fifo1_local.write(fifo1_in_data);
+   local_reg_id++;
+   if (local_reg_id == LAYER_LOCAL_REG_NUM){
+    local_reg_id = 0;
+    la_counter++;
+    if (la_counter == LAYER_LOCAL_ACCUM_NUM){
+     la_counter = 0;
+     task_num++;
+     if (task_num == LAYER_TASK_NUM1){
+      task_num = 0;
+      done2 = 1;
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_op1_transfer_last_wrapper(
+  stream<U1_Data1PEChannelType> &fifo1_in,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_op1_transfer_last(
+   fifo1_in,
+   fifo1_local,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_compute(
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo0_local
+#pragma HLS DATA_PACK variable=fifo1_local
+#pragma HLS INLINE off
+
+ U1_data_t2 local_buffer[864];
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ ap_uint<2> layer_iter = 0;
+ bool done1 = 0;
+ while(!done1){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  ap_uint<38> task_num = 0;
+  ap_uint<12> la_counter = 0;
+  ap_uint<11> local_reg_id = 0;
+  bool done2 = 0;
+  while(!done2){
+#pragma HLS PIPELINE II=1
+#pragma HLS DEPENDENCE inter false variable=local_buffer
+ U1_Data0PEChannelType fifo0_in_data;
+   fifo0_in_data = fifo0_local.read();
+   U1_Data1PEChannelType fifo1_in_data;
+   fifo1_in_data = fifo1_local.read();
+   bool init = fifo0_in_data.new_pair;
+   bool last = fifo0_in_data.last_pair;
+   U1_PE_MAC(fifo0_in_data.data, fifo1_in_data.data, &local_buffer[local_reg_id], (init == 1 && la_counter == 0)? 1:0);
+   if (la_counter == LAYER_LOCAL_ACCUM_NUM - 1 && last){
+    fifo2_local.write(U1_Data2PEChannelType(local_buffer[local_reg_id]));
+   }
+   local_reg_id++;
+   if (local_reg_id == LAYER_LOCAL_REG_NUM){
+    local_reg_id = 0;
+    la_counter++;
+    if (la_counter == LAYER_LOCAL_ACCUM_NUM){
+     la_counter = 0;
+     task_num++;
+     if (task_num == LAYER_TASK_NUM1){
+      task_num = 0;
+      done2 = 1;
+     }
+    }
+   }
+  }
+  layer_iter++;
+  if (layer_iter == LAYER_BATCH){
+   layer_iter = 0;
+   done1 = 1;
+  }
+ }
+}
+
+void U1_compute_wrapper(
+  stream<U1_Data0PEChannelType> &fifo0_local,
+  stream<U1_Data1PEChannelType> &fifo1_local,
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_compute(
+   fifo0_local,
+   fifo1_local,
+   fifo2_local,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_res_transfer(
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<U1_Data2PEChannelType> &fifo2_in,
+  stream<U1_Data2PEChannelType> &fifo2_out,
+  ap_uint<4> pe_row_id,
+  ap_uint<4> pe_col_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo2_in
+#pragma HLS DATA_PACK variable=fifo2_out
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ U1_data_t2 local_buffer[864];
+
+ for (ap_uint<2> layer_iter = 0; layer_iter < LAYER_BATCH; layer_iter++){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  for (ap_uint<29> task_num = 0; task_num < LAYER_TASK_NUM2; task_num++)
+  {
+   for (ap_uint<11> local_reg_id = 0; local_reg_id < 864; local_reg_id++){
+#pragma HLS PIPELINE II=1
+ if (local_reg_id < LAYER_LOCAL_REG_NUM){
+     U1_Data2PEChannelType fifo2_local_data = fifo2_local.read();
+     local_buffer[local_reg_id] = fifo2_local_data.data;
+    } else {
+     break;
+    }
+   }
+
+   for (int transfer_iter = pe_row_id + 1 - 1; transfer_iter >= 0; transfer_iter--){
+    for (ap_uint<11> local_reg_id = 0; local_reg_id < 864; local_reg_id++){
+#pragma HLS PIPELINE II=1
+ if (local_reg_id < LAYER_LOCAL_REG_NUM){
+      fifo2_out.write(U1_Data2PEChannelType(local_buffer[local_reg_id]));
+      if (transfer_iter > 0){
+       U1_Data2PEChannelType fifo2_in_data = fifo2_in.read();
+       local_buffer[local_reg_id] = fifo2_in_data.data;
+      }
+     } else {
+      break;
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_res_transfer_wrapper(
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<U1_Data2PEChannelType> &fifo2_in,
+  stream<U1_Data2PEChannelType> &fifo2_out,
+  ap_uint<4> pe_row_id,
+  ap_uint<4> pe_col_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_res_transfer(
+   fifo2_local,
+   fifo2_in,
+   fifo2_out,
+   pe_row_id,
+   pe_col_id,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void U1_res_transfer_first(
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<U1_Data2PEChannelType> &fifo2_out,
+  ap_uint<4> pe_row_id,
+  ap_uint<4> pe_col_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+#pragma HLS DATA_PACK variable=fifo2_out
+#pragma HLS INLINE off
+
+
+ uint LAYER_IN_NUM_T = fifo_config_in.read();
+ uint LAYER_OUT_NUM_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_H_T = fifo_config_in.read();
+ uint LAYER_IN_IMG_W_T = fifo_config_in.read();
+ uint LAYER_FILTER_S = fifo_config_in.read();
+ uint LAYER_TASK_NUM1 = fifo_config_in.read();
+ uint LAYER_TASK_NUM2 = fifo_config_in.read();
+ uint LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+ uint LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+ uint LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_COL_IL_FACTOR = fifo_config_in.read();
+ uint LAYER_STRIDE = fifo_config_in.read();
+ uint LAYER_BATCH = fifo_config_in.read();
+
+
+ fifo_config_out.write(LAYER_IN_NUM_T);
+ fifo_config_out.write(LAYER_OUT_NUM_T);
+ fifo_config_out.write(LAYER_IN_IMG_H_T);
+ fifo_config_out.write(LAYER_IN_IMG_W_T);
+ fifo_config_out.write(LAYER_FILTER_S);
+ fifo_config_out.write(LAYER_TASK_NUM1);
+ fifo_config_out.write(LAYER_TASK_NUM2);
+ fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+ fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+ fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+ fifo_config_out.write(LAYER_COL_IL_FACTOR);
+ fifo_config_out.write(LAYER_STRIDE);
+ fifo_config_out.write(LAYER_BATCH);
+
+ U1_data_t2 local_buffer[864];
+
+ for (ap_uint<2> layer_iter = 0; layer_iter < LAYER_BATCH; layer_iter++){
+  if (layer_iter > 0){
+
+   LAYER_IN_NUM_T = fifo_config_in.read();
+   LAYER_OUT_NUM_T = fifo_config_in.read();
+   LAYER_IN_IMG_H_T = fifo_config_in.read();
+   LAYER_IN_IMG_W_T = fifo_config_in.read();
+   LAYER_FILTER_S = fifo_config_in.read();
+   LAYER_TASK_NUM1 = fifo_config_in.read();
+   LAYER_TASK_NUM2 = fifo_config_in.read();
+   LAYER_LOCAL_ACCUM_NUM = fifo_config_in.read();
+   LAYER_LOCAL_REG_NUM = fifo_config_in.read();
+   LAYER_ROW_IL_FACTOR = fifo_config_in.read();
+   LAYER_COL_IL_FACTOR = fifo_config_in.read();
+   LAYER_STRIDE = fifo_config_in.read();
+   LAYER_BATCH = fifo_config_in.read();
+
+
+   fifo_config_out.write(LAYER_IN_NUM_T);
+   fifo_config_out.write(LAYER_OUT_NUM_T);
+   fifo_config_out.write(LAYER_IN_IMG_H_T);
+   fifo_config_out.write(LAYER_IN_IMG_W_T);
+   fifo_config_out.write(LAYER_FILTER_S);
+   fifo_config_out.write(LAYER_TASK_NUM1);
+   fifo_config_out.write(LAYER_TASK_NUM2);
+   fifo_config_out.write(LAYER_LOCAL_ACCUM_NUM);
+   fifo_config_out.write(LAYER_LOCAL_REG_NUM);
+   fifo_config_out.write(LAYER_ROW_IL_FACTOR);
+   fifo_config_out.write(LAYER_COL_IL_FACTOR);
+   fifo_config_out.write(LAYER_STRIDE);
+   fifo_config_out.write(LAYER_BATCH);
+  }
+
+  for (ap_uint<29> task_num = 0; task_num < LAYER_TASK_NUM2; task_num++)
+  {
+   for (ap_uint<11> local_reg_id = 0; local_reg_id < 864; local_reg_id++){
+#pragma HLS PIPELINE II=1
+ if (local_reg_id < LAYER_LOCAL_REG_NUM){
+     U1_Data2PEChannelType fifo2_local_data = fifo2_local.read();
+     local_buffer[local_reg_id] = fifo2_local_data.data;
+    } else {
+     break;
+    }
+   }
+
+   for (int transfer_iter = pe_row_id + 1 - 1; transfer_iter >= 0; transfer_iter--){
+    for (ap_uint<11> local_reg_id = 0; local_reg_id < 864; local_reg_id++){
+#pragma HLS PIPELINE II=1
+ if (local_reg_id < LAYER_LOCAL_REG_NUM){
+      fifo2_out.write(U1_Data2PEChannelType(local_buffer[local_reg_id]));
+     } else {
+      break;
+     }
+    }
+   }
+  }
+ }
+}
+
+void U1_res_transfer_first_wrapper(
+  stream<U1_Data2PEChannelType> &fifo2_local,
+  stream<U1_Data2PEChannelType> &fifo2_out,
+  ap_uint<4> pe_row_id,
+  ap_uint<4> pe_col_id,
+  stream<uint> &fifo_config_in,
+  stream<uint> &fifo_config_out
+){
+ U1_res_transfer_first(
+   fifo2_local,
+   fifo2_out,
+   pe_row_id,
+   pe_col_id,
+   fifo_config_in,
+   fifo_config_out
+ );
+}
+
+void kernel(
+  stream<ap_uint<32 * 8> > &fifo_cin,
+  stream<ap_uint<32 * 8> > &fifo_weight,
+  stream<ap_uint<32 * 8> > &fifo_cout,
+  stream<U1_ConfigInst> &fifo_kernel_config_in,
+  stream<U1_ConfigInst> &fifo_kernel_config_out
+){
+#pragma HLS DATAFLOW
+
+
+ stream<U1_Data0PEChannelType> fifo0_feed0_0;
+#pragma HLS STREAM variable=fifo0_feed0_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_1;
+#pragma HLS STREAM variable=fifo0_feed0_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_2;
+#pragma HLS STREAM variable=fifo0_feed0_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_3;
+#pragma HLS STREAM variable=fifo0_feed0_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_4;
+#pragma HLS STREAM variable=fifo0_feed0_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_5;
+#pragma HLS STREAM variable=fifo0_feed0_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_6;
+#pragma HLS STREAM variable=fifo0_feed0_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_7;
+#pragma HLS STREAM variable=fifo0_feed0_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed0_8;
+#pragma HLS STREAM variable=fifo0_feed0_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_0;
+#pragma HLS STREAM variable=fifo0_feed1_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_1;
+#pragma HLS STREAM variable=fifo0_feed1_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_2;
+#pragma HLS STREAM variable=fifo0_feed1_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_3;
+#pragma HLS STREAM variable=fifo0_feed1_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_4;
+#pragma HLS STREAM variable=fifo0_feed1_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_5;
+#pragma HLS STREAM variable=fifo0_feed1_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_6;
+#pragma HLS STREAM variable=fifo0_feed1_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_7;
+#pragma HLS STREAM variable=fifo0_feed1_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed1_8;
+#pragma HLS STREAM variable=fifo0_feed1_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_0;
+#pragma HLS STREAM variable=fifo0_feed2_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_1;
+#pragma HLS STREAM variable=fifo0_feed2_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_2;
+#pragma HLS STREAM variable=fifo0_feed2_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_3;
+#pragma HLS STREAM variable=fifo0_feed2_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_4;
+#pragma HLS STREAM variable=fifo0_feed2_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_5;
+#pragma HLS STREAM variable=fifo0_feed2_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_6;
+#pragma HLS STREAM variable=fifo0_feed2_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_7;
+#pragma HLS STREAM variable=fifo0_feed2_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed2_8;
+#pragma HLS STREAM variable=fifo0_feed2_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_0;
+#pragma HLS STREAM variable=fifo0_feed3_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_1;
+#pragma HLS STREAM variable=fifo0_feed3_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_2;
+#pragma HLS STREAM variable=fifo0_feed3_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_3;
+#pragma HLS STREAM variable=fifo0_feed3_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_4;
+#pragma HLS STREAM variable=fifo0_feed3_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_5;
+#pragma HLS STREAM variable=fifo0_feed3_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_6;
+#pragma HLS STREAM variable=fifo0_feed3_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_7;
+#pragma HLS STREAM variable=fifo0_feed3_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed3_8;
+#pragma HLS STREAM variable=fifo0_feed3_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_0;
+#pragma HLS STREAM variable=fifo0_feed4_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_1;
+#pragma HLS STREAM variable=fifo0_feed4_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_2;
+#pragma HLS STREAM variable=fifo0_feed4_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_3;
+#pragma HLS STREAM variable=fifo0_feed4_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_4;
+#pragma HLS STREAM variable=fifo0_feed4_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_5;
+#pragma HLS STREAM variable=fifo0_feed4_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_6;
+#pragma HLS STREAM variable=fifo0_feed4_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_7;
+#pragma HLS STREAM variable=fifo0_feed4_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed4_8;
+#pragma HLS STREAM variable=fifo0_feed4_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_0;
+#pragma HLS STREAM variable=fifo0_feed5_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_1;
+#pragma HLS STREAM variable=fifo0_feed5_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_2;
+#pragma HLS STREAM variable=fifo0_feed5_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_3;
+#pragma HLS STREAM variable=fifo0_feed5_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_4;
+#pragma HLS STREAM variable=fifo0_feed5_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_5;
+#pragma HLS STREAM variable=fifo0_feed5_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_6;
+#pragma HLS STREAM variable=fifo0_feed5_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_7;
+#pragma HLS STREAM variable=fifo0_feed5_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed5_8;
+#pragma HLS STREAM variable=fifo0_feed5_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_0;
+#pragma HLS STREAM variable=fifo0_feed6_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_1;
+#pragma HLS STREAM variable=fifo0_feed6_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_2;
+#pragma HLS STREAM variable=fifo0_feed6_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_3;
+#pragma HLS STREAM variable=fifo0_feed6_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_4;
+#pragma HLS STREAM variable=fifo0_feed6_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_5;
+#pragma HLS STREAM variable=fifo0_feed6_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_6;
+#pragma HLS STREAM variable=fifo0_feed6_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_7;
+#pragma HLS STREAM variable=fifo0_feed6_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed6_8;
+#pragma HLS STREAM variable=fifo0_feed6_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_0;
+#pragma HLS STREAM variable=fifo0_feed7_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_1;
+#pragma HLS STREAM variable=fifo0_feed7_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_2;
+#pragma HLS STREAM variable=fifo0_feed7_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_3;
+#pragma HLS STREAM variable=fifo0_feed7_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_4;
+#pragma HLS STREAM variable=fifo0_feed7_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_5;
+#pragma HLS STREAM variable=fifo0_feed7_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_6;
+#pragma HLS STREAM variable=fifo0_feed7_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_7;
+#pragma HLS STREAM variable=fifo0_feed7_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed7_8;
+#pragma HLS STREAM variable=fifo0_feed7_8 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_0;
+#pragma HLS STREAM variable=fifo0_feed8_0 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_1;
+#pragma HLS STREAM variable=fifo0_feed8_1 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_2;
+#pragma HLS STREAM variable=fifo0_feed8_2 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_3;
+#pragma HLS STREAM variable=fifo0_feed8_3 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_4;
+#pragma HLS STREAM variable=fifo0_feed8_4 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_5;
+#pragma HLS STREAM variable=fifo0_feed8_5 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_6;
+#pragma HLS STREAM variable=fifo0_feed8_6 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_7;
+#pragma HLS STREAM variable=fifo0_feed8_7 depth=2
+ stream<U1_Data0PEChannelType> fifo0_feed8_8;
+#pragma HLS STREAM variable=fifo0_feed8_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_0;
+#pragma HLS STREAM variable=fifo1_feed0_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_1;
+#pragma HLS STREAM variable=fifo1_feed0_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_2;
+#pragma HLS STREAM variable=fifo1_feed0_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_3;
+#pragma HLS STREAM variable=fifo1_feed0_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_4;
+#pragma HLS STREAM variable=fifo1_feed0_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_5;
+#pragma HLS STREAM variable=fifo1_feed0_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_6;
+#pragma HLS STREAM variable=fifo1_feed0_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_7;
+#pragma HLS STREAM variable=fifo1_feed0_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed0_8;
+#pragma HLS STREAM variable=fifo1_feed0_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_0;
+#pragma HLS STREAM variable=fifo1_feed1_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_1;
+#pragma HLS STREAM variable=fifo1_feed1_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_2;
+#pragma HLS STREAM variable=fifo1_feed1_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_3;
+#pragma HLS STREAM variable=fifo1_feed1_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_4;
+#pragma HLS STREAM variable=fifo1_feed1_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_5;
+#pragma HLS STREAM variable=fifo1_feed1_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_6;
+#pragma HLS STREAM variable=fifo1_feed1_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_7;
+#pragma HLS STREAM variable=fifo1_feed1_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed1_8;
+#pragma HLS STREAM variable=fifo1_feed1_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_0;
+#pragma HLS STREAM variable=fifo1_feed2_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_1;
+#pragma HLS STREAM variable=fifo1_feed2_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_2;
+#pragma HLS STREAM variable=fifo1_feed2_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_3;
+#pragma HLS STREAM variable=fifo1_feed2_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_4;
+#pragma HLS STREAM variable=fifo1_feed2_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_5;
+#pragma HLS STREAM variable=fifo1_feed2_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_6;
+#pragma HLS STREAM variable=fifo1_feed2_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_7;
+#pragma HLS STREAM variable=fifo1_feed2_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed2_8;
+#pragma HLS STREAM variable=fifo1_feed2_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_0;
+#pragma HLS STREAM variable=fifo1_feed3_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_1;
+#pragma HLS STREAM variable=fifo1_feed3_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_2;
+#pragma HLS STREAM variable=fifo1_feed3_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_3;
+#pragma HLS STREAM variable=fifo1_feed3_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_4;
+#pragma HLS STREAM variable=fifo1_feed3_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_5;
+#pragma HLS STREAM variable=fifo1_feed3_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_6;
+#pragma HLS STREAM variable=fifo1_feed3_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_7;
+#pragma HLS STREAM variable=fifo1_feed3_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed3_8;
+#pragma HLS STREAM variable=fifo1_feed3_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_0;
+#pragma HLS STREAM variable=fifo1_feed4_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_1;
+#pragma HLS STREAM variable=fifo1_feed4_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_2;
+#pragma HLS STREAM variable=fifo1_feed4_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_3;
+#pragma HLS STREAM variable=fifo1_feed4_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_4;
+#pragma HLS STREAM variable=fifo1_feed4_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_5;
+#pragma HLS STREAM variable=fifo1_feed4_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_6;
+#pragma HLS STREAM variable=fifo1_feed4_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_7;
+#pragma HLS STREAM variable=fifo1_feed4_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed4_8;
+#pragma HLS STREAM variable=fifo1_feed4_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_0;
+#pragma HLS STREAM variable=fifo1_feed5_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_1;
+#pragma HLS STREAM variable=fifo1_feed5_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_2;
+#pragma HLS STREAM variable=fifo1_feed5_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_3;
+#pragma HLS STREAM variable=fifo1_feed5_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_4;
+#pragma HLS STREAM variable=fifo1_feed5_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_5;
+#pragma HLS STREAM variable=fifo1_feed5_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_6;
+#pragma HLS STREAM variable=fifo1_feed5_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_7;
+#pragma HLS STREAM variable=fifo1_feed5_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed5_8;
+#pragma HLS STREAM variable=fifo1_feed5_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_0;
+#pragma HLS STREAM variable=fifo1_feed6_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_1;
+#pragma HLS STREAM variable=fifo1_feed6_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_2;
+#pragma HLS STREAM variable=fifo1_feed6_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_3;
+#pragma HLS STREAM variable=fifo1_feed6_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_4;
+#pragma HLS STREAM variable=fifo1_feed6_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_5;
+#pragma HLS STREAM variable=fifo1_feed6_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_6;
+#pragma HLS STREAM variable=fifo1_feed6_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_7;
+#pragma HLS STREAM variable=fifo1_feed6_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed6_8;
+#pragma HLS STREAM variable=fifo1_feed6_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_0;
+#pragma HLS STREAM variable=fifo1_feed7_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_1;
+#pragma HLS STREAM variable=fifo1_feed7_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_2;
+#pragma HLS STREAM variable=fifo1_feed7_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_3;
+#pragma HLS STREAM variable=fifo1_feed7_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_4;
+#pragma HLS STREAM variable=fifo1_feed7_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_5;
+#pragma HLS STREAM variable=fifo1_feed7_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_6;
+#pragma HLS STREAM variable=fifo1_feed7_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_7;
+#pragma HLS STREAM variable=fifo1_feed7_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed7_8;
+#pragma HLS STREAM variable=fifo1_feed7_8 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_0;
+#pragma HLS STREAM variable=fifo1_feed8_0 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_1;
+#pragma HLS STREAM variable=fifo1_feed8_1 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_2;
+#pragma HLS STREAM variable=fifo1_feed8_2 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_3;
+#pragma HLS STREAM variable=fifo1_feed8_3 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_4;
+#pragma HLS STREAM variable=fifo1_feed8_4 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_5;
+#pragma HLS STREAM variable=fifo1_feed8_5 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_6;
+#pragma HLS STREAM variable=fifo1_feed8_6 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_7;
+#pragma HLS STREAM variable=fifo1_feed8_7 depth=2
+ stream<U1_Data1PEChannelType> fifo1_feed8_8;
+#pragma HLS STREAM variable=fifo1_feed8_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_0;
+#pragma HLS STREAM variable=fifo2_collect0_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_1;
+#pragma HLS STREAM variable=fifo2_collect0_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_2;
+#pragma HLS STREAM variable=fifo2_collect0_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_3;
+#pragma HLS STREAM variable=fifo2_collect0_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_4;
+#pragma HLS STREAM variable=fifo2_collect0_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_5;
+#pragma HLS STREAM variable=fifo2_collect0_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_6;
+#pragma HLS STREAM variable=fifo2_collect0_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_7;
+#pragma HLS STREAM variable=fifo2_collect0_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect0_8;
+#pragma HLS STREAM variable=fifo2_collect0_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_0;
+#pragma HLS STREAM variable=fifo2_collect1_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_1;
+#pragma HLS STREAM variable=fifo2_collect1_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_2;
+#pragma HLS STREAM variable=fifo2_collect1_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_3;
+#pragma HLS STREAM variable=fifo2_collect1_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_4;
+#pragma HLS STREAM variable=fifo2_collect1_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_5;
+#pragma HLS STREAM variable=fifo2_collect1_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_6;
+#pragma HLS STREAM variable=fifo2_collect1_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_7;
+#pragma HLS STREAM variable=fifo2_collect1_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect1_8;
+#pragma HLS STREAM variable=fifo2_collect1_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_0;
+#pragma HLS STREAM variable=fifo2_collect2_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_1;
+#pragma HLS STREAM variable=fifo2_collect2_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_2;
+#pragma HLS STREAM variable=fifo2_collect2_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_3;
+#pragma HLS STREAM variable=fifo2_collect2_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_4;
+#pragma HLS STREAM variable=fifo2_collect2_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_5;
+#pragma HLS STREAM variable=fifo2_collect2_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_6;
+#pragma HLS STREAM variable=fifo2_collect2_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_7;
+#pragma HLS STREAM variable=fifo2_collect2_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect2_8;
+#pragma HLS STREAM variable=fifo2_collect2_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_0;
+#pragma HLS STREAM variable=fifo2_collect3_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_1;
+#pragma HLS STREAM variable=fifo2_collect3_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_2;
+#pragma HLS STREAM variable=fifo2_collect3_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_3;
+#pragma HLS STREAM variable=fifo2_collect3_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_4;
+#pragma HLS STREAM variable=fifo2_collect3_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_5;
+#pragma HLS STREAM variable=fifo2_collect3_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_6;
+#pragma HLS STREAM variable=fifo2_collect3_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_7;
+#pragma HLS STREAM variable=fifo2_collect3_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect3_8;
+#pragma HLS STREAM variable=fifo2_collect3_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_0;
+#pragma HLS STREAM variable=fifo2_collect4_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_1;
+#pragma HLS STREAM variable=fifo2_collect4_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_2;
+#pragma HLS STREAM variable=fifo2_collect4_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_3;
+#pragma HLS STREAM variable=fifo2_collect4_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_4;
+#pragma HLS STREAM variable=fifo2_collect4_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_5;
+#pragma HLS STREAM variable=fifo2_collect4_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_6;
+#pragma HLS STREAM variable=fifo2_collect4_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_7;
+#pragma HLS STREAM variable=fifo2_collect4_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect4_8;
+#pragma HLS STREAM variable=fifo2_collect4_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_0;
+#pragma HLS STREAM variable=fifo2_collect5_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_1;
+#pragma HLS STREAM variable=fifo2_collect5_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_2;
+#pragma HLS STREAM variable=fifo2_collect5_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_3;
+#pragma HLS STREAM variable=fifo2_collect5_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_4;
+#pragma HLS STREAM variable=fifo2_collect5_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_5;
+#pragma HLS STREAM variable=fifo2_collect5_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_6;
+#pragma HLS STREAM variable=fifo2_collect5_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_7;
+#pragma HLS STREAM variable=fifo2_collect5_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect5_8;
+#pragma HLS STREAM variable=fifo2_collect5_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_0;
+#pragma HLS STREAM variable=fifo2_collect6_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_1;
+#pragma HLS STREAM variable=fifo2_collect6_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_2;
+#pragma HLS STREAM variable=fifo2_collect6_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_3;
+#pragma HLS STREAM variable=fifo2_collect6_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_4;
+#pragma HLS STREAM variable=fifo2_collect6_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_5;
+#pragma HLS STREAM variable=fifo2_collect6_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_6;
+#pragma HLS STREAM variable=fifo2_collect6_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_7;
+#pragma HLS STREAM variable=fifo2_collect6_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect6_8;
+#pragma HLS STREAM variable=fifo2_collect6_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_0;
+#pragma HLS STREAM variable=fifo2_collect7_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_1;
+#pragma HLS STREAM variable=fifo2_collect7_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_2;
+#pragma HLS STREAM variable=fifo2_collect7_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_3;
+#pragma HLS STREAM variable=fifo2_collect7_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_4;
+#pragma HLS STREAM variable=fifo2_collect7_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_5;
+#pragma HLS STREAM variable=fifo2_collect7_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_6;
+#pragma HLS STREAM variable=fifo2_collect7_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_7;
+#pragma HLS STREAM variable=fifo2_collect7_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect7_8;
+#pragma HLS STREAM variable=fifo2_collect7_8 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_0;
+#pragma HLS STREAM variable=fifo2_collect8_0 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_1;
+#pragma HLS STREAM variable=fifo2_collect8_1 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_2;
+#pragma HLS STREAM variable=fifo2_collect8_2 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_3;
+#pragma HLS STREAM variable=fifo2_collect8_3 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_4;
+#pragma HLS STREAM variable=fifo2_collect8_4 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_5;
+#pragma HLS STREAM variable=fifo2_collect8_5 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_6;
+#pragma HLS STREAM variable=fifo2_collect8_6 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_7;
+#pragma HLS STREAM variable=fifo2_collect8_7 depth=2
+ stream<U1_Data2PEChannelType> fifo2_collect8_8;
+#pragma HLS STREAM variable=fifo2_collect8_8 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer0;
+#pragma HLS STREAM variable=fifo0_transfer0 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer1;
+#pragma HLS STREAM variable=fifo0_transfer1 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer2;
+#pragma HLS STREAM variable=fifo0_transfer2 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer3;
+#pragma HLS STREAM variable=fifo0_transfer3 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer4;
+#pragma HLS STREAM variable=fifo0_transfer4 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer5;
+#pragma HLS STREAM variable=fifo0_transfer5 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer6;
+#pragma HLS STREAM variable=fifo0_transfer6 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer7;
+#pragma HLS STREAM variable=fifo0_transfer7 depth=2
+ stream<U1_Data0TransferChannelType> fifo0_transfer8;
+#pragma HLS STREAM variable=fifo0_transfer8 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer0;
+#pragma HLS STREAM variable=fifo1_transfer0 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer1;
+#pragma HLS STREAM variable=fifo1_transfer1 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer2;
+#pragma HLS STREAM variable=fifo1_transfer2 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer3;
+#pragma HLS STREAM variable=fifo1_transfer3 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer4;
+#pragma HLS STREAM variable=fifo1_transfer4 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer5;
+#pragma HLS STREAM variable=fifo1_transfer5 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer6;
+#pragma HLS STREAM variable=fifo1_transfer6 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer7;
+#pragma HLS STREAM variable=fifo1_transfer7 depth=2
+ stream<U1_Data1TransferChannelType> fifo1_transfer8;
+#pragma HLS STREAM variable=fifo1_transfer8 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer0;
+#pragma HLS STREAM variable=fifo2_transfer0 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer1;
+#pragma HLS STREAM variable=fifo2_transfer1 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer2;
+#pragma HLS STREAM variable=fifo2_transfer2 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer3;
+#pragma HLS STREAM variable=fifo2_transfer3 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer4;
+#pragma HLS STREAM variable=fifo2_transfer4 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer5;
+#pragma HLS STREAM variable=fifo2_transfer5 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer6;
+#pragma HLS STREAM variable=fifo2_transfer6 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer7;
+#pragma HLS STREAM variable=fifo2_transfer7 depth=2
+ stream<U1_Data2TransferChannelType> fifo2_transfer8;
+#pragma HLS STREAM variable=fifo2_transfer8 depth=2
+ stream<ap_uint<32 * 8> > fifo0_shim;
+#pragma HLS STREAM variable=fifo0_shim depth=2
+ stream<ap_uint<32 * 8> > fifo1_shim;
+#pragma HLS STREAM variable=fifo1_shim depth=2
+ stream<ap_uint<32 * 8> > fifo2_shim;
+#pragma HLS STREAM variable=fifo2_shim depth=2
+
+ stream<uint> fifo_DataFeed0Head_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed0Head_config_out0 depth=16
+ stream<uint> fifo_DataFeed0Head_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Head_config_out1 depth=16
+ stream<uint> fifo_DataFeed1Head_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Head_config_out0 depth=16
+
+ stream<uint> fifo_DataFeed0Engine0_config_out0;
+ stream<uint> fifo_DataFeed0Engine0_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine0_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine0_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine1_config_out0;
+ stream<uint> fifo_DataFeed0Engine1_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine1_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine1_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine2_config_out0;
+ stream<uint> fifo_DataFeed0Engine2_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine2_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine2_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine3_config_out0;
+ stream<uint> fifo_DataFeed0Engine3_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine3_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine3_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine4_config_out0;
+ stream<uint> fifo_DataFeed0Engine4_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine4_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine4_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine5_config_out0;
+ stream<uint> fifo_DataFeed0Engine5_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine5_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine5_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine6_config_out0;
+ stream<uint> fifo_DataFeed0Engine6_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine6_config_out0 depth=16
+#pragma HLS STREAM variable=fifo_DataFeed0Engine6_config_out1 depth=16
+ stream<uint> fifo_DataFeed0Engine7_config_out1;
+#pragma HLS STREAM variable=fifo_DataFeed0Engine7_config_out1 depth=16
+
+ stream<uint> fifo_DataFeed1Engine0_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine0_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine1_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine1_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine2_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine2_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine3_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine3_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine4_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine4_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine5_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine5_config_out0 depth=16
+ stream<uint> fifo_DataFeed1Engine6_config_out0;
+#pragma HLS STREAM variable=fifo_DataFeed1Engine6_config_out0 depth=16
+
+ stream<uint> fifo_DataCollect2Engine0_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine0_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine1_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine1_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine2_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine2_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine3_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine3_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine4_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine4_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine5_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine5_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine6_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine6_config_out depth=16
+ stream<uint> fifo_DataCollect2Engine7_config_out;
+#pragma HLS STREAM variable=fifo_DataCollect2Engine7_config_out depth=16
+
+ stream<uint> fifo_PE0_0_op0_config_out;
+ stream<uint> fifo_PE0_0_op1_config_out;
+ stream<uint> fifo_PE0_0_compute_config_out;
+ stream<uint> fifo_PE0_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_0_res_config_out depth=2
+ stream<uint> fifo_PE0_1_op0_config_out;
+ stream<uint> fifo_PE0_1_op1_config_out;
+ stream<uint> fifo_PE0_1_compute_config_out;
+ stream<uint> fifo_PE0_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_1_res_config_out depth=2
+ stream<uint> fifo_PE0_2_op0_config_out;
+ stream<uint> fifo_PE0_2_op1_config_out;
+ stream<uint> fifo_PE0_2_compute_config_out;
+ stream<uint> fifo_PE0_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_2_res_config_out depth=2
+ stream<uint> fifo_PE0_3_op0_config_out;
+ stream<uint> fifo_PE0_3_op1_config_out;
+ stream<uint> fifo_PE0_3_compute_config_out;
+ stream<uint> fifo_PE0_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_3_res_config_out depth=2
+ stream<uint> fifo_PE0_4_op0_config_out;
+ stream<uint> fifo_PE0_4_op1_config_out;
+ stream<uint> fifo_PE0_4_compute_config_out;
+ stream<uint> fifo_PE0_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_4_res_config_out depth=2
+ stream<uint> fifo_PE0_5_op0_config_out;
+ stream<uint> fifo_PE0_5_op1_config_out;
+ stream<uint> fifo_PE0_5_compute_config_out;
+ stream<uint> fifo_PE0_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_5_res_config_out depth=2
+ stream<uint> fifo_PE0_6_op0_config_out;
+ stream<uint> fifo_PE0_6_op1_config_out;
+ stream<uint> fifo_PE0_6_compute_config_out;
+ stream<uint> fifo_PE0_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_6_res_config_out depth=2
+ stream<uint> fifo_PE0_7_op0_config_out;
+ stream<uint> fifo_PE0_7_op1_config_out;
+ stream<uint> fifo_PE0_7_compute_config_out;
+ stream<uint> fifo_PE0_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE0_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE0_7_res_config_out depth=2
+ stream<uint> fifo_PE1_0_op0_config_out;
+ stream<uint> fifo_PE1_0_op1_config_out;
+ stream<uint> fifo_PE1_0_compute_config_out;
+ stream<uint> fifo_PE1_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_0_res_config_out depth=2
+ stream<uint> fifo_PE1_1_op0_config_out;
+ stream<uint> fifo_PE1_1_op1_config_out;
+ stream<uint> fifo_PE1_1_compute_config_out;
+ stream<uint> fifo_PE1_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_1_res_config_out depth=2
+ stream<uint> fifo_PE1_2_op0_config_out;
+ stream<uint> fifo_PE1_2_op1_config_out;
+ stream<uint> fifo_PE1_2_compute_config_out;
+ stream<uint> fifo_PE1_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_2_res_config_out depth=2
+ stream<uint> fifo_PE1_3_op0_config_out;
+ stream<uint> fifo_PE1_3_op1_config_out;
+ stream<uint> fifo_PE1_3_compute_config_out;
+ stream<uint> fifo_PE1_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_3_res_config_out depth=2
+ stream<uint> fifo_PE1_4_op0_config_out;
+ stream<uint> fifo_PE1_4_op1_config_out;
+ stream<uint> fifo_PE1_4_compute_config_out;
+ stream<uint> fifo_PE1_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_4_res_config_out depth=2
+ stream<uint> fifo_PE1_5_op0_config_out;
+ stream<uint> fifo_PE1_5_op1_config_out;
+ stream<uint> fifo_PE1_5_compute_config_out;
+ stream<uint> fifo_PE1_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_5_res_config_out depth=2
+ stream<uint> fifo_PE1_6_op0_config_out;
+ stream<uint> fifo_PE1_6_op1_config_out;
+ stream<uint> fifo_PE1_6_compute_config_out;
+ stream<uint> fifo_PE1_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_6_res_config_out depth=2
+ stream<uint> fifo_PE1_7_op0_config_out;
+ stream<uint> fifo_PE1_7_op1_config_out;
+ stream<uint> fifo_PE1_7_compute_config_out;
+ stream<uint> fifo_PE1_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE1_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE1_7_res_config_out depth=2
+ stream<uint> fifo_PE2_0_op0_config_out;
+ stream<uint> fifo_PE2_0_op1_config_out;
+ stream<uint> fifo_PE2_0_compute_config_out;
+ stream<uint> fifo_PE2_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_0_res_config_out depth=2
+ stream<uint> fifo_PE2_1_op0_config_out;
+ stream<uint> fifo_PE2_1_op1_config_out;
+ stream<uint> fifo_PE2_1_compute_config_out;
+ stream<uint> fifo_PE2_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_1_res_config_out depth=2
+ stream<uint> fifo_PE2_2_op0_config_out;
+ stream<uint> fifo_PE2_2_op1_config_out;
+ stream<uint> fifo_PE2_2_compute_config_out;
+ stream<uint> fifo_PE2_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_2_res_config_out depth=2
+ stream<uint> fifo_PE2_3_op0_config_out;
+ stream<uint> fifo_PE2_3_op1_config_out;
+ stream<uint> fifo_PE2_3_compute_config_out;
+ stream<uint> fifo_PE2_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_3_res_config_out depth=2
+ stream<uint> fifo_PE2_4_op0_config_out;
+ stream<uint> fifo_PE2_4_op1_config_out;
+ stream<uint> fifo_PE2_4_compute_config_out;
+ stream<uint> fifo_PE2_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_4_res_config_out depth=2
+ stream<uint> fifo_PE2_5_op0_config_out;
+ stream<uint> fifo_PE2_5_op1_config_out;
+ stream<uint> fifo_PE2_5_compute_config_out;
+ stream<uint> fifo_PE2_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_5_res_config_out depth=2
+ stream<uint> fifo_PE2_6_op0_config_out;
+ stream<uint> fifo_PE2_6_op1_config_out;
+ stream<uint> fifo_PE2_6_compute_config_out;
+ stream<uint> fifo_PE2_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_6_res_config_out depth=2
+ stream<uint> fifo_PE2_7_op0_config_out;
+ stream<uint> fifo_PE2_7_op1_config_out;
+ stream<uint> fifo_PE2_7_compute_config_out;
+ stream<uint> fifo_PE2_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE2_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE2_7_res_config_out depth=2
+ stream<uint> fifo_PE3_0_op0_config_out;
+ stream<uint> fifo_PE3_0_op1_config_out;
+ stream<uint> fifo_PE3_0_compute_config_out;
+ stream<uint> fifo_PE3_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_0_res_config_out depth=2
+ stream<uint> fifo_PE3_1_op0_config_out;
+ stream<uint> fifo_PE3_1_op1_config_out;
+ stream<uint> fifo_PE3_1_compute_config_out;
+ stream<uint> fifo_PE3_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_1_res_config_out depth=2
+ stream<uint> fifo_PE3_2_op0_config_out;
+ stream<uint> fifo_PE3_2_op1_config_out;
+ stream<uint> fifo_PE3_2_compute_config_out;
+ stream<uint> fifo_PE3_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_2_res_config_out depth=2
+ stream<uint> fifo_PE3_3_op0_config_out;
+ stream<uint> fifo_PE3_3_op1_config_out;
+ stream<uint> fifo_PE3_3_compute_config_out;
+ stream<uint> fifo_PE3_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_3_res_config_out depth=2
+ stream<uint> fifo_PE3_4_op0_config_out;
+ stream<uint> fifo_PE3_4_op1_config_out;
+ stream<uint> fifo_PE3_4_compute_config_out;
+ stream<uint> fifo_PE3_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_4_res_config_out depth=2
+ stream<uint> fifo_PE3_5_op0_config_out;
+ stream<uint> fifo_PE3_5_op1_config_out;
+ stream<uint> fifo_PE3_5_compute_config_out;
+ stream<uint> fifo_PE3_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_5_res_config_out depth=2
+ stream<uint> fifo_PE3_6_op0_config_out;
+ stream<uint> fifo_PE3_6_op1_config_out;
+ stream<uint> fifo_PE3_6_compute_config_out;
+ stream<uint> fifo_PE3_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_6_res_config_out depth=2
+ stream<uint> fifo_PE3_7_op0_config_out;
+ stream<uint> fifo_PE3_7_op1_config_out;
+ stream<uint> fifo_PE3_7_compute_config_out;
+ stream<uint> fifo_PE3_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE3_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE3_7_res_config_out depth=2
+ stream<uint> fifo_PE4_0_op0_config_out;
+ stream<uint> fifo_PE4_0_op1_config_out;
+ stream<uint> fifo_PE4_0_compute_config_out;
+ stream<uint> fifo_PE4_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_0_res_config_out depth=2
+ stream<uint> fifo_PE4_1_op0_config_out;
+ stream<uint> fifo_PE4_1_op1_config_out;
+ stream<uint> fifo_PE4_1_compute_config_out;
+ stream<uint> fifo_PE4_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_1_res_config_out depth=2
+ stream<uint> fifo_PE4_2_op0_config_out;
+ stream<uint> fifo_PE4_2_op1_config_out;
+ stream<uint> fifo_PE4_2_compute_config_out;
+ stream<uint> fifo_PE4_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_2_res_config_out depth=2
+ stream<uint> fifo_PE4_3_op0_config_out;
+ stream<uint> fifo_PE4_3_op1_config_out;
+ stream<uint> fifo_PE4_3_compute_config_out;
+ stream<uint> fifo_PE4_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_3_res_config_out depth=2
+ stream<uint> fifo_PE4_4_op0_config_out;
+ stream<uint> fifo_PE4_4_op1_config_out;
+ stream<uint> fifo_PE4_4_compute_config_out;
+ stream<uint> fifo_PE4_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_4_res_config_out depth=2
+ stream<uint> fifo_PE4_5_op0_config_out;
+ stream<uint> fifo_PE4_5_op1_config_out;
+ stream<uint> fifo_PE4_5_compute_config_out;
+ stream<uint> fifo_PE4_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_5_res_config_out depth=2
+ stream<uint> fifo_PE4_6_op0_config_out;
+ stream<uint> fifo_PE4_6_op1_config_out;
+ stream<uint> fifo_PE4_6_compute_config_out;
+ stream<uint> fifo_PE4_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_6_res_config_out depth=2
+ stream<uint> fifo_PE4_7_op0_config_out;
+ stream<uint> fifo_PE4_7_op1_config_out;
+ stream<uint> fifo_PE4_7_compute_config_out;
+ stream<uint> fifo_PE4_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE4_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE4_7_res_config_out depth=2
+ stream<uint> fifo_PE5_0_op0_config_out;
+ stream<uint> fifo_PE5_0_op1_config_out;
+ stream<uint> fifo_PE5_0_compute_config_out;
+ stream<uint> fifo_PE5_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_0_res_config_out depth=2
+ stream<uint> fifo_PE5_1_op0_config_out;
+ stream<uint> fifo_PE5_1_op1_config_out;
+ stream<uint> fifo_PE5_1_compute_config_out;
+ stream<uint> fifo_PE5_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_1_res_config_out depth=2
+ stream<uint> fifo_PE5_2_op0_config_out;
+ stream<uint> fifo_PE5_2_op1_config_out;
+ stream<uint> fifo_PE5_2_compute_config_out;
+ stream<uint> fifo_PE5_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_2_res_config_out depth=2
+ stream<uint> fifo_PE5_3_op0_config_out;
+ stream<uint> fifo_PE5_3_op1_config_out;
+ stream<uint> fifo_PE5_3_compute_config_out;
+ stream<uint> fifo_PE5_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_3_res_config_out depth=2
+ stream<uint> fifo_PE5_4_op0_config_out;
+ stream<uint> fifo_PE5_4_op1_config_out;
+ stream<uint> fifo_PE5_4_compute_config_out;
+ stream<uint> fifo_PE5_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_4_res_config_out depth=2
+ stream<uint> fifo_PE5_5_op0_config_out;
+ stream<uint> fifo_PE5_5_op1_config_out;
+ stream<uint> fifo_PE5_5_compute_config_out;
+ stream<uint> fifo_PE5_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_5_res_config_out depth=2
+ stream<uint> fifo_PE5_6_op0_config_out;
+ stream<uint> fifo_PE5_6_op1_config_out;
+ stream<uint> fifo_PE5_6_compute_config_out;
+ stream<uint> fifo_PE5_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_6_res_config_out depth=2
+ stream<uint> fifo_PE5_7_op0_config_out;
+ stream<uint> fifo_PE5_7_op1_config_out;
+ stream<uint> fifo_PE5_7_compute_config_out;
+ stream<uint> fifo_PE5_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE5_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE5_7_res_config_out depth=2
+ stream<uint> fifo_PE6_0_op0_config_out;
+ stream<uint> fifo_PE6_0_op1_config_out;
+ stream<uint> fifo_PE6_0_compute_config_out;
+ stream<uint> fifo_PE6_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_0_res_config_out depth=2
+ stream<uint> fifo_PE6_1_op0_config_out;
+ stream<uint> fifo_PE6_1_op1_config_out;
+ stream<uint> fifo_PE6_1_compute_config_out;
+ stream<uint> fifo_PE6_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_1_res_config_out depth=2
+ stream<uint> fifo_PE6_2_op0_config_out;
+ stream<uint> fifo_PE6_2_op1_config_out;
+ stream<uint> fifo_PE6_2_compute_config_out;
+ stream<uint> fifo_PE6_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_2_res_config_out depth=2
+ stream<uint> fifo_PE6_3_op0_config_out;
+ stream<uint> fifo_PE6_3_op1_config_out;
+ stream<uint> fifo_PE6_3_compute_config_out;
+ stream<uint> fifo_PE6_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_3_res_config_out depth=2
+ stream<uint> fifo_PE6_4_op0_config_out;
+ stream<uint> fifo_PE6_4_op1_config_out;
+ stream<uint> fifo_PE6_4_compute_config_out;
+ stream<uint> fifo_PE6_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_4_res_config_out depth=2
+ stream<uint> fifo_PE6_5_op0_config_out;
+ stream<uint> fifo_PE6_5_op1_config_out;
+ stream<uint> fifo_PE6_5_compute_config_out;
+ stream<uint> fifo_PE6_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_5_res_config_out depth=2
+ stream<uint> fifo_PE6_6_op0_config_out;
+ stream<uint> fifo_PE6_6_op1_config_out;
+ stream<uint> fifo_PE6_6_compute_config_out;
+ stream<uint> fifo_PE6_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_6_res_config_out depth=2
+ stream<uint> fifo_PE6_7_op0_config_out;
+ stream<uint> fifo_PE6_7_op1_config_out;
+ stream<uint> fifo_PE6_7_compute_config_out;
+ stream<uint> fifo_PE6_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE6_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE6_7_res_config_out depth=2
+ stream<uint> fifo_PE7_0_op0_config_out;
+ stream<uint> fifo_PE7_0_op1_config_out;
+ stream<uint> fifo_PE7_0_compute_config_out;
+ stream<uint> fifo_PE7_0_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_0_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_0_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_0_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_0_res_config_out depth=2
+ stream<uint> fifo_PE7_1_op0_config_out;
+ stream<uint> fifo_PE7_1_op1_config_out;
+ stream<uint> fifo_PE7_1_compute_config_out;
+ stream<uint> fifo_PE7_1_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_1_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_1_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_1_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_1_res_config_out depth=2
+ stream<uint> fifo_PE7_2_op0_config_out;
+ stream<uint> fifo_PE7_2_op1_config_out;
+ stream<uint> fifo_PE7_2_compute_config_out;
+ stream<uint> fifo_PE7_2_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_2_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_2_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_2_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_2_res_config_out depth=2
+ stream<uint> fifo_PE7_3_op0_config_out;
+ stream<uint> fifo_PE7_3_op1_config_out;
+ stream<uint> fifo_PE7_3_compute_config_out;
+ stream<uint> fifo_PE7_3_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_3_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_3_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_3_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_3_res_config_out depth=2
+ stream<uint> fifo_PE7_4_op0_config_out;
+ stream<uint> fifo_PE7_4_op1_config_out;
+ stream<uint> fifo_PE7_4_compute_config_out;
+ stream<uint> fifo_PE7_4_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_4_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_4_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_4_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_4_res_config_out depth=2
+ stream<uint> fifo_PE7_5_op0_config_out;
+ stream<uint> fifo_PE7_5_op1_config_out;
+ stream<uint> fifo_PE7_5_compute_config_out;
+ stream<uint> fifo_PE7_5_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_5_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_5_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_5_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_5_res_config_out depth=2
+ stream<uint> fifo_PE7_6_op0_config_out;
+ stream<uint> fifo_PE7_6_op1_config_out;
+ stream<uint> fifo_PE7_6_compute_config_out;
+ stream<uint> fifo_PE7_6_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_6_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_6_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_6_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_6_res_config_out depth=2
+ stream<uint> fifo_PE7_7_op0_config_out;
+ stream<uint> fifo_PE7_7_op1_config_out;
+ stream<uint> fifo_PE7_7_compute_config_out;
+ stream<uint> fifo_PE7_7_res_config_out;
+#pragma HLS STREAM variable=fifo_PE7_7_op0_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_7_op1_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_7_compute_config_out depth=2
+#pragma HLS STREAM variable=fifo_PE7_7_res_config_out depth=2
+
+ stream<U1_Data0PEChannelType> PE0_0_fifo0_local;
+#pragma HLS STREAM variable=PE0_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_0_fifo1_local;
+#pragma HLS STREAM variable=PE0_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_0_fifo2_local;
+#pragma HLS STREAM variable=PE0_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_1_fifo0_local;
+#pragma HLS STREAM variable=PE0_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_1_fifo1_local;
+#pragma HLS STREAM variable=PE0_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_1_fifo2_local;
+#pragma HLS STREAM variable=PE0_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_2_fifo0_local;
+#pragma HLS STREAM variable=PE0_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_2_fifo1_local;
+#pragma HLS STREAM variable=PE0_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_2_fifo2_local;
+#pragma HLS STREAM variable=PE0_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_3_fifo0_local;
+#pragma HLS STREAM variable=PE0_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_3_fifo1_local;
+#pragma HLS STREAM variable=PE0_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_3_fifo2_local;
+#pragma HLS STREAM variable=PE0_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_4_fifo0_local;
+#pragma HLS STREAM variable=PE0_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_4_fifo1_local;
+#pragma HLS STREAM variable=PE0_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_4_fifo2_local;
+#pragma HLS STREAM variable=PE0_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_5_fifo0_local;
+#pragma HLS STREAM variable=PE0_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_5_fifo1_local;
+#pragma HLS STREAM variable=PE0_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_5_fifo2_local;
+#pragma HLS STREAM variable=PE0_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_6_fifo0_local;
+#pragma HLS STREAM variable=PE0_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_6_fifo1_local;
+#pragma HLS STREAM variable=PE0_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_6_fifo2_local;
+#pragma HLS STREAM variable=PE0_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE0_7_fifo0_local;
+#pragma HLS STREAM variable=PE0_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE0_7_fifo1_local;
+#pragma HLS STREAM variable=PE0_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE0_7_fifo2_local;
+#pragma HLS STREAM variable=PE0_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_0_fifo0_local;
+#pragma HLS STREAM variable=PE1_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_0_fifo1_local;
+#pragma HLS STREAM variable=PE1_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_0_fifo2_local;
+#pragma HLS STREAM variable=PE1_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_1_fifo0_local;
+#pragma HLS STREAM variable=PE1_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_1_fifo1_local;
+#pragma HLS STREAM variable=PE1_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_1_fifo2_local;
+#pragma HLS STREAM variable=PE1_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_2_fifo0_local;
+#pragma HLS STREAM variable=PE1_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_2_fifo1_local;
+#pragma HLS STREAM variable=PE1_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_2_fifo2_local;
+#pragma HLS STREAM variable=PE1_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_3_fifo0_local;
+#pragma HLS STREAM variable=PE1_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_3_fifo1_local;
+#pragma HLS STREAM variable=PE1_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_3_fifo2_local;
+#pragma HLS STREAM variable=PE1_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_4_fifo0_local;
+#pragma HLS STREAM variable=PE1_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_4_fifo1_local;
+#pragma HLS STREAM variable=PE1_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_4_fifo2_local;
+#pragma HLS STREAM variable=PE1_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_5_fifo0_local;
+#pragma HLS STREAM variable=PE1_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_5_fifo1_local;
+#pragma HLS STREAM variable=PE1_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_5_fifo2_local;
+#pragma HLS STREAM variable=PE1_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_6_fifo0_local;
+#pragma HLS STREAM variable=PE1_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_6_fifo1_local;
+#pragma HLS STREAM variable=PE1_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_6_fifo2_local;
+#pragma HLS STREAM variable=PE1_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE1_7_fifo0_local;
+#pragma HLS STREAM variable=PE1_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE1_7_fifo1_local;
+#pragma HLS STREAM variable=PE1_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE1_7_fifo2_local;
+#pragma HLS STREAM variable=PE1_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_0_fifo0_local;
+#pragma HLS STREAM variable=PE2_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_0_fifo1_local;
+#pragma HLS STREAM variable=PE2_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_0_fifo2_local;
+#pragma HLS STREAM variable=PE2_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_1_fifo0_local;
+#pragma HLS STREAM variable=PE2_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_1_fifo1_local;
+#pragma HLS STREAM variable=PE2_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_1_fifo2_local;
+#pragma HLS STREAM variable=PE2_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_2_fifo0_local;
+#pragma HLS STREAM variable=PE2_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_2_fifo1_local;
+#pragma HLS STREAM variable=PE2_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_2_fifo2_local;
+#pragma HLS STREAM variable=PE2_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_3_fifo0_local;
+#pragma HLS STREAM variable=PE2_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_3_fifo1_local;
+#pragma HLS STREAM variable=PE2_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_3_fifo2_local;
+#pragma HLS STREAM variable=PE2_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_4_fifo0_local;
+#pragma HLS STREAM variable=PE2_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_4_fifo1_local;
+#pragma HLS STREAM variable=PE2_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_4_fifo2_local;
+#pragma HLS STREAM variable=PE2_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_5_fifo0_local;
+#pragma HLS STREAM variable=PE2_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_5_fifo1_local;
+#pragma HLS STREAM variable=PE2_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_5_fifo2_local;
+#pragma HLS STREAM variable=PE2_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_6_fifo0_local;
+#pragma HLS STREAM variable=PE2_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_6_fifo1_local;
+#pragma HLS STREAM variable=PE2_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_6_fifo2_local;
+#pragma HLS STREAM variable=PE2_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE2_7_fifo0_local;
+#pragma HLS STREAM variable=PE2_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE2_7_fifo1_local;
+#pragma HLS STREAM variable=PE2_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE2_7_fifo2_local;
+#pragma HLS STREAM variable=PE2_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_0_fifo0_local;
+#pragma HLS STREAM variable=PE3_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_0_fifo1_local;
+#pragma HLS STREAM variable=PE3_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_0_fifo2_local;
+#pragma HLS STREAM variable=PE3_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_1_fifo0_local;
+#pragma HLS STREAM variable=PE3_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_1_fifo1_local;
+#pragma HLS STREAM variable=PE3_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_1_fifo2_local;
+#pragma HLS STREAM variable=PE3_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_2_fifo0_local;
+#pragma HLS STREAM variable=PE3_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_2_fifo1_local;
+#pragma HLS STREAM variable=PE3_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_2_fifo2_local;
+#pragma HLS STREAM variable=PE3_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_3_fifo0_local;
+#pragma HLS STREAM variable=PE3_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_3_fifo1_local;
+#pragma HLS STREAM variable=PE3_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_3_fifo2_local;
+#pragma HLS STREAM variable=PE3_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_4_fifo0_local;
+#pragma HLS STREAM variable=PE3_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_4_fifo1_local;
+#pragma HLS STREAM variable=PE3_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_4_fifo2_local;
+#pragma HLS STREAM variable=PE3_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_5_fifo0_local;
+#pragma HLS STREAM variable=PE3_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_5_fifo1_local;
+#pragma HLS STREAM variable=PE3_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_5_fifo2_local;
+#pragma HLS STREAM variable=PE3_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_6_fifo0_local;
+#pragma HLS STREAM variable=PE3_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_6_fifo1_local;
+#pragma HLS STREAM variable=PE3_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_6_fifo2_local;
+#pragma HLS STREAM variable=PE3_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE3_7_fifo0_local;
+#pragma HLS STREAM variable=PE3_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE3_7_fifo1_local;
+#pragma HLS STREAM variable=PE3_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE3_7_fifo2_local;
+#pragma HLS STREAM variable=PE3_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_0_fifo0_local;
+#pragma HLS STREAM variable=PE4_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_0_fifo1_local;
+#pragma HLS STREAM variable=PE4_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_0_fifo2_local;
+#pragma HLS STREAM variable=PE4_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_1_fifo0_local;
+#pragma HLS STREAM variable=PE4_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_1_fifo1_local;
+#pragma HLS STREAM variable=PE4_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_1_fifo2_local;
+#pragma HLS STREAM variable=PE4_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_2_fifo0_local;
+#pragma HLS STREAM variable=PE4_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_2_fifo1_local;
+#pragma HLS STREAM variable=PE4_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_2_fifo2_local;
+#pragma HLS STREAM variable=PE4_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_3_fifo0_local;
+#pragma HLS STREAM variable=PE4_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_3_fifo1_local;
+#pragma HLS STREAM variable=PE4_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_3_fifo2_local;
+#pragma HLS STREAM variable=PE4_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_4_fifo0_local;
+#pragma HLS STREAM variable=PE4_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_4_fifo1_local;
+#pragma HLS STREAM variable=PE4_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_4_fifo2_local;
+#pragma HLS STREAM variable=PE4_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_5_fifo0_local;
+#pragma HLS STREAM variable=PE4_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_5_fifo1_local;
+#pragma HLS STREAM variable=PE4_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_5_fifo2_local;
+#pragma HLS STREAM variable=PE4_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_6_fifo0_local;
+#pragma HLS STREAM variable=PE4_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_6_fifo1_local;
+#pragma HLS STREAM variable=PE4_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_6_fifo2_local;
+#pragma HLS STREAM variable=PE4_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE4_7_fifo0_local;
+#pragma HLS STREAM variable=PE4_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE4_7_fifo1_local;
+#pragma HLS STREAM variable=PE4_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE4_7_fifo2_local;
+#pragma HLS STREAM variable=PE4_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_0_fifo0_local;
+#pragma HLS STREAM variable=PE5_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_0_fifo1_local;
+#pragma HLS STREAM variable=PE5_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_0_fifo2_local;
+#pragma HLS STREAM variable=PE5_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_1_fifo0_local;
+#pragma HLS STREAM variable=PE5_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_1_fifo1_local;
+#pragma HLS STREAM variable=PE5_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_1_fifo2_local;
+#pragma HLS STREAM variable=PE5_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_2_fifo0_local;
+#pragma HLS STREAM variable=PE5_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_2_fifo1_local;
+#pragma HLS STREAM variable=PE5_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_2_fifo2_local;
+#pragma HLS STREAM variable=PE5_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_3_fifo0_local;
+#pragma HLS STREAM variable=PE5_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_3_fifo1_local;
+#pragma HLS STREAM variable=PE5_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_3_fifo2_local;
+#pragma HLS STREAM variable=PE5_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_4_fifo0_local;
+#pragma HLS STREAM variable=PE5_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_4_fifo1_local;
+#pragma HLS STREAM variable=PE5_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_4_fifo2_local;
+#pragma HLS STREAM variable=PE5_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_5_fifo0_local;
+#pragma HLS STREAM variable=PE5_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_5_fifo1_local;
+#pragma HLS STREAM variable=PE5_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_5_fifo2_local;
+#pragma HLS STREAM variable=PE5_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_6_fifo0_local;
+#pragma HLS STREAM variable=PE5_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_6_fifo1_local;
+#pragma HLS STREAM variable=PE5_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_6_fifo2_local;
+#pragma HLS STREAM variable=PE5_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE5_7_fifo0_local;
+#pragma HLS STREAM variable=PE5_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE5_7_fifo1_local;
+#pragma HLS STREAM variable=PE5_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE5_7_fifo2_local;
+#pragma HLS STREAM variable=PE5_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_0_fifo0_local;
+#pragma HLS STREAM variable=PE6_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_0_fifo1_local;
+#pragma HLS STREAM variable=PE6_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_0_fifo2_local;
+#pragma HLS STREAM variable=PE6_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_1_fifo0_local;
+#pragma HLS STREAM variable=PE6_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_1_fifo1_local;
+#pragma HLS STREAM variable=PE6_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_1_fifo2_local;
+#pragma HLS STREAM variable=PE6_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_2_fifo0_local;
+#pragma HLS STREAM variable=PE6_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_2_fifo1_local;
+#pragma HLS STREAM variable=PE6_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_2_fifo2_local;
+#pragma HLS STREAM variable=PE6_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_3_fifo0_local;
+#pragma HLS STREAM variable=PE6_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_3_fifo1_local;
+#pragma HLS STREAM variable=PE6_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_3_fifo2_local;
+#pragma HLS STREAM variable=PE6_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_4_fifo0_local;
+#pragma HLS STREAM variable=PE6_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_4_fifo1_local;
+#pragma HLS STREAM variable=PE6_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_4_fifo2_local;
+#pragma HLS STREAM variable=PE6_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_5_fifo0_local;
+#pragma HLS STREAM variable=PE6_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_5_fifo1_local;
+#pragma HLS STREAM variable=PE6_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_5_fifo2_local;
+#pragma HLS STREAM variable=PE6_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_6_fifo0_local;
+#pragma HLS STREAM variable=PE6_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_6_fifo1_local;
+#pragma HLS STREAM variable=PE6_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_6_fifo2_local;
+#pragma HLS STREAM variable=PE6_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE6_7_fifo0_local;
+#pragma HLS STREAM variable=PE6_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE6_7_fifo1_local;
+#pragma HLS STREAM variable=PE6_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE6_7_fifo2_local;
+#pragma HLS STREAM variable=PE6_7_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_0_fifo0_local;
+#pragma HLS STREAM variable=PE7_0_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_0_fifo1_local;
+#pragma HLS STREAM variable=PE7_0_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_0_fifo2_local;
+#pragma HLS STREAM variable=PE7_0_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_1_fifo0_local;
+#pragma HLS STREAM variable=PE7_1_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_1_fifo1_local;
+#pragma HLS STREAM variable=PE7_1_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_1_fifo2_local;
+#pragma HLS STREAM variable=PE7_1_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_2_fifo0_local;
+#pragma HLS STREAM variable=PE7_2_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_2_fifo1_local;
+#pragma HLS STREAM variable=PE7_2_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_2_fifo2_local;
+#pragma HLS STREAM variable=PE7_2_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_3_fifo0_local;
+#pragma HLS STREAM variable=PE7_3_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_3_fifo1_local;
+#pragma HLS STREAM variable=PE7_3_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_3_fifo2_local;
+#pragma HLS STREAM variable=PE7_3_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_4_fifo0_local;
+#pragma HLS STREAM variable=PE7_4_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_4_fifo1_local;
+#pragma HLS STREAM variable=PE7_4_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_4_fifo2_local;
+#pragma HLS STREAM variable=PE7_4_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_5_fifo0_local;
+#pragma HLS STREAM variable=PE7_5_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_5_fifo1_local;
+#pragma HLS STREAM variable=PE7_5_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_5_fifo2_local;
+#pragma HLS STREAM variable=PE7_5_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_6_fifo0_local;
+#pragma HLS STREAM variable=PE7_6_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_6_fifo1_local;
+#pragma HLS STREAM variable=PE7_6_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_6_fifo2_local;
+#pragma HLS STREAM variable=PE7_6_fifo2_local depth=2
+ stream<U1_Data0PEChannelType> PE7_7_fifo0_local;
+#pragma HLS STREAM variable=PE7_7_fifo0_local depth=2
+ stream<U1_Data1PEChannelType> PE7_7_fifo1_local;
+#pragma HLS STREAM variable=PE7_7_fifo1_local depth=2
+ stream<U1_Data2PEChannelType> PE7_7_fifo2_local;
+#pragma HLS STREAM variable=PE7_7_fifo2_local depth=2
+
+
+ U1_DataFeed0Head(
+   fifo_cin,
+   fifo0_transfer0,
+   fifo_kernel_config_in,
+   fifo_kernel_config_out,
+   fifo_DataFeed0Head_config_out0, fifo_DataFeed0Head_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer0,
+   fifo0_transfer1,
+   fifo0_feed0_0,
+   0,
+   fifo_DataFeed0Head_config_out0,
+   fifo_DataFeed0Engine0_config_out0,
+   fifo_DataFeed0Engine0_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer1,
+   fifo0_transfer2,
+   fifo0_feed0_1,
+   1,
+   fifo_DataFeed0Engine0_config_out0,
+   fifo_DataFeed0Engine1_config_out0,
+   fifo_DataFeed0Engine1_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer2,
+   fifo0_transfer3,
+   fifo0_feed0_2,
+   2,
+   fifo_DataFeed0Engine1_config_out0,
+   fifo_DataFeed0Engine2_config_out0,
+   fifo_DataFeed0Engine2_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer3,
+   fifo0_transfer4,
+   fifo0_feed0_3,
+   3,
+   fifo_DataFeed0Engine2_config_out0,
+   fifo_DataFeed0Engine3_config_out0,
+   fifo_DataFeed0Engine3_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer4,
+   fifo0_transfer5,
+   fifo0_feed0_4,
+   4,
+   fifo_DataFeed0Engine3_config_out0,
+   fifo_DataFeed0Engine4_config_out0,
+   fifo_DataFeed0Engine4_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer5,
+   fifo0_transfer6,
+   fifo0_feed0_5,
+   5,
+   fifo_DataFeed0Engine4_config_out0,
+   fifo_DataFeed0Engine5_config_out0,
+   fifo_DataFeed0Engine5_config_out1
+ );
+
+ U1_DataFeed0Engine0_wrapper(
+   fifo0_transfer6,
+   fifo0_transfer7,
+   fifo0_feed0_6,
+   6,
+   fifo_DataFeed0Engine5_config_out0,
+   fifo_DataFeed0Engine6_config_out0,
+   fifo_DataFeed0Engine6_config_out1
+ );
+
+ U1_DataFeed0EngineLast(
+   fifo0_transfer7,
+   fifo0_feed0_7,
+   7,
+   fifo_DataFeed0Engine6_config_out0,
+   fifo_DataFeed0Engine7_config_out1
+ );
+
+ U1_DataFeed1Head(
+   fifo_weight,
+   fifo1_transfer0,
+   fifo_DataFeed0Head_config_out1, fifo_DataFeed1Head_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer0,
+   fifo1_transfer1,
+   fifo1_feed0_0,
+   0,
+   fifo_DataFeed1Head_config_out0,
+   fifo_DataFeed1Engine0_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer1,
+   fifo1_transfer2,
+   fifo1_feed1_0,
+   1,
+   fifo_DataFeed1Engine0_config_out0,
+   fifo_DataFeed1Engine1_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer2,
+   fifo1_transfer3,
+   fifo1_feed2_0,
+   2,
+   fifo_DataFeed1Engine1_config_out0,
+   fifo_DataFeed1Engine2_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer3,
+   fifo1_transfer4,
+   fifo1_feed3_0,
+   3,
+   fifo_DataFeed1Engine2_config_out0,
+   fifo_DataFeed1Engine3_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer4,
+   fifo1_transfer5,
+   fifo1_feed4_0,
+   4,
+   fifo_DataFeed1Engine3_config_out0,
+   fifo_DataFeed1Engine4_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer5,
+   fifo1_transfer6,
+   fifo1_feed5_0,
+   5,
+   fifo_DataFeed1Engine4_config_out0,
+   fifo_DataFeed1Engine5_config_out0
+ );
+
+ U1_DataFeed1Engine0_wrapper(
+   fifo1_transfer6,
+   fifo1_transfer7,
+   fifo1_feed6_0,
+   6,
+   fifo_DataFeed1Engine5_config_out0,
+   fifo_DataFeed1Engine6_config_out0
+ );
+
+ U1_DataFeed1EngineLast(
+   fifo1_transfer7,
+   fifo1_feed7_0,
+   7,
+   fifo_DataFeed1Engine6_config_out0
+ );
+
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_0,
+   fifo0_feed1_0,
+   PE0_0_fifo0_local,
+   fifo_DataFeed0Engine0_config_out1,
+   fifo_PE0_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_0,
+   fifo1_feed0_1,
+   PE0_0_fifo1_local,
+   fifo_PE0_0_op0_config_out,
+   fifo_PE0_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_0_fifo0_local,
+   PE0_0_fifo1_local,
+   PE0_0_fifo2_local,
+   fifo_PE0_0_op1_config_out,
+   fifo_PE0_0_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_0_fifo2_local,
+   fifo2_collect0_0,
+   0,
+   0,
+   fifo_PE0_0_compute_config_out,
+   fifo_PE0_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_1,
+   fifo0_feed1_1,
+   PE0_1_fifo0_local,
+   fifo_DataFeed0Engine1_config_out1,
+   fifo_PE0_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_1,
+   fifo1_feed0_2,
+   PE0_1_fifo1_local,
+   fifo_PE0_1_op0_config_out,
+   fifo_PE0_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_1_fifo0_local,
+   PE0_1_fifo1_local,
+   PE0_1_fifo2_local,
+   fifo_PE0_1_op1_config_out,
+   fifo_PE0_1_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_1_fifo2_local,
+   fifo2_collect0_1,
+   0,
+   1,
+   fifo_PE0_1_compute_config_out,
+   fifo_PE0_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_2,
+   fifo0_feed1_2,
+   PE0_2_fifo0_local,
+   fifo_DataFeed0Engine2_config_out1,
+   fifo_PE0_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_2,
+   fifo1_feed0_3,
+   PE0_2_fifo1_local,
+   fifo_PE0_2_op0_config_out,
+   fifo_PE0_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_2_fifo0_local,
+   PE0_2_fifo1_local,
+   PE0_2_fifo2_local,
+   fifo_PE0_2_op1_config_out,
+   fifo_PE0_2_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_2_fifo2_local,
+   fifo2_collect0_2,
+   0,
+   2,
+   fifo_PE0_2_compute_config_out,
+   fifo_PE0_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_3,
+   fifo0_feed1_3,
+   PE0_3_fifo0_local,
+   fifo_DataFeed0Engine3_config_out1,
+   fifo_PE0_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_3,
+   fifo1_feed0_4,
+   PE0_3_fifo1_local,
+   fifo_PE0_3_op0_config_out,
+   fifo_PE0_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_3_fifo0_local,
+   PE0_3_fifo1_local,
+   PE0_3_fifo2_local,
+   fifo_PE0_3_op1_config_out,
+   fifo_PE0_3_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_3_fifo2_local,
+   fifo2_collect0_3,
+   0,
+   3,
+   fifo_PE0_3_compute_config_out,
+   fifo_PE0_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_4,
+   fifo0_feed1_4,
+   PE0_4_fifo0_local,
+   fifo_DataFeed0Engine4_config_out1,
+   fifo_PE0_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_4,
+   fifo1_feed0_5,
+   PE0_4_fifo1_local,
+   fifo_PE0_4_op0_config_out,
+   fifo_PE0_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_4_fifo0_local,
+   PE0_4_fifo1_local,
+   PE0_4_fifo2_local,
+   fifo_PE0_4_op1_config_out,
+   fifo_PE0_4_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_4_fifo2_local,
+   fifo2_collect0_4,
+   0,
+   4,
+   fifo_PE0_4_compute_config_out,
+   fifo_PE0_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_5,
+   fifo0_feed1_5,
+   PE0_5_fifo0_local,
+   fifo_DataFeed0Engine5_config_out1,
+   fifo_PE0_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_5,
+   fifo1_feed0_6,
+   PE0_5_fifo1_local,
+   fifo_PE0_5_op0_config_out,
+   fifo_PE0_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_5_fifo0_local,
+   PE0_5_fifo1_local,
+   PE0_5_fifo2_local,
+   fifo_PE0_5_op1_config_out,
+   fifo_PE0_5_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_5_fifo2_local,
+   fifo2_collect0_5,
+   0,
+   5,
+   fifo_PE0_5_compute_config_out,
+   fifo_PE0_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_6,
+   fifo0_feed1_6,
+   PE0_6_fifo0_local,
+   fifo_DataFeed0Engine6_config_out1,
+   fifo_PE0_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed0_6,
+   fifo1_feed0_7,
+   PE0_6_fifo1_local,
+   fifo_PE0_6_op0_config_out,
+   fifo_PE0_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_6_fifo0_local,
+   PE0_6_fifo1_local,
+   PE0_6_fifo2_local,
+   fifo_PE0_6_op1_config_out,
+   fifo_PE0_6_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_6_fifo2_local,
+   fifo2_collect0_6,
+   0,
+   6,
+   fifo_PE0_6_compute_config_out,
+   fifo_PE0_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed0_7,
+   fifo0_feed1_7,
+   PE0_7_fifo0_local,
+   fifo_DataFeed0Engine7_config_out1,
+   fifo_PE0_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed0_7,
+   PE0_7_fifo1_local,
+   fifo_PE0_7_op0_config_out,
+   fifo_PE0_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE0_7_fifo0_local,
+   PE0_7_fifo1_local,
+   PE0_7_fifo2_local,
+   fifo_PE0_7_op1_config_out,
+   fifo_PE0_7_compute_config_out
+ );
+
+ U1_res_transfer_first_wrapper(
+   PE0_7_fifo2_local,
+   fifo2_collect0_7,
+   0,
+   7,
+   fifo_PE0_7_compute_config_out,
+   fifo_PE0_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_0,
+   fifo0_feed2_0,
+   PE1_0_fifo0_local,
+   fifo_PE0_0_res_config_out,
+   fifo_PE1_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_0,
+   fifo1_feed1_1,
+   PE1_0_fifo1_local,
+   fifo_PE1_0_op0_config_out,
+   fifo_PE1_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_0_fifo0_local,
+   PE1_0_fifo1_local,
+   PE1_0_fifo2_local,
+   fifo_PE1_0_op1_config_out,
+   fifo_PE1_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_0_fifo2_local,
+   fifo2_collect0_0,
+   fifo2_collect1_0,
+   1,
+   0,
+   fifo_PE1_0_compute_config_out,
+   fifo_PE1_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_1,
+   fifo0_feed2_1,
+   PE1_1_fifo0_local,
+   fifo_PE0_1_res_config_out,
+   fifo_PE1_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_1,
+   fifo1_feed1_2,
+   PE1_1_fifo1_local,
+   fifo_PE1_1_op0_config_out,
+   fifo_PE1_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_1_fifo0_local,
+   PE1_1_fifo1_local,
+   PE1_1_fifo2_local,
+   fifo_PE1_1_op1_config_out,
+   fifo_PE1_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_1_fifo2_local,
+   fifo2_collect0_1,
+   fifo2_collect1_1,
+   1,
+   1,
+   fifo_PE1_1_compute_config_out,
+   fifo_PE1_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_2,
+   fifo0_feed2_2,
+   PE1_2_fifo0_local,
+   fifo_PE0_2_res_config_out,
+   fifo_PE1_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_2,
+   fifo1_feed1_3,
+   PE1_2_fifo1_local,
+   fifo_PE1_2_op0_config_out,
+   fifo_PE1_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_2_fifo0_local,
+   PE1_2_fifo1_local,
+   PE1_2_fifo2_local,
+   fifo_PE1_2_op1_config_out,
+   fifo_PE1_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_2_fifo2_local,
+   fifo2_collect0_2,
+   fifo2_collect1_2,
+   1,
+   2,
+   fifo_PE1_2_compute_config_out,
+   fifo_PE1_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_3,
+   fifo0_feed2_3,
+   PE1_3_fifo0_local,
+   fifo_PE0_3_res_config_out,
+   fifo_PE1_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_3,
+   fifo1_feed1_4,
+   PE1_3_fifo1_local,
+   fifo_PE1_3_op0_config_out,
+   fifo_PE1_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_3_fifo0_local,
+   PE1_3_fifo1_local,
+   PE1_3_fifo2_local,
+   fifo_PE1_3_op1_config_out,
+   fifo_PE1_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_3_fifo2_local,
+   fifo2_collect0_3,
+   fifo2_collect1_3,
+   1,
+   3,
+   fifo_PE1_3_compute_config_out,
+   fifo_PE1_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_4,
+   fifo0_feed2_4,
+   PE1_4_fifo0_local,
+   fifo_PE0_4_res_config_out,
+   fifo_PE1_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_4,
+   fifo1_feed1_5,
+   PE1_4_fifo1_local,
+   fifo_PE1_4_op0_config_out,
+   fifo_PE1_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_4_fifo0_local,
+   PE1_4_fifo1_local,
+   PE1_4_fifo2_local,
+   fifo_PE1_4_op1_config_out,
+   fifo_PE1_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_4_fifo2_local,
+   fifo2_collect0_4,
+   fifo2_collect1_4,
+   1,
+   4,
+   fifo_PE1_4_compute_config_out,
+   fifo_PE1_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_5,
+   fifo0_feed2_5,
+   PE1_5_fifo0_local,
+   fifo_PE0_5_res_config_out,
+   fifo_PE1_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_5,
+   fifo1_feed1_6,
+   PE1_5_fifo1_local,
+   fifo_PE1_5_op0_config_out,
+   fifo_PE1_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_5_fifo0_local,
+   PE1_5_fifo1_local,
+   PE1_5_fifo2_local,
+   fifo_PE1_5_op1_config_out,
+   fifo_PE1_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_5_fifo2_local,
+   fifo2_collect0_5,
+   fifo2_collect1_5,
+   1,
+   5,
+   fifo_PE1_5_compute_config_out,
+   fifo_PE1_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_6,
+   fifo0_feed2_6,
+   PE1_6_fifo0_local,
+   fifo_PE0_6_res_config_out,
+   fifo_PE1_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed1_6,
+   fifo1_feed1_7,
+   PE1_6_fifo1_local,
+   fifo_PE1_6_op0_config_out,
+   fifo_PE1_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_6_fifo0_local,
+   PE1_6_fifo1_local,
+   PE1_6_fifo2_local,
+   fifo_PE1_6_op1_config_out,
+   fifo_PE1_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_6_fifo2_local,
+   fifo2_collect0_6,
+   fifo2_collect1_6,
+   1,
+   6,
+   fifo_PE1_6_compute_config_out,
+   fifo_PE1_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed1_7,
+   fifo0_feed2_7,
+   PE1_7_fifo0_local,
+   fifo_PE0_7_res_config_out,
+   fifo_PE1_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed1_7,
+   PE1_7_fifo1_local,
+   fifo_PE1_7_op0_config_out,
+   fifo_PE1_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE1_7_fifo0_local,
+   PE1_7_fifo1_local,
+   PE1_7_fifo2_local,
+   fifo_PE1_7_op1_config_out,
+   fifo_PE1_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE1_7_fifo2_local,
+   fifo2_collect0_7,
+   fifo2_collect1_7,
+   1,
+   7,
+   fifo_PE1_7_compute_config_out,
+   fifo_PE1_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_0,
+   fifo0_feed3_0,
+   PE2_0_fifo0_local,
+   fifo_PE1_0_res_config_out,
+   fifo_PE2_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_0,
+   fifo1_feed2_1,
+   PE2_0_fifo1_local,
+   fifo_PE2_0_op0_config_out,
+   fifo_PE2_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_0_fifo0_local,
+   PE2_0_fifo1_local,
+   PE2_0_fifo2_local,
+   fifo_PE2_0_op1_config_out,
+   fifo_PE2_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_0_fifo2_local,
+   fifo2_collect1_0,
+   fifo2_collect2_0,
+   2,
+   0,
+   fifo_PE2_0_compute_config_out,
+   fifo_PE2_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_1,
+   fifo0_feed3_1,
+   PE2_1_fifo0_local,
+   fifo_PE1_1_res_config_out,
+   fifo_PE2_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_1,
+   fifo1_feed2_2,
+   PE2_1_fifo1_local,
+   fifo_PE2_1_op0_config_out,
+   fifo_PE2_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_1_fifo0_local,
+   PE2_1_fifo1_local,
+   PE2_1_fifo2_local,
+   fifo_PE2_1_op1_config_out,
+   fifo_PE2_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_1_fifo2_local,
+   fifo2_collect1_1,
+   fifo2_collect2_1,
+   2,
+   1,
+   fifo_PE2_1_compute_config_out,
+   fifo_PE2_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_2,
+   fifo0_feed3_2,
+   PE2_2_fifo0_local,
+   fifo_PE1_2_res_config_out,
+   fifo_PE2_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_2,
+   fifo1_feed2_3,
+   PE2_2_fifo1_local,
+   fifo_PE2_2_op0_config_out,
+   fifo_PE2_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_2_fifo0_local,
+   PE2_2_fifo1_local,
+   PE2_2_fifo2_local,
+   fifo_PE2_2_op1_config_out,
+   fifo_PE2_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_2_fifo2_local,
+   fifo2_collect1_2,
+   fifo2_collect2_2,
+   2,
+   2,
+   fifo_PE2_2_compute_config_out,
+   fifo_PE2_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_3,
+   fifo0_feed3_3,
+   PE2_3_fifo0_local,
+   fifo_PE1_3_res_config_out,
+   fifo_PE2_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_3,
+   fifo1_feed2_4,
+   PE2_3_fifo1_local,
+   fifo_PE2_3_op0_config_out,
+   fifo_PE2_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_3_fifo0_local,
+   PE2_3_fifo1_local,
+   PE2_3_fifo2_local,
+   fifo_PE2_3_op1_config_out,
+   fifo_PE2_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_3_fifo2_local,
+   fifo2_collect1_3,
+   fifo2_collect2_3,
+   2,
+   3,
+   fifo_PE2_3_compute_config_out,
+   fifo_PE2_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_4,
+   fifo0_feed3_4,
+   PE2_4_fifo0_local,
+   fifo_PE1_4_res_config_out,
+   fifo_PE2_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_4,
+   fifo1_feed2_5,
+   PE2_4_fifo1_local,
+   fifo_PE2_4_op0_config_out,
+   fifo_PE2_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_4_fifo0_local,
+   PE2_4_fifo1_local,
+   PE2_4_fifo2_local,
+   fifo_PE2_4_op1_config_out,
+   fifo_PE2_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_4_fifo2_local,
+   fifo2_collect1_4,
+   fifo2_collect2_4,
+   2,
+   4,
+   fifo_PE2_4_compute_config_out,
+   fifo_PE2_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_5,
+   fifo0_feed3_5,
+   PE2_5_fifo0_local,
+   fifo_PE1_5_res_config_out,
+   fifo_PE2_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_5,
+   fifo1_feed2_6,
+   PE2_5_fifo1_local,
+   fifo_PE2_5_op0_config_out,
+   fifo_PE2_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_5_fifo0_local,
+   PE2_5_fifo1_local,
+   PE2_5_fifo2_local,
+   fifo_PE2_5_op1_config_out,
+   fifo_PE2_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_5_fifo2_local,
+   fifo2_collect1_5,
+   fifo2_collect2_5,
+   2,
+   5,
+   fifo_PE2_5_compute_config_out,
+   fifo_PE2_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_6,
+   fifo0_feed3_6,
+   PE2_6_fifo0_local,
+   fifo_PE1_6_res_config_out,
+   fifo_PE2_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed2_6,
+   fifo1_feed2_7,
+   PE2_6_fifo1_local,
+   fifo_PE2_6_op0_config_out,
+   fifo_PE2_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_6_fifo0_local,
+   PE2_6_fifo1_local,
+   PE2_6_fifo2_local,
+   fifo_PE2_6_op1_config_out,
+   fifo_PE2_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_6_fifo2_local,
+   fifo2_collect1_6,
+   fifo2_collect2_6,
+   2,
+   6,
+   fifo_PE2_6_compute_config_out,
+   fifo_PE2_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed2_7,
+   fifo0_feed3_7,
+   PE2_7_fifo0_local,
+   fifo_PE1_7_res_config_out,
+   fifo_PE2_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed2_7,
+   PE2_7_fifo1_local,
+   fifo_PE2_7_op0_config_out,
+   fifo_PE2_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE2_7_fifo0_local,
+   PE2_7_fifo1_local,
+   PE2_7_fifo2_local,
+   fifo_PE2_7_op1_config_out,
+   fifo_PE2_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE2_7_fifo2_local,
+   fifo2_collect1_7,
+   fifo2_collect2_7,
+   2,
+   7,
+   fifo_PE2_7_compute_config_out,
+   fifo_PE2_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_0,
+   fifo0_feed4_0,
+   PE3_0_fifo0_local,
+   fifo_PE2_0_res_config_out,
+   fifo_PE3_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_0,
+   fifo1_feed3_1,
+   PE3_0_fifo1_local,
+   fifo_PE3_0_op0_config_out,
+   fifo_PE3_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_0_fifo0_local,
+   PE3_0_fifo1_local,
+   PE3_0_fifo2_local,
+   fifo_PE3_0_op1_config_out,
+   fifo_PE3_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_0_fifo2_local,
+   fifo2_collect2_0,
+   fifo2_collect3_0,
+   3,
+   0,
+   fifo_PE3_0_compute_config_out,
+   fifo_PE3_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_1,
+   fifo0_feed4_1,
+   PE3_1_fifo0_local,
+   fifo_PE2_1_res_config_out,
+   fifo_PE3_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_1,
+   fifo1_feed3_2,
+   PE3_1_fifo1_local,
+   fifo_PE3_1_op0_config_out,
+   fifo_PE3_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_1_fifo0_local,
+   PE3_1_fifo1_local,
+   PE3_1_fifo2_local,
+   fifo_PE3_1_op1_config_out,
+   fifo_PE3_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_1_fifo2_local,
+   fifo2_collect2_1,
+   fifo2_collect3_1,
+   3,
+   1,
+   fifo_PE3_1_compute_config_out,
+   fifo_PE3_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_2,
+   fifo0_feed4_2,
+   PE3_2_fifo0_local,
+   fifo_PE2_2_res_config_out,
+   fifo_PE3_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_2,
+   fifo1_feed3_3,
+   PE3_2_fifo1_local,
+   fifo_PE3_2_op0_config_out,
+   fifo_PE3_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_2_fifo0_local,
+   PE3_2_fifo1_local,
+   PE3_2_fifo2_local,
+   fifo_PE3_2_op1_config_out,
+   fifo_PE3_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_2_fifo2_local,
+   fifo2_collect2_2,
+   fifo2_collect3_2,
+   3,
+   2,
+   fifo_PE3_2_compute_config_out,
+   fifo_PE3_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_3,
+   fifo0_feed4_3,
+   PE3_3_fifo0_local,
+   fifo_PE2_3_res_config_out,
+   fifo_PE3_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_3,
+   fifo1_feed3_4,
+   PE3_3_fifo1_local,
+   fifo_PE3_3_op0_config_out,
+   fifo_PE3_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_3_fifo0_local,
+   PE3_3_fifo1_local,
+   PE3_3_fifo2_local,
+   fifo_PE3_3_op1_config_out,
+   fifo_PE3_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_3_fifo2_local,
+   fifo2_collect2_3,
+   fifo2_collect3_3,
+   3,
+   3,
+   fifo_PE3_3_compute_config_out,
+   fifo_PE3_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_4,
+   fifo0_feed4_4,
+   PE3_4_fifo0_local,
+   fifo_PE2_4_res_config_out,
+   fifo_PE3_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_4,
+   fifo1_feed3_5,
+   PE3_4_fifo1_local,
+   fifo_PE3_4_op0_config_out,
+   fifo_PE3_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_4_fifo0_local,
+   PE3_4_fifo1_local,
+   PE3_4_fifo2_local,
+   fifo_PE3_4_op1_config_out,
+   fifo_PE3_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_4_fifo2_local,
+   fifo2_collect2_4,
+   fifo2_collect3_4,
+   3,
+   4,
+   fifo_PE3_4_compute_config_out,
+   fifo_PE3_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_5,
+   fifo0_feed4_5,
+   PE3_5_fifo0_local,
+   fifo_PE2_5_res_config_out,
+   fifo_PE3_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_5,
+   fifo1_feed3_6,
+   PE3_5_fifo1_local,
+   fifo_PE3_5_op0_config_out,
+   fifo_PE3_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_5_fifo0_local,
+   PE3_5_fifo1_local,
+   PE3_5_fifo2_local,
+   fifo_PE3_5_op1_config_out,
+   fifo_PE3_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_5_fifo2_local,
+   fifo2_collect2_5,
+   fifo2_collect3_5,
+   3,
+   5,
+   fifo_PE3_5_compute_config_out,
+   fifo_PE3_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_6,
+   fifo0_feed4_6,
+   PE3_6_fifo0_local,
+   fifo_PE2_6_res_config_out,
+   fifo_PE3_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed3_6,
+   fifo1_feed3_7,
+   PE3_6_fifo1_local,
+   fifo_PE3_6_op0_config_out,
+   fifo_PE3_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_6_fifo0_local,
+   PE3_6_fifo1_local,
+   PE3_6_fifo2_local,
+   fifo_PE3_6_op1_config_out,
+   fifo_PE3_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_6_fifo2_local,
+   fifo2_collect2_6,
+   fifo2_collect3_6,
+   3,
+   6,
+   fifo_PE3_6_compute_config_out,
+   fifo_PE3_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed3_7,
+   fifo0_feed4_7,
+   PE3_7_fifo0_local,
+   fifo_PE2_7_res_config_out,
+   fifo_PE3_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed3_7,
+   PE3_7_fifo1_local,
+   fifo_PE3_7_op0_config_out,
+   fifo_PE3_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE3_7_fifo0_local,
+   PE3_7_fifo1_local,
+   PE3_7_fifo2_local,
+   fifo_PE3_7_op1_config_out,
+   fifo_PE3_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE3_7_fifo2_local,
+   fifo2_collect2_7,
+   fifo2_collect3_7,
+   3,
+   7,
+   fifo_PE3_7_compute_config_out,
+   fifo_PE3_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_0,
+   fifo0_feed5_0,
+   PE4_0_fifo0_local,
+   fifo_PE3_0_res_config_out,
+   fifo_PE4_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_0,
+   fifo1_feed4_1,
+   PE4_0_fifo1_local,
+   fifo_PE4_0_op0_config_out,
+   fifo_PE4_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_0_fifo0_local,
+   PE4_0_fifo1_local,
+   PE4_0_fifo2_local,
+   fifo_PE4_0_op1_config_out,
+   fifo_PE4_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_0_fifo2_local,
+   fifo2_collect3_0,
+   fifo2_collect4_0,
+   4,
+   0,
+   fifo_PE4_0_compute_config_out,
+   fifo_PE4_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_1,
+   fifo0_feed5_1,
+   PE4_1_fifo0_local,
+   fifo_PE3_1_res_config_out,
+   fifo_PE4_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_1,
+   fifo1_feed4_2,
+   PE4_1_fifo1_local,
+   fifo_PE4_1_op0_config_out,
+   fifo_PE4_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_1_fifo0_local,
+   PE4_1_fifo1_local,
+   PE4_1_fifo2_local,
+   fifo_PE4_1_op1_config_out,
+   fifo_PE4_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_1_fifo2_local,
+   fifo2_collect3_1,
+   fifo2_collect4_1,
+   4,
+   1,
+   fifo_PE4_1_compute_config_out,
+   fifo_PE4_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_2,
+   fifo0_feed5_2,
+   PE4_2_fifo0_local,
+   fifo_PE3_2_res_config_out,
+   fifo_PE4_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_2,
+   fifo1_feed4_3,
+   PE4_2_fifo1_local,
+   fifo_PE4_2_op0_config_out,
+   fifo_PE4_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_2_fifo0_local,
+   PE4_2_fifo1_local,
+   PE4_2_fifo2_local,
+   fifo_PE4_2_op1_config_out,
+   fifo_PE4_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_2_fifo2_local,
+   fifo2_collect3_2,
+   fifo2_collect4_2,
+   4,
+   2,
+   fifo_PE4_2_compute_config_out,
+   fifo_PE4_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_3,
+   fifo0_feed5_3,
+   PE4_3_fifo0_local,
+   fifo_PE3_3_res_config_out,
+   fifo_PE4_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_3,
+   fifo1_feed4_4,
+   PE4_3_fifo1_local,
+   fifo_PE4_3_op0_config_out,
+   fifo_PE4_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_3_fifo0_local,
+   PE4_3_fifo1_local,
+   PE4_3_fifo2_local,
+   fifo_PE4_3_op1_config_out,
+   fifo_PE4_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_3_fifo2_local,
+   fifo2_collect3_3,
+   fifo2_collect4_3,
+   4,
+   3,
+   fifo_PE4_3_compute_config_out,
+   fifo_PE4_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_4,
+   fifo0_feed5_4,
+   PE4_4_fifo0_local,
+   fifo_PE3_4_res_config_out,
+   fifo_PE4_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_4,
+   fifo1_feed4_5,
+   PE4_4_fifo1_local,
+   fifo_PE4_4_op0_config_out,
+   fifo_PE4_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_4_fifo0_local,
+   PE4_4_fifo1_local,
+   PE4_4_fifo2_local,
+   fifo_PE4_4_op1_config_out,
+   fifo_PE4_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_4_fifo2_local,
+   fifo2_collect3_4,
+   fifo2_collect4_4,
+   4,
+   4,
+   fifo_PE4_4_compute_config_out,
+   fifo_PE4_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_5,
+   fifo0_feed5_5,
+   PE4_5_fifo0_local,
+   fifo_PE3_5_res_config_out,
+   fifo_PE4_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_5,
+   fifo1_feed4_6,
+   PE4_5_fifo1_local,
+   fifo_PE4_5_op0_config_out,
+   fifo_PE4_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_5_fifo0_local,
+   PE4_5_fifo1_local,
+   PE4_5_fifo2_local,
+   fifo_PE4_5_op1_config_out,
+   fifo_PE4_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_5_fifo2_local,
+   fifo2_collect3_5,
+   fifo2_collect4_5,
+   4,
+   5,
+   fifo_PE4_5_compute_config_out,
+   fifo_PE4_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_6,
+   fifo0_feed5_6,
+   PE4_6_fifo0_local,
+   fifo_PE3_6_res_config_out,
+   fifo_PE4_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed4_6,
+   fifo1_feed4_7,
+   PE4_6_fifo1_local,
+   fifo_PE4_6_op0_config_out,
+   fifo_PE4_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_6_fifo0_local,
+   PE4_6_fifo1_local,
+   PE4_6_fifo2_local,
+   fifo_PE4_6_op1_config_out,
+   fifo_PE4_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_6_fifo2_local,
+   fifo2_collect3_6,
+   fifo2_collect4_6,
+   4,
+   6,
+   fifo_PE4_6_compute_config_out,
+   fifo_PE4_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed4_7,
+   fifo0_feed5_7,
+   PE4_7_fifo0_local,
+   fifo_PE3_7_res_config_out,
+   fifo_PE4_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed4_7,
+   PE4_7_fifo1_local,
+   fifo_PE4_7_op0_config_out,
+   fifo_PE4_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE4_7_fifo0_local,
+   PE4_7_fifo1_local,
+   PE4_7_fifo2_local,
+   fifo_PE4_7_op1_config_out,
+   fifo_PE4_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE4_7_fifo2_local,
+   fifo2_collect3_7,
+   fifo2_collect4_7,
+   4,
+   7,
+   fifo_PE4_7_compute_config_out,
+   fifo_PE4_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_0,
+   fifo0_feed6_0,
+   PE5_0_fifo0_local,
+   fifo_PE4_0_res_config_out,
+   fifo_PE5_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_0,
+   fifo1_feed5_1,
+   PE5_0_fifo1_local,
+   fifo_PE5_0_op0_config_out,
+   fifo_PE5_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_0_fifo0_local,
+   PE5_0_fifo1_local,
+   PE5_0_fifo2_local,
+   fifo_PE5_0_op1_config_out,
+   fifo_PE5_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_0_fifo2_local,
+   fifo2_collect4_0,
+   fifo2_collect5_0,
+   5,
+   0,
+   fifo_PE5_0_compute_config_out,
+   fifo_PE5_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_1,
+   fifo0_feed6_1,
+   PE5_1_fifo0_local,
+   fifo_PE4_1_res_config_out,
+   fifo_PE5_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_1,
+   fifo1_feed5_2,
+   PE5_1_fifo1_local,
+   fifo_PE5_1_op0_config_out,
+   fifo_PE5_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_1_fifo0_local,
+   PE5_1_fifo1_local,
+   PE5_1_fifo2_local,
+   fifo_PE5_1_op1_config_out,
+   fifo_PE5_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_1_fifo2_local,
+   fifo2_collect4_1,
+   fifo2_collect5_1,
+   5,
+   1,
+   fifo_PE5_1_compute_config_out,
+   fifo_PE5_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_2,
+   fifo0_feed6_2,
+   PE5_2_fifo0_local,
+   fifo_PE4_2_res_config_out,
+   fifo_PE5_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_2,
+   fifo1_feed5_3,
+   PE5_2_fifo1_local,
+   fifo_PE5_2_op0_config_out,
+   fifo_PE5_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_2_fifo0_local,
+   PE5_2_fifo1_local,
+   PE5_2_fifo2_local,
+   fifo_PE5_2_op1_config_out,
+   fifo_PE5_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_2_fifo2_local,
+   fifo2_collect4_2,
+   fifo2_collect5_2,
+   5,
+   2,
+   fifo_PE5_2_compute_config_out,
+   fifo_PE5_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_3,
+   fifo0_feed6_3,
+   PE5_3_fifo0_local,
+   fifo_PE4_3_res_config_out,
+   fifo_PE5_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_3,
+   fifo1_feed5_4,
+   PE5_3_fifo1_local,
+   fifo_PE5_3_op0_config_out,
+   fifo_PE5_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_3_fifo0_local,
+   PE5_3_fifo1_local,
+   PE5_3_fifo2_local,
+   fifo_PE5_3_op1_config_out,
+   fifo_PE5_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_3_fifo2_local,
+   fifo2_collect4_3,
+   fifo2_collect5_3,
+   5,
+   3,
+   fifo_PE5_3_compute_config_out,
+   fifo_PE5_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_4,
+   fifo0_feed6_4,
+   PE5_4_fifo0_local,
+   fifo_PE4_4_res_config_out,
+   fifo_PE5_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_4,
+   fifo1_feed5_5,
+   PE5_4_fifo1_local,
+   fifo_PE5_4_op0_config_out,
+   fifo_PE5_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_4_fifo0_local,
+   PE5_4_fifo1_local,
+   PE5_4_fifo2_local,
+   fifo_PE5_4_op1_config_out,
+   fifo_PE5_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_4_fifo2_local,
+   fifo2_collect4_4,
+   fifo2_collect5_4,
+   5,
+   4,
+   fifo_PE5_4_compute_config_out,
+   fifo_PE5_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_5,
+   fifo0_feed6_5,
+   PE5_5_fifo0_local,
+   fifo_PE4_5_res_config_out,
+   fifo_PE5_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_5,
+   fifo1_feed5_6,
+   PE5_5_fifo1_local,
+   fifo_PE5_5_op0_config_out,
+   fifo_PE5_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_5_fifo0_local,
+   PE5_5_fifo1_local,
+   PE5_5_fifo2_local,
+   fifo_PE5_5_op1_config_out,
+   fifo_PE5_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_5_fifo2_local,
+   fifo2_collect4_5,
+   fifo2_collect5_5,
+   5,
+   5,
+   fifo_PE5_5_compute_config_out,
+   fifo_PE5_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_6,
+   fifo0_feed6_6,
+   PE5_6_fifo0_local,
+   fifo_PE4_6_res_config_out,
+   fifo_PE5_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed5_6,
+   fifo1_feed5_7,
+   PE5_6_fifo1_local,
+   fifo_PE5_6_op0_config_out,
+   fifo_PE5_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_6_fifo0_local,
+   PE5_6_fifo1_local,
+   PE5_6_fifo2_local,
+   fifo_PE5_6_op1_config_out,
+   fifo_PE5_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_6_fifo2_local,
+   fifo2_collect4_6,
+   fifo2_collect5_6,
+   5,
+   6,
+   fifo_PE5_6_compute_config_out,
+   fifo_PE5_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed5_7,
+   fifo0_feed6_7,
+   PE5_7_fifo0_local,
+   fifo_PE4_7_res_config_out,
+   fifo_PE5_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed5_7,
+   PE5_7_fifo1_local,
+   fifo_PE5_7_op0_config_out,
+   fifo_PE5_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE5_7_fifo0_local,
+   PE5_7_fifo1_local,
+   PE5_7_fifo2_local,
+   fifo_PE5_7_op1_config_out,
+   fifo_PE5_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE5_7_fifo2_local,
+   fifo2_collect4_7,
+   fifo2_collect5_7,
+   5,
+   7,
+   fifo_PE5_7_compute_config_out,
+   fifo_PE5_7_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_0,
+   fifo0_feed7_0,
+   PE6_0_fifo0_local,
+   fifo_PE5_0_res_config_out,
+   fifo_PE6_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_0,
+   fifo1_feed6_1,
+   PE6_0_fifo1_local,
+   fifo_PE6_0_op0_config_out,
+   fifo_PE6_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_0_fifo0_local,
+   PE6_0_fifo1_local,
+   PE6_0_fifo2_local,
+   fifo_PE6_0_op1_config_out,
+   fifo_PE6_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_0_fifo2_local,
+   fifo2_collect5_0,
+   fifo2_collect6_0,
+   6,
+   0,
+   fifo_PE6_0_compute_config_out,
+   fifo_PE6_0_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_1,
+   fifo0_feed7_1,
+   PE6_1_fifo0_local,
+   fifo_PE5_1_res_config_out,
+   fifo_PE6_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_1,
+   fifo1_feed6_2,
+   PE6_1_fifo1_local,
+   fifo_PE6_1_op0_config_out,
+   fifo_PE6_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_1_fifo0_local,
+   PE6_1_fifo1_local,
+   PE6_1_fifo2_local,
+   fifo_PE6_1_op1_config_out,
+   fifo_PE6_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_1_fifo2_local,
+   fifo2_collect5_1,
+   fifo2_collect6_1,
+   6,
+   1,
+   fifo_PE6_1_compute_config_out,
+   fifo_PE6_1_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_2,
+   fifo0_feed7_2,
+   PE6_2_fifo0_local,
+   fifo_PE5_2_res_config_out,
+   fifo_PE6_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_2,
+   fifo1_feed6_3,
+   PE6_2_fifo1_local,
+   fifo_PE6_2_op0_config_out,
+   fifo_PE6_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_2_fifo0_local,
+   PE6_2_fifo1_local,
+   PE6_2_fifo2_local,
+   fifo_PE6_2_op1_config_out,
+   fifo_PE6_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_2_fifo2_local,
+   fifo2_collect5_2,
+   fifo2_collect6_2,
+   6,
+   2,
+   fifo_PE6_2_compute_config_out,
+   fifo_PE6_2_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_3,
+   fifo0_feed7_3,
+   PE6_3_fifo0_local,
+   fifo_PE5_3_res_config_out,
+   fifo_PE6_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_3,
+   fifo1_feed6_4,
+   PE6_3_fifo1_local,
+   fifo_PE6_3_op0_config_out,
+   fifo_PE6_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_3_fifo0_local,
+   PE6_3_fifo1_local,
+   PE6_3_fifo2_local,
+   fifo_PE6_3_op1_config_out,
+   fifo_PE6_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_3_fifo2_local,
+   fifo2_collect5_3,
+   fifo2_collect6_3,
+   6,
+   3,
+   fifo_PE6_3_compute_config_out,
+   fifo_PE6_3_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_4,
+   fifo0_feed7_4,
+   PE6_4_fifo0_local,
+   fifo_PE5_4_res_config_out,
+   fifo_PE6_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_4,
+   fifo1_feed6_5,
+   PE6_4_fifo1_local,
+   fifo_PE6_4_op0_config_out,
+   fifo_PE6_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_4_fifo0_local,
+   PE6_4_fifo1_local,
+   PE6_4_fifo2_local,
+   fifo_PE6_4_op1_config_out,
+   fifo_PE6_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_4_fifo2_local,
+   fifo2_collect5_4,
+   fifo2_collect6_4,
+   6,
+   4,
+   fifo_PE6_4_compute_config_out,
+   fifo_PE6_4_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_5,
+   fifo0_feed7_5,
+   PE6_5_fifo0_local,
+   fifo_PE5_5_res_config_out,
+   fifo_PE6_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_5,
+   fifo1_feed6_6,
+   PE6_5_fifo1_local,
+   fifo_PE6_5_op0_config_out,
+   fifo_PE6_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_5_fifo0_local,
+   PE6_5_fifo1_local,
+   PE6_5_fifo2_local,
+   fifo_PE6_5_op1_config_out,
+   fifo_PE6_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_5_fifo2_local,
+   fifo2_collect5_5,
+   fifo2_collect6_5,
+   6,
+   5,
+   fifo_PE6_5_compute_config_out,
+   fifo_PE6_5_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_6,
+   fifo0_feed7_6,
+   PE6_6_fifo0_local,
+   fifo_PE5_6_res_config_out,
+   fifo_PE6_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed6_6,
+   fifo1_feed6_7,
+   PE6_6_fifo1_local,
+   fifo_PE6_6_op0_config_out,
+   fifo_PE6_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_6_fifo0_local,
+   PE6_6_fifo1_local,
+   PE6_6_fifo2_local,
+   fifo_PE6_6_op1_config_out,
+   fifo_PE6_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_6_fifo2_local,
+   fifo2_collect5_6,
+   fifo2_collect6_6,
+   6,
+   6,
+   fifo_PE6_6_compute_config_out,
+   fifo_PE6_6_res_config_out
+ );
+
+ U1_op0_transfer_wrapper(
+   fifo0_feed6_7,
+   fifo0_feed7_7,
+   PE6_7_fifo0_local,
+   fifo_PE5_7_res_config_out,
+   fifo_PE6_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed6_7,
+   PE6_7_fifo1_local,
+   fifo_PE6_7_op0_config_out,
+   fifo_PE6_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE6_7_fifo0_local,
+   PE6_7_fifo1_local,
+   PE6_7_fifo2_local,
+   fifo_PE6_7_op1_config_out,
+   fifo_PE6_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE6_7_fifo2_local,
+   fifo2_collect5_7,
+   fifo2_collect6_7,
+   6,
+   7,
+   fifo_PE6_7_compute_config_out,
+   fifo_PE6_7_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_0,
+   PE7_0_fifo0_local,
+   fifo_PE6_0_res_config_out,
+   fifo_PE7_0_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_0,
+   fifo1_feed7_1,
+   PE7_0_fifo1_local,
+   fifo_PE7_0_op0_config_out,
+   fifo_PE7_0_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_0_fifo0_local,
+   PE7_0_fifo1_local,
+   PE7_0_fifo2_local,
+   fifo_PE7_0_op1_config_out,
+   fifo_PE7_0_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_0_fifo2_local,
+   fifo2_collect6_0,
+   fifo2_collect7_0,
+   7,
+   0,
+   fifo_PE7_0_compute_config_out,
+   fifo_PE7_0_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_1,
+   PE7_1_fifo0_local,
+   fifo_PE6_1_res_config_out,
+   fifo_PE7_1_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_1,
+   fifo1_feed7_2,
+   PE7_1_fifo1_local,
+   fifo_PE7_1_op0_config_out,
+   fifo_PE7_1_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_1_fifo0_local,
+   PE7_1_fifo1_local,
+   PE7_1_fifo2_local,
+   fifo_PE7_1_op1_config_out,
+   fifo_PE7_1_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_1_fifo2_local,
+   fifo2_collect6_1,
+   fifo2_collect7_1,
+   7,
+   1,
+   fifo_PE7_1_compute_config_out,
+   fifo_PE7_1_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_2,
+   PE7_2_fifo0_local,
+   fifo_PE6_2_res_config_out,
+   fifo_PE7_2_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_2,
+   fifo1_feed7_3,
+   PE7_2_fifo1_local,
+   fifo_PE7_2_op0_config_out,
+   fifo_PE7_2_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_2_fifo0_local,
+   PE7_2_fifo1_local,
+   PE7_2_fifo2_local,
+   fifo_PE7_2_op1_config_out,
+   fifo_PE7_2_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_2_fifo2_local,
+   fifo2_collect6_2,
+   fifo2_collect7_2,
+   7,
+   2,
+   fifo_PE7_2_compute_config_out,
+   fifo_PE7_2_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_3,
+   PE7_3_fifo0_local,
+   fifo_PE6_3_res_config_out,
+   fifo_PE7_3_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_3,
+   fifo1_feed7_4,
+   PE7_3_fifo1_local,
+   fifo_PE7_3_op0_config_out,
+   fifo_PE7_3_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_3_fifo0_local,
+   PE7_3_fifo1_local,
+   PE7_3_fifo2_local,
+   fifo_PE7_3_op1_config_out,
+   fifo_PE7_3_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_3_fifo2_local,
+   fifo2_collect6_3,
+   fifo2_collect7_3,
+   7,
+   3,
+   fifo_PE7_3_compute_config_out,
+   fifo_PE7_3_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_4,
+   PE7_4_fifo0_local,
+   fifo_PE6_4_res_config_out,
+   fifo_PE7_4_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_4,
+   fifo1_feed7_5,
+   PE7_4_fifo1_local,
+   fifo_PE7_4_op0_config_out,
+   fifo_PE7_4_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_4_fifo0_local,
+   PE7_4_fifo1_local,
+   PE7_4_fifo2_local,
+   fifo_PE7_4_op1_config_out,
+   fifo_PE7_4_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_4_fifo2_local,
+   fifo2_collect6_4,
+   fifo2_collect7_4,
+   7,
+   4,
+   fifo_PE7_4_compute_config_out,
+   fifo_PE7_4_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_5,
+   PE7_5_fifo0_local,
+   fifo_PE6_5_res_config_out,
+   fifo_PE7_5_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_5,
+   fifo1_feed7_6,
+   PE7_5_fifo1_local,
+   fifo_PE7_5_op0_config_out,
+   fifo_PE7_5_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_5_fifo0_local,
+   PE7_5_fifo1_local,
+   PE7_5_fifo2_local,
+   fifo_PE7_5_op1_config_out,
+   fifo_PE7_5_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_5_fifo2_local,
+   fifo2_collect6_5,
+   fifo2_collect7_5,
+   7,
+   5,
+   fifo_PE7_5_compute_config_out,
+   fifo_PE7_5_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_6,
+   PE7_6_fifo0_local,
+   fifo_PE6_6_res_config_out,
+   fifo_PE7_6_op0_config_out
+ );
+
+ U1_op1_transfer_wrapper(
+   fifo1_feed7_6,
+   fifo1_feed7_7,
+   PE7_6_fifo1_local,
+   fifo_PE7_6_op0_config_out,
+   fifo_PE7_6_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_6_fifo0_local,
+   PE7_6_fifo1_local,
+   PE7_6_fifo2_local,
+   fifo_PE7_6_op1_config_out,
+   fifo_PE7_6_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_6_fifo2_local,
+   fifo2_collect6_6,
+   fifo2_collect7_6,
+   7,
+   6,
+   fifo_PE7_6_compute_config_out,
+   fifo_PE7_6_res_config_out
+ );
+
+ U1_op0_transfer_last_wrapper(
+   fifo0_feed7_7,
+   PE7_7_fifo0_local,
+   fifo_PE6_7_res_config_out,
+   fifo_PE7_7_op0_config_out
+ );
+
+ U1_op1_transfer_last_wrapper(
+   fifo1_feed7_7,
+   PE7_7_fifo1_local,
+   fifo_PE7_7_op0_config_out,
+   fifo_PE7_7_op1_config_out
+ );
+
+ U1_compute_wrapper(
+   PE7_7_fifo0_local,
+   PE7_7_fifo1_local,
+   PE7_7_fifo2_local,
+   fifo_PE7_7_op1_config_out,
+   fifo_PE7_7_compute_config_out
+ );
+
+ U1_res_transfer_wrapper(
+   PE7_7_fifo2_local,
+   fifo2_collect6_7,
+   fifo2_collect7_7,
+   7,
+   7,
+   fifo_PE7_7_compute_config_out,
+   fifo_PE7_7_res_config_out
+ );
+
+ U1_DataCollect2EngineLast(
+   fifo2_transfer0,
+   fifo2_collect7_7,
+   7,
+   fifo_PE7_7_res_config_out,
+   fifo_DataCollect2Engine7_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer0,
+   fifo2_transfer1,
+   fifo2_collect7_6,
+   6,
+   fifo_PE7_6_res_config_out,
+   fifo_DataCollect2Engine7_config_out,
+   fifo_DataCollect2Engine6_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer1,
+   fifo2_transfer2,
+   fifo2_collect7_5,
+   5,
+   fifo_PE7_5_res_config_out,
+   fifo_DataCollect2Engine6_config_out,
+   fifo_DataCollect2Engine5_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer2,
+   fifo2_transfer3,
+   fifo2_collect7_4,
+   4,
+   fifo_PE7_4_res_config_out,
+   fifo_DataCollect2Engine5_config_out,
+   fifo_DataCollect2Engine4_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer3,
+   fifo2_transfer4,
+   fifo2_collect7_3,
+   3,
+   fifo_PE7_3_res_config_out,
+   fifo_DataCollect2Engine4_config_out,
+   fifo_DataCollect2Engine3_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer4,
+   fifo2_transfer5,
+   fifo2_collect7_2,
+   2,
+   fifo_PE7_2_res_config_out,
+   fifo_DataCollect2Engine3_config_out,
+   fifo_DataCollect2Engine2_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer5,
+   fifo2_transfer6,
+   fifo2_collect7_1,
+   1,
+   fifo_PE7_1_res_config_out,
+   fifo_DataCollect2Engine2_config_out,
+   fifo_DataCollect2Engine1_config_out
+ );
+
+ U1_DataCollect2Engine0_wrapper(
+   fifo2_transfer6,
+   fifo2_transfer7,
+   fifo2_collect7_0,
+   0,
+   fifo_PE7_0_res_config_out,
+   fifo_DataCollect2Engine1_config_out,
+   fifo_DataCollect2Engine0_config_out
+ );
+
+ U1_DataCollect2Head(
+   fifo_cout,
+   fifo2_transfer7,
+   fifo_DataCollect2Engine0_config_out
+ );
+
+}
+# 7708 "kernel.cpp"
 void cin_load_ddr_read(
   bus_t0 *global_cin,
   bus_t0 cin_burst_buf[],
@@ -26029,7 +33617,7 @@ void cin_load_ddr_read(
   bool max_pool,
   bool write
 ){
- if ((LAYER_IN_H_HW <= 13 + 3 - 1) && (LAYER_IN_W_HW <= 52 + 3 - 1) && !max_pool){
+ if ((LAYER_IN_H_HW <= 12 + 3 - 1) && (LAYER_IN_W_HW <= 96 + 3 - 1) && !max_pool){
 
   uint global_cin_offset = in_num_iter * LAYER_IN_H_HW * LAYER_IN_W_HW + cin_offset;
   memcpy((void*)cin_burst_buf, (void*)&global_cin[global_cin_offset / (512 / 32)], sizeof(data_t0) * LAYER_IN_NUM_T * LAYER_IN_H_HW * LAYER_IN_W_HW);
@@ -26105,9 +33693,9 @@ void cin_load_fifo_write(
    fifo_cin_data = bus_cin_data(32 * (8) * 2 - 1, 32 * (8) * 1);
    break;
   }
-# 215 "kernel.cpp"
+# 7896 "kernel.cpp"
   fifo_cin.write(fifo_cin_data);
-# 232 "kernel.cpp"
+# 7913 "kernel.cpp"
   ww++;
   if (ww == LAYER_IN_W_T + FILTER_S - 1){
    ww = 0;
@@ -26167,9 +33755,9 @@ void cin_load_fifo_write_prev(
    fifo_cin_data = bus_cin_data(32 * (8) * 2 - 1, 32 * (8) * 1);
    break;
   }
-# 385 "kernel.cpp"
+# 8066 "kernel.cpp"
   fifo_cin.write(fifo_cin_data);
-# 398 "kernel.cpp"
+# 8079 "kernel.cpp"
   ww++;
   if (ww == LAYER_IN_W_T + FILTER_S - 1){
    ww = 0;
@@ -26196,13 +33784,13 @@ void cin_load(
   uint config[32],
   hls::stream<CinLoadData0Type> &fifo_cin,
   hls::stream<ConfigInst> &fifo_config_out
-){_ssdm_SpecArrayDimSize(config, 32);
+){
 #pragma HLS INLINE off
 
- bus_t0 cin_burst_buf_ping[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
- bus_t0 cin_burst_buf_pong[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
-#pragma HLS RESOURCE variable=&cin_burst_buf_ping core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&cin_burst_buf_pong core=XPM_MEMORY uram
+ bus_t0 cin_burst_buf_ping[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+ bus_t0 cin_burst_buf_pong[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+#pragma HLS RESOURCE variable=cin_burst_buf_ping core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=cin_burst_buf_pong core=XPM_MEMORY uram
 
 
 
@@ -26341,7 +33929,7 @@ void cin_load(
   LAYER_LOCAL_REG_NUM = config[29 + layer_iter * 32];
   LAYER_ROW_IL_FACTOR = config[30 + layer_iter * 32];
   LAYER_COL_IL_FACTOR = config[31 + layer_iter * 32];
-# 578 "kernel.cpp"
+# 8259 "kernel.cpp"
   ConfigInst inst0 = (LAYER_OUT_W_HW, LAYER_OUT_H_HW, LAYER_IN_W_HW, LAYER_IN_H_HW, LAYER_OUT_NUM_HW, LAYER_IN_NUM_HW);
   ConfigInst inst1 = (LAYER_OUT_W, LAYER_OUT_H, LAYER_IN_W, LAYER_IN_H, LAYER_OUT_NUM, LAYER_IN_NUM);
   ConfigInst inst2 = (STRIDE, FILTER_S2, FILTER_S1, COUT_OFFSET, BIAS_OFFSET, WEIGHT_OFFSET, CIN_OFFSET);
@@ -26464,10 +34052,10 @@ void cin_load_prev(
 ){
 #pragma HLS INLINE off
 
- bus_t0 prev_cin_burst_buf_ping[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
- bus_t0 prev_cin_burst_buf_pong[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
-#pragma HLS RESOURCE variable=&prev_cin_burst_buf_ping core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&prev_cin_burst_buf_pong core=XPM_MEMORY uram
+ bus_t0 prev_cin_burst_buf_ping[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+ bus_t0 prev_cin_burst_buf_pong[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+#pragma HLS RESOURCE variable=prev_cin_burst_buf_ping core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=prev_cin_burst_buf_pong core=XPM_MEMORY uram
 
 
 
@@ -26579,7 +34167,7 @@ void cin_load_prev(
   ap_uint<1> INTER_WRITE_EN = LAYER_EN[9];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
   LOAD_PREV_CIN = LAYER_EN[11];
-# 826 "kernel.cpp"
+# 8507 "kernel.cpp"
   uint cin_offset = CIN_OFFSET;
   uint prev_cin_offset = PREV_CIN_OFFSET;
 
@@ -26750,7 +34338,7 @@ void weight_load_depth_conv_weight_write(
     fifo_w_data = bus_w_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1090 "kernel.cpp"
+# 8771 "kernel.cpp"
    fifo_depth_conv_weight.write(fifo_w_data);
 
 
@@ -26853,7 +34441,7 @@ void weight_load_conv_weight_write(
     fifo_w_data = bus_w_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1286 "kernel.cpp"
+# 8967 "kernel.cpp"
    fifo_conv_weight.write(fifo_w_data);
 
    ii++;
@@ -26953,7 +34541,7 @@ void weight_load_bias_write(
      fifo_b_data = bus_b_data(32 * 8 * 2 - 1, 32 * 8 * 1);
      break;
     }
-# 1479 "kernel.cpp"
+# 9160 "kernel.cpp"
     fifo_bias.write(fifo_b_data);
    }
   }
@@ -27037,7 +34625,7 @@ void weight_load_depth_norm_write(
     fifo_b_data = bus_b_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1656 "kernel.cpp"
+# 9337 "kernel.cpp"
    fifo_bias.write(fifo_b_data);
   }
 
@@ -27070,13 +34658,13 @@ void weight_load(
  bus_t2 gamma_depth_burst_buf[64 / (512 / 32)];
  bus_t2 beta_conv_burst_buf[64 / (512 / 32)];
  bus_t2 gamma_conv_burst_buf[64 / (512 / 32)];
-#pragma HLS RESOURCE variable=&weight_burst_buf1 core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&weight_burst_buf2 core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=weight_burst_buf1 core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=weight_burst_buf2 core=XPM_MEMORY uram
 
-#pragma HLS RESOURCE variable=&beta_depth_burst_buf core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&gamma_depth_burst_buf core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&beta_conv_burst_buf core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&gamma_conv_burst_buf core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=beta_depth_burst_buf core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=gamma_depth_burst_buf core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=beta_conv_burst_buf core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=gamma_conv_burst_buf core=XPM_MEMORY uram
 
 
  uint in_num_iter = 0;
@@ -27163,10 +34751,10 @@ void weight_load(
   ap_uint<1> RELU6_EN = LAYER_EN[4];
   ap_uint<1> POOL_EN = LAYER_EN[5];
   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
-    ap_uint<1> BIAS_EN = LAYER_EN[7];
+     ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
-    ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
-# 1793 "kernel.cpp"
+     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+# 9474 "kernel.cpp"
   bool bias_en = (CONV_EN == 1 && BIAS_EN == 1);
   bool norm_depth_en = (DEPTH_CONV_EN == 1 && BATCH_NORM_EN_DEPTH == 1);;
   bool norm_conv_en = (CONV_EN == 1 && BATCH_NORM_EN == 1);
@@ -27215,7 +34803,7 @@ void weight_load(
     memcpy((void*)beta_conv_burst_buf, (void*)&global_bias[global_bias_offset / (512 / 32)], sizeof(data_t2) * LAYER_OUT_NUM_T);
    }
   } else{
-# 1853 "kernel.cpp"
+# 9534 "kernel.cpp"
        if (norm_conv_en){
         if (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM){
          uint global_bias_offset = beta_conv_offset + out_num_iter;
@@ -27234,7 +34822,7 @@ void weight_load(
         }
        }
     }
-# 1887 "kernel.cpp"
+# 9568 "kernel.cpp"
   if (CONV_EN == 1){
    uint global_weight_offset = weight_offset2 + out_num_iter * LAYER_IN_NUM_HW * FILTER_S2 * FILTER_S2 + in_num_iter * LAYER_OUT_NUM_T * FILTER_S2 * FILTER_S2;
    if (FILTER_S2 == 1){
@@ -27243,9 +34831,9 @@ void weight_load(
     memcpy((void*)&weight_burst_buf2[0], (void*)&global_weight[global_weight_offset / (512 / 32)], sizeof(data_t1) * LAYER_OUT_NUM_T * LAYER_IN_NUM_T * 3 * 3);
    }
   }
-# 1906 "kernel.cpp"
+# 9587 "kernel.cpp"
   weight_load_conv_weight_write(weight_burst_buf2, fifo_conv_weight, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
-# 1915 "kernel.cpp"
+# 9596 "kernel.cpp"
     if (bias_en) {
   weight_load_bias_write(beta_conv_burst_buf, fifo_beta_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
        weight_load_bias_write(gamma_conv_burst_buf, fifo_gamma_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
@@ -27254,7 +34842,7 @@ void weight_load(
    weight_load_bias_write(beta_conv_burst_buf, fifo_beta_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
    weight_load_bias_write(gamma_conv_burst_buf, fifo_gamma_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
   }
-# 1931 "kernel.cpp"
+# 9612 "kernel.cpp"
   in_num_iter += LAYER_IN_NUM_T;
   if (in_num_iter >= LAYER_IN_NUM){
    in_num_iter = 0;
@@ -27279,7 +34867,7 @@ void weight_load(
   }
  }
 }
-# 2181 "kernel.cpp"
+# 9862 "kernel.cpp"
 void depth_conv(
   hls::stream<CinLoadData0Type> &fifo_cin,
   hls::stream<WeightLoadData0Type> &fifo_weight,
@@ -27306,7 +34894,7 @@ void depth_conv(
  fifo_config_out.write(inst3);
  ConfigInst inst4 = fifo_config_in.read();
  fifo_config_out.write(inst4);
-# 2215 "kernel.cpp"
+# 9896 "kernel.cpp"
  ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
 
  bool layer_start = 0;
@@ -27368,9 +34956,9 @@ void depth_conv(
   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
 
   data_t1 weight_buf[64 / (8)][(8)][3][3];
-#pragma HLS ARRAY_PARTITION variable=&weight_buf dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&weight_buf dim=3 complete
-#pragma HLS ARRAY_PARTITION variable=&weight_buf dim=4 complete
+#pragma HLS ARRAY_PARTITION variable=weight_buf dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=weight_buf dim=3 complete
+#pragma HLS ARRAY_PARTITION variable=weight_buf dim=4 complete
 
  uint FILTER_S = (DEPTH_CONV_EN == 1)? (uint)FILTER_S1: (CONV_EN == 1)? (uint)FILTER_S2: 1;
   bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
@@ -27447,9 +35035,9 @@ void depth_conv(
 
 
    if (FILTER_S1 == 1){
-    stencil_w1<data_t0, data_t1, 64, 13, 52, (8), 1, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+    stencil_w1<data_t0, data_t1, 64, 12, 96, (8), 1, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
    } else if (FILTER_S1 == 3){
-    stencil_w3<data_t0, data_t1, 64, 13 + 2, 52 + 2, (8), 3, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T + 2, LAYER_IN_W_T + 2);
+    stencil_w3<data_t0, data_t1, 64, 12 + 2, 96 + 2, (8), 3, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T + 2, LAYER_IN_W_T + 2);
    }
    break;
   }
@@ -27483,285 +35071,7 @@ void depth_conv(
 
  }
 }
-
-
-
-
-
-void conv_core(
-data_t0 cin[13 + 3 - 1][52 + 3 - 1][64],
-data_t1 weight[64][3][3][64],
-data_t0 cout_kernel[13][52][64],
-bool init,
-uint LAYER_IN_NUM_T,
-uint LAYER_OUT_NUM_T,
-uint LAYER_IN_H_T,
-uint LAYER_IN_W_T,
-uint FILTER_S,
-uint STRIDE
-){_ssdm_SpecArrayDimSize(cin, 15);_ssdm_SpecArrayDimSize(weight, 64);_ssdm_SpecArrayDimSize(cout_kernel, 13);
-#pragma HLS INLINE off
-for (int o = 0; o < LAYER_OUT_NUM_T; o++)
-for (int h = 0; h < LAYER_IN_H_T / STRIDE; h++)
-for (int w = 0; w < LAYER_IN_W_T / STRIDE; w++){
-if (init){
-cout_kernel[h][w][o] = 0;
-}
-for (int i = 0; i < LAYER_IN_NUM_T; i++){
-#pragma HLS PIPELINE II=1
-for (int p = 0; p < FILTER_S; p++)
-conv_kernel_loop: for (int q = 0; q < FILTER_S; q++){
-cout_kernel[h][w][o] += cin[h * STRIDE + (STRIDE - 1) + p][w * STRIDE + (STRIDE - 1) + q][i] * weight[o][p][q][i];
-
-
-
-
-}
-}
-}
-}
-
-
-
-
-
-void kernel(
- hls::stream<DepthConvData0Type> &fifo_cin,
- hls::stream<WeightLoadData1Type> &fifo_weight,
- hls::stream<ConvData0Type> &fifo_cout,
- hls::stream<ConfigInst> &fifo_config_in,
- hls::stream<ConfigInst> &fifo_config_out
-){
- data_t0 cin_local[13 + 3 - 1][52 + 3 - 1][64];
-#pragma HLS ARRAY_PARTITIOn variable=&cin_local dim=3 cyclic factor=8
- data_t1 weight_local[64][3][3][64];
-#pragma HLS ARRAY_PARTITION variable=&weight_local dim=4 cyclic factor=8
- data_t0 cout_local[13][52][64];
-#pragma HLS ARRAY_PARTITION variable=&cout_local dim=3 cyclic factor=8
-
- ap_uint<32> cout_tmp[(8)];
-#pragma HLS ARRAY_PARTITION variable=&cout_tmp complete
-
- uint in_num_iter = 0;
- uint out_num_iter = 0;
- uint in_h_iter = 0;
- uint in_w_iter = 0;
- uint layer_iter = 0;
-
-
- ConfigInst inst0 = fifo_config_in.read();
- fifo_config_out.write(inst0);
- ConfigInst inst1 = fifo_config_in.read();
- fifo_config_out.write(inst1);
- ConfigInst inst2 = fifo_config_in.read();
- fifo_config_out.write(inst2);
- ConfigInst inst3 = fifo_config_in.read();
- fifo_config_out.write(inst3);
- ConfigInst inst4 = fifo_config_in.read();
- fifo_config_out.write(inst4);
-
- ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
-
- bool done = 0;
- bool layer_start = 0;
- while(!done){
-   if (layer_start){
-
-     inst0 = fifo_config_in.read();
-     fifo_config_out.write(inst0);
-     inst1 = fifo_config_in.read();
-     fifo_config_out.write(inst1);
-     inst2 = fifo_config_in.read();
-     fifo_config_out.write(inst2);
-     inst3 = fifo_config_in.read();
-     fifo_config_out.write(inst3);
-     inst4 = fifo_config_in.read();
-     fifo_config_out.write(inst4);
-
-     layer_start = 0;
-   }
-
-
-   ap_uint<32> LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
-   ap_uint<32> LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
-   ap_uint<32> LAYER_IN_H_HW = inst0(32*2+31, 32*2);
-   ap_uint<32> LAYER_IN_W_HW = inst0(32*3+31, 32*3);
-   ap_uint<32> LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
-   ap_uint<32> LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
-
-   ap_uint<32> LAYER_IN_NUM = inst1(32*0+31, 32*0);
-   ap_uint<32> LAYER_OUT_NUM = inst1(32*1+31, 32*1);
-   ap_uint<32> LAYER_IN_H = inst1(32*2+31, 32*2);
-   ap_uint<32> LAYER_IN_W = inst1(32*3+31, 32*3);
-   ap_uint<32> LAYER_OUT_H = inst1(32*4+31, 32*4);
-   ap_uint<32> LAYER_OUT_W = inst1(32*5+31, 32*5);
-
-   ap_uint<32> CIN_OFFSET = inst2(32*0+31, 32*0);
-   ap_uint<32> WEIGHT_OFFSET = inst2(32*1+31, 32*1);
-   ap_uint<32> BIAS_OFFSET = inst2(32*2+31, 32*2);
-   ap_uint<32> COUT_OFFSET = inst2(32*3+31, 32*3);
-   ap_uint<16> FILTER_S1 = inst2(32*4+15, 32*4);
-   ap_uint<16> FILTER_S2 = inst2(32*4+31, 32*4+16);
-   ap_uint<32> STRIDE = inst2(32*5+31, 32*5);
-
-   ap_uint<32> LAYER_EN = inst3(32*0+31, 32*0);
-   ap_uint<32> PREV_CIN_OFFSET = inst3(32*1+31, 32*1);
-   ap_uint<16> LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
-   ap_uint<16> LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
-   ap_uint<32> LAYER_IN_H_T = inst3(32*3+31, 32*3);
-   ap_uint<32> LAYER_IN_W_T = inst3(32*4+31, 32*4);
-
-   ap_uint<1> CONV_1ST_EN = LAYER_EN[0];
-   ap_uint<1> DEPTH_CONV_EN = LAYER_EN[1];
-   ap_uint<1> CONV_EN = LAYER_EN[2];
-   ap_uint<1> RELU_EN = LAYER_EN[3];
-   ap_uint<1> RELU6_EN = LAYER_EN[4];
-   ap_uint<1> POOL_EN = LAYER_EN[5];
-   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
-
-   uint FILTER_S = (CONV_EN == 1)? (uint)FILTER_S2: 1;
-   bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
-   bool conv2d = (DEPTH_CONV_EN == 0) && (CONV_EN == 1);
-   bool max_pool = (DEPTH_CONV_EN == 0) && (CONV_EN == 0);
-   uint stride1 = (DEPTH_CONV_EN == 0)? 1 : (uint)STRIDE;
-   uint stride2 = (DEPTH_CONV_EN == 0)? (uint)STRIDE : 1;
-
-
-   switch(CONV_EN){
-     case 0:
-
-       if (max_pool && out_num_iter == 0){
-         for (int o = 0; o < LAYER_IN_NUM_T / (8); o++)
-           for (int h = 0; h < LAYER_IN_H_T + FILTER_S - 1; h++)
-             for (int w = 0; w < LAYER_IN_W_T + FILTER_S - 1; w++){
-#pragma HLS PIPELINE II=1
- DepthConvData0Type tmp = fifo_cin.read();
-               fifo_cout.write(tmp);
-             }
-       }
-
-       break;
-     case 1:
-
-
-
-       for (int i = 0; i < LAYER_IN_NUM_T / (8); i++)
-         for (int h = 0; h < LAYER_IN_H_T / stride1 + FILTER_S - 1; h++){
-           for (int w = 0; w < LAYER_IN_W_T / stride1 + FILTER_S - 1; w++){
-#pragma HLS PIPELINE II=1
- DepthConvData0Type tmp = fifo_cin.read();
-             for (int lane = 0; lane < (8); lane++){
-#pragma HLS UNROLL
- ap_uint<32> u32_tmp = tmp(32 - 1, 0);
-               cin_local[h][w][i * (8) + lane] = Reinterpret<data_t0>(u32_tmp);
-
-
-
-
-
-
-               tmp = tmp >> 32;
-             }
-           }
-
-
-
-         }
-# 2591 "kernel.cpp"
-       for (int o = 0; o < LAYER_OUT_NUM_T; o++){
-         for (int p = 0; p < FILTER_S; p++)
-           for (int q = 0; q < FILTER_S; q++)
-             for (int i = 0; i < LAYER_IN_NUM_T / (8); i++){
-#pragma HLS PIPELINE II=1
- WeightLoadData1Type tmp = fifo_weight.read();
-# 2605 "kernel.cpp"
-               for (int lane = 0; lane < (8); lane++){
-#pragma HLS UNROLL
- ap_uint<32> u32_tmp = tmp(32 - 1, 0);
-                 weight_local[o][p][q][i * (8) + lane] = Reinterpret<data_t1>(u32_tmp);
-# 2625 "kernel.cpp"
-                 tmp = tmp >> 32;
-               }
-             }
-
-
-
-     }
-# 2643 "kernel.cpp"
-       conv_core(cin_local, weight_local, cout_local, (in_num_iter == 0), LAYER_IN_NUM_T, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T, FILTER_S, stride2);
-# 2673 "kernel.cpp"
-       if (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM){
-         for (int o = 0; o < LAYER_OUT_NUM_T / (8); o++)
-           for (int h = 0; h < LAYER_IN_H_T / STRIDE; h++){
-             for (int w = 0; w < LAYER_IN_W_T / STRIDE; w++){
-#pragma HLS PIPELINE II=1
- for (int lane = 0; lane < (8); lane++){
-#pragma HLS UNROLL
- data_t0 tmp_f = cout_local[h][w][o * (8) + lane];
-                 cout_tmp[lane] = Reinterpret<ap_uint<32> >(tmp_f);
-
-
-
-
-
-               }
-               ConvData0Type tmp = (
-
-
-
-
-
-
-                 cout_tmp[7], cout_tmp[6], cout_tmp[5], cout_tmp[4],
-                 cout_tmp[3], cout_tmp[2], cout_tmp[1], cout_tmp[0]
-
-
-
-
-
-
-
-               );
-               fifo_cout.write(tmp);
-# 2714 "kernel.cpp"
-             }
-
-
-
-         }
-       }
-       break;
-   }
-
-   in_num_iter += LAYER_IN_NUM_T;
-   if (in_num_iter >= LAYER_IN_NUM){
-     in_num_iter = 0;
-     in_h_iter += LAYER_IN_H_T;
-     if (in_h_iter >= LAYER_IN_H){
-       in_h_iter = 0;
-       in_w_iter += LAYER_IN_W_T;
-       if (in_w_iter >= LAYER_IN_W){
-         in_w_iter = 0;
-         out_num_iter += LAYER_OUT_NUM_T;
-         if (out_num_iter >= LAYER_OUT_NUM){
-           out_num_iter = 0;
-           layer_iter += 1;
-           layer_start = 1;
-           if (layer_iter == LAYER_BATCH){
-             layer_iter = 0;
-             done = 1;
-           }
-         }
-       }
-     }
-   }
- }
-}
-
-
-
-
-
+# 10435 "kernel.cpp"
 void relu6(
   hls::stream<ConvData0Type> &fifo_cin,
   hls::stream<ConfigInst> &fifo_config_in,
@@ -27860,15 +35170,15 @@ void relu6(
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
-# 2858 "kernel.cpp"
+# 10541 "kernel.cpp"
   data_t2 gamma_buf[64 / (8)][(8)];
   data_t2 beta_buf[64 / (8)][(8)];
-#pragma HLS ARRAY_PARTITION variable=&gamma_buf dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&beta_buf dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=gamma_buf dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=beta_buf dim=2 complete
  data_t0 cin_buf[(8)];
   ap_uint<32> cout_buf[(8)];
-#pragma HLS ARRAY_PARTITION variable=&cin_buf complete
-#pragma HLS ARRAY_PARTITION variable=&cout_buf complete
+#pragma HLS ARRAY_PARTITION variable=cin_buf complete
+#pragma HLS ARRAY_PARTITION variable=cout_buf complete
 
 
  uint FILTER_S = (DEPTH_CONV_EN == 1)? 1 : (CONV_EN == 1)? (uint)FILTER_S2: 1;
@@ -27878,7 +35188,7 @@ void relu6(
   uint stride = (max_pool == 1)? 1 : (uint)STRIDE;
   bool en = (RELU6_EN == 1 || RELU_EN == 1) && (DEPTH_CONV_EN == 1) && (BATCH_NORM_EN_DEPTH == 1);
   bool norm_en = BATCH_NORM_EN_DEPTH;
-# 2883 "kernel.cpp"
+# 10566 "kernel.cpp"
   switch(en){
   case 0:
 
@@ -28041,7 +35351,7 @@ void relu6(
   }
  }
 }
-# 3053 "kernel.cpp"
+# 10736 "kernel.cpp"
 void conv(
   hls::stream<DepthConvData0Type> &fifo_cin,
   hls::stream<WeightLoadData1Type> &fifo_weight,
@@ -28347,13 +35657,13 @@ void add(
   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> LOAD_PREV_CIN = LAYER_EN[11];
-# 3366 "kernel.cpp"
+# 11049 "kernel.cpp"
   data_t0 cin_buf[(8)];
   data_t0 conv_buf[(8)];
   ap_uint<32> cout_buf[(8)];
-#pragma HLS ARRAY_PARTITION variable=&cin_buf complete
-#pragma HLS ARRAY_PARTITION variable=&conv_buf complete
-#pragma HLS ARRAY_PARTITION variable=&cout_buf complete
+#pragma HLS ARRAY_PARTITION variable=cin_buf complete
+#pragma HLS ARRAY_PARTITION variable=conv_buf complete
+#pragma HLS ARRAY_PARTITION variable=cout_buf complete
 
 
  uint FILTER_S = 1;
@@ -28617,16 +35927,18 @@ void relu(
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
   ap_uint<1> LOAD_PREV_CIN = LAYER_EN[11];
-    ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+
+  ap_uint<1> LINEAR_ACTIVATION_EN = LAYER_EN[14];
 
   data_t2 beta_buf[64 / (8)][(8)];
   data_t2 gamma_buf[64 / (8)][(8)];
-#pragma HLS ARRAY_PARTITION variable=&beta_buf dim=2 complete
-#pragma HLS ARRAY_PARTITION variable=&gamma_buf dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=beta_buf dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=gamma_buf dim=2 complete
  data_t0 cin_buf[(8)];
   ap_uint<32> cout_buf[(8)];
-#pragma HLS ARRAY_PARTITION variable=&cin_buf complete
-#pragma HLS ARRAY_PARTITION variable=&cout_buf complete
+#pragma HLS ARRAY_PARTITION variable=cin_buf complete
+#pragma HLS ARRAY_PARTITION variable=cout_buf complete
 
 
  uint FILTER_S = 1;
@@ -28728,18 +36040,24 @@ void relu(
 
      for (int lane = 0; lane < (8); lane++){
 #pragma HLS UNROLL
- data_t0 cin_data = cin_buf[lane];
-      data_t0 tmp = cin_data;
-      if (bias_en || BATCH_NORM_EN)
-       tmp = gamma_buf[o][lane]*cin_data + beta_buf[o][lane];
+ if(w>=LAYER_IN_W/STRIDE){
+       cout_buf[lane] = 0;
+      }else{
+       data_t0 cin_data = cin_buf[lane];
+       data_t0 tmp = cin_data;
+       if (bias_en || BATCH_NORM_EN && !LINEAR_ACTIVATION_EN)
+        tmp = gamma_buf[o][lane]*cin_data + beta_buf[o][lane];
 
 
-      if (RELU6_EN && !BATCH_NORM_EN_DEPTH)
-       tmp = ((tmp)>((tmp*0.1))?(tmp):((tmp*0.1)));
-      else if (RELU_EN)
-       tmp = ((0)>(tmp)?(0):(tmp));
-      cout_buf[lane] = Reinterpret<ap_uint<32> >(tmp);
-# 3767 "kernel.cpp"
+       if (LINEAR_ACTIVATION_EN)
+        tmp = cin_data + beta_buf[o][lane];
+       else if(RELU6_EN && !BATCH_NORM_EN_DEPTH)
+        tmp = ((tmp)>((tmp*0.1))?(tmp):((tmp*0.1)));
+       else if (RELU_EN)
+        tmp = ((0)>(tmp)?(0):(tmp));
+       cout_buf[lane] = Reinterpret<ap_uint<32> >(tmp);
+      }
+# 11459 "kernel.cpp"
      }
 
 
@@ -28808,173 +36126,170 @@ void relu(
   }
  }
 }
-
-
-
-
-
-
+# 11863 "kernel.cpp"
 void pool(
-  hls::stream<ReluData0Type> &fifo_cin,
-  hls::stream<ConfigInst> &fifo_config_in,
-  hls::stream<PoolData0Type> &fifo_cout,
-  hls::stream<ConfigInst> &fifo_config_out
+ hls::stream<ReluData0Type> &fifo_cin,
+ hls::stream<ConfigInst> &fifo_config_in,
+ hls::stream<PoolData0Type> &fifo_cout,
+ hls::stream<ConfigInst> &fifo_config_out
 ){
 
- uint in_num_iter = 0;
- uint out_num_iter = 0;
- uint in_h_iter = 0;
- uint in_w_iter = 0;
- uint layer_iter = 0;
+
+uint in_num_iter = 0;
+uint out_num_iter = 0;
+uint in_h_iter = 0;
+uint in_w_iter = 0;
+uint layer_iter = 0;
 
 
- ConfigInst inst0 = fifo_config_in.read();
- fifo_config_out.write(inst0);
- ConfigInst inst1 = fifo_config_in.read();
- fifo_config_out.write(inst1);
- ConfigInst inst2 = fifo_config_in.read();
- fifo_config_out.write(inst2);
- ConfigInst inst3 = fifo_config_in.read();
- fifo_config_out.write(inst3);
- ConfigInst inst4 = fifo_config_in.read();
- fifo_config_out.write(inst4);
+ConfigInst inst0 = fifo_config_in.read();
+fifo_config_out.write(inst0);
+ConfigInst inst1 = fifo_config_in.read();
+fifo_config_out.write(inst1);
+ConfigInst inst2 = fifo_config_in.read();
+fifo_config_out.write(inst2);
+ConfigInst inst3 = fifo_config_in.read();
+fifo_config_out.write(inst3);
+ConfigInst inst4 = fifo_config_in.read();
+fifo_config_out.write(inst4);
 
- ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
+ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
 
- bool layer_start = 0;
- bool done = 0;
- while(!done){
+bool layer_start = 0;
+bool done = 0;
+while(!done){
 
-  if (layer_start){
-   inst0 = fifo_config_in.read();
-   fifo_config_out.write(inst0);
-   inst1 = fifo_config_in.read();
-   fifo_config_out.write(inst1);
-   inst2 = fifo_config_in.read();
-   fifo_config_out.write(inst2);
-   inst3 = fifo_config_in.read();
-   fifo_config_out.write(inst3);
-   inst4 = fifo_config_in.read();
-   fifo_config_out.write(inst4);
+ if (layer_start){
+  inst0 = fifo_config_in.read();
+  fifo_config_out.write(inst0);
+  inst1 = fifo_config_in.read();
+  fifo_config_out.write(inst1);
+  inst2 = fifo_config_in.read();
+  fifo_config_out.write(inst2);
+  inst3 = fifo_config_in.read();
+  fifo_config_out.write(inst3);
+  inst4 = fifo_config_in.read();
+  fifo_config_out.write(inst4);
 
-   layer_start = 0;
-  }
-
-
-
-  ap_uint<32> LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
-  ap_uint<32> LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
-  ap_uint<32> LAYER_IN_H_HW = inst0(32*2+31, 32*2);
-  ap_uint<32> LAYER_IN_W_HW = inst0(32*3+31, 32*3);
-  ap_uint<32> LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
-  ap_uint<32> LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
-
-  ap_uint<32> LAYER_IN_NUM = inst1(32*0+31, 32*0);
-  ap_uint<32> LAYER_OUT_NUM = inst1(32*1+31, 32*1);
-  ap_uint<32> LAYER_IN_H = inst1(32*2+31, 32*2);
-  ap_uint<32> LAYER_IN_W = inst1(32*3+31, 32*3);
-  ap_uint<32> LAYER_OUT_H = inst1(32*4+31, 32*4);
-  ap_uint<32> LAYER_OUT_W = inst1(32*5+31, 32*5);
-
-  ap_uint<32> CIN_OFFSET = inst2(32*0+31, 32*0);
-  ap_uint<32> WEIGHT_OFFSET = inst2(32*1+31, 32*1);
-  ap_uint<32> BIAS_OFFSET = inst2(32*2+31, 32*2);
-  ap_uint<32> COUT_OFFSET = inst2(32*3+31, 32*3);
-  ap_uint<16> FILTER_S1 = inst2(32*4+15, 32*4);
-  ap_uint<16> FILTER_S2 = inst2(32*4+31, 32*4+16);
-  ap_uint<32> STRIDE = inst2(32*5+31, 32*5);
-
-  ap_uint<32> LAYER_EN = inst3(32*0+31, 32*0);
-  ap_uint<32> PREV_CIN_OFFSET = inst3(32*1+31, 32*1);
-  ap_uint<16> LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
-  ap_uint<16> LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
-  ap_uint<32> LAYER_IN_H_T = inst3(32*3+31, 32*3);
-  ap_uint<32> LAYER_IN_W_T = inst3(32*4+31, 32*4);
-
-  ap_uint<1> CONV_1ST_EN = LAYER_EN[0];
-  ap_uint<1> DEPTH_CONV_EN = LAYER_EN[1];
-  ap_uint<1> CONV_EN = LAYER_EN[2];
-  ap_uint<1> RELU_EN = LAYER_EN[3];
-  ap_uint<1> RELU6_EN = LAYER_EN[4];
-  ap_uint<1> POOL_EN = LAYER_EN[5];
-  ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
-  ap_uint<1> BIAS_EN = LAYER_EN[7];
+  layer_start = 0;
+ }
 
 
-  bool en = POOL_EN;
-  bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
-  bool conv2d = (DEPTH_CONV_EN == 0) && (CONV_EN == 1);
-  bool max_pool = (DEPTH_CONV_EN == 0) && (CONV_EN == 0);
 
-  switch(en){
+ ap_uint<32> LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
+ ap_uint<32> LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
+ ap_uint<32> LAYER_IN_H_HW = inst0(32*2+31, 32*2);
+ ap_uint<32> LAYER_IN_W_HW = inst0(32*3+31, 32*3);
+ ap_uint<32> LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
+ ap_uint<32> LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
 
-  case 0:
-   if ((UP_SAMPLE_EN && out_num_iter == 0) || (!UP_SAMPLE_EN && in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM)){
-    int o = 0;
-    int h = 0;
-    int w = 0;
-    bool done1 = 0;
+ ap_uint<32> LAYER_IN_NUM = inst1(32*0+31, 32*0);
+ ap_uint<32> LAYER_OUT_NUM = inst1(32*1+31, 32*1);
+ ap_uint<32> LAYER_IN_H = inst1(32*2+31, 32*2);
+ ap_uint<32> LAYER_IN_W = inst1(32*3+31, 32*3);
+ ap_uint<32> LAYER_OUT_H = inst1(32*4+31, 32*4);
+ ap_uint<32> LAYER_OUT_W = inst1(32*5+31, 32*5);
 
-    int w_bound = LAYER_IN_W_T / STRIDE;
-    int h_bound = LAYER_IN_H_T / STRIDE;
+ ap_uint<32> CIN_OFFSET = inst2(32*0+31, 32*0);
+ ap_uint<32> WEIGHT_OFFSET = inst2(32*1+31, 32*1);
+ ap_uint<32> BIAS_OFFSET = inst2(32*2+31, 32*2);
+ ap_uint<32> COUT_OFFSET = inst2(32*3+31, 32*3);
+ ap_uint<16> FILTER_S1 = inst2(32*4+15, 32*4);
+ ap_uint<16> FILTER_S2 = inst2(32*4+31, 32*4+16);
+ ap_uint<32> STRIDE = inst2(32*5+31, 32*5);
 
-    while(!done1){
+ ap_uint<32> LAYER_EN = inst3(32*0+31, 32*0);
+ ap_uint<32> PREV_CIN_OFFSET = inst3(32*1+31, 32*1);
+ ap_uint<16> LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
+ ap_uint<16> LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
+ ap_uint<32> LAYER_IN_H_T = inst3(32*3+31, 32*3);
+ ap_uint<32> LAYER_IN_W_T = inst3(32*4+31, 32*4);
+
+ ap_uint<1> CONV_1ST_EN = LAYER_EN[0];
+ ap_uint<1> DEPTH_CONV_EN = LAYER_EN[1];
+ ap_uint<1> CONV_EN = LAYER_EN[2];
+ ap_uint<1> RELU_EN = LAYER_EN[3];
+ ap_uint<1> RELU6_EN = LAYER_EN[4];
+ ap_uint<1> POOL_EN = LAYER_EN[5];
+ ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
+ ap_uint<1> BIAS_EN = LAYER_EN[7];
+
+
+ bool en = POOL_EN;
+ bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
+ bool conv2d = (DEPTH_CONV_EN == 0) && (CONV_EN == 1);
+ bool max_pool = (DEPTH_CONV_EN == 0) && (CONV_EN == 0);
+
+ switch(en){
+
+ case 0:
+
+  if ((UP_SAMPLE_EN && out_num_iter == 0) || (!UP_SAMPLE_EN && in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM)){
+   int o = 0;
+   int h = 0;
+   int w = 0;
+   bool done1 = 0;
+
+   int w_bound = LAYER_IN_W_T / STRIDE;
+   int h_bound = LAYER_IN_H_T / STRIDE;
+
+   while(!done1){
 #pragma HLS PIPELINE II=1
  PoolData0Type tmp = fifo_cin.read();
-     fifo_cout.write(tmp);
+    fifo_cout.write(tmp);
 
 
-     w++;
-     if (w == w_bound){
-      w = 0;
-      h++;
-      if (h == h_bound){
-       h = 0;
-       o++;
-       if (o == LAYER_OUT_NUM_T / (8)){
-        o = 0;
-        done1 = 1;
-       }
+    w++;
+    if (w == w_bound){
+     w = 0;
+     h++;
+     if (h == h_bound){
+      h = 0;
+      o++;
+      if (o == LAYER_OUT_NUM_T / (8)){
+       o = 0;
+       done1 = 1;
       }
      }
     }
    }
-   break;
-
-  case 1:
-   if ((max_pool && out_num_iter == 0) || (!max_pool && (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM))){
-    maxpool_w2 <data_t0, 13, 52, (8), 2, 32> (fifo_cin, fifo_cout, STRIDE, POOL_EN, LAYER_OUT_NUM_T, LAYER_IN_H_T);
-   }
-   break;
   }
+  break;
+
+ case 1:
+
+  if ((max_pool && out_num_iter == 0) || (!max_pool && (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM))){
+   maxpool_w2 <data_t0, 12, 96, (8), 2, 32> (fifo_cin, fifo_cout, STRIDE, POOL_EN, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+  }
+  break;
+ }
 
 
-
-  in_num_iter += LAYER_IN_NUM_T;
-  if (in_num_iter >= LAYER_IN_NUM){
-   in_num_iter = 0;
-   in_h_iter += LAYER_IN_H_T;
-   if (in_h_iter >= LAYER_IN_H){
-    in_h_iter = 0;
-    in_w_iter += LAYER_IN_W_T;
-    if (in_w_iter >= LAYER_IN_W){
-     in_w_iter = 0;
-     out_num_iter += LAYER_OUT_NUM_T;
-     if (out_num_iter >= LAYER_OUT_NUM){
-      out_num_iter = 0;
-      layer_iter += 1;
-      layer_start = 1;
-      if (layer_iter == LAYER_BATCH){
-       layer_iter = 0;
-       done = 1;
-      }
+ in_num_iter += LAYER_IN_NUM_T;
+ if (in_num_iter >= LAYER_IN_NUM){
+  in_num_iter = 0;
+  in_h_iter += LAYER_IN_H_T;
+  if (in_h_iter >= LAYER_IN_H){
+   in_h_iter = 0;
+   in_w_iter += LAYER_IN_W_T;
+   if (in_w_iter >= LAYER_IN_W){
+    in_w_iter = 0;
+    out_num_iter += LAYER_OUT_NUM_T;
+    if (out_num_iter >= LAYER_OUT_NUM){
+     out_num_iter = 0;
+     layer_iter += 1;
+     layer_start = 1;
+     if (layer_iter == LAYER_BATCH){
+      layer_iter = 0;
+      done = 1;
      }
     }
    }
   }
  }
 }
-# 4177 "kernel.cpp"
+}
+# 12201 "kernel.cpp"
 void upsample(
   hls::stream<ReluData0Type> &fifo_cin,
   hls::stream<ConfigInst> &fifo_config_in,
@@ -29109,7 +36424,7 @@ void upsample(
 
   case 1:
 
-    upsample_w2 <data_t0, 13, 24, (8), 2, 32> (fifo_cin, fifo_cout, fifo_cout2, STRIDE, en, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+    upsample_w2 <data_t0, 12, 24, (8), 2, 32> (fifo_cin, fifo_cout, fifo_cout2, STRIDE, en, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
 
    break;
   }
@@ -29140,7 +36455,7 @@ void upsample(
   }
  }
 }
-# 4351 "kernel.cpp"
+# 12375 "kernel.cpp"
 void merge_upsample(
   hls::stream<PoolData0Type> &fifo_cin,
     hls::stream<PoolData0Type> &fifo_cin2,
@@ -29289,7 +36604,7 @@ void merge_upsample(
      else
       tmp = fifo_cin2.read();
      fifo_cout.write(tmp);
-# 4509 "kernel.cpp"
+# 12533 "kernel.cpp"
      w++;
      if (w == w_bound){
       w = 0;
@@ -29335,7 +36650,7 @@ void merge_upsample(
   }
  }
 }
-# 4809 "kernel.cpp"
+# 12833 "kernel.cpp"
 void cout_write_fifo_read(
   bus_t0 cout_burst_buf[],
   hls::stream<PoolData0Type> &fifo_cout,
@@ -29349,10 +36664,11 @@ void cout_write_fifo_read(
   uint LAYER_IN_H_T,
   uint LAYER_IN_W_T,
   uint in_h_iter,
-  uint in_w_iter
+  uint in_w_iter,
+  bool POOL_ODD
 ){
  PoolData0Type cout_buf[((512 / 32) / 8)];
-#pragma HLS ARRAY_PARTITION variable=&cout_buf complete
+#pragma HLS ARRAY_PARTITION variable=cout_buf complete
 
 
 
@@ -29361,7 +36677,7 @@ void cout_write_fifo_read(
 
  uint write = 0;
 
- if (en == 0 && up_sample == 0) write = 0;
+ if (en == 0 && up_sample == 0 || POOL_ODD == 1) write = 0;
  else if (en == 1 && up_sample == 0) write = 1;
  else if (up_sample == 1) write = 2;
 
@@ -29376,7 +36692,7 @@ void cout_write_fifo_read(
   bool done = 0;
   while(!done){
 #pragma HLS PIPELINE II=1
-#pragma HLS DEPENDENCE INTER false variable=&cout_burst_buf
+#pragma HLS DEPENDENCE INTER false variable=cout_burst_buf
  uint local_cout_idx = h * LAYER_IN_W_T * LAYER_OUT_NUM_T + w * LAYER_OUT_NUM_T + o * (8);
    bus_t0 wide_tmp = cout_burst_buf[local_cout_idx / (512 / 32)];
    for (int lane = 0; lane < ((512 / 32) / 8); lane++){
@@ -29395,7 +36711,7 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4879 "kernel.cpp"
+# 12904 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
 
@@ -29443,7 +36759,7 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4937 "kernel.cpp"
+# 12962 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
 
@@ -29491,11 +36807,11 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4995 "kernel.cpp"
+# 13020 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
    num++;
-# 5008 "kernel.cpp"
+# 13033 "kernel.cpp"
    w++;
    if (w == LAYER_IN_W_T * 2){
     w = 0;
@@ -29540,12 +36856,13 @@ void cout_write_ddr_write(
   uint ind_w,
   uint cout_offset,
   bool change_layout,
-  bool run
+  bool run,
+  bool POOL_ODD
 ){
 
  uint write = 0;
  if (up_sample == 1) write = 2;
- else if (en == 0) write = 0;
+ else if (en == 0 || POOL_ODD == 1) write = 0;
  else if (en == 1) write = 1;
 
 
@@ -29639,10 +36956,10 @@ void cout_write(
   hls::stream<ConfigInst> &fifo_config_in,
   bus_t0 *global_cout
 ){
- bus_t0 cout_burst_buf_ping[13 * 52 * 64 * 3 / 2 / (512 / 32)];
- bus_t0 cout_burst_buf_pong[13 * 52 * 64 * 3 / 2 / (512 / 32)];
-#pragma HLS RESOURCE variable=&cout_burst_buf_ping core=XPM_MEMORY uram
-#pragma HLS RESOURCE variable=&cout_burst_buf_pong core=XPM_MEMORY uram
+ bus_t0 cout_burst_buf_ping[12 * 96 * 64 * 3 / 2 / (512 / 32)];
+ bus_t0 cout_burst_buf_pong[12 * 96 * 64 * 3 / 2 / (512 / 32)];
+#pragma HLS RESOURCE variable=cout_burst_buf_ping core=XPM_MEMORY uram
+#pragma HLS RESOURCE variable=cout_burst_buf_pong core=XPM_MEMORY uram
 
 
  uint num_iter = 0;
@@ -29696,6 +37013,7 @@ void cout_write(
  ap_uint<1> BIAS_EN;
  ap_uint<1> INTER_LOAD_EN;
  ap_uint<1> INTER_WRITE_EN;
+ ap_uint<1> POOL_ODD;
 
 
  ConfigInst inst0 = fifo_config_in.read();
@@ -29785,6 +37103,8 @@ void cout_write(
   BIAS_EN = LAYER_EN[7];
   INTER_LOAD_EN = LAYER_EN[8];
   INTER_WRITE_EN = LAYER_EN[9];
+  POOL_ODD = LAYER_EN[13];
+
 
 
   cout_offset = COUT_OFFSET;
@@ -29805,7 +37125,7 @@ void cout_write(
       LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
       LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
       LAYER_IN_H_T, LAYER_IN_W_T,
-      in_h_iter, in_w_iter
+      in_h_iter, in_w_iter, POOL_ODD
     );
    } else {
 
@@ -29815,7 +37135,7 @@ void cout_write(
        LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
        LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
        LAYER_IN_H_T, LAYER_IN_W_T,
-       in_h_iter, in_w_iter
+       in_h_iter, in_w_iter, POOL_ODD
      );
 
      cout_write_ddr_write(
@@ -29831,7 +37151,7 @@ void cout_write(
        ind_w_prev,
        cout_offset_prev,
        change_layout_prev,
-       !write_done
+       !write_done, POOL_ODD
      );
     } else {
      cout_write_fifo_read(
@@ -29839,7 +37159,7 @@ void cout_write(
        LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
        LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
        LAYER_IN_H_T, LAYER_IN_W_T,
-       in_h_iter, in_w_iter
+       in_h_iter, in_w_iter, POOL_ODD
      );
 
      cout_write_ddr_write(
@@ -29855,7 +37175,7 @@ void cout_write(
        ind_w_prev,
        cout_offset_prev,
        change_layout_prev,
-       !write_done
+       !write_done, POOL_ODD
      );
     }
    }
@@ -29982,7 +37302,7 @@ void cout_write(
      ind_w_prev,
      cout_offset_prev,
      change_layout_prev,
-     !write_done
+     !write_done, POOL_ODD
    );
   } else {
    cout_write_ddr_write(
@@ -29998,12 +37318,12 @@ void cout_write(
      ind_w_prev,
      cout_offset_prev,
      change_layout_prev,
-     !write_done
+     !write_done, POOL_ODD
    );
   }
  }
 }
-# 5523 "kernel.cpp"
+# 13552 "kernel.cpp"
 void engine(
   bus_t0 *global_cin,
   bus_t0 *global_prev_cin,
@@ -30012,22 +37332,24 @@ void engine(
   bus_t0 *global_cout,
   uint config[32]
 
-){_ssdm_SpecArrayDimSize(config, 32);
+  , uint layer_id
+
+){
 #pragma HLS DATAFLOW
-# 5544 "kernel.cpp"
+# 13575 "kernel.cpp"
  hls::stream<CinLoadData0Type> fifo_cin_load_0;
-#pragma HLS STREAM variable=&fifo_cin_load_0 depth=128
+#pragma HLS STREAM variable=fifo_cin_load_0 depth=128
 
 
 
 
  hls::stream<WeightLoadData0Type> fifo_weight_load_0;
  hls::stream<WeightLoadData1Type> fifo_weight_load_1;
-#pragma HLS STREAM variable=&fifo_weight_load_0 depth=64
-#pragma HLS STREAM variable=&fifo_weight_load_1 depth=64
-# 5572 "kernel.cpp"
+#pragma HLS STREAM variable=fifo_weight_load_0 depth=64
+#pragma HLS STREAM variable=fifo_weight_load_1 depth=64
+# 13603 "kernel.cpp"
  hls::stream<ConvData0Type> fifo_conv_0;
-#pragma HLS STREAM variable=&fifo_conv_0 depth=64
+#pragma HLS STREAM variable=fifo_conv_0 depth=64
 
 
 
@@ -30037,15 +37359,15 @@ void engine(
 
 
  hls::stream<ReluData0Type> fifo_relu_0;
-#pragma HLS STREAM variable=&fifo_relu_0 depth=64
+#pragma HLS STREAM variable=fifo_relu_0 depth=64
 
 
 
  hls::stream<PoolData0Type> fifo_pool_0;
-#pragma HLS STREAM variable=&fifo_pool_0 depth=64
-# 5622 "kernel.cpp"
+#pragma HLS STREAM variable=fifo_pool_0 depth=64
+# 13653 "kernel.cpp"
  hls::stream<CinLoadData0Type> fifo_cin_prev_0;
-#pragma HLS STREAM variable=&fifo_cin_prev_0 depth=4096
+#pragma HLS STREAM variable=fifo_cin_prev_0 depth=4096
 
 
 
@@ -30055,10 +37377,10 @@ void engine(
  hls::stream<ConvData0Type> fifo_beta_conv;
  hls::stream<ConvData0Type> fifo_gamma_depth;
  hls::stream<ConvData0Type> fifo_gamma_conv;
-#pragma HLS STREAM variable=&fifo_beta_depth depth=16
-#pragma HLS STREAM variable=&fifo_beta_conv depth=16
-#pragma HLS STREAM variable=&fifo_gamma_depth depth=16
-#pragma HLS STREAM variable=&fifo_gamma_conv depth=16
+#pragma HLS STREAM variable=fifo_beta_depth depth=16
+#pragma HLS STREAM variable=fifo_beta_conv depth=16
+#pragma HLS STREAM variable=fifo_gamma_depth depth=16
+#pragma HLS STREAM variable=fifo_gamma_conv depth=16
 
 
 
@@ -30077,24 +37399,26 @@ void engine(
 
  hls::stream<ConfigInst> config_data_write;
 
-#pragma HLS STREAM variable=&config_weight_load depth=16
+#pragma HLS STREAM variable=config_weight_load depth=16
 
 
 
-#pragma HLS STREAM variable=&config_conv depth=16
+#pragma HLS STREAM variable=config_conv depth=16
 
-#pragma HLS STREAM variable=&config_relu depth=16
-#pragma HLS STREAM variable=&config_pool depth=16
-
-
-
-#pragma HLS STREAM variable=&config_data_write depth=16
+#pragma HLS STREAM variable=config_relu depth=16
+#pragma HLS STREAM variable=config_pool depth=16
 
 
 
+#pragma HLS STREAM variable=config_data_write depth=16
+
+
+ layer_id++;
 
 
 
+
+ cout << "start" << endl;
 
  cin_load(
    global_cin,
@@ -30102,7 +37426,9 @@ void engine(
    fifo_cin_load_0,
    config_weight_load
  );
-# 5713 "kernel.cpp"
+
+ cout << "passed cin load" << endl;
+# 13746 "kernel.cpp"
  weight_load(
    global_weight, global_bias,
    config_weight_load,
@@ -30111,7 +37437,7 @@ void engine(
    config_conv
  );
 
-
+ cout << "passed weight load" << endl;
 
 
  conv(
@@ -30120,7 +37446,9 @@ void engine(
    fifo_conv_0,
    config_relu
  );
-# 5757 "kernel.cpp"
+
+ cout << "passed conv" << endl;
+# 13792 "kernel.cpp"
  relu(
    fifo_conv_0,
    config_relu,
@@ -30128,7 +37456,9 @@ void engine(
    config_pool,
    fifo_beta_conv, fifo_gamma_conv
  );
-# 5800 "kernel.cpp"
+
+ cout << "passed relu" << endl;
+# 13853 "kernel.cpp"
  pool(
    fifo_relu_0,
    config_pool,
@@ -30136,7 +37466,29 @@ void engine(
    config_data_write
 
  );
-# 5874 "kernel.cpp"
+# 13871 "kernel.cpp"
+ cout << "passed pool" << endl;
+# 13897 "kernel.cpp"
+ if(layer_id==15){
+  FILE *f;
+  char dir[100] = "E:/UCLA/FlexCNN_Syn/FlexCNN";
+  strcat(dir, "/data/new/output_L");
+  char L[5];
+  strcat(dir, itoa(layer_id, L, 10));
+  strcat(dir, "_S.dat");
+  f = fopen(dir, "w");
+  while(!fifo_pool_0.empty()){
+   ReluData0Type item = fifo_pool_0.read();
+   data_t2 num[8];
+   for(int i=0; i<8; i++){
+    num[i] = Reinterpret<data_t2>((ap_uint<32>)item((i+1)*32-1, 32*i));
+    fprintf(f, "%f\t", num[i]);
+   }
+   fprintf(f, "\n");
+  }
+  fclose(f);
+ }
+# 13929 "kernel.cpp"
  cout_write(
 
 
@@ -30145,7 +37497,7 @@ void engine(
    global_cout
  );
 
-
+ cout << "passed cout write" << endl;
 
 
 }
@@ -30160,19 +37512,19 @@ extern "C" {
    bus_t2 *global_bias,
    bus_t3 *layer_config
  ){
-#pragma HLS INTERFACE m_axi port=&global_cin offset=slave bundle=gmem1 depth=0
-#pragma HLS INTERFACE m_axi port=&global_prev_cin offset=slave bundle=gmem3 depth=0
-#pragma HLS INTERFACE m_axi port=&global_cout offset=slave bundle=gmem1 depth=826274
-#pragma HLS INTERFACE m_axi port=&global_weight offset=slave bundle=gmem2 depth=34234
-#pragma HLS INTERFACE m_axi port=&global_bias offset=slave bundle=gmem2 depth=1026
-#pragma HLS INTERFACE m_axi port=&layer_config offset=slave bundle=gcontrol depth=2815
+#pragma HLS INTERFACE m_axi port=global_cin offset=slave bundle=gmem1 depth=0
+#pragma HLS INTERFACE m_axi port=global_prev_cin offset=slave bundle=gmem3 depth=0
+#pragma HLS INTERFACE m_axi port=global_cout offset=slave bundle=gmem1 depth=826274
+#pragma HLS INTERFACE m_axi port=global_weight offset=slave bundle=gmem2 depth=34234
+#pragma HLS INTERFACE m_axi port=global_bias offset=slave bundle=gmem2 depth=1026
+#pragma HLS INTERFACE m_axi port=layer_config offset=slave bundle=gcontrol depth=2815
 
-#pragma HLS INTERFACE s_axilite port=&global_cin bundle=control
-#pragma HLS INTERFACE s_axilite port=&global_prev_cin bundle=control
-#pragma HLS INTERFACE s_axilite port=&global_weight bundle=control
-#pragma HLS INTERFACE s_axilite port=&global_bias bundle=control
-#pragma HLS INTERFACE s_axilite port=&global_cout bundle=control
-#pragma HLS INTERFACE s_axilite port=&layer_config bundle=control
+#pragma HLS INTERFACE s_axilite port=global_cin bundle=control
+#pragma HLS INTERFACE s_axilite port=global_prev_cin bundle=control
+#pragma HLS INTERFACE s_axilite port=global_weight bundle=control
+#pragma HLS INTERFACE s_axilite port=global_bias bundle=control
+#pragma HLS INTERFACE s_axilite port=global_cout bundle=control
+#pragma HLS INTERFACE s_axilite port=layer_config bundle=control
 #pragma HLS INTERFACE s_axilite port=return bundle=control
 
 
@@ -30184,8 +37536,8 @@ extern "C" {
   unsigned int config[32 * 1];
   int cur_layer_batch = 1;
   int nxt_layer_batch = 1;
-  int layer_id = 0;
-  while(layer_id < 5){
+  int layer_id = 10;
+  while(layer_id < 15){
    cur_layer_batch = nxt_layer_batch;
 
 
@@ -30195,7 +37547,13 @@ extern "C" {
    config[26 - 1] = cur_layer_batch;
 
 
-   engine(global_cin, global_prev_cin, global_weight, global_bias, global_cout, config);
+    cout<<"---------------LAYER "<<layer_id+1<<"----------------"<<endl;
+
+   engine(global_cin, global_prev_cin, global_weight, global_bias, global_cout, config
+
+   , layer_id
+
+   );
 
    layer_id += 1;
   }

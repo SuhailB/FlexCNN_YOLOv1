@@ -441,8 +441,8 @@ set MemName kernel_cin_local_0
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 32
-set AddrRange 6480
-set AddrWd 13
+set AddrRange 10976
+set AddrWd 14
 set impl_style block
 set TrueReset 0
 set HasInitializer 0
@@ -611,8 +611,8 @@ set MemName kernel_cout_local_0
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 32
-set AddrRange 5408
-set AddrWd 13
+set AddrRange 9216
+set AddrWd 14
 set impl_style block
 set TrueReset 0
 set HasInitializer 0

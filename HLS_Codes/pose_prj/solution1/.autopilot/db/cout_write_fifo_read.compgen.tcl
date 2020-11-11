@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
-set id 286
-set name top_kernel_mul_31Shg
+set id 307
+set name top_kernel_mul_31Thq
 set corename simcore_mul
 set op mul
 set stage_num 7
@@ -96,14 +96,14 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 291 \
+    id 312 \
     name cout_burst_buf_V \
     reset_level 1 \
     sync_rst true \
     dir IO \
     corename cout_burst_buf_V \
     op interface \
-    ports { cout_burst_buf_V_address0 { O 12 vector } cout_burst_buf_V_ce0 { O 1 bit } cout_burst_buf_V_we0 { O 1 bit } cout_burst_buf_V_d0 { O 512 vector } cout_burst_buf_V_q0 { I 512 vector } cout_burst_buf_V_address1 { O 12 vector } cout_burst_buf_V_ce1 { O 1 bit } cout_burst_buf_V_we1 { O 1 bit } cout_burst_buf_V_d1 { O 512 vector } } \
+    ports { cout_burst_buf_V_address0 { O 13 vector } cout_burst_buf_V_ce0 { O 1 bit } cout_burst_buf_V_we0 { O 1 bit } cout_burst_buf_V_d0 { O 512 vector } cout_burst_buf_V_q0 { I 512 vector } cout_burst_buf_V_address1 { O 13 vector } cout_burst_buf_V_ce1 { O 1 bit } cout_burst_buf_V_we1 { O 1 bit } cout_burst_buf_V_d1 { O 512 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_burst_buf_V'"
@@ -114,7 +114,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 292 \
+    id 313 \
     name fifo_cout_V_V \
     type fifo \
     dir I \
@@ -129,7 +129,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 293 \
+    id 314 \
     name en \
     type other \
     dir I \
@@ -144,7 +144,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 294 \
+    id 315 \
     name up_sample \
     type other \
     dir I \
@@ -159,7 +159,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 295 \
+    id 316 \
     name LAYER_OUT_H \
     type other \
     dir I \
@@ -174,7 +174,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 296 \
+    id 317 \
     name LAYER_OUT_W \
     type other \
     dir I \
@@ -189,7 +189,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 297 \
+    id 318 \
     name LAYER_OUT_NUM_T \
     type other \
     dir I \
@@ -204,7 +204,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 298 \
+    id 319 \
     name LAYER_IN_H_T \
     type other \
     dir I \
@@ -219,7 +219,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 299 \
+    id 320 \
     name LAYER_IN_W_T \
     type other \
     dir I \
@@ -234,7 +234,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 300 \
+    id 321 \
     name in_h_iter \
     type other \
     dir I \
@@ -249,7 +249,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 301 \
+    id 322 \
     name in_w_iter \
     type other \
     dir I \
@@ -258,6 +258,21 @@ eval "cg_default_interface_gen_dc { \
     corename dc_in_w_iter \
     op interface \
     ports { in_w_iter { I 32 vector } } \
+} "
+}
+
+# Direct connection:
+if {${::AESL::PGuard_autoexp_gen}} {
+eval "cg_default_interface_gen_dc { \
+    id 323 \
+    name POOL_ODD \
+    type other \
+    dir I \
+    reset_level 1 \
+    sync_rst true \
+    corename dc_POOL_ODD \
+    op interface \
+    ports { POOL_ODD { I 1 bit } } \
 } "
 }
 

@@ -18,7 +18,11 @@
 using namespace std;
 using namespace hls;
 
+#define PRINTING
 #define POOL_2
+#define KERNEL_S
+
+// 14x64 + 64
 
 // Macros
 /*
@@ -109,15 +113,16 @@ void top_kernel(
 void mobilenet_preprocess(
   data_t0* cin_hw,
   data_t1* weight_hw,
-  data_t2* bias_hw
+  data_t2* bias_hw,
+  data_t0  LAYER_out[L15_OUT_H][L15_OUT_W][L15_OUT_NUM]
 );
 
 void instInit(uint config[LAYER_NUM*CONFIG_PARAMS]);
 
-// void openpose_postprocess(
-//   data_t0* cin_hw,
-//   data_t0  LAYER_out[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM]
-// );
+void openpose_postprocess(
+  data_t0* cin_hw,
+  data_t0  LAYER_out[L15_OUT_H][L15_OUT_W][L15_OUT_NUM]
+);
 
 
 
@@ -1038,12 +1043,7 @@ void upsample_w2(
   }
 }
 
-#ifdef POOL_1
-/**
- * Function name: maxpool_w2
- * Function description: This function does the computation for pooling module with window size of w
- *                       The computation pattern is like a stencil computation
- */
+#ifdef POOL_0
 template <class T_data_t0, int T_IN_H_T, int T_IN_W_T, int T_UNROLL, int T_WS, int T_DATA_WIDTH0>
 void maxpool_w2(
   hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_in,
@@ -1217,7 +1217,7 @@ void maxpool_w2(
 #endif     
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {      
-        line_buf1[dup][0] = -100.0;
+        line_buf1[dup][0] = 0.0;
       }
       line_buf2[dup][0] = tmp1;
 
@@ -1278,6 +1278,247 @@ void maxpool_w2(
   }
 }
 #endif
+#ifdef POOL_1
+/**
+ * Function name: maxpool_w2
+ * Function description: This function does the computation for pooling module with window size of w
+ *                       The computation pattern is like a stencil computation
+ */
+template <class T_data_t0, int T_IN_H_T, int T_IN_W_T, int T_UNROLL, int T_WS, int T_DATA_WIDTH0>
+void maxpool_w2(
+  hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_in,
+  hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_out,
+  uint                                            stride,  
+  bool                                            max_en,
+  uint                                            layer_out_num_t,
+  uint                                            layer_in_h_t,
+  uint                                            layer_in_w_t  //added w_t for different tiling factors
+){
+#pragma HLS INLINE off
+  T_data_t0 line_buf1[T_UNROLL][T_IN_W_T];
+  T_data_t0 line_buf2[T_UNROLL][T_WS];
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=2 complete
+
+  bool col_skip = 0;
+  bool row_skip = 0;
+  uint trans_cnt = 0;
+
+#ifdef DEBUG
+  uint max_pool_cout_cnt = 0;
+#endif
+
+  ap_uint<T_DATA_WIDTH0> utmp[T_UNROLL];
+#pragma HLS ARRAY_PARTITION variable=utmp complete
+  T_data_t0 sums[T_UNROLL];
+#pragma HLS ARRAY_PARTITION variable=sums complete
+
+  int oo =0;
+  int iter = 0;
+  int oo_bound = layer_out_num_t / T_UNROLL;
+  int iter_bound = layer_in_h_t * layer_in_w_t + (T_WS - 1) * layer_in_w_t + T_WS - 1;
+  int total_bound = oo_bound * iter_bound;
+
+  for (int total_iter = 0; total_iter < total_bound; total_iter++){
+#pragma HLS PIPELINE II=1    
+    if (iter == 0){
+      trans_cnt = 0;
+    }
+
+    ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
+    if (iter < layer_in_h_t * layer_in_w_t){
+      wide_data_in = fifo_in.read();
+    }
+
+    for (int dup = 0; dup < T_UNROLL; dup++){
+	  // define the line buffers
+      T_data_t0 tmp1 = line_buf1[dup][layer_in_w_t - 1];
+      for (int i = T_IN_W_T - 1; i >= 1; i--){
+#pragma HLS UNROLL
+        line_buf1[dup][i] = line_buf1[dup][i - 1];
+      }
+      for (int i = T_WS - 1; i >= 1; i--){
+#pragma HLS UNROLL
+        line_buf2[dup][i] = line_buf2[dup][i - 1];
+      }
+      
+      if (iter < layer_in_h_t * layer_in_w_t){  
+		// Unpack the data based on the SIMD_LANE
+        ap_uint<T_DATA_WIDTH0> sel_tmp;
+#if POOL_LANE == 16
+        switch(dup){
+          case 0:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+            break;
+          case 1:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+            break;
+          case 2:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+            break;
+          case 3:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+            break;
+          case 4:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+            break;
+          case 5:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+            break;
+          case 6:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+            break;
+          case 7:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+            break;
+          case 8:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 9 - 1, T_DATA_WIDTH0 * 8);
+            break;
+          case 9:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 10 - 1, T_DATA_WIDTH0 * 9);
+            break;
+          case 10:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 11 - 1, T_DATA_WIDTH0 * 10);
+            break;
+          case 11:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 12 - 1, T_DATA_WIDTH0 * 11);
+            break;
+          case 12:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 13 - 1, T_DATA_WIDTH0 * 12);
+            break;
+          case 13:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 14 - 1, T_DATA_WIDTH0 * 13);
+            break;
+          case 14:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 15 - 1, T_DATA_WIDTH0 * 14);
+            break;
+          case 15:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 16 - 1, T_DATA_WIDTH0 * 15);
+            break;           
+        }
+#elif POOL_LANE == 8        
+        switch(dup){
+          case 0:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+            break;
+          case 1:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+            break;
+          case 2:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+            break;
+          case 3:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+            break;
+          case 4:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+            break;
+          case 5:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+            break;
+          case 6:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+            break;
+          case 7:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+            break;
+        }
+#elif POOL_LANE == 4
+        switch(dup){
+          case 0:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+            break;
+          case 1:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+            break;
+          case 2:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+            break;
+          case 3:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+            break;
+        }
+#elif POOL_LANE == 2
+        switch(dup){
+          case 0:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+            break;
+          case 1:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+            break;
+        }
+#elif POOL_LANE == 1
+        switch(dup){
+          case 0:
+            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+            break;
+        }
+#endif     
+        line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
+      } else {      
+        line_buf1[dup][0] = -100.0;
+      }
+      line_buf2[dup][0] = tmp1;
+
+      // maxs 
+      T_data_t0 mux_0_0 = max(line_buf2[dup][T_WS - 1], line_buf2[dup][T_WS - 2]);
+      T_data_t0 mux_0_1 = max(line_buf1[dup][T_WS - 1], line_buf1[dup][T_WS - 2]);
+      T_data_t0 mux_1_0 = max(mux_0_0, mux_0_1);
+
+      if (max_en == 1)
+        sums[dup] = mux_1_0;
+      else
+        sums[dup] = line_buf1[dup][T_WS - 2];
+    }
+
+	// If the first output element is ready, fill the output FIFO
+	// The first output gets ready when all the line buffers are full
+    if (iter >= (T_WS - 1) * layer_in_w_t + T_WS - 1){    
+	  // Check whether the row/column should be skipped due to stride > 1
+      col_skip = (trans_cnt % stride != 0);
+      row_skip = ((trans_cnt / layer_in_w_t) % stride != 0);
+      if (!col_skip && !row_skip){
+        for (int ii = 0; ii < T_UNROLL; ii++){
+          T_data_t0 sum_tmp = sums[ii];
+          ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
+          utmp[ii] = utmp_tmp;
+        }  
+		// Pack the data based on SIMD_LANE
+        ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+#if POOL_LANE == 16
+            utmp[15], utmp[14], utmp[13], utmp[12],
+            utmp[11], utmp[10], utmp[9], utmp[8],
+            utmp[7], utmp[6], utmp[5], utmp[4],
+            utmp[3], utmp[2], utmp[1], utmp[0]           
+#elif POOL_LANE == 8            
+            utmp[7], utmp[6], utmp[5], utmp[4],
+            utmp[3], utmp[2], utmp[1], utmp[0]
+#elif POOL_LANE == 4
+            utmp[3], utmp[2], utmp[1], utmp[0]
+#elif POOL_LANE == 2
+            utmp[1], utmp[0]
+#elif POOL_LANE == 1
+            utmp[0]
+#endif            
+            );
+        fifo_out.write(wide_data); 
+      }
+      trans_cnt++;
+    }
+
+    iter++;
+    if (iter == iter_bound){
+      iter = 0;
+      oo++;
+      if (oo == oo_bound){
+        oo = 0;
+      }
+    }
+  }
+}
+#endif
 #ifdef POOL_2
 /**
  * Function name: maxpool_w2
@@ -1295,7 +1536,7 @@ void maxpool_w2(
   uint                                            layer_in_w_t
 ){
 
-if(layer_in_w_t%2==1) layer_in_w_t++;
+if(stride==1) layer_in_w_t++;
 
 #pragma HLS INLINE off
   T_data_t0 line_buf1[T_UNROLL][T_IN_W_T+1];
@@ -1332,6 +1573,521 @@ if(layer_in_w_t%2==1) layer_in_w_t++;
 
       ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
 
+      if (iter < layer_in_h_t * layer_in_w_t && !(iter%layer_in_w_t==layer_in_w_t-1 && stride==1)){
+        wide_data_in = fifo_in.read();
+      }
+
+      for (int dup = 0; dup < T_UNROLL; dup++){
+      // define the line buffers
+        T_data_t0 tmp1 = line_buf1[dup][layer_in_w_t - 1];
+        for (int i = T_IN_W_T - 1; i >= 1; i--){
+  #pragma HLS UNROLL
+          line_buf1[dup][i] = line_buf1[dup][i - 1];
+        }
+        for (int i = T_WS - 1; i >= 1; i--){
+  #pragma HLS UNROLL
+          line_buf2[dup][i] = line_buf2[dup][i - 1];
+        }
+        
+        if (iter%layer_in_w_t==layer_in_w_t-1 && stride==1){
+          line_buf1[dup][0] = -10.0;
+        }
+        else if (iter < layer_in_h_t * layer_in_w_t){  
+      // Unpack the data based on the SIMD_LANE
+          ap_uint<T_DATA_WIDTH0> sel_tmp;
+  #if POOL_LANE == 16
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+            case 8:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 9 - 1, T_DATA_WIDTH0 * 8);
+              break;
+            case 9:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 10 - 1, T_DATA_WIDTH0 * 9);
+              break;
+            case 10:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 11 - 1, T_DATA_WIDTH0 * 10);
+              break;
+            case 11:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 12 - 1, T_DATA_WIDTH0 * 11);
+              break;
+            case 12:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 13 - 1, T_DATA_WIDTH0 * 12);
+              break;
+            case 13:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 14 - 1, T_DATA_WIDTH0 * 13);
+              break;
+            case 14:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 15 - 1, T_DATA_WIDTH0 * 14);
+              break;
+            case 15:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 16 - 1, T_DATA_WIDTH0 * 15);
+              break;           
+          }
+  #elif POOL_LANE == 8        
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+          }
+  #elif POOL_LANE == 4
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+          }
+  #elif POOL_LANE == 2
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+          }
+  #elif POOL_LANE == 1
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+          }
+  #endif     
+          line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
+        } else {      
+          line_buf1[dup][0] = -10.0;
+        }
+        line_buf2[dup][0] = tmp1;
+
+        // maxs 
+        T_data_t0 mux_0_0 = max(line_buf2[dup][T_WS - 1], line_buf2[dup][T_WS - 2]);
+        T_data_t0 mux_0_1 = max(line_buf1[dup][T_WS - 1], line_buf1[dup][T_WS - 2]);
+        T_data_t0 mux_1_0 = max(mux_0_0, mux_0_1);
+
+        if (max_en == 1)
+          sums[dup] = mux_1_0;
+        else
+          sums[dup] = line_buf1[dup][T_WS - 2];
+      }
+
+    // If the first output element is ready, fill the output FIFO
+    // The first output gets ready when all the line buffers are full
+      if (iter >= (T_WS - 1) * layer_in_w_t + T_WS - 1 && !(iter%layer_in_w_t==0 && stride==1)){    
+      // Check whether the row/column should be skipped due to stride > 1
+        col_skip = (trans_cnt % stride != 0);
+        row_skip = ((trans_cnt / layer_in_w_t) % stride != 0);
+        if (!col_skip && !row_skip){
+          for (int ii = 0; ii < T_UNROLL; ii++){
+            T_data_t0 sum_tmp = sums[ii];
+            ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
+            utmp[ii] = utmp_tmp;
+          }  
+      // Pack the data based on SIMD_LANE
+          ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+  #if POOL_LANE == 16
+              utmp[15], utmp[14], utmp[13], utmp[12],
+              utmp[11], utmp[10], utmp[9], utmp[8],
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]           
+  #elif POOL_LANE == 8            
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]
+  #elif POOL_LANE == 4
+              utmp[3], utmp[2], utmp[1], utmp[0]
+  #elif POOL_LANE == 2
+              utmp[1], utmp[0]
+  #elif POOL_LANE == 1
+              utmp[0]
+  #endif            
+              );
+          fifo_out.write(wide_data); 
+        }
+        trans_cnt++;
+      }
+
+      iter++;
+      if (iter == iter_bound){
+        iter = 0;
+        oo++;
+        if (oo == oo_bound){
+          oo = 0;
+        }
+      }
+    }
+}
+#endif
+#ifdef POOL_3
+template <class T_data_t0, int T_IN_H_T, int T_IN_W_T, int T_UNROLL, int T_WS, int T_DATA_WIDTH0>
+void maxpool_w2(
+  hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_in,
+  hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_out,
+  uint                                            stride,  
+  bool                                            max_en,
+  uint                                            layer_out_num_t,
+  uint                                            layer_in_h_t,
+  uint                                            layer_in_w_t,
+  uint                                            layer_id,
+  uint                                            count
+){
+
+  // cout<<"T_IN_H_T\tT_IN_W_T\tT_UNROLL\tT_WS\tT_DATA_WIDTH0"<<endl;
+  // cout<<T_IN_H_T<<"\t"<<T_IN_W_T<<"\t"<<T_UNROLL<<"\t"<<T_WS<<"\t"<<T_DATA_WIDTH0<<endl;
+
+  // cout<<"stride\tmax_en\tlayer_out_num_t\tlayer_in_h_t"<<endl;
+  // cout<<stride<<"\t"<<max_en<<"\t"<<layer_out_num_t<<"\t"<<layer_in_h_t<<endl;
+
+if(stride==1) layer_in_w_t++;
+
+#pragma HLS INLINE off
+  T_data_t0 line_buf1[T_UNROLL][T_IN_W_T+1];
+  T_data_t0 line_buf2[T_UNROLL][T_WS];
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf1 dim=2 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=line_buf2 dim=2 complete
+
+  bool col_skip = 0;
+  bool row_skip = 0;
+  uint trans_cnt = 0;
+
+#ifdef DEBUG
+  uint max_pool_cout_cnt = 0;
+#endif
+
+  ap_uint<T_DATA_WIDTH0> utmp[T_UNROLL];
+#pragma HLS ARRAY_PARTITION variable=utmp complete
+  T_data_t0 sums[T_UNROLL];
+#pragma HLS ARRAY_PARTITION variable=sums complete
+
+  int oo =0;
+  int iter = 0;
+  int oo_bound = (layer_out_num_t)/(T_UNROLL);
+  int iter_bound = layer_in_h_t * layer_in_w_t + (T_WS - 1) * layer_in_w_t + T_WS - 1;
+  int total_bound = oo_bound * iter_bound;
+
+  // cout<<"oo_bound\titer_bound\ttotal_bound"<<endl;
+  // cout<<oo_bound<<"\t"<<iter_bound<<"\t"<<total_bound<<endl;
+  // uint count = 0;
+  if(count==1){
+    FILE *f;
+    char dir[100] = "E:/UCLA/FlexCNN_Syn/FlexCNN/data/new/maxpool_debug_sum";
+    char L[5];
+    strcat(dir, itoa(layer_id, L, 10));
+    strcat(dir, ".dat");
+    f = fopen(dir, "w");
+    for (int total_iter = 0; total_iter < total_bound; total_iter++){
+  #pragma HLS PIPELINE II=1    
+      if (iter == 0){
+        trans_cnt = 0;
+      }
+
+      ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
+      // cout<<iter<<" "<<layer_in_h_t<<"*"<<T_IN_W_T<<" "<<layer_in_h_t * T_IN_W_T<<endl;
+      if (iter < layer_in_h_t * layer_in_w_t && !(iter%layer_in_w_t==layer_in_w_t-1 && stride==1)){
+        wide_data_in = fifo_in.read();
+        // cout<<"iter: "<<iter<<" total_iter: "<<total_iter<<endl;
+        // fifo_pool_0.write(item);
+          // data_t2 num[8];
+          // for(int i=0; i<8; i++){
+          //   num[i] = Reinterpret<data_t2>((ap_uint<32>)wide_data_in((i+1)*32-1, 32*i));
+          //   fprintf(f, "%f\t", num[i]);
+          // }
+          // // cout<<"done"<<endl;
+          // fprintf(f, "\n");
+        // cout<<count<<endl;
+        // count++;
+      }
+
+      for (int dup = 0; dup < T_UNROLL; dup++){
+      // define the line buffers
+        T_data_t0 tmp1 = line_buf1[dup][layer_in_w_t - 1];
+        for (int i = T_IN_W_T - 1; i >= 1; i--){
+  #pragma HLS UNROLL
+          line_buf1[dup][i] = line_buf1[dup][i - 1];
+        }
+        for (int i = T_WS - 1; i >= 1; i--){
+  #pragma HLS UNROLL
+          line_buf2[dup][i] = line_buf2[dup][i - 1];
+        }
+        
+        if (iter%layer_in_w_t==layer_in_w_t-1 && stride==1){
+          line_buf1[dup][0] = -10.0;
+        }
+        else if(iter < layer_in_h_t * layer_in_w_t){  
+      // Unpack the data based on the SIMD_LANE
+          ap_uint<T_DATA_WIDTH0> sel_tmp;
+  #if POOL_LANE == 16
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+            case 8:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 9 - 1, T_DATA_WIDTH0 * 8);
+              break;
+            case 9:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 10 - 1, T_DATA_WIDTH0 * 9);
+              break;
+            case 10:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 11 - 1, T_DATA_WIDTH0 * 10);
+              break;
+            case 11:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 12 - 1, T_DATA_WIDTH0 * 11);
+              break;
+            case 12:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 13 - 1, T_DATA_WIDTH0 * 12);
+              break;
+            case 13:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 14 - 1, T_DATA_WIDTH0 * 13);
+              break;
+            case 14:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 15 - 1, T_DATA_WIDTH0 * 14);
+              break;
+            case 15:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 16 - 1, T_DATA_WIDTH0 * 15);
+              break;           
+          }
+  #elif POOL_LANE == 8        
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+          }
+  #elif POOL_LANE == 4
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+          }
+  #elif POOL_LANE == 2
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+          }
+  #elif POOL_LANE == 1
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+          }
+  #endif     
+          line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
+        } else {      
+          line_buf1[dup][0] = -10.0;
+        }
+        line_buf2[dup][0] = tmp1;
+        // T_data_t0 line_buf1[T_UNROLL][T_IN_W_T];
+        // T_data_t0 line_buf2[T_UNROLL][T_WS];
+        // fprintf(f, );
+        if(dup==T_UNROLL-1){
+          fprintf(f,"-----------line_buf1 | iter: %d | total_iter %d-----------\n", iter, total_iter);
+          for(int i=0; i<T_UNROLL; i++){
+            for(int j=0; j<layer_in_w_t; j++){
+              fprintf(f, "%f\t", line_buf1[i][j]);
+            }
+            fprintf(f, "\n");
+          }
+        }
+        if(dup==T_UNROLL-1){
+          fprintf(f,"-----------line_buf2 | iter: %d | total_iter %d-----------\n", iter, total_iter);
+          for(int i=0; i<T_UNROLL; i++){
+            for(int j=0; j<T_WS; j++){
+              fprintf(f, "%f\t", line_buf2[i][j]);
+            }
+            fprintf(f, "\n");
+          }
+        }
+        // maxs 
+        T_data_t0 mux_0_0 = max(line_buf2[dup][T_WS - 1], line_buf2[dup][T_WS - 2]);
+        T_data_t0 mux_0_1 = max(line_buf1[dup][T_WS - 1], line_buf1[dup][T_WS - 2]);
+        T_data_t0 mux_1_0 = max(mux_0_0, mux_0_1);
+        if(dup==T_UNROLL-1){
+           fprintf(f,"-----------iter: %d | total_iter %d-----------\n", iter, total_iter);
+        }
+        fprintf(f,"%f\t%f\n", line_buf2[dup][T_WS - 1], line_buf2[dup][T_WS - 2]);
+        fprintf(f,"%f\t%f\n", line_buf1[dup][T_WS - 1], line_buf1[dup][T_WS - 2]);
+        fprintf(f,"%f\n", mux_1_0);
+        // if(total_iter<365){
+        //   cout<<line_buf2[dup][T_WS - 1]<<" "<<line_buf2[dup][T_WS - 2]<<endl;
+        //   cout<<line_buf1[dup][T_WS - 1]<<" "<<line_buf1[dup][T_WS - 2]<<endl;
+        //   cout<<mux_1_0<<endl;
+        // }
+        if (max_en == 1){
+          sums[dup] = mux_1_0;
+          // if(dup==0)
+          //   fprintf(f,"-----------sums | iter: %d | total_iter %d-----------\n", iter, total_iter);
+          // fprintf(f, "%f\t",sums[dup]);
+          // if(dup==T_UNROLL-1)
+            // fprintf(f,"\n");
+        }
+        else
+          sums[dup] = line_buf1[dup][T_WS - 2];
+      }
+
+    // If the first output element is ready, fill the output FIFO
+    // The first output gets ready when all the line buffers are full
+      if (iter >= (T_WS - 1) * layer_in_w_t + T_WS - 1 && !(iter%layer_in_w_t==0 && stride==1)){    
+      // Check whether the row/column should be skipped due to stride > 1
+        col_skip = (trans_cnt % stride != 0);
+        row_skip = ((trans_cnt / layer_in_w_t) % stride != 0);
+        if (!col_skip && !row_skip){
+          // fprintf(f, "\n-------------------------------------------iter %d-------------------------------------------\n", iter);
+          for (int ii = 0; ii < T_UNROLL; ii++){
+            T_data_t0 sum_tmp = sums[ii];
+            // fprintf(f, "%f\t", sum_tmp);
+            // cout<<sum_tmp<<"\t";
+            ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
+            utmp[ii] = utmp_tmp;
+          }  
+          // cout<<endl;
+          // fprintf(f, "\n---------------------------------------------------------------------------------------------\n\n");
+      // Pack the data based on SIMD_LANE
+          ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+  #if POOL_LANE == 16
+              utmp[15], utmp[14], utmp[13], utmp[12],
+              utmp[11], utmp[10], utmp[9], utmp[8],
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]           
+  #elif POOL_LANE == 8            
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]
+  #elif POOL_LANE == 4
+              utmp[3], utmp[2], utmp[1], utmp[0]
+  #elif POOL_LANE == 2
+              utmp[1], utmp[0]
+  #elif POOL_LANE == 1
+              utmp[0]
+  #endif            
+              );
+          fifo_out.write(wide_data); 
+        }
+        trans_cnt++;
+      }
+
+      iter++;
+      if (iter == iter_bound){
+        iter = 0;
+        oo++;
+        if (oo == oo_bound){
+          oo = 0;
+       }
+      }
+    }
+    // fclose(f);
+  }else{
+    for (int total_iter = 0; total_iter < total_bound; total_iter++){
+  #pragma HLS PIPELINE II=1    
+      if (iter == 0){
+        trans_cnt = 0;
+      }
+
+      ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
+      // cout<<iter<<" "<<layer_in_h_t<<"*"<<T_IN_W_T<<" "<<layer_in_h_t * T_IN_W_T<<endl;
       if (iter < layer_in_h_t * layer_in_w_t && !(iter%layer_in_w_t==layer_in_w_t-1 && stride==1)){
         wide_data_in = fifo_in.read();
       }
@@ -1524,7 +2280,9 @@ if(layer_in_w_t%2==1) layer_in_w_t++;
         }
       }
     }
+  }
+  
+  // cout<<count<<endl;
 }
 #endif
-
 #endif

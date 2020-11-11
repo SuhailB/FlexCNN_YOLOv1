@@ -1,5 +1,5 @@
 // ==============================================================
-// File generated on Thu Nov 05 03:55:51 -0600 2020
+// File generated on Tue Nov 10 23:51:04 -0600 2020
 // Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 // SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 // IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -12,17 +12,19 @@ module top_kernel_mul_16dEe_MulnS_2(clk, ce, a, b, p);
 input clk;
 input ce;
 input[16 - 1 : 0] a; 
-input[26 - 1 : 0] b; 
-output[26 - 1 : 0] p;
+input[27 - 1 : 0] b; 
+output[27 - 1 : 0] p;
 
 reg [16 - 1 : 0] a_reg0;
-reg signed [26 - 1 : 0] b_reg0;
-wire signed [26 - 1 : 0] tmp_product;
-reg signed [26 - 1 : 0] buff0;
-reg signed [26 - 1 : 0] buff1;
-reg signed [26 - 1 : 0] buff2;
+reg signed [27 - 1 : 0] b_reg0;
+wire signed [27 - 1 : 0] tmp_product;
+reg signed [27 - 1 : 0] buff0;
+reg signed [27 - 1 : 0] buff1;
+reg signed [27 - 1 : 0] buff2;
+reg signed [27 - 1 : 0] buff3;
+reg signed [27 - 1 : 0] buff4;
 
-assign p = buff2;
+assign p = buff4;
 assign tmp_product = $signed({1'b0, a_reg0}) * b_reg0;
 always @ (posedge clk) begin
     if (ce) begin
@@ -31,6 +33,8 @@ always @ (posedge clk) begin
         buff0 <= tmp_product;
         buff1 <= buff0;
         buff2 <= buff1;
+        buff3 <= buff2;
+        buff4 <= buff3;
     end
 end
 endmodule

@@ -34,40 +34,42 @@
 
 
 // Extract hardware outputs
-// void openpose_postprocess(
-//   data_t0* cin_hw,
-//   data_t0  LAYER_out[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM]
-// //  data_t0 LAYERL_out[STAGE2L_OUT_NUM][STAGE2L_OUT_H][STAGE2L_OUT_W],  
-// //  data_t0 LAYERR_out[STAGE2R_OUT_NUM][STAGE2R_OUT_H][STAGE2R_OUT_W]
-// ){
-//   // Cout layout: [OUT_NUM / OUT_NUM_T][OUT_H + K - 1][OUT_W + K - 1][OUT_NUM_T]
-//   for (int o1 = 0; o1 < STAGE2L_OUT_NUM_HW / STAGE2L_OUT_NUM_T; o1++)
-//     for (int h = 0; h < STAGE2L_OUT_H; h++)
-//       for (int w = 0; w < STAGE2L_OUT_W; w++)
-//         for (int o2 = 0; o2 < STAGE2L_OUT_NUM_T; o2++){
-//           int o = o1 * STAGE2L_OUT_NUM_T + o2;
-//           if (o < STAGE2L_OUT_NUM){
-//             LAYER_out[h][w][o + STAGE2R_OUT_NUM] = cin_hw[STAGE2L_OFFSET + o1 * STAGE2L_OUT_H_HW * STAGE2L_OUT_W_HW * STAGE2L_OUT_NUM_T + (h + int(STAGE2L_K / 2)) * STAGE2L_OUT_W_HW * STAGE2L_OUT_NUM_T + (w + int(STAGE2L_K / 2)) * STAGE2L_OUT_NUM_T + o2];
-//           }
-//         }
-//   for (int o1 = 0; o1 < STAGE2R_OUT_NUM_HW / STAGE2R_OUT_NUM_T; o1++)
-//     for (int h = 0; h < STAGE2R_OUT_H; h++)
-//       for (int w = 0; w < STAGE2R_OUT_W; w++)
-//         for (int o2 = 0; o2 < STAGE2R_OUT_NUM_T; o2++){
-//           int o = o1 * STAGE2R_OUT_NUM_T + o2;
-//           if (o < STAGE2R_OUT_NUM){
-//             LAYER_out[h][w][o] = cin_hw[STAGE2R_OFFSET + o1 * STAGE2R_OUT_H_HW * STAGE2R_OUT_W_HW * STAGE2R_OUT_NUM_T + (h + int(STAGE2R_K / 2)) * STAGE2R_OUT_W_HW * STAGE2R_OUT_NUM_T + (w + int(STAGE2R_K / 2)) * STAGE2R_OUT_NUM_T + o2];
-//           }
-//         }
-// }
+void openpose_postprocess(
+  data_t0* cin_hw,
+  data_t0  LAYER_out[L15_OUT_H][L15_OUT_W][L15_OUT_NUM]
+){
+
+  for(int o=0; o<L15_OUT_NUM_HW/L15_OUT_NUM_T; o++){//7
+      for(int h=0; h<L15_OUT_H; h++){//12
+          for(int w=0; w<L15_OUT_W_HW; w++){//16
+              for(int o_t=0; o_t<L15_OUT_NUM_T; o_t++){
+                  if((o*L15_OUT_NUM_T+o_t<L15_OUT_NUM) && (w<L15_OUT_W)) {
+                    LAYER_out[h][w][o*64+o_t] = cin_hw[L15_OFFSET + (L15_OUT_H*L15_OUT_W_HW*L15_OUT_NUM_T*o) + (L15_OUT_W_HW*L15_OUT_NUM_T*h) + (L15_OUT_NUM_T*w) + o_t];
+                    // cout<<w<<": "<<L15_OFFSET + (L15_OUT_H*L15_OUT_W_HW*L15_OUT_NUM_T*o) + (L15_OUT_W_HW*L15_OUT_NUM_T*h) + (L15_OUT_NUM_T*w) + o_t<<" : "<<LAYER_out[h][w][o*64+o_t]<<endl;
+                  }
+              }
+          }
+      }
+  }
+  //   for(int o=0; o<L15_OUT_NUM_HW/L15_OUT_NUM_T; o++){//7
+  //     for(int h=0; h<L15_OUT_H; h++){//12
+  //         for(int w=0; w<L15_OUT_W; w++){//16
+  //             for(int o_t=0; o_t<L15_OUT_NUM_T; o_t++){
+  //                 if(o*L15_OUT_NUM_T+o_t<L15_OUT_NUM) 
+  //                   LAYER_out[h][w][o*64+o_t] = cin_hw[L15_OFFSET + (L15_OUT_H*L15_OUT_W*L15_OUT_NUM_T*o) + (L15_OUT_W*L15_OUT_NUM_T*h) + (L15_OUT_NUM_T*w) + o_t];
+  //             }
+  //         }
+  //     }
+  // }
+}
 
 
 // Loads inputs, weights, and bias data for a layer in mobilenet
 void mobilenet_preprocess(
   data_t0* cin_hw,
   data_t1* weight_hw,
-  data_t2* bias_hw
-//  data_t0  LAYERL_out[STAGE2L_OUT_NUM][STAGE2L_OUT_H][STAGE2L_OUT_W],  
+  data_t2* bias_hw,
+  data_t0  LAYER_out[L15_OUT_H][L15_OUT_W][L15_OUT_NUM] 
 //  data_t0  LAYERR_out[STAGE2R_OUT_NUM][STAGE2R_OUT_H][STAGE2R_OUT_W]
 ){
   char* prj_path_c = "E:/UCLA/FlexCNN_Syn/FlexCNN";
@@ -79,14 +81,14 @@ void mobilenet_preprocess(
   
   // first layer
   const int input_in_num = 3;
-  const int input_h = 416;
-  const int input_w = 416;
+  const int input_h = 384;
+  const int input_w = 384;
   const int in_num_t = 8;
-  const int in_h_t = 13;
-  const int in_w_t = 52;
+  const int in_h_t = 12;
+  const int in_w_t = 92;
   const int in_num_hw = 8;
-  const int in_h_hw = 418;
-  const int in_w_hw = 418;
+  const int in_h_hw = 386;
+  const int in_w_hw = 386;
   // const int layer1_out_num_hw = 96;
   const int weight_size = WEIGHT_SIZE;
   const int bias_size = BIAS_SIZE;
@@ -175,26 +177,25 @@ void mobilenet_preprocess(
 
   //delete[] bin_input;
 
-  // // Load outputs
-  // cout << "Loading output..." << endl;
-  // file_path = string(prj_path_c) + "/data/stage6_l2_5.dat";
-  // //file_path = string(prj_path_c) + "/data_layer/output.dat";
-  // ifstream output_file(file_path.c_str()); 
+  // Load outputs
+  cout << "Loading output..." << endl;
+  file_path = string(prj_path_c) + "/data/yolo_output.dat";
+  ifstream output_file(file_path.c_str()); 
 
-  // if (output_file.is_open()){
-  //   int idx = 0;
-  //   for (int o = 0; o < STAGE2R_OUT_NUM; o++)
-  //     for (int h = 0; h < out_h; h++)
-  //       for (int w = 0; w < out_w; w++)
-  //       {
-  //         output_file >> LAYER_out[h][w][o];
-  //         idx++;
-  //       }
-  //   output_file.close();
-  // } else {
-  //   cout << "Output open failed!" << endl;
-  //   exit(-1);
-  // }
+  if (output_file.is_open()){
+    int idx = 0;
+    for (int o = 0; o < L15_OUT_NUM; o++)
+      for (int h = 0; h < L15_OUT_H; h++)
+        for (int w = 0; w < L15_OUT_W; w++)
+        {
+          output_file >> LAYER_out[h][w][o];
+          idx++;
+        }
+    output_file.close();
+  } else {
+    cout << "Output open failed!" << endl;
+    exit(-1);
+  }
   
   
   // file_path = string(prj_path_c) + "/data/stage6_l1_5.dat";

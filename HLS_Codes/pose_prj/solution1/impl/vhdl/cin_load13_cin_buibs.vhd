@@ -1,5 +1,5 @@
 -- ==============================================================
--- File generated on Thu Nov 05 03:55:52 -0600 2020
+-- File generated on Tue Nov 10 23:51:04 -0600 2020
 -- Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 -- SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 -- IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -13,7 +13,7 @@ use ieee.std_logic_unsigned.all;
 entity cin_load13_cin_buibs_ram is 
    generic(
   -- Common module parameters
-       MEMORY_SIZE        : integer := 1658880;
+       MEMORY_SIZE        : integer := 2809856;
        MEMORY_PRIMITIVE   : string := "ultra";
        ECC_MODE           : string := "no_ecc";
        MEMORY_INIT_FILE   : string := "none";
@@ -24,7 +24,7 @@ entity cin_load13_cin_buibs_ram is
        WRITE_DATA_WIDTH_A : integer := 512;
        READ_DATA_WIDTH_A  : integer := 512;
        BYTE_WRITE_WIDTH_A : integer := 512;
-       ADDR_WIDTH_A       : integer := 12;
+       ADDR_WIDTH_A       : integer := 13;
        READ_RESET_VALUE_A : string  := "0";
        READ_LATENCY_A     : integer := 2;
        WRITE_MODE_A       : string := "read_first"
@@ -141,8 +141,8 @@ use IEEE.std_logic_1164.all;
 entity cin_load13_cin_buibs is
     generic (
         DataWidth : INTEGER := 512;
-        AddressRange : INTEGER := 3240;
-        AddressWidth : INTEGER := 12);
+        AddressRange : INTEGER := 5488;
+        AddressWidth : INTEGER := 13);
     port (
         reset : IN STD_LOGIC;
         clk : IN STD_LOGIC;

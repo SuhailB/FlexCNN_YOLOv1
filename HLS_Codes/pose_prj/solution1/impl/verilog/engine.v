@@ -1021,7 +1021,7 @@ start_for_conv_U0 start_for_conv_U0_U(
     .if_read(conv_U0_ap_ready)
 );
 
-start_for_cout_wrYie start_for_cout_wrYie_U(
+start_for_cout_wrZio start_for_cout_wrZio_U(
     .clk(ap_clk),
     .reset(ap_rst),
     .if_read_ce(1'b1),

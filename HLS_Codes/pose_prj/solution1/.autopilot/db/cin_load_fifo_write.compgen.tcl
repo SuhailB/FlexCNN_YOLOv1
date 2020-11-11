@@ -18,7 +18,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir I \
     corename cin_burst_buf_V \
     op interface \
-    ports { cin_burst_buf_V_address0 { O 12 vector } cin_burst_buf_V_ce0 { O 1 bit } cin_burst_buf_V_q0 { I 512 vector } } \
+    ports { cin_burst_buf_V_address0 { O 13 vector } cin_burst_buf_V_ce0 { O 1 bit } cin_burst_buf_V_q0 { I 512 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_burst_buf_V'"

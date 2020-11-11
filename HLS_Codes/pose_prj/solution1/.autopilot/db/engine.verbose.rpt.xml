@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'engine'" level="0">
-<item name = "Date">Thu Nov  5 03:55:36 2020
+<item name = "Date">Tue Nov 10 23:50:49 2020
 </item>
 <item name = "Version">2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)</item>
 <item name = "Project">pose_prj</item>
@@ -32,8 +32,8 @@
 <item name = "Instance"><table name="" hasTotal="0">
 <keys size="7">Instance, Module, min, max, min, max, Type</keys>
 <column name="pool_U0">pool, ?, ?, ?, ?, none</column>
-<column name="cout_write_U0">cout_write, ?, ?, ?, ?, none</column>
 <column name="relu_U0">relu, ?, ?, ?, ?, none</column>
+<column name="cout_write_U0">cout_write, ?, ?, ?, ?, none</column>
 <column name="cin_load13_U0">cin_load13, ?, ?, ?, ?, none</column>
 <column name="conv_U0">conv, ?, ?, ?, ?, none</column>
 <column name="weight_load_U0">weight_load, ?, ?, ?, ?, none</column>
@@ -55,23 +55,23 @@
 <column name="DSP">-, -, -, -, -</column>
 <column name="Expression">-, -, 0, 34, -</column>
 <column name="FIFO">160, -, 2978, 2410, -</column>
-<column name="Instance">418, 293, 119729, 72091, 56</column>
+<column name="Instance">674, 307, 144801, 88460, 88</column>
 <column name="Memory">-, -, -, -, -</column>
 <column name="Multiplexer">-, -, -, 36, -</column>
 <column name="Register">-, -, 6, -, -</column>
 <specialColumn name="Available">2940, 3600, 866400, 433200, -</specialColumn>
-<specialColumn name="Utilization (%)">19, 8, 14, 17, -</specialColumn>
+<specialColumn name="Utilization (%)">28, 8, 17, 20, -</specialColumn>
 </table>
 </item>
 <item name = "Detail">
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="1">
 <keys size="6">Instance, Module, BRAM_18K, DSP48E, FF, LUT</keys>
-<column name="cin_load13_U0">cin_load13, 0, 42, 20062, 12293</column>
-<column name="conv_U0">conv, 384, 17, 12279, 10566</column>
-<column name="cout_write_U0">cout_write, 0, 78, 20908, 14902</column>
-<column name="pool_U0">pool, 0, 7, 29221, 12919</column>
-<column name="relu_U0">relu, 34, 128, 23923, 16600</column>
+<column name="cin_load13_U0">cin_load13, 0, 42, 20094, 12244</column>
+<column name="conv_U0">conv, 640, 17, 12213, 11891</column>
+<column name="cout_write_U0">cout_write, 0, 78, 20985, 14935</column>
+<column name="pool_U0">pool, 0, 5, 47549, 22947</column>
+<column name="relu_U0">relu, 34, 144, 30624, 21632</column>
 <column name="weight_load_U0">weight_load, 0, 21, 13336, 4811</column>
 </table>
 </item>

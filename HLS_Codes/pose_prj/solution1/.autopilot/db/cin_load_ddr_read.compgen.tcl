@@ -174,7 +174,7 @@ set id 4
 set name top_kernel_mul_16dEe
 set corename simcore_mul
 set op mul
-set stage_num 5
+set stage_num 7
 set max_latency -1
 set registered_input 1
 set clk_width 1
@@ -183,11 +183,11 @@ set reset_width 1
 set reset_signed 0
 set in0_width 16
 set in0_signed 0
-set in1_width 26
+set in1_width 27
 set in1_signed 1
 set ce_width 1
 set ce_signed 0
-set out_width 26
+set out_width 27
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mul] == "ap_gen_simcore_mul"} {
 eval "ap_gen_simcore_mul { \
@@ -521,15 +521,15 @@ set clk_width 1
 set clk_signed 0
 set reset_width 1
 set reset_signed 0
-set in0_width 17
+set in0_width 18
 set in0_signed 1
-set in1_width 17
+set in1_width 18
 set in1_signed 1
 set ce_width 1
 set ce_signed 0
-set out_width 17
+set out_width 18
 set exp i0*i1
-set arg_lists {i0 {17 1 +} i1 {17 1 +} p {17 1 +} acc {0} }
+set arg_lists {i0 {18 1 +} i1 {18 1 +} p {18 1 +} acc {0} }
 set TrueReset 0
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mul] == "ap_gen_simcore_mul"} {
@@ -622,7 +622,7 @@ eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
     dir O \
     corename cin_burst_buf_V \
     op interface \
-    ports { cin_burst_buf_V_address0 { O 12 vector } cin_burst_buf_V_ce0 { O 1 bit } cin_burst_buf_V_we0 { O 1 bit } cin_burst_buf_V_d0 { O 512 vector } } \
+    ports { cin_burst_buf_V_address0 { O 13 vector } cin_burst_buf_V_ce0 { O 1 bit } cin_burst_buf_V_we0 { O 1 bit } cin_burst_buf_V_d0 { O 512 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cin_burst_buf_V'"

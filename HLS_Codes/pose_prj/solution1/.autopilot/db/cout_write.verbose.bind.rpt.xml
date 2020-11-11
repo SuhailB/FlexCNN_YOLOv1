@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'cout_write'" level="0">
-<item name = "Date">Thu Nov  5 03:54:37 2020
+<item name = "Date">Tue Nov 10 23:49:47 2020
 </item>
 <item name = "Version">2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)</item>
 <item name = "Project">pose_prj</item>
@@ -31,8 +31,8 @@
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="0">
 <keys size="7">Instance, Module, min, max, min, max, Type</keys>
-<column name="grp_cout_write_ddr_write_fu_371">cout_write_ddr_write, ?, ?, ?, ?, none</column>
-<column name="grp_cout_write_fifo_read_fu_394">cout_write_fifo_read, ?, ?, ?, ?, none</column>
+<column name="grp_cout_write_ddr_write_fu_385">cout_write_ddr_write, ?, ?, ?, ?, none</column>
+<column name="grp_cout_write_fifo_read_fu_410">cout_write_fifo_read, ?, ?, ?, ?, none</column>
 </table>
 </item>
 <item name = "Loop"><table name="" hasTotal="0">

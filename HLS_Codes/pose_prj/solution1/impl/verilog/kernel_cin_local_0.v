@@ -1,5 +1,5 @@
 // ==============================================================
-// File generated on Thu Nov 05 03:55:53 -0600 2020
+// File generated on Tue Nov 10 23:51:06 -0600 2020
 // Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 // SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 // IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -9,8 +9,8 @@
 module kernel_cin_local_0_ram (addr0, ce0, d0, we0, q0,  clk);
 
 parameter DWIDTH = 32;
-parameter AWIDTH = 13;
-parameter MEM_SIZE = 6480;
+parameter AWIDTH = 14;
+parameter MEM_SIZE = 10976;
 
 input[AWIDTH-1:0] addr0;
 input ce0;
@@ -50,8 +50,8 @@ module kernel_cin_local_0(
     q0);
 
 parameter DataWidth = 32'd32;
-parameter AddressRange = 32'd6480;
-parameter AddressWidth = 32'd13;
+parameter AddressRange = 32'd10976;
+parameter AddressWidth = 32'd14;
 input reset;
 input clk;
 input[AddressWidth - 1:0] address0;

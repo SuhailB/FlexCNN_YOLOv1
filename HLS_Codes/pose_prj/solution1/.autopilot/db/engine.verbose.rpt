@@ -3,7 +3,7 @@
 ================================================================
 == Vivado HLS Report for 'engine'
 ================================================================
-* Date:           Thu Nov  5 03:55:36 2020
+* Date:           Tue Nov 10 23:50:49 2020
 
 * Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
 * Project:        pose_prj
@@ -39,8 +39,8 @@
         |    Instance    |    Module   | min | max | min | max |   Type  |
         +----------------+-------------+-----+-----+-----+-----+---------+
         |pool_U0         |pool         |    ?|    ?|    ?|    ?|   none  |
-        |cout_write_U0   |cout_write   |    ?|    ?|    ?|    ?|   none  |
         |relu_U0         |relu         |    ?|    ?|    ?|    ?|   none  |
+        |cout_write_U0   |cout_write   |    ?|    ?|    ?|    ?|   none  |
         |cin_load13_U0   |cin_load13   |    ?|    ?|    ?|    ?|   none  |
         |conv_U0         |conv         |    ?|    ?|    ?|    ?|   none  |
         |weight_load_U0  |weight_load  |    ?|    ?|    ?|    ?|   none  |
@@ -61,16 +61,16 @@
 |DSP              |        -|      -|       -|       -|    -|
 |Expression       |        -|      -|       0|      34|    -|
 |FIFO             |      160|      -|    2978|    2410|    -|
-|Instance         |      418|    293|  119729|   72091|   56|
+|Instance         |      674|    307|  144801|   88460|   88|
 |Memory           |        -|      -|       -|       -|    -|
 |Multiplexer      |        -|      -|       -|      36|    -|
 |Register         |        -|      -|       6|       -|    -|
 +-----------------+---------+-------+--------+--------+-----+
-|Total            |      578|    293|  122713|   74571|   56|
+|Total            |      834|    307|  147785|   90940|   88|
 +-----------------+---------+-------+--------+--------+-----+
 |Available        |     2940|   3600|  866400|  433200|    -|
 +-----------------+---------+-------+--------+--------+-----+
-|Utilization (%)  |       19|      8|      14|      17|    -|
+|Utilization (%)  |       28|      8|      17|      20|    -|
 +-----------------+---------+-------+--------+--------+-----+
 
 + Detail: 
@@ -78,14 +78,14 @@
     +----------------+-------------+---------+-------+-------+-------+
     |    Instance    |    Module   | BRAM_18K| DSP48E|   FF  |  LUT  |
     +----------------+-------------+---------+-------+-------+-------+
-    |cin_load13_U0   |cin_load13   |        0|     42|  20062|  12293|
-    |conv_U0         |conv         |      384|     17|  12279|  10566|
-    |cout_write_U0   |cout_write   |        0|     78|  20908|  14902|
-    |pool_U0         |pool         |        0|      7|  29221|  12919|
-    |relu_U0         |relu         |       34|    128|  23923|  16600|
+    |cin_load13_U0   |cin_load13   |        0|     42|  20094|  12244|
+    |conv_U0         |conv         |      640|     17|  12213|  11891|
+    |cout_write_U0   |cout_write   |        0|     78|  20985|  14935|
+    |pool_U0         |pool         |        0|      5|  47549|  22947|
+    |relu_U0         |relu         |       34|    144|  30624|  21632|
     |weight_load_U0  |weight_load  |        0|     21|  13336|   4811|
     +----------------+-------------+---------+-------+-------+-------+
-    |Total           |             |      418|    293| 119729|  72091|
+    |Total           |             |      674|    307| 144801|  88460|
     +----------------+-------------+---------+-------+-------+-------+
 
     * DSP48: 
@@ -350,18 +350,18 @@ ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%global_cin_V_offset_s = call i58 @
 ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%global_cout_V_offset_2 = alloca i58, align 8"   --->   Operation 17 'alloca' 'global_cout_V_offset_2' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
 ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%global_bias_V_offset_5 = alloca i58, align 8"   --->   Operation 18 'alloca' 'global_bias_V_offset_5' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
 ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%global_weight_V_offs_3 = alloca i58, align 8"   --->   Operation 19 'alloca' 'global_weight_V_offs_3' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%fifo_cin_load_0_V_V = alloca i256, align 8" [kernel.cpp:5544]   --->   Operation 20 'alloca' 'fifo_cin_load_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 21 [1/1] (0.00ns)   --->   "%fifo_weight_load_1_V = alloca i256, align 8" [kernel.cpp:5551]   --->   Operation 21 'alloca' 'fifo_weight_load_1_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%fifo_conv_0_V_V = alloca i256, align 8" [kernel.cpp:5572]   --->   Operation 22 'alloca' 'fifo_conv_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%fifo_relu_0_V_V = alloca i256, align 8" [kernel.cpp:5582]   --->   Operation 23 'alloca' 'fifo_relu_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%fifo_pool_0_V_V = alloca i256, align 8" [kernel.cpp:5587]   --->   Operation 24 'alloca' 'fifo_pool_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%fifo_beta_conv_V_V = alloca i256, align 8" [kernel.cpp:5630]   --->   Operation 25 'alloca' 'fifo_beta_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%fifo_gamma_conv_V_V = alloca i256, align 8" [kernel.cpp:5632]   --->   Operation 26 'alloca' 'fifo_gamma_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%config_weight_load_V = alloca i192, align 8" [kernel.cpp:5642]   --->   Operation 27 'alloca' 'config_weight_load_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%config_conv_V_V = alloca i192, align 8" [kernel.cpp:5646]   --->   Operation 28 'alloca' 'config_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%config_relu_V_V = alloca i192, align 8" [kernel.cpp:5648]   --->   Operation 29 'alloca' 'config_relu_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%config_pool_V_V = alloca i192, align 8" [kernel.cpp:5649]   --->   Operation 30 'alloca' 'config_pool_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
-ST_1 : Operation 31 [1/1] (0.00ns)   --->   "%config_data_write_V_s = alloca i192, align 8" [kernel.cpp:5653]   --->   Operation 31 'alloca' 'config_data_write_V_s' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%fifo_cin_load_0_V_V = alloca i256, align 8" [kernel.cpp:13575]   --->   Operation 20 'alloca' 'fifo_cin_load_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 21 [1/1] (0.00ns)   --->   "%fifo_weight_load_1_V = alloca i256, align 8" [kernel.cpp:13582]   --->   Operation 21 'alloca' 'fifo_weight_load_1_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%fifo_conv_0_V_V = alloca i256, align 8" [kernel.cpp:13603]   --->   Operation 22 'alloca' 'fifo_conv_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%fifo_relu_0_V_V = alloca i256, align 8" [kernel.cpp:13613]   --->   Operation 23 'alloca' 'fifo_relu_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%fifo_pool_0_V_V = alloca i256, align 8" [kernel.cpp:13618]   --->   Operation 24 'alloca' 'fifo_pool_0_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%fifo_beta_conv_V_V = alloca i256, align 8" [kernel.cpp:13661]   --->   Operation 25 'alloca' 'fifo_beta_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%fifo_gamma_conv_V_V = alloca i256, align 8" [kernel.cpp:13663]   --->   Operation 26 'alloca' 'fifo_gamma_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%config_weight_load_V = alloca i192, align 8" [kernel.cpp:13673]   --->   Operation 27 'alloca' 'config_weight_load_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%config_conv_V_V = alloca i192, align 8" [kernel.cpp:13677]   --->   Operation 28 'alloca' 'config_conv_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%config_relu_V_V = alloca i192, align 8" [kernel.cpp:13679]   --->   Operation 29 'alloca' 'config_relu_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%config_pool_V_V = alloca i192, align 8" [kernel.cpp:13680]   --->   Operation 30 'alloca' 'config_pool_V_V' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
+ST_1 : Operation 31 [1/1] (0.00ns)   --->   "%config_data_write_V_s = alloca i192, align 8" [kernel.cpp:13684]   --->   Operation 31 'alloca' 'config_data_write_V_s' <Predicate = true> <Delay = 0.00> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 1.95> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 192> <Depth = 16> <FIFO>
 ST_1 : Operation 32 [2/2] (1.31ns)   --->   "call void @cin_load13(i512* %global_cin_V, i58 %global_cin_V_offset_s, [32 x i32]* %config_r, i256* %fifo_cin_load_0_V_V, i192* %config_weight_load_V, i58 %global_weight_V_offs, i58 %global_bias_V_offset_4, i58 %global_cout_V_offset_1, i58* %global_weight_V_offs_3, i58* %global_bias_V_offset_5, i58* %global_cout_V_offset_2)"   --->   Operation 32 'call' <Predicate = true> <Delay = 1.31> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 2 <SV = 1> <Delay = 0.00>
@@ -374,64 +374,64 @@ State 4 <SV = 3> <Delay = 0.00>
 ST_4 : Operation 35 [1/2] (0.00ns)   --->   "call void @weight_load(i512* %global_weight_V, i58* nocapture %global_weight_V_offs_3, i58* nocapture %global_bias_V_offset_5, i192* %config_weight_load_V, i256* %fifo_weight_load_1_V, i256* %fifo_beta_conv_V_V, i256* %fifo_gamma_conv_V_V, i192* %config_conv_V_V)"   --->   Operation 35 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 5 <SV = 4> <Delay = 0.00>
-ST_5 : Operation 36 [2/2] (0.00ns)   --->   "call fastcc void @conv(i256* %fifo_cin_load_0_V_V, i256* %fifo_weight_load_1_V, i192* %config_conv_V_V, i256* %fifo_conv_0_V_V, i192* %config_relu_V_V)" [kernel.cpp:5724]   --->   Operation 36 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_5 : Operation 36 [2/2] (0.00ns)   --->   "call fastcc void @conv(i256* %fifo_cin_load_0_V_V, i256* %fifo_weight_load_1_V, i192* %config_conv_V_V, i256* %fifo_conv_0_V_V, i192* %config_relu_V_V)" [kernel.cpp:13757]   --->   Operation 36 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 6 <SV = 5> <Delay = 0.00>
-ST_6 : Operation 37 [1/2] (0.00ns)   --->   "call fastcc void @conv(i256* %fifo_cin_load_0_V_V, i256* %fifo_weight_load_1_V, i192* %config_conv_V_V, i256* %fifo_conv_0_V_V, i192* %config_relu_V_V)" [kernel.cpp:5724]   --->   Operation 37 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_6 : Operation 37 [1/2] (0.00ns)   --->   "call fastcc void @conv(i256* %fifo_cin_load_0_V_V, i256* %fifo_weight_load_1_V, i192* %config_conv_V_V, i256* %fifo_conv_0_V_V, i192* %config_relu_V_V)" [kernel.cpp:13757]   --->   Operation 37 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 7 <SV = 6> <Delay = 0.00>
-ST_7 : Operation 38 [2/2] (0.00ns)   --->   "call fastcc void @relu(i256* %fifo_conv_0_V_V, i192* %config_relu_V_V, i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_beta_conv_V_V, i256* %fifo_gamma_conv_V_V)" [kernel.cpp:5757]   --->   Operation 38 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_7 : Operation 38 [2/2] (0.00ns)   --->   "call fastcc void @relu(i256* %fifo_conv_0_V_V, i192* %config_relu_V_V, i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_beta_conv_V_V, i256* %fifo_gamma_conv_V_V)" [kernel.cpp:13792]   --->   Operation 38 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 8 <SV = 7> <Delay = 0.00>
-ST_8 : Operation 39 [1/2] (0.00ns)   --->   "call fastcc void @relu(i256* %fifo_conv_0_V_V, i192* %config_relu_V_V, i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_beta_conv_V_V, i256* %fifo_gamma_conv_V_V)" [kernel.cpp:5757]   --->   Operation 39 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_8 : Operation 39 [1/2] (0.00ns)   --->   "call fastcc void @relu(i256* %fifo_conv_0_V_V, i192* %config_relu_V_V, i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_beta_conv_V_V, i256* %fifo_gamma_conv_V_V)" [kernel.cpp:13792]   --->   Operation 39 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 9 <SV = 8> <Delay = 0.00>
-ST_9 : Operation 40 [2/2] (0.00ns)   --->   "call fastcc void @pool(i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s)" [kernel.cpp:5800]   --->   Operation 40 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_9 : Operation 40 [2/2] (0.00ns)   --->   "call fastcc void @pool(i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s)" [kernel.cpp:13853]   --->   Operation 40 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 10 <SV = 9> <Delay = 0.00>
-ST_10 : Operation 41 [1/2] (0.00ns)   --->   "call fastcc void @pool(i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s)" [kernel.cpp:5800]   --->   Operation 41 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_10 : Operation 41 [1/2] (0.00ns)   --->   "call fastcc void @pool(i256* %fifo_relu_0_V_V, i192* %config_pool_V_V, i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s)" [kernel.cpp:13853]   --->   Operation 41 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 11 <SV = 10> <Delay = 0.00>
 ST_11 : Operation 42 [2/2] (0.00ns)   --->   "call void @cout_write(i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s, i512* %global_cin_V, i58* nocapture %global_cout_V_offset_2)"   --->   Operation 42 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
 
 State 12 <SV = 11> <Delay = 0.00>
-ST_12 : Operation 43 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecDataflowPipeline(i32 -1, i32 0, [1 x i8]* @p_str112) nounwind" [kernel.cpp:5532]   --->   Operation 43 'specdataflowpipeline' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 44 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_weight_V, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 1026, [6 x i8]* @p_str62, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112)"   --->   Operation 44 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 45 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_weight_V, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 34234, [6 x i8]* @p_str62, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112)"   --->   Operation 45 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 46 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_cin_V, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 826274, [6 x i8]* @p_str59, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112)"   --->   Operation 46 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 47 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_cin_V, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [6 x i8]* @p_str59, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112)"   --->   Operation 47 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 43 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecDataflowPipeline(i32 -1, i32 0, [1 x i8]* @p_str115) nounwind" [kernel.cpp:13563]   --->   Operation 43 'specdataflowpipeline' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 44 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_weight_V, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 1026, [6 x i8]* @p_str69, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115)"   --->   Operation 44 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 45 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_weight_V, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 34234, [6 x i8]* @p_str69, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115)"   --->   Operation 45 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 46 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_cin_V, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 826274, [6 x i8]* @p_str66, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115)"   --->   Operation 46 'specinterface' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 47 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i512* %global_cin_V, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [6 x i8]* @p_str66, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115)"   --->   Operation 47 'specinterface' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 48 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecChannel([20 x i8]* @fifo_cin_load_0_OC_V, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 128, i32 128, i256* %fifo_cin_load_0_V_V, i256* %fifo_cin_load_0_V_V)"   --->   Operation 48 'specchannel' 'empty' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 49 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_cin_load_0_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 49 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 50 [1/1] (0.00ns)   --->   "%empty_45 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @fifo_weight_load_1_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_weight_load_1_V, i256* %fifo_weight_load_1_V)"   --->   Operation 50 'specchannel' 'empty_45' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 50 [1/1] (0.00ns)   --->   "%empty_41 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @fifo_weight_load_1_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_weight_load_1_V, i256* %fifo_weight_load_1_V)"   --->   Operation 50 'specchannel' 'empty_41' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 51 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_weight_load_1_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 51 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 52 [1/1] (0.00ns)   --->   "%empty_46 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_conv_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_conv_0_V_V, i256* %fifo_conv_0_V_V)"   --->   Operation 52 'specchannel' 'empty_46' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 52 [1/1] (0.00ns)   --->   "%empty_42 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_conv_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_conv_0_V_V, i256* %fifo_conv_0_V_V)"   --->   Operation 52 'specchannel' 'empty_42' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 53 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_conv_0_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 53 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 54 [1/1] (0.00ns)   --->   "%empty_47 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_relu_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_relu_0_V_V, i256* %fifo_relu_0_V_V)"   --->   Operation 54 'specchannel' 'empty_47' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 54 [1/1] (0.00ns)   --->   "%empty_43 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_relu_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_relu_0_V_V, i256* %fifo_relu_0_V_V)"   --->   Operation 54 'specchannel' 'empty_43' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 55 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_relu_0_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 55 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 56 [1/1] (0.00ns)   --->   "%empty_48 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_pool_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_pool_0_V_V, i256* %fifo_pool_0_V_V)"   --->   Operation 56 'specchannel' 'empty_48' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 56 [1/1] (0.00ns)   --->   "%empty_44 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @fifo_pool_0_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 64, i32 64, i256* %fifo_pool_0_V_V, i256* %fifo_pool_0_V_V)"   --->   Operation 56 'specchannel' 'empty_44' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 57 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_pool_0_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 57 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 58 [1/1] (0.00ns)   --->   "%empty_49 = call i32 (...)* @_ssdm_op_SpecChannel([19 x i8]* @fifo_beta_conv_OC_V_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i256* %fifo_beta_conv_V_V, i256* %fifo_beta_conv_V_V)"   --->   Operation 58 'specchannel' 'empty_49' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 58 [1/1] (0.00ns)   --->   "%empty_45 = call i32 (...)* @_ssdm_op_SpecChannel([19 x i8]* @fifo_beta_conv_OC_V_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i256* %fifo_beta_conv_V_V, i256* %fifo_beta_conv_V_V)"   --->   Operation 58 'specchannel' 'empty_45' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 59 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_beta_conv_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 59 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 60 [1/1] (0.00ns)   --->   "%empty_50 = call i32 (...)* @_ssdm_op_SpecChannel([20 x i8]* @fifo_gamma_conv_OC_V, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i256* %fifo_gamma_conv_V_V, i256* %fifo_gamma_conv_V_V)"   --->   Operation 60 'specchannel' 'empty_50' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 60 [1/1] (0.00ns)   --->   "%empty_46 = call i32 (...)* @_ssdm_op_SpecChannel([20 x i8]* @fifo_gamma_conv_OC_V, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i256* %fifo_gamma_conv_V_V, i256* %fifo_gamma_conv_V_V)"   --->   Operation 60 'specchannel' 'empty_46' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 61 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_gamma_conv_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 61 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 62 [1/1] (0.00ns)   --->   "%empty_51 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @config_weight_load_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_weight_load_V, i192* %config_weight_load_V)"   --->   Operation 62 'specchannel' 'empty_51' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 62 [1/1] (0.00ns)   --->   "%empty_47 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @config_weight_load_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_weight_load_V, i192* %config_weight_load_V)"   --->   Operation 62 'specchannel' 'empty_47' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 63 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i192* %config_weight_load_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 63 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 64 [1/1] (0.00ns)   --->   "%empty_52 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_conv_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_conv_V_V, i192* %config_conv_V_V)"   --->   Operation 64 'specchannel' 'empty_52' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 64 [1/1] (0.00ns)   --->   "%empty_48 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_conv_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_conv_V_V, i192* %config_conv_V_V)"   --->   Operation 64 'specchannel' 'empty_48' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 65 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i192* %config_conv_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 65 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 66 [1/1] (0.00ns)   --->   "%empty_53 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_relu_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_relu_V_V, i192* %config_relu_V_V)"   --->   Operation 66 'specchannel' 'empty_53' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 66 [1/1] (0.00ns)   --->   "%empty_49 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_relu_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_relu_V_V, i192* %config_relu_V_V)"   --->   Operation 66 'specchannel' 'empty_49' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 67 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i192* %config_relu_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 67 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 68 [1/1] (0.00ns)   --->   "%empty_54 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_pool_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_pool_V_V, i192* %config_pool_V_V)"   --->   Operation 68 'specchannel' 'empty_54' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 68 [1/1] (0.00ns)   --->   "%empty_50 = call i32 (...)* @_ssdm_op_SpecChannel([16 x i8]* @config_pool_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_pool_V_V, i192* %config_pool_V_V)"   --->   Operation 68 'specchannel' 'empty_50' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 69 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i192* %config_pool_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 69 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 70 [1/1] (0.00ns)   --->   "%empty_55 = call i32 (...)* @_ssdm_op_SpecChannel([22 x i8]* @config_data_write_OC, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_data_write_V_s, i192* %config_data_write_V_s)"   --->   Operation 70 'specchannel' 'empty_55' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 70 [1/1] (0.00ns)   --->   "%empty_51 = call i32 (...)* @_ssdm_op_SpecChannel([22 x i8]* @config_data_write_OC, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 16, i32 16, i192* %config_data_write_V_s, i192* %config_data_write_V_s)"   --->   Operation 70 'specchannel' 'empty_51' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 71 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i192* %config_data_write_V_s, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 71 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 72 [1/1] (0.00ns)   --->   "%empty_56 = call i32 (...)* @_ssdm_op_SpecChannel([25 x i8]* @global_weight_OC_V_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 0, i58* %global_weight_V_offs_3, i58* %global_weight_V_offs_3)"   --->   Operation 72 'specchannel' 'empty_56' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 72 [1/1] (0.00ns)   --->   "%empty_52 = call i32 (...)* @_ssdm_op_SpecChannel([25 x i8]* @global_weight_OC_V_O, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 0, i58* %global_weight_V_offs_3, i58* %global_weight_V_offs_3)"   --->   Operation 72 'specchannel' 'empty_52' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 73 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i58* %global_weight_V_offs_3, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 73 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 74 [1/1] (0.00ns)   --->   "%empty_57 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @global_bias_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 0, i58* %global_bias_V_offset_5, i58* %global_bias_V_offset_5)"   --->   Operation 74 'specchannel' 'empty_57' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 74 [1/1] (0.00ns)   --->   "%empty_53 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @global_bias_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 0, i58* %global_bias_V_offset_5, i58* %global_bias_V_offset_5)"   --->   Operation 74 'specchannel' 'empty_53' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 75 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i58* %global_bias_V_offset_5, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 75 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_12 : Operation 76 [1/1] (0.00ns)   --->   "%empty_58 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @global_cout_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 6, i32 0, i58* %global_cout_V_offset_2, i58* %global_cout_V_offset_2)"   --->   Operation 76 'specchannel' 'empty_58' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 76 [1/1] (0.00ns)   --->   "%empty_54 = call i32 (...)* @_ssdm_op_SpecChannel([23 x i8]* @global_cout_OC_V_OC_s, i32 1, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 6, i32 0, i58* %global_cout_V_offset_2, i58* %global_cout_V_offset_2)"   --->   Operation 76 'specchannel' 'empty_54' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 77 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i58* %global_cout_V_offset_2, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 77 'specinterface' <Predicate = true> <Delay = 0.00>
 ST_12 : Operation 78 [1/2] (0.00ns)   --->   "call void @cout_write(i256* %fifo_pool_0_V_V, i192* %config_data_write_V_s, i512* %global_cin_V, i58* nocapture %global_cout_V_offset_2)"   --->   Operation 78 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
-ST_12 : Operation 79 [1/1] (0.00ns)   --->   "ret void" [kernel.cpp:5885]   --->   Operation 79 'ret' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 79 [1/1] (0.00ns)   --->   "ret void" [kernel.cpp:13939]   --->   Operation 79 'ret' <Predicate = true> <Delay = 0.00>
 
 
 ============================================================
@@ -489,33 +489,33 @@ StgValue_46            (specinterface       ) [ 0000000000000]
 StgValue_47            (specinterface       ) [ 0000000000000]
 empty                  (specchannel         ) [ 0000000000000]
 StgValue_49            (specinterface       ) [ 0000000000000]
-empty_45               (specchannel         ) [ 0000000000000]
+empty_41               (specchannel         ) [ 0000000000000]
 StgValue_51            (specinterface       ) [ 0000000000000]
-empty_46               (specchannel         ) [ 0000000000000]
+empty_42               (specchannel         ) [ 0000000000000]
 StgValue_53            (specinterface       ) [ 0000000000000]
-empty_47               (specchannel         ) [ 0000000000000]
+empty_43               (specchannel         ) [ 0000000000000]
 StgValue_55            (specinterface       ) [ 0000000000000]
-empty_48               (specchannel         ) [ 0000000000000]
+empty_44               (specchannel         ) [ 0000000000000]
 StgValue_57            (specinterface       ) [ 0000000000000]
-empty_49               (specchannel         ) [ 0000000000000]
+empty_45               (specchannel         ) [ 0000000000000]
 StgValue_59            (specinterface       ) [ 0000000000000]
-empty_50               (specchannel         ) [ 0000000000000]
+empty_46               (specchannel         ) [ 0000000000000]
 StgValue_61            (specinterface       ) [ 0000000000000]
-empty_51               (specchannel         ) [ 0000000000000]
+empty_47               (specchannel         ) [ 0000000000000]
 StgValue_63            (specinterface       ) [ 0000000000000]
-empty_52               (specchannel         ) [ 0000000000000]
+empty_48               (specchannel         ) [ 0000000000000]
 StgValue_65            (specinterface       ) [ 0000000000000]
-empty_53               (specchannel         ) [ 0000000000000]
+empty_49               (specchannel         ) [ 0000000000000]
 StgValue_67            (specinterface       ) [ 0000000000000]
-empty_54               (specchannel         ) [ 0000000000000]
+empty_50               (specchannel         ) [ 0000000000000]
 StgValue_69            (specinterface       ) [ 0000000000000]
-empty_55               (specchannel         ) [ 0000000000000]
+empty_51               (specchannel         ) [ 0000000000000]
 StgValue_71            (specinterface       ) [ 0000000000000]
-empty_56               (specchannel         ) [ 0000000000000]
+empty_52               (specchannel         ) [ 0000000000000]
 StgValue_73            (specinterface       ) [ 0000000000000]
-empty_57               (specchannel         ) [ 0000000000000]
+empty_53               (specchannel         ) [ 0000000000000]
 StgValue_75            (specinterface       ) [ 0000000000000]
-empty_58               (specchannel         ) [ 0000000000000]
+empty_54               (specchannel         ) [ 0000000000000]
 StgValue_77            (specinterface       ) [ 0000000000000]
 StgValue_78            (call                ) [ 0000000000000]
 StgValue_79            (ret                 ) [ 0000000000000]
@@ -692,7 +692,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 <pin id="37" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str112"/></StgValue>
+<StgValue><ssdm name="p_str115"/></StgValue>
 </bind>
 </comp>
 
@@ -710,7 +710,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 <pin id="41" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str58"/></StgValue>
+<StgValue><ssdm name="p_str65"/></StgValue>
 </bind>
 </comp>
 
@@ -728,7 +728,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 <pin id="45" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str62"/></StgValue>
+<StgValue><ssdm name="p_str69"/></StgValue>
 </bind>
 </comp>
 
@@ -737,7 +737,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 <pin id="47" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str60"/></StgValue>
+<StgValue><ssdm name="p_str67"/></StgValue>
 </bind>
 </comp>
 
@@ -773,7 +773,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 <pin id="55" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str59"/></StgValue>
+<StgValue><ssdm name="p_str66"/></StgValue>
 </bind>
 </comp>
 
@@ -1212,35 +1212,35 @@ StgValue_79            (ret                 ) [ 0000000000000]
 </bind>
 </comp>
 
-<comp id="194" class="1004" name="grp_cout_write_fu_194">
+<comp id="194" class="1004" name="grp_relu_fu_194">
 <pin_list>
 <pin id="195" dir="0" index="0" bw="0" slack="0"/>
-<pin id="196" dir="0" index="1" bw="256" slack="10"/>
-<pin id="197" dir="0" index="2" bw="192" slack="10"/>
-<pin id="198" dir="0" index="3" bw="512" slack="0"/>
-<pin id="199" dir="0" index="4" bw="58" slack="10"/>
-<pin id="200" dir="1" index="5" bw="0" slack="2147483647"/>
-</pin_list>
-<bind>
-<opcode="call(48) " fcode="call"/>
-<opset="StgValue_42/11 "/>
-</bind>
-</comp>
-
-<comp id="203" class="1004" name="grp_relu_fu_203">
-<pin_list>
-<pin id="204" dir="0" index="0" bw="0" slack="0"/>
-<pin id="205" dir="0" index="1" bw="256" slack="6"/>
-<pin id="206" dir="0" index="2" bw="192" slack="6"/>
-<pin id="207" dir="0" index="3" bw="256" slack="6"/>
-<pin id="208" dir="0" index="4" bw="192" slack="6"/>
-<pin id="209" dir="0" index="5" bw="256" slack="6"/>
-<pin id="210" dir="0" index="6" bw="256" slack="6"/>
-<pin id="211" dir="1" index="7" bw="0" slack="2147483647"/>
+<pin id="196" dir="0" index="1" bw="256" slack="6"/>
+<pin id="197" dir="0" index="2" bw="192" slack="6"/>
+<pin id="198" dir="0" index="3" bw="256" slack="6"/>
+<pin id="199" dir="0" index="4" bw="192" slack="6"/>
+<pin id="200" dir="0" index="5" bw="256" slack="6"/>
+<pin id="201" dir="0" index="6" bw="256" slack="6"/>
+<pin id="202" dir="1" index="7" bw="0" slack="2147483647"/>
 </pin_list>
 <bind>
 <opcode="call(48) " fcode="call"/>
 <opset="StgValue_38/7 "/>
+</bind>
+</comp>
+
+<comp id="204" class="1004" name="grp_cout_write_fu_204">
+<pin_list>
+<pin id="205" dir="0" index="0" bw="0" slack="0"/>
+<pin id="206" dir="0" index="1" bw="256" slack="10"/>
+<pin id="207" dir="0" index="2" bw="192" slack="10"/>
+<pin id="208" dir="0" index="3" bw="512" slack="0"/>
+<pin id="209" dir="0" index="4" bw="58" slack="10"/>
+<pin id="210" dir="1" index="5" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="call(48) " fcode="call"/>
+<opset="StgValue_42/11 "/>
 </bind>
 </comp>
 
@@ -1542,11 +1542,11 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="193"><net_src comp="26" pin="0"/><net_sink comp="186" pin=0"/></net>
 
-<net id="201"><net_src comp="28" pin="0"/><net_sink comp="194" pin=0"/></net>
+<net id="203"><net_src comp="24" pin="0"/><net_sink comp="194" pin=0"/></net>
 
-<net id="202"><net_src comp="0" pin="0"/><net_sink comp="194" pin=3"/></net>
+<net id="211"><net_src comp="28" pin="0"/><net_sink comp="204" pin=0"/></net>
 
-<net id="212"><net_src comp="24" pin="0"/><net_sink comp="203" pin=0"/></net>
+<net id="212"><net_src comp="0" pin="0"/><net_sink comp="204" pin=3"/></net>
 
 <net id="227"><net_src comp="18" pin="0"/><net_sink comp="213" pin=0"/></net>
 
@@ -1588,7 +1588,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="280"><net_src comp="276" pin="1"/><net_sink comp="213" pin=11"/></net>
 
-<net id="281"><net_src comp="276" pin="1"/><net_sink comp="194" pin=4"/></net>
+<net id="281"><net_src comp="276" pin="1"/><net_sink comp="204" pin=4"/></net>
 
 <net id="285"><net_src comp="106" pin="1"/><net_sink comp="282" pin=0"/></net>
 
@@ -1618,11 +1618,11 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="310"><net_src comp="306" pin="1"/><net_sink comp="234" pin=4"/></net>
 
-<net id="311"><net_src comp="306" pin="1"/><net_sink comp="203" pin=1"/></net>
+<net id="311"><net_src comp="306" pin="1"/><net_sink comp="194" pin=1"/></net>
 
 <net id="315"><net_src comp="126" pin="1"/><net_sink comp="312" pin=0"/></net>
 
-<net id="316"><net_src comp="312" pin="1"/><net_sink comp="203" pin=3"/></net>
+<net id="316"><net_src comp="312" pin="1"/><net_sink comp="194" pin=3"/></net>
 
 <net id="317"><net_src comp="312" pin="1"/><net_sink comp="186" pin=1"/></net>
 
@@ -1630,19 +1630,19 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="322"><net_src comp="318" pin="1"/><net_sink comp="186" pin=3"/></net>
 
-<net id="323"><net_src comp="318" pin="1"/><net_sink comp="194" pin=1"/></net>
+<net id="323"><net_src comp="318" pin="1"/><net_sink comp="204" pin=1"/></net>
 
 <net id="327"><net_src comp="134" pin="1"/><net_sink comp="324" pin=0"/></net>
 
 <net id="328"><net_src comp="324" pin="1"/><net_sink comp="243" pin=6"/></net>
 
-<net id="329"><net_src comp="324" pin="1"/><net_sink comp="203" pin=5"/></net>
+<net id="329"><net_src comp="324" pin="1"/><net_sink comp="194" pin=5"/></net>
 
 <net id="333"><net_src comp="138" pin="1"/><net_sink comp="330" pin=0"/></net>
 
 <net id="334"><net_src comp="330" pin="1"/><net_sink comp="243" pin=7"/></net>
 
-<net id="335"><net_src comp="330" pin="1"/><net_sink comp="203" pin=6"/></net>
+<net id="335"><net_src comp="330" pin="1"/><net_sink comp="194" pin=6"/></net>
 
 <net id="339"><net_src comp="142" pin="1"/><net_sink comp="336" pin=0"/></net>
 
@@ -1660,11 +1660,11 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="352"><net_src comp="348" pin="1"/><net_sink comp="234" pin=5"/></net>
 
-<net id="353"><net_src comp="348" pin="1"/><net_sink comp="203" pin=2"/></net>
+<net id="353"><net_src comp="348" pin="1"/><net_sink comp="194" pin=2"/></net>
 
 <net id="357"><net_src comp="154" pin="1"/><net_sink comp="354" pin=0"/></net>
 
-<net id="358"><net_src comp="354" pin="1"/><net_sink comp="203" pin=4"/></net>
+<net id="358"><net_src comp="354" pin="1"/><net_sink comp="194" pin=4"/></net>
 
 <net id="359"><net_src comp="354" pin="1"/><net_sink comp="186" pin=2"/></net>
 
@@ -1672,7 +1672,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 
 <net id="364"><net_src comp="360" pin="1"/><net_sink comp="186" pin=4"/></net>
 
-<net id="365"><net_src comp="360" pin="1"/><net_sink comp="194" pin=2"/></net>
+<net id="365"><net_src comp="360" pin="1"/><net_sink comp="204" pin=2"/></net>
 
 </net_list>
 
@@ -1715,11 +1715,11 @@ StgValue_79            (ret                 ) [ 0000000000000]
 |----------|------------------------------------|---------|---------|---------|---------|---------|---------|
 | Operation|           Functional Unit          |   BRAM  |  DSP48E |  Delay  |    FF   |   LUT   |   URAM  |
 |----------|------------------------------------|---------|---------|---------|---------|---------|---------|
-|          |           grp_pool_fu_186          |    0    |    7    |  26.35  |  25868  |  10549  |    0    |
-|          |        grp_cout_write_fu_194       |    0    |    78   | 65.6547 |  26543  |  10716  |    16   |
-|   call   |           grp_relu_fu_203          |    0    |   128   |  33.524 |  21516  |  14648  |    0    |
-|          |        grp_cin_load13_fu_213       |    0    |    42   | 35.4712 |  22337  |   9987  |    16   |
-|          |           grp_conv_fu_234          |   384   |    17   |  67.15  |  13624  |   7813  |    0    |
+|          |           grp_pool_fu_186          |    0    |    5    |   18.7  |  43804  |  19853  |    0    |
+|          |           grp_relu_fu_194          |    0    |   144   |  34.374 |  27027  |  18824  |    0    |
+|   call   |        grp_cout_write_fu_204       |    0    |    78   | 66.5047 |  26617  |  10743  |    32   |
+|          |        grp_cin_load13_fu_213       |    0    |    42   | 35.4712 |  22370  |   9938  |    32   |
+|          |           grp_conv_fu_234          |   640   |    17   |  67.15  |  13589  |   9155  |    0    |
 |          |       grp_weight_load_fu_243       |    0    |    21   |  38.556 |  16778  |   3473  |    24   |
 |----------|------------------------------------|---------|---------|---------|---------|---------|---------|
 |          | global_cout_V_offset_1_read_fu_162 |    0    |    0    |    0    |    0    |    0    |    0    |
@@ -1727,7 +1727,7 @@ StgValue_79            (ret                 ) [ 0000000000000]
 |          |  global_weight_V_offs_read_fu_174  |    0    |    0    |    0    |    0    |    0    |    0    |
 |          |  global_cin_V_offset_s_read_fu_180 |    0    |    0    |    0    |    0    |    0    |    0    |
 |----------|------------------------------------|---------|---------|---------|---------|---------|---------|
-|   Total  |                                    |   384   |   293   | 266.706 |  126666 |  57186  |    56   |
+|   Total  |                                    |   640   |   307   | 260.756 |  150185 |  71986  |    88   |
 |----------|------------------------------------|---------|---------|---------|---------|---------|---------|
 
 Memories:
@@ -1778,10 +1778,10 @@ N/A
 +-----------+--------+--------+--------+--------+--------+--------+
 |           |  BRAM  | DSP48E |  Delay |   FF   |   LUT  |  URAM  |
 +-----------+--------+--------+--------+--------+--------+--------+
-|  Function |   384  |   293  |   266  | 126666 |  57186 |   56   |
+|  Function |   640  |   307  |   260  | 150185 |  71986 |   88   |
 |   Memory  |    -   |    -   |    -   |    -   |    -   |    -   |
 |Multiplexer|    -   |    -   |    3   |    -   |   36   |    -   |
 |  Register |    -   |    -   |    -   |  3158  |    -   |    -   |
 +-----------+--------+--------+--------+--------+--------+--------+
-|   Total   |   384  |   293  |   270  | 129824 |  57222 |   56   |
+|   Total   |   640  |   307  |   264  | 153343 |  72022 |   88   |
 +-----------+--------+--------+--------+--------+--------+--------+

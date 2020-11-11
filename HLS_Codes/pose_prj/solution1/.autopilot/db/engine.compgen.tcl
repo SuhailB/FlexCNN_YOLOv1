@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
 # FIFO definition:
-set ID 353
+set ID 376
 set FifoName fifo_w256_d128_A
 set InstName fifo_cin_load_0_V_V_U
 set CoreName ap_simcore_fifo
@@ -67,7 +67,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 354
+set ID 377
 set FifoName fifo_w192_d16_A
 set InstName config_weight_load_V_U
 set CoreName ap_simcore_fifo
@@ -133,7 +133,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 355
+set ID 378
 set FifoName fifo_w58_d2_A
 set InstName global_weight_V_offs_3_U
 set CoreName ap_simcore_fifo
@@ -199,7 +199,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 356
+set ID 379
 set FifoName fifo_w58_d2_A
 set InstName global_bias_V_offset_5_U
 set CoreName ap_simcore_fifo
@@ -265,7 +265,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 357
+set ID 380
 set FifoName fifo_w58_d6_A
 set InstName global_cout_V_offset_2_U
 set CoreName ap_simcore_fifo
@@ -331,7 +331,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 358
+set ID 381
 set FifoName fifo_w256_d64_A
 set InstName fifo_weight_load_1_V_U
 set CoreName ap_simcore_fifo
@@ -397,7 +397,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 359
+set ID 382
 set FifoName fifo_w256_d16_A
 set InstName fifo_beta_conv_V_V_U
 set CoreName ap_simcore_fifo
@@ -463,7 +463,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 360
+set ID 383
 set FifoName fifo_w256_d16_A
 set InstName fifo_gamma_conv_V_V_U
 set CoreName ap_simcore_fifo
@@ -529,7 +529,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 361
+set ID 384
 set FifoName fifo_w192_d16_A
 set InstName config_conv_V_V_U
 set CoreName ap_simcore_fifo
@@ -595,7 +595,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 362
+set ID 385
 set FifoName fifo_w256_d64_A
 set InstName fifo_conv_0_V_V_U
 set CoreName ap_simcore_fifo
@@ -661,7 +661,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 363
+set ID 386
 set FifoName fifo_w192_d16_A
 set InstName config_relu_V_V_U
 set CoreName ap_simcore_fifo
@@ -727,7 +727,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 364
+set ID 387
 set FifoName fifo_w256_d64_A
 set InstName fifo_relu_0_V_V_U
 set CoreName ap_simcore_fifo
@@ -793,7 +793,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 365
+set ID 388
 set FifoName fifo_w192_d16_A
 set InstName config_pool_V_V_U
 set CoreName ap_simcore_fifo
@@ -859,7 +859,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 366
+set ID 389
 set FifoName fifo_w256_d64_A
 set InstName fifo_pool_0_V_V_U
 set CoreName ap_simcore_fifo
@@ -925,7 +925,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 367
+set ID 390
 set FifoName fifo_w192_d16_A
 set InstName config_data_write_V_s_U
 set CoreName ap_simcore_fifo
@@ -991,7 +991,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 368
+set ID 391
 set FifoName start_for_conv_U0
 set InstName start_for_conv_U0_U
 set CoreName ap_simcore_fifo
@@ -1057,9 +1057,9 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 369
-set FifoName start_for_cout_wrYie
-set InstName start_for_cout_wrYie_U
+set ID 392
+set FifoName start_for_cout_wrZio
+set InstName start_for_cout_wrZio_U
 set CoreName ap_simcore_fifo
 set NumOfStage 2
 set RegisteredInput 0
@@ -1123,7 +1123,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 370
+set ID 393
 set FifoName start_for_relu_U0
 set InstName start_for_relu_U0_U
 set CoreName ap_simcore_fifo
@@ -1189,7 +1189,7 @@ puts "@W \[IMPL-107\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_FIFO, check your pl
 
 
 # FIFO definition:
-set ID 371
+set ID 394
 set FifoName start_for_pool_U0
 set InstName start_for_pool_U0_U
 set CoreName ap_simcore_fifo
@@ -1265,7 +1265,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 378 \
+    id 401 \
     name config_r \
     reset_level 1 \
     sync_rst true \
@@ -1283,7 +1283,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 372 \
+    id 395 \
     name global_cin_V \
     type other \
     dir IO \
@@ -1298,7 +1298,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 373 \
+    id 396 \
     name global_cin_V_offset \
     type other \
     dir I \
@@ -1313,7 +1313,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 374 \
+    id 397 \
     name global_weight_V \
     type other \
     dir I \
@@ -1328,7 +1328,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 375 \
+    id 398 \
     name global_weight_V_offset \
     type other \
     dir I \
@@ -1343,7 +1343,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 376 \
+    id 399 \
     name global_bias_V_offset \
     type other \
     dir I \
@@ -1358,7 +1358,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 377 \
+    id 400 \
     name global_cout_V_offset \
     type other \
     dir I \

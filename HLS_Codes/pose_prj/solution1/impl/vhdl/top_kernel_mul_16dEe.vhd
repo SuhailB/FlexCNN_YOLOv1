@@ -1,5 +1,5 @@
 -- ==============================================================
--- File generated on Thu Nov 05 03:55:51 -0600 2020
+-- File generated on Tue Nov 10 23:51:04 -0600 2020
 -- Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 -- SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 -- IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -14,28 +14,30 @@ port (
     clk: in std_logic;
     ce: in std_logic;
     a: in std_logic_vector(16 - 1 downto 0);
-    b: in std_logic_vector(26 - 1 downto 0);
-    p: out std_logic_vector(26 - 1 downto 0));
+    b: in std_logic_vector(27 - 1 downto 0);
+    p: out std_logic_vector(27 - 1 downto 0));
 end entity;
 
 architecture behav of top_kernel_mul_16dEe_MulnS_2 is
-    signal tmp_product : std_logic_vector(26 - 1 downto 0);
+    signal tmp_product : std_logic_vector(27 - 1 downto 0);
     signal a_i : std_logic_vector(16 - 1 downto 0);
-    signal b_i : std_logic_vector(26 - 1 downto 0);
-    signal p_tmp : std_logic_vector(26 - 1 downto 0);
+    signal b_i : std_logic_vector(27 - 1 downto 0);
+    signal p_tmp : std_logic_vector(27 - 1 downto 0);
     signal a_reg0 : std_logic_vector(16 - 1 downto 0);
-    signal b_reg0 : std_logic_vector(26 - 1 downto 0);
+    signal b_reg0 : std_logic_vector(27 - 1 downto 0);
 
-    signal buff0 : std_logic_vector(26 - 1 downto 0);
-    signal buff1 : std_logic_vector(26 - 1 downto 0);
-    signal buff2 : std_logic_vector(26 - 1 downto 0);
+    signal buff0 : std_logic_vector(27 - 1 downto 0);
+    signal buff1 : std_logic_vector(27 - 1 downto 0);
+    signal buff2 : std_logic_vector(27 - 1 downto 0);
+    signal buff3 : std_logic_vector(27 - 1 downto 0);
+    signal buff4 : std_logic_vector(27 - 1 downto 0);
 begin
     a_i <= a;
     b_i <= b;
     p <= p_tmp;
 
-    p_tmp <= buff2;
-    tmp_product <= std_logic_vector(resize(unsigned(std_logic_vector(signed('0' & a_reg0) * signed(b_reg0))), 26));
+    p_tmp <= buff4;
+    tmp_product <= std_logic_vector(resize(unsigned(std_logic_vector(signed('0' & a_reg0) * signed(b_reg0))), 27));
 
     process(clk)
     begin
@@ -46,6 +48,8 @@ begin
                 buff0 <= tmp_product;
                 buff1 <= buff0;
                 buff2 <= buff1;
+                buff3 <= buff2;
+                buff4 <= buff3;
             end if;
         end if;
     end process;

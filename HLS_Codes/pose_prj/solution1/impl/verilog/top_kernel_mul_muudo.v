@@ -5,14 +5,14 @@
 input clk;
 input rst;
 input ce;
-input signed [11 - 1 : 0] a;
-input [7 - 1 : 0] b;
-output signed [11 - 1 : 0] p;
+input signed [12 - 1 : 0] a;
+input [8 - 1 : 0] b;
+output signed [12 - 1 : 0] p;
 
-reg signed [11 - 1 : 0] p_reg; 
+reg signed [12 - 1 : 0] p_reg; 
 
-reg signed [11 - 1 : 0] a_reg; 
-reg [7 - 1 : 0] b_reg; 
+reg signed [12 - 1 : 0] a_reg; 
+reg [8 - 1 : 0] b_reg; 
 
 always @ (posedge clk) begin
     if (ce) begin

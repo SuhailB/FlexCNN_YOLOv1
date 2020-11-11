@@ -25155,7 +25155,7 @@ _assert (const char *_Message, const char *_File, unsigned _Line);
 
 using namespace std;
 using namespace hls;
-# 43 "./util.h"
+# 47 "./util.h"
 typedef float data_t0;
 typedef float data_t1;
 typedef float data_t2;
@@ -25168,7 +25168,7 @@ typedef ap_uint<512> bus_t0;
 typedef ap_uint<512> bus_t1;
 typedef ap_uint<512> bus_t2;
 typedef ap_uint<32> bus_t3;
-# 64 "./util.h"
+# 68 "./util.h"
 typedef unsigned int uint;
 typedef ap_uint<192> ConfigInst;
 
@@ -25203,15 +25203,21 @@ void top_kernel(
   bus_t3 *layer_config
 );
 }
-# 109 "./util.h"
+# 113 "./util.h"
 void mobilenet_preprocess(
   data_t0* cin_hw,
   data_t1* weight_hw,
-  data_t2* bias_hw
+  data_t2* bias_hw,
+  data_t0 LAYER_out[12][12][425]
 );
 
-void instInit(uint config[16*32]);
-# 139 "./util.h"
+void instInit(uint config[15*32]);
+
+void openpose_postprocess(
+  data_t0* cin_hw,
+  data_t0 LAYER_out[12][12][425]
+);
+# 144 "./util.h"
 void extract_layer(
   data_t0* cin_hw,
   uint* config,
@@ -25219,7 +25225,7 @@ void extract_layer(
 );
 
 void compute_layer();
-# 160 "./util.h"
+# 165 "./util.h"
 void kernel(
   stream<DepthConvData0Type> &fifo_cin,
   stream<WeightLoadData1Type> &fifo_weight,
@@ -25272,7 +25278,7 @@ void stencil_w3(
  T_data_t0 sums[T_UNROLL];
 #pragma HLS ARRAY_PARTITION variable=&sums complete
 
- (void) ((!!((layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98))) || (_assert("(layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98)","./util.h",212),0));
+ (void) ((!!((layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98))) || (_assert("(layer_in_w_t == 26) || (layer_in_w_t == 50) || (layer_in_w_t == 98)","./util.h",217),0));
   int oo = 0;
   int iter = 0;
   int oo_bound = layer_in_num_t / T_UNROLL;
@@ -25327,7 +25333,7 @@ void stencil_w3(
       if (iter < layer_in_h_t * layer_in_w_t){
 
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 319 "./util.h"
+# 324 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25354,7 +25360,7 @@ void stencil_w3(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 376 "./util.h"
+# 381 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
         line_buf1[dup][0] = 0.0;
@@ -25474,7 +25480,7 @@ void stencil_w1(
   bool col_strip_skip = 0;
   bool row_strip_skip = 0;
 
-  (void) ((!!((layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96))) || (_assert("(layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96)","./util.h",495),0));
+  (void) ((!!((layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96))) || (_assert("(layer_in_w_t == 24) || (layer_in_w_t == 48) || (layer_in_w_t == 96)","./util.h",500),0));
 
   int oo = 0;
   int iter = 0;
@@ -25506,7 +25512,7 @@ void stencil_w1(
       if (iter < layer_in_h_t * layer_in_w_t){
 
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 579 "./util.h"
+# 584 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25533,7 +25539,7 @@ void stencil_w1(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 636 "./util.h"
+# 641 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
         line_buf1[dup][0] = 0.0;
@@ -25688,7 +25694,7 @@ void upsample_w2(
 
       if (iter < layer_in_h_t * T_IN_W_T){
         ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 842 "./util.h"
+# 847 "./util.h"
         switch(dup){
           case 0:
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
@@ -25715,7 +25721,7 @@ void upsample_w2(
             sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
             break;
         }
-# 899 "./util.h"
+# 904 "./util.h"
         line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
         line_buf_inp[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
       } else {
@@ -25801,7 +25807,7 @@ void upsample_w2(
 
             );
         fifo_out1.write(wide_data);
-# 992 "./util.h"
+# 997 "./util.h"
       }
     }
 
@@ -25850,13 +25856,7 @@ void upsample_w2(
     }
   }
 }
-
-
-
-
-
-
-
+# 1528 "./util.h"
 template <class T_data_t0, int T_IN_H_T, int T_IN_W_T, int T_UNROLL, int T_WS, int T_DATA_WIDTH0>
 void maxpool_w2(
   hls::stream<ap_uint<T_DATA_WIDTH0 * T_UNROLL> > &fifo_in,
@@ -25864,10 +25864,14 @@ void maxpool_w2(
   uint stride,
   bool max_en,
   uint layer_out_num_t,
-  uint layer_in_h_t
+  uint layer_in_h_t,
+  uint layer_in_w_t
 ){
+
+if(stride==1) layer_in_w_t++;
+
 #pragma HLS INLINE off
- T_data_t0 line_buf1[T_UNROLL][T_IN_W_T];
+ T_data_t0 line_buf1[T_UNROLL][T_IN_W_T+1];
   T_data_t0 line_buf2[T_UNROLL][T_WS];
 #pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=1 complete
 #pragma HLS ARRAY_PARTITION variable=&line_buf1 dim=2 complete
@@ -25889,128 +25893,132 @@ void maxpool_w2(
 
  int oo =0;
   int iter = 0;
-  int oo_bound = layer_out_num_t / T_UNROLL;
-  int iter_bound = layer_in_h_t * T_IN_W_T + (T_WS - 1) * T_IN_W_T + T_WS - 1;
+  int oo_bound = (layer_out_num_t)/(T_UNROLL);
+  int iter_bound = layer_in_h_t * layer_in_w_t + (T_WS - 1) * layer_in_w_t + T_WS - 1;
   int total_bound = oo_bound * iter_bound;
 
-  for (int total_iter = 0; total_iter < total_bound; total_iter++){
+    for (int total_iter = 0; total_iter < total_bound; total_iter++){
 #pragma HLS PIPELINE II=1
  if (iter == 0){
-      trans_cnt = 0;
-    }
+        trans_cnt = 0;
+      }
 
-    ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
-    if (iter < layer_in_h_t * T_IN_W_T){
-      wide_data_in = fifo_in.read();
-    }
+      ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data_in;
 
-    for (int dup = 0; dup < T_UNROLL; dup++){
+      if (iter < layer_in_h_t * layer_in_w_t && !(iter%layer_in_w_t==layer_in_w_t-1 && stride==1)){
+        wide_data_in = fifo_in.read();
+      }
 
-      T_data_t0 tmp1 = line_buf1[dup][T_IN_W_T - 1];
-      for (int i = T_IN_W_T - 1; i >= 1; i--){
+      for (int dup = 0; dup < T_UNROLL; dup++){
+
+        T_data_t0 tmp1 = line_buf1[dup][layer_in_w_t - 1];
+        for (int i = T_IN_W_T - 1; i >= 1; i--){
 #pragma HLS UNROLL
  line_buf1[dup][i] = line_buf1[dup][i - 1];
-      }
-      for (int i = T_WS - 1; i >= 1; i--){
+        }
+        for (int i = T_WS - 1; i >= 1; i--){
 #pragma HLS UNROLL
  line_buf2[dup][i] = line_buf2[dup][i - 1];
-      }
-
-      if (iter < layer_in_h_t * T_IN_W_T){
-
-        ap_uint<T_DATA_WIDTH0> sel_tmp;
-# 1161 "./util.h"
-        switch(dup){
-          case 0:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
-            break;
-          case 1:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
-            break;
-          case 2:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
-            break;
-          case 3:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
-            break;
-          case 4:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
-            break;
-          case 5:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
-            break;
-          case 6:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
-            break;
-          case 7:
-            sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
-            break;
-        }
-# 1218 "./util.h"
-        line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
-      } else {
-        line_buf1[dup][0] = -100.0;
-      }
-      line_buf2[dup][0] = tmp1;
-
-
-      T_data_t0 mux_0_0 = ((line_buf2[dup][T_WS - 1])>(line_buf2[dup][T_WS - 2])?(line_buf2[dup][T_WS - 1]):(line_buf2[dup][T_WS - 2]));
-      T_data_t0 mux_0_1 = ((line_buf1[dup][T_WS - 1])>(line_buf1[dup][T_WS - 2])?(line_buf1[dup][T_WS - 1]):(line_buf1[dup][T_WS - 2]));
-      T_data_t0 mux_1_0 = ((mux_0_0)>(mux_0_1)?(mux_0_0):(mux_0_1));
-
-      if (max_en == 1)
-        sums[dup] = mux_1_0;
-      else
-        sums[dup] = line_buf1[dup][T_WS - 2];
-    }
-
-
-
-    if (iter >= (T_WS - 1) * T_IN_W_T + T_WS - 1){
-
-      col_skip = (trans_cnt % stride != 0);
-      row_skip = ((trans_cnt / T_IN_W_T) % stride != 0);
-      if (!col_skip && !row_skip){
-        for (int ii = 0; ii < T_UNROLL; ii++){
-          T_data_t0 sum_tmp = sums[ii];
-          ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
-          utmp[ii] = utmp_tmp;
         }
 
-        ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+        if (iter%layer_in_w_t==layer_in_w_t-1 && stride==1){
+          line_buf1[dup][0] = -10.0;
+        }
+        else if (iter < layer_in_h_t * layer_in_w_t){
+
+          ap_uint<T_DATA_WIDTH0> sel_tmp;
+# 1650 "./util.h"
+          switch(dup){
+            case 0:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 1 - 1, T_DATA_WIDTH0 * 0);
+              break;
+            case 1:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 2 - 1, T_DATA_WIDTH0 * 1);
+              break;
+            case 2:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 3 - 1, T_DATA_WIDTH0 * 2);
+              break;
+            case 3:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 4 - 1, T_DATA_WIDTH0 * 3);
+              break;
+            case 4:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 5 - 1, T_DATA_WIDTH0 * 4);
+              break;
+            case 5:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 6 - 1, T_DATA_WIDTH0 * 5);
+              break;
+            case 6:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 7 - 1, T_DATA_WIDTH0 * 6);
+              break;
+            case 7:
+              sel_tmp = wide_data_in(T_DATA_WIDTH0 * 8 - 1, T_DATA_WIDTH0 * 7);
+              break;
+          }
+# 1707 "./util.h"
+          line_buf1[dup][0] = Reinterpret<T_data_t0>(sel_tmp);
+        } else {
+          line_buf1[dup][0] = -10.0;
+        }
+        line_buf2[dup][0] = tmp1;
 
 
+        T_data_t0 mux_0_0 = ((line_buf2[dup][T_WS - 1])>(line_buf2[dup][T_WS - 2])?(line_buf2[dup][T_WS - 1]):(line_buf2[dup][T_WS - 2]));
+        T_data_t0 mux_0_1 = ((line_buf1[dup][T_WS - 1])>(line_buf1[dup][T_WS - 2])?(line_buf1[dup][T_WS - 1]):(line_buf1[dup][T_WS - 2]));
+        T_data_t0 mux_1_0 = ((mux_0_0)>(mux_0_1)?(mux_0_0):(mux_0_1));
 
-
-
-
-            utmp[7], utmp[6], utmp[5], utmp[4],
-            utmp[3], utmp[2], utmp[1], utmp[0]
-
-
-
-
-
-
-
-            );
-        fifo_out.write(wide_data);
+        if (max_en == 1)
+          sums[dup] = mux_1_0;
+        else
+          sums[dup] = line_buf1[dup][T_WS - 2];
       }
-      trans_cnt++;
-    }
 
-    iter++;
-    if (iter == iter_bound){
-      iter = 0;
-      oo++;
-      if (oo == oo_bound){
-        oo = 0;
+
+
+      if (iter >= (T_WS - 1) * layer_in_w_t + T_WS - 1 && !(iter%layer_in_w_t==0 && stride==1)){
+
+        col_skip = (trans_cnt % stride != 0);
+        row_skip = ((trans_cnt / layer_in_w_t) % stride != 0);
+        if (!col_skip && !row_skip){
+          for (int ii = 0; ii < T_UNROLL; ii++){
+            T_data_t0 sum_tmp = sums[ii];
+            ap_uint<T_DATA_WIDTH0> utmp_tmp = Reinterpret<ap_uint<T_DATA_WIDTH0> >(sum_tmp);
+            utmp[ii] = utmp_tmp;
+          }
+
+          ap_uint<T_DATA_WIDTH0 * T_UNROLL> wide_data = (
+
+
+
+
+
+
+              utmp[7], utmp[6], utmp[5], utmp[4],
+              utmp[3], utmp[2], utmp[1], utmp[0]
+
+
+
+
+
+
+
+              );
+          fifo_out.write(wide_data);
+        }
+        trans_cnt++;
+      }
+
+      iter++;
+      if (iter == iter_bound){
+        iter = 0;
+        oo++;
+        if (oo == oo_bound){
+          oo = 0;
+        }
       }
     }
-  }
 }
 # 1 "kernel.cpp" 2
-# 27 "kernel.cpp"
+# 7708 "kernel.cpp"
 void cin_load_ddr_read(
   bus_t0 *global_cin,
   bus_t0 cin_burst_buf[],
@@ -26029,7 +26037,7 @@ void cin_load_ddr_read(
   bool max_pool,
   bool write
 ){
- if ((LAYER_IN_H_HW <= 13 + 3 - 1) && (LAYER_IN_W_HW <= 52 + 3 - 1) && !max_pool){
+ if ((LAYER_IN_H_HW <= 12 + 3 - 1) && (LAYER_IN_W_HW <= 96 + 3 - 1) && !max_pool){
 
   uint global_cin_offset = in_num_iter * LAYER_IN_H_HW * LAYER_IN_W_HW + cin_offset;
   memcpy((void*)cin_burst_buf, (void*)&global_cin[global_cin_offset / (512 / 32)], sizeof(data_t0) * LAYER_IN_NUM_T * LAYER_IN_H_HW * LAYER_IN_W_HW);
@@ -26105,9 +26113,9 @@ void cin_load_fifo_write(
    fifo_cin_data = bus_cin_data(32 * (8) * 2 - 1, 32 * (8) * 1);
    break;
   }
-# 215 "kernel.cpp"
+# 7896 "kernel.cpp"
   fifo_cin.write(fifo_cin_data);
-# 232 "kernel.cpp"
+# 7913 "kernel.cpp"
   ww++;
   if (ww == LAYER_IN_W_T + FILTER_S - 1){
    ww = 0;
@@ -26167,9 +26175,9 @@ void cin_load_fifo_write_prev(
    fifo_cin_data = bus_cin_data(32 * (8) * 2 - 1, 32 * (8) * 1);
    break;
   }
-# 385 "kernel.cpp"
+# 8066 "kernel.cpp"
   fifo_cin.write(fifo_cin_data);
-# 398 "kernel.cpp"
+# 8079 "kernel.cpp"
   ww++;
   if (ww == LAYER_IN_W_T + FILTER_S - 1){
    ww = 0;
@@ -26199,8 +26207,8 @@ void cin_load(
 ){_ssdm_SpecArrayDimSize(config, 32);
 #pragma HLS INLINE off
 
- bus_t0 cin_burst_buf_ping[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
- bus_t0 cin_burst_buf_pong[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
+ bus_t0 cin_burst_buf_ping[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+ bus_t0 cin_burst_buf_pong[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
 #pragma HLS RESOURCE variable=&cin_burst_buf_ping core=XPM_MEMORY uram
 #pragma HLS RESOURCE variable=&cin_burst_buf_pong core=XPM_MEMORY uram
 
@@ -26341,7 +26349,7 @@ void cin_load(
   LAYER_LOCAL_REG_NUM = config[29 + layer_iter * 32];
   LAYER_ROW_IL_FACTOR = config[30 + layer_iter * 32];
   LAYER_COL_IL_FACTOR = config[31 + layer_iter * 32];
-# 578 "kernel.cpp"
+# 8259 "kernel.cpp"
   ConfigInst inst0 = (LAYER_OUT_W_HW, LAYER_OUT_H_HW, LAYER_IN_W_HW, LAYER_IN_H_HW, LAYER_OUT_NUM_HW, LAYER_IN_NUM_HW);
   ConfigInst inst1 = (LAYER_OUT_W, LAYER_OUT_H, LAYER_IN_W, LAYER_IN_H, LAYER_OUT_NUM, LAYER_IN_NUM);
   ConfigInst inst2 = (STRIDE, FILTER_S2, FILTER_S1, COUT_OFFSET, BIAS_OFFSET, WEIGHT_OFFSET, CIN_OFFSET);
@@ -26464,8 +26472,8 @@ void cin_load_prev(
 ){
 #pragma HLS INLINE off
 
- bus_t0 prev_cin_burst_buf_ping[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
- bus_t0 prev_cin_burst_buf_pong[64 * (13 + 3 - 1) * (52 + 3 - 1) / (512 / 32)];
+ bus_t0 prev_cin_burst_buf_ping[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
+ bus_t0 prev_cin_burst_buf_pong[64 * (12 + 3 - 1) * (96 + 3 - 1) / (512 / 32)];
 #pragma HLS RESOURCE variable=&prev_cin_burst_buf_ping core=XPM_MEMORY uram
 #pragma HLS RESOURCE variable=&prev_cin_burst_buf_pong core=XPM_MEMORY uram
 
@@ -26579,7 +26587,7 @@ void cin_load_prev(
   ap_uint<1> INTER_WRITE_EN = LAYER_EN[9];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
   LOAD_PREV_CIN = LAYER_EN[11];
-# 826 "kernel.cpp"
+# 8507 "kernel.cpp"
   uint cin_offset = CIN_OFFSET;
   uint prev_cin_offset = PREV_CIN_OFFSET;
 
@@ -26750,7 +26758,7 @@ void weight_load_depth_conv_weight_write(
     fifo_w_data = bus_w_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1090 "kernel.cpp"
+# 8771 "kernel.cpp"
    fifo_depth_conv_weight.write(fifo_w_data);
 
 
@@ -26853,7 +26861,7 @@ void weight_load_conv_weight_write(
     fifo_w_data = bus_w_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1286 "kernel.cpp"
+# 8967 "kernel.cpp"
    fifo_conv_weight.write(fifo_w_data);
 
    ii++;
@@ -26953,7 +26961,7 @@ void weight_load_bias_write(
      fifo_b_data = bus_b_data(32 * 8 * 2 - 1, 32 * 8 * 1);
      break;
     }
-# 1479 "kernel.cpp"
+# 9160 "kernel.cpp"
     fifo_bias.write(fifo_b_data);
    }
   }
@@ -27037,7 +27045,7 @@ void weight_load_depth_norm_write(
     fifo_b_data = bus_b_data(32 * 8 * 2 - 1, 32 * 8 * 1);
     break;
    }
-# 1656 "kernel.cpp"
+# 9337 "kernel.cpp"
    fifo_bias.write(fifo_b_data);
   }
 
@@ -27163,10 +27171,10 @@ void weight_load(
   ap_uint<1> RELU6_EN = LAYER_EN[4];
   ap_uint<1> POOL_EN = LAYER_EN[5];
   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
-    ap_uint<1> BIAS_EN = LAYER_EN[7];
+     ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
-    ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
-# 1793 "kernel.cpp"
+     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+# 9474 "kernel.cpp"
   bool bias_en = (CONV_EN == 1 && BIAS_EN == 1);
   bool norm_depth_en = (DEPTH_CONV_EN == 1 && BATCH_NORM_EN_DEPTH == 1);;
   bool norm_conv_en = (CONV_EN == 1 && BATCH_NORM_EN == 1);
@@ -27215,7 +27223,7 @@ void weight_load(
     memcpy((void*)beta_conv_burst_buf, (void*)&global_bias[global_bias_offset / (512 / 32)], sizeof(data_t2) * LAYER_OUT_NUM_T);
    }
   } else{
-# 1853 "kernel.cpp"
+# 9534 "kernel.cpp"
        if (norm_conv_en){
         if (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM){
          uint global_bias_offset = beta_conv_offset + out_num_iter;
@@ -27234,7 +27242,7 @@ void weight_load(
         }
        }
     }
-# 1887 "kernel.cpp"
+# 9568 "kernel.cpp"
   if (CONV_EN == 1){
    uint global_weight_offset = weight_offset2 + out_num_iter * LAYER_IN_NUM_HW * FILTER_S2 * FILTER_S2 + in_num_iter * LAYER_OUT_NUM_T * FILTER_S2 * FILTER_S2;
    if (FILTER_S2 == 1){
@@ -27243,9 +27251,9 @@ void weight_load(
     memcpy((void*)&weight_burst_buf2[0], (void*)&global_weight[global_weight_offset / (512 / 32)], sizeof(data_t1) * LAYER_OUT_NUM_T * LAYER_IN_NUM_T * 3 * 3);
    }
   }
-# 1906 "kernel.cpp"
+# 9587 "kernel.cpp"
   weight_load_conv_weight_write(weight_burst_buf2, fifo_conv_weight, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
-# 1915 "kernel.cpp"
+# 9596 "kernel.cpp"
     if (bias_en) {
   weight_load_bias_write(beta_conv_burst_buf, fifo_beta_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
        weight_load_bias_write(gamma_conv_burst_buf, fifo_gamma_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
@@ -27254,7 +27262,7 @@ void weight_load(
    weight_load_bias_write(beta_conv_burst_buf, fifo_beta_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
    weight_load_bias_write(gamma_conv_burst_buf, fifo_gamma_conv, inst0, inst1, inst2, inst3, in_num_iter, out_num_iter);
   }
-# 1931 "kernel.cpp"
+# 9612 "kernel.cpp"
   in_num_iter += LAYER_IN_NUM_T;
   if (in_num_iter >= LAYER_IN_NUM){
    in_num_iter = 0;
@@ -27279,7 +27287,7 @@ void weight_load(
   }
  }
 }
-# 2181 "kernel.cpp"
+# 9862 "kernel.cpp"
 void depth_conv(
   hls::stream<CinLoadData0Type> &fifo_cin,
   hls::stream<WeightLoadData0Type> &fifo_weight,
@@ -27306,7 +27314,7 @@ void depth_conv(
  fifo_config_out.write(inst3);
  ConfigInst inst4 = fifo_config_in.read();
  fifo_config_out.write(inst4);
-# 2215 "kernel.cpp"
+# 9896 "kernel.cpp"
  ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
 
  bool layer_start = 0;
@@ -27447,9 +27455,9 @@ void depth_conv(
 
 
    if (FILTER_S1 == 1){
-    stencil_w1<data_t0, data_t1, 64, 13, 52, (8), 1, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+    stencil_w1<data_t0, data_t1, 64, 12, 96, (8), 1, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
    } else if (FILTER_S1 == 3){
-    stencil_w3<data_t0, data_t1, 64, 13 + 2, 52 + 2, (8), 3, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T + 2, LAYER_IN_W_T + 2);
+    stencil_w3<data_t0, data_t1, 64, 12 + 2, 96 + 2, (8), 3, 32, 32>(fifo_cin, weight_buf, fifo_cout, (uint)STRIDE, LAYER_IN_NUM_T, LAYER_IN_H_T + 2, LAYER_IN_W_T + 2);
    }
    break;
   }
@@ -27488,10 +27496,11 @@ void depth_conv(
 
 
 
+
 void conv_core(
-data_t0 cin[13 + 3 - 1][52 + 3 - 1][64],
+data_t0 cin[12 + 3 - 1][96 + 3 - 1][64],
 data_t1 weight[64][3][3][64],
-data_t0 cout_kernel[13][52][64],
+data_t0 cout_kernel[12][96][64],
 bool init,
 uint LAYER_IN_NUM_T,
 uint LAYER_OUT_NUM_T,
@@ -27499,7 +27508,7 @@ uint LAYER_IN_H_T,
 uint LAYER_IN_W_T,
 uint FILTER_S,
 uint STRIDE
-){_ssdm_SpecArrayDimSize(cin, 15);_ssdm_SpecArrayDimSize(weight, 64);_ssdm_SpecArrayDimSize(cout_kernel, 13);
+){_ssdm_SpecArrayDimSize(cin, 14);_ssdm_SpecArrayDimSize(weight, 64);_ssdm_SpecArrayDimSize(cout_kernel, 12);
 #pragma HLS INLINE off
 for (int o = 0; o < LAYER_OUT_NUM_T; o++)
 for (int h = 0; h < LAYER_IN_H_T / STRIDE; h++)
@@ -27512,6 +27521,7 @@ for (int i = 0; i < LAYER_IN_NUM_T; i++){
 for (int p = 0; p < FILTER_S; p++)
 conv_kernel_loop: for (int q = 0; q < FILTER_S; q++){
 cout_kernel[h][w][o] += cin[h * STRIDE + (STRIDE - 1) + p][w * STRIDE + (STRIDE - 1) + q][i] * weight[o][p][q][i];
+
 
 
 
@@ -27532,11 +27542,11 @@ void kernel(
  hls::stream<ConfigInst> &fifo_config_in,
  hls::stream<ConfigInst> &fifo_config_out
 ){
- data_t0 cin_local[13 + 3 - 1][52 + 3 - 1][64];
+ data_t0 cin_local[12 + 3 - 1][96 + 3 - 1][64];
 #pragma HLS ARRAY_PARTITIOn variable=&cin_local dim=3 cyclic factor=8
  data_t1 weight_local[64][3][3][64];
 #pragma HLS ARRAY_PARTITION variable=&weight_local dim=4 cyclic factor=8
- data_t0 cout_local[13][52][64];
+ data_t0 cout_local[12][96][64];
 #pragma HLS ARRAY_PARTITION variable=&cout_local dim=3 cyclic factor=8
 
  ap_uint<32> cout_tmp[(8)];
@@ -27667,19 +27677,19 @@ void kernel(
 
 
          }
-# 2591 "kernel.cpp"
+# 10274 "kernel.cpp"
        for (int o = 0; o < LAYER_OUT_NUM_T; o++){
          for (int p = 0; p < FILTER_S; p++)
            for (int q = 0; q < FILTER_S; q++)
              for (int i = 0; i < LAYER_IN_NUM_T / (8); i++){
 #pragma HLS PIPELINE II=1
  WeightLoadData1Type tmp = fifo_weight.read();
-# 2605 "kernel.cpp"
+# 10288 "kernel.cpp"
                for (int lane = 0; lane < (8); lane++){
 #pragma HLS UNROLL
  ap_uint<32> u32_tmp = tmp(32 - 1, 0);
                  weight_local[o][p][q][i * (8) + lane] = Reinterpret<data_t1>(u32_tmp);
-# 2625 "kernel.cpp"
+# 10308 "kernel.cpp"
                  tmp = tmp >> 32;
                }
              }
@@ -27687,9 +27697,9 @@ void kernel(
 
 
      }
-# 2643 "kernel.cpp"
+# 10326 "kernel.cpp"
        conv_core(cin_local, weight_local, cout_local, (in_num_iter == 0), LAYER_IN_NUM_T, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T, FILTER_S, stride2);
-# 2673 "kernel.cpp"
+# 10356 "kernel.cpp"
        if (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM){
          for (int o = 0; o < LAYER_OUT_NUM_T / (8); o++)
            for (int h = 0; h < LAYER_IN_H_T / STRIDE; h++){
@@ -27723,7 +27733,7 @@ void kernel(
 
                );
                fifo_cout.write(tmp);
-# 2714 "kernel.cpp"
+# 10397 "kernel.cpp"
              }
 
 
@@ -27860,7 +27870,7 @@ void relu6(
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
-# 2858 "kernel.cpp"
+# 10541 "kernel.cpp"
   data_t2 gamma_buf[64 / (8)][(8)];
   data_t2 beta_buf[64 / (8)][(8)];
 #pragma HLS ARRAY_PARTITION variable=&gamma_buf dim=2 complete
@@ -27878,7 +27888,7 @@ void relu6(
   uint stride = (max_pool == 1)? 1 : (uint)STRIDE;
   bool en = (RELU6_EN == 1 || RELU_EN == 1) && (DEPTH_CONV_EN == 1) && (BATCH_NORM_EN_DEPTH == 1);
   bool norm_en = BATCH_NORM_EN_DEPTH;
-# 2883 "kernel.cpp"
+# 10566 "kernel.cpp"
   switch(en){
   case 0:
 
@@ -28041,7 +28051,7 @@ void relu6(
   }
  }
 }
-# 3053 "kernel.cpp"
+# 10736 "kernel.cpp"
 void conv(
   hls::stream<DepthConvData0Type> &fifo_cin,
   hls::stream<WeightLoadData1Type> &fifo_weight,
@@ -28347,7 +28357,7 @@ void add(
   ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> LOAD_PREV_CIN = LAYER_EN[11];
-# 3366 "kernel.cpp"
+# 11049 "kernel.cpp"
   data_t0 cin_buf[(8)];
   data_t0 conv_buf[(8)];
   ap_uint<32> cout_buf[(8)];
@@ -28617,7 +28627,9 @@ void relu(
   ap_uint<1> BIAS_EN = LAYER_EN[7];
   ap_uint<1> BATCH_NORM_EN = LAYER_EN[10];
   ap_uint<1> LOAD_PREV_CIN = LAYER_EN[11];
-    ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+     ap_uint<1> BATCH_NORM_EN_DEPTH = LAYER_EN[12];
+
+  ap_uint<1> LINEAR_ACTIVATION_EN = LAYER_EN[14];
 
   data_t2 beta_buf[64 / (8)][(8)];
   data_t2 gamma_buf[64 / (8)][(8)];
@@ -28728,18 +28740,24 @@ void relu(
 
      for (int lane = 0; lane < (8); lane++){
 #pragma HLS UNROLL
- data_t0 cin_data = cin_buf[lane];
-      data_t0 tmp = cin_data;
-      if (bias_en || BATCH_NORM_EN)
-       tmp = gamma_buf[o][lane]*cin_data + beta_buf[o][lane];
+ if(w>=LAYER_IN_W/STRIDE){
+       cout_buf[lane] = 0;
+      }else{
+       data_t0 cin_data = cin_buf[lane];
+       data_t0 tmp = cin_data;
+       if (bias_en || BATCH_NORM_EN && !LINEAR_ACTIVATION_EN)
+        tmp = gamma_buf[o][lane]*cin_data + beta_buf[o][lane];
 
 
-      if (RELU6_EN && !BATCH_NORM_EN_DEPTH)
-       tmp = ((tmp)>((tmp*0.1))?(tmp):((tmp*0.1)));
-      else if (RELU_EN)
-       tmp = ((0)>(tmp)?(0):(tmp));
-      cout_buf[lane] = Reinterpret<ap_uint<32> >(tmp);
-# 3767 "kernel.cpp"
+       if (LINEAR_ACTIVATION_EN)
+        tmp = cin_data + beta_buf[o][lane];
+       else if(RELU6_EN && !BATCH_NORM_EN_DEPTH)
+        tmp = ((tmp)>((tmp*0.1))?(tmp):((tmp*0.1)));
+       else if (RELU_EN)
+        tmp = ((0)>(tmp)?(0):(tmp));
+       cout_buf[lane] = Reinterpret<ap_uint<32> >(tmp);
+      }
+# 11459 "kernel.cpp"
      }
 
 
@@ -28808,173 +28826,170 @@ void relu(
   }
  }
 }
-
-
-
-
-
-
+# 11863 "kernel.cpp"
 void pool(
-  hls::stream<ReluData0Type> &fifo_cin,
-  hls::stream<ConfigInst> &fifo_config_in,
-  hls::stream<PoolData0Type> &fifo_cout,
-  hls::stream<ConfigInst> &fifo_config_out
+ hls::stream<ReluData0Type> &fifo_cin,
+ hls::stream<ConfigInst> &fifo_config_in,
+ hls::stream<PoolData0Type> &fifo_cout,
+ hls::stream<ConfigInst> &fifo_config_out
 ){
 
- uint in_num_iter = 0;
- uint out_num_iter = 0;
- uint in_h_iter = 0;
- uint in_w_iter = 0;
- uint layer_iter = 0;
+
+uint in_num_iter = 0;
+uint out_num_iter = 0;
+uint in_h_iter = 0;
+uint in_w_iter = 0;
+uint layer_iter = 0;
 
 
- ConfigInst inst0 = fifo_config_in.read();
- fifo_config_out.write(inst0);
- ConfigInst inst1 = fifo_config_in.read();
- fifo_config_out.write(inst1);
- ConfigInst inst2 = fifo_config_in.read();
- fifo_config_out.write(inst2);
- ConfigInst inst3 = fifo_config_in.read();
- fifo_config_out.write(inst3);
- ConfigInst inst4 = fifo_config_in.read();
- fifo_config_out.write(inst4);
+ConfigInst inst0 = fifo_config_in.read();
+fifo_config_out.write(inst0);
+ConfigInst inst1 = fifo_config_in.read();
+fifo_config_out.write(inst1);
+ConfigInst inst2 = fifo_config_in.read();
+fifo_config_out.write(inst2);
+ConfigInst inst3 = fifo_config_in.read();
+fifo_config_out.write(inst3);
+ConfigInst inst4 = fifo_config_in.read();
+fifo_config_out.write(inst4);
 
- ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
+ap_uint<32> LAYER_BATCH = inst3(32*5+31, 32*5);
 
- bool layer_start = 0;
- bool done = 0;
- while(!done){
+bool layer_start = 0;
+bool done = 0;
+while(!done){
 
-  if (layer_start){
-   inst0 = fifo_config_in.read();
-   fifo_config_out.write(inst0);
-   inst1 = fifo_config_in.read();
-   fifo_config_out.write(inst1);
-   inst2 = fifo_config_in.read();
-   fifo_config_out.write(inst2);
-   inst3 = fifo_config_in.read();
-   fifo_config_out.write(inst3);
-   inst4 = fifo_config_in.read();
-   fifo_config_out.write(inst4);
+ if (layer_start){
+  inst0 = fifo_config_in.read();
+  fifo_config_out.write(inst0);
+  inst1 = fifo_config_in.read();
+  fifo_config_out.write(inst1);
+  inst2 = fifo_config_in.read();
+  fifo_config_out.write(inst2);
+  inst3 = fifo_config_in.read();
+  fifo_config_out.write(inst3);
+  inst4 = fifo_config_in.read();
+  fifo_config_out.write(inst4);
 
-   layer_start = 0;
-  }
-
-
-
-  ap_uint<32> LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
-  ap_uint<32> LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
-  ap_uint<32> LAYER_IN_H_HW = inst0(32*2+31, 32*2);
-  ap_uint<32> LAYER_IN_W_HW = inst0(32*3+31, 32*3);
-  ap_uint<32> LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
-  ap_uint<32> LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
-
-  ap_uint<32> LAYER_IN_NUM = inst1(32*0+31, 32*0);
-  ap_uint<32> LAYER_OUT_NUM = inst1(32*1+31, 32*1);
-  ap_uint<32> LAYER_IN_H = inst1(32*2+31, 32*2);
-  ap_uint<32> LAYER_IN_W = inst1(32*3+31, 32*3);
-  ap_uint<32> LAYER_OUT_H = inst1(32*4+31, 32*4);
-  ap_uint<32> LAYER_OUT_W = inst1(32*5+31, 32*5);
-
-  ap_uint<32> CIN_OFFSET = inst2(32*0+31, 32*0);
-  ap_uint<32> WEIGHT_OFFSET = inst2(32*1+31, 32*1);
-  ap_uint<32> BIAS_OFFSET = inst2(32*2+31, 32*2);
-  ap_uint<32> COUT_OFFSET = inst2(32*3+31, 32*3);
-  ap_uint<16> FILTER_S1 = inst2(32*4+15, 32*4);
-  ap_uint<16> FILTER_S2 = inst2(32*4+31, 32*4+16);
-  ap_uint<32> STRIDE = inst2(32*5+31, 32*5);
-
-  ap_uint<32> LAYER_EN = inst3(32*0+31, 32*0);
-  ap_uint<32> PREV_CIN_OFFSET = inst3(32*1+31, 32*1);
-  ap_uint<16> LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
-  ap_uint<16> LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
-  ap_uint<32> LAYER_IN_H_T = inst3(32*3+31, 32*3);
-  ap_uint<32> LAYER_IN_W_T = inst3(32*4+31, 32*4);
-
-  ap_uint<1> CONV_1ST_EN = LAYER_EN[0];
-  ap_uint<1> DEPTH_CONV_EN = LAYER_EN[1];
-  ap_uint<1> CONV_EN = LAYER_EN[2];
-  ap_uint<1> RELU_EN = LAYER_EN[3];
-  ap_uint<1> RELU6_EN = LAYER_EN[4];
-  ap_uint<1> POOL_EN = LAYER_EN[5];
-  ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
-  ap_uint<1> BIAS_EN = LAYER_EN[7];
+  layer_start = 0;
+ }
 
 
-  bool en = POOL_EN;
-  bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
-  bool conv2d = (DEPTH_CONV_EN == 0) && (CONV_EN == 1);
-  bool max_pool = (DEPTH_CONV_EN == 0) && (CONV_EN == 0);
 
-  switch(en){
+ ap_uint<32> LAYER_IN_NUM_HW = inst0(32*0+31, 32*0);
+ ap_uint<32> LAYER_OUT_NUM_HW = inst0(32*1+31, 32*1);
+ ap_uint<32> LAYER_IN_H_HW = inst0(32*2+31, 32*2);
+ ap_uint<32> LAYER_IN_W_HW = inst0(32*3+31, 32*3);
+ ap_uint<32> LAYER_OUT_H_HW = inst0(32*4+31, 32*4);
+ ap_uint<32> LAYER_OUT_W_HW = inst0(32*5+31, 32*5);
 
-  case 0:
-   if ((UP_SAMPLE_EN && out_num_iter == 0) || (!UP_SAMPLE_EN && in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM)){
-    int o = 0;
-    int h = 0;
-    int w = 0;
-    bool done1 = 0;
+ ap_uint<32> LAYER_IN_NUM = inst1(32*0+31, 32*0);
+ ap_uint<32> LAYER_OUT_NUM = inst1(32*1+31, 32*1);
+ ap_uint<32> LAYER_IN_H = inst1(32*2+31, 32*2);
+ ap_uint<32> LAYER_IN_W = inst1(32*3+31, 32*3);
+ ap_uint<32> LAYER_OUT_H = inst1(32*4+31, 32*4);
+ ap_uint<32> LAYER_OUT_W = inst1(32*5+31, 32*5);
 
-    int w_bound = LAYER_IN_W_T / STRIDE;
-    int h_bound = LAYER_IN_H_T / STRIDE;
+ ap_uint<32> CIN_OFFSET = inst2(32*0+31, 32*0);
+ ap_uint<32> WEIGHT_OFFSET = inst2(32*1+31, 32*1);
+ ap_uint<32> BIAS_OFFSET = inst2(32*2+31, 32*2);
+ ap_uint<32> COUT_OFFSET = inst2(32*3+31, 32*3);
+ ap_uint<16> FILTER_S1 = inst2(32*4+15, 32*4);
+ ap_uint<16> FILTER_S2 = inst2(32*4+31, 32*4+16);
+ ap_uint<32> STRIDE = inst2(32*5+31, 32*5);
 
-    while(!done1){
+ ap_uint<32> LAYER_EN = inst3(32*0+31, 32*0);
+ ap_uint<32> PREV_CIN_OFFSET = inst3(32*1+31, 32*1);
+ ap_uint<16> LAYER_IN_NUM_T = inst3(32*2+15, 32*2);
+ ap_uint<16> LAYER_OUT_NUM_T = inst3(32*2+31, 32*2+16);
+ ap_uint<32> LAYER_IN_H_T = inst3(32*3+31, 32*3);
+ ap_uint<32> LAYER_IN_W_T = inst3(32*4+31, 32*4);
+
+ ap_uint<1> CONV_1ST_EN = LAYER_EN[0];
+ ap_uint<1> DEPTH_CONV_EN = LAYER_EN[1];
+ ap_uint<1> CONV_EN = LAYER_EN[2];
+ ap_uint<1> RELU_EN = LAYER_EN[3];
+ ap_uint<1> RELU6_EN = LAYER_EN[4];
+ ap_uint<1> POOL_EN = LAYER_EN[5];
+ ap_uint<1> UP_SAMPLE_EN = LAYER_EN[6];
+ ap_uint<1> BIAS_EN = LAYER_EN[7];
+
+
+ bool en = POOL_EN;
+ bool separable_conv = (DEPTH_CONV_EN == 1) && (CONV_EN == 1);
+ bool conv2d = (DEPTH_CONV_EN == 0) && (CONV_EN == 1);
+ bool max_pool = (DEPTH_CONV_EN == 0) && (CONV_EN == 0);
+
+ switch(en){
+
+ case 0:
+
+  if ((UP_SAMPLE_EN && out_num_iter == 0) || (!UP_SAMPLE_EN && in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM)){
+   int o = 0;
+   int h = 0;
+   int w = 0;
+   bool done1 = 0;
+
+   int w_bound = LAYER_IN_W_T / STRIDE;
+   int h_bound = LAYER_IN_H_T / STRIDE;
+
+   while(!done1){
 #pragma HLS PIPELINE II=1
  PoolData0Type tmp = fifo_cin.read();
-     fifo_cout.write(tmp);
+    fifo_cout.write(tmp);
 
 
-     w++;
-     if (w == w_bound){
-      w = 0;
-      h++;
-      if (h == h_bound){
-       h = 0;
-       o++;
-       if (o == LAYER_OUT_NUM_T / (8)){
-        o = 0;
-        done1 = 1;
-       }
+    w++;
+    if (w == w_bound){
+     w = 0;
+     h++;
+     if (h == h_bound){
+      h = 0;
+      o++;
+      if (o == LAYER_OUT_NUM_T / (8)){
+       o = 0;
+       done1 = 1;
       }
      }
     }
    }
-   break;
-
-  case 1:
-   if ((max_pool && out_num_iter == 0) || (!max_pool && (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM))){
-    maxpool_w2 <data_t0, 13, 52, (8), 2, 32> (fifo_cin, fifo_cout, STRIDE, POOL_EN, LAYER_OUT_NUM_T, LAYER_IN_H_T);
-   }
-   break;
   }
+  break;
+
+ case 1:
+
+  if ((max_pool && out_num_iter == 0) || (!max_pool && (in_num_iter + LAYER_IN_NUM_T >= LAYER_IN_NUM))){
+   maxpool_w2 <data_t0, 12, 96, (8), 2, 32> (fifo_cin, fifo_cout, STRIDE, POOL_EN, LAYER_IN_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+  }
+  break;
+ }
 
 
-
-  in_num_iter += LAYER_IN_NUM_T;
-  if (in_num_iter >= LAYER_IN_NUM){
-   in_num_iter = 0;
-   in_h_iter += LAYER_IN_H_T;
-   if (in_h_iter >= LAYER_IN_H){
-    in_h_iter = 0;
-    in_w_iter += LAYER_IN_W_T;
-    if (in_w_iter >= LAYER_IN_W){
-     in_w_iter = 0;
-     out_num_iter += LAYER_OUT_NUM_T;
-     if (out_num_iter >= LAYER_OUT_NUM){
-      out_num_iter = 0;
-      layer_iter += 1;
-      layer_start = 1;
-      if (layer_iter == LAYER_BATCH){
-       layer_iter = 0;
-       done = 1;
-      }
+ in_num_iter += LAYER_IN_NUM_T;
+ if (in_num_iter >= LAYER_IN_NUM){
+  in_num_iter = 0;
+  in_h_iter += LAYER_IN_H_T;
+  if (in_h_iter >= LAYER_IN_H){
+   in_h_iter = 0;
+   in_w_iter += LAYER_IN_W_T;
+   if (in_w_iter >= LAYER_IN_W){
+    in_w_iter = 0;
+    out_num_iter += LAYER_OUT_NUM_T;
+    if (out_num_iter >= LAYER_OUT_NUM){
+     out_num_iter = 0;
+     layer_iter += 1;
+     layer_start = 1;
+     if (layer_iter == LAYER_BATCH){
+      layer_iter = 0;
+      done = 1;
      }
     }
    }
   }
  }
 }
-# 4177 "kernel.cpp"
+}
+# 12201 "kernel.cpp"
 void upsample(
   hls::stream<ReluData0Type> &fifo_cin,
   hls::stream<ConfigInst> &fifo_config_in,
@@ -29109,7 +29124,7 @@ void upsample(
 
   case 1:
 
-    upsample_w2 <data_t0, 13, 24, (8), 2, 32> (fifo_cin, fifo_cout, fifo_cout2, STRIDE, en, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
+    upsample_w2 <data_t0, 12, 24, (8), 2, 32> (fifo_cin, fifo_cout, fifo_cout2, STRIDE, en, LAYER_OUT_NUM_T, LAYER_IN_H_T, LAYER_IN_W_T);
 
    break;
   }
@@ -29140,7 +29155,7 @@ void upsample(
   }
  }
 }
-# 4351 "kernel.cpp"
+# 12375 "kernel.cpp"
 void merge_upsample(
   hls::stream<PoolData0Type> &fifo_cin,
     hls::stream<PoolData0Type> &fifo_cin2,
@@ -29289,7 +29304,7 @@ void merge_upsample(
      else
       tmp = fifo_cin2.read();
      fifo_cout.write(tmp);
-# 4509 "kernel.cpp"
+# 12533 "kernel.cpp"
      w++;
      if (w == w_bound){
       w = 0;
@@ -29335,7 +29350,7 @@ void merge_upsample(
   }
  }
 }
-# 4809 "kernel.cpp"
+# 12833 "kernel.cpp"
 void cout_write_fifo_read(
   bus_t0 cout_burst_buf[],
   hls::stream<PoolData0Type> &fifo_cout,
@@ -29349,7 +29364,8 @@ void cout_write_fifo_read(
   uint LAYER_IN_H_T,
   uint LAYER_IN_W_T,
   uint in_h_iter,
-  uint in_w_iter
+  uint in_w_iter,
+  bool POOL_ODD
 ){
  PoolData0Type cout_buf[((512 / 32) / 8)];
 #pragma HLS ARRAY_PARTITION variable=&cout_buf complete
@@ -29361,7 +29377,7 @@ void cout_write_fifo_read(
 
  uint write = 0;
 
- if (en == 0 && up_sample == 0) write = 0;
+ if (en == 0 && up_sample == 0 || POOL_ODD == 1) write = 0;
  else if (en == 1 && up_sample == 0) write = 1;
  else if (up_sample == 1) write = 2;
 
@@ -29395,7 +29411,7 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4879 "kernel.cpp"
+# 12904 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
 
@@ -29443,7 +29459,7 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4937 "kernel.cpp"
+# 12962 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
 
@@ -29491,11 +29507,11 @@ void cout_write_fifo_read(
 
 
      cout_buf[1], cout_buf[0]
-# 4995 "kernel.cpp"
+# 13020 "kernel.cpp"
    );
    cout_burst_buf[local_cout_idx / (512 / 32)] = wide_pack;
    num++;
-# 5008 "kernel.cpp"
+# 13033 "kernel.cpp"
    w++;
    if (w == LAYER_IN_W_T * 2){
     w = 0;
@@ -29540,12 +29556,13 @@ void cout_write_ddr_write(
   uint ind_w,
   uint cout_offset,
   bool change_layout,
-  bool run
+  bool run,
+  bool POOL_ODD
 ){
 
  uint write = 0;
  if (up_sample == 1) write = 2;
- else if (en == 0) write = 0;
+ else if (en == 0 || POOL_ODD == 1) write = 0;
  else if (en == 1) write = 1;
 
 
@@ -29639,8 +29656,8 @@ void cout_write(
   hls::stream<ConfigInst> &fifo_config_in,
   bus_t0 *global_cout
 ){
- bus_t0 cout_burst_buf_ping[13 * 52 * 64 * 3 / 2 / (512 / 32)];
- bus_t0 cout_burst_buf_pong[13 * 52 * 64 * 3 / 2 / (512 / 32)];
+ bus_t0 cout_burst_buf_ping[12 * 96 * 64 * 3 / 2 / (512 / 32)];
+ bus_t0 cout_burst_buf_pong[12 * 96 * 64 * 3 / 2 / (512 / 32)];
 #pragma HLS RESOURCE variable=&cout_burst_buf_ping core=XPM_MEMORY uram
 #pragma HLS RESOURCE variable=&cout_burst_buf_pong core=XPM_MEMORY uram
 
@@ -29696,6 +29713,7 @@ void cout_write(
  ap_uint<1> BIAS_EN;
  ap_uint<1> INTER_LOAD_EN;
  ap_uint<1> INTER_WRITE_EN;
+ ap_uint<1> POOL_ODD;
 
 
  ConfigInst inst0 = fifo_config_in.read();
@@ -29785,6 +29803,8 @@ void cout_write(
   BIAS_EN = LAYER_EN[7];
   INTER_LOAD_EN = LAYER_EN[8];
   INTER_WRITE_EN = LAYER_EN[9];
+  POOL_ODD = LAYER_EN[13];
+
 
 
   cout_offset = COUT_OFFSET;
@@ -29805,7 +29825,7 @@ void cout_write(
       LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
       LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
       LAYER_IN_H_T, LAYER_IN_W_T,
-      in_h_iter, in_w_iter
+      in_h_iter, in_w_iter, POOL_ODD
     );
    } else {
 
@@ -29815,7 +29835,7 @@ void cout_write(
        LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
        LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
        LAYER_IN_H_T, LAYER_IN_W_T,
-       in_h_iter, in_w_iter
+       in_h_iter, in_w_iter, POOL_ODD
      );
 
      cout_write_ddr_write(
@@ -29831,7 +29851,7 @@ void cout_write(
        ind_w_prev,
        cout_offset_prev,
        change_layout_prev,
-       !write_done
+       !write_done, POOL_ODD
      );
     } else {
      cout_write_fifo_read(
@@ -29839,7 +29859,7 @@ void cout_write(
        LAYER_IN_NUM, LAYER_OUT_H, LAYER_OUT_W,
        LAYER_IN_NUM_T, LAYER_OUT_NUM_T,
        LAYER_IN_H_T, LAYER_IN_W_T,
-       in_h_iter, in_w_iter
+       in_h_iter, in_w_iter, POOL_ODD
      );
 
      cout_write_ddr_write(
@@ -29855,7 +29875,7 @@ void cout_write(
        ind_w_prev,
        cout_offset_prev,
        change_layout_prev,
-       !write_done
+       !write_done, POOL_ODD
      );
     }
    }
@@ -29982,7 +30002,7 @@ void cout_write(
      ind_w_prev,
      cout_offset_prev,
      change_layout_prev,
-     !write_done
+     !write_done, POOL_ODD
    );
   } else {
    cout_write_ddr_write(
@@ -29998,12 +30018,12 @@ void cout_write(
      ind_w_prev,
      cout_offset_prev,
      change_layout_prev,
-     !write_done
+     !write_done, POOL_ODD
    );
   }
  }
 }
-# 5523 "kernel.cpp"
+# 13552 "kernel.cpp"
 void engine(
   bus_t0 *global_cin,
   bus_t0 *global_prev_cin,
@@ -30012,9 +30032,11 @@ void engine(
   bus_t0 *global_cout,
   uint config[32]
 
+  , uint layer_id
+
 ){_ssdm_SpecArrayDimSize(config, 32);
 #pragma HLS DATAFLOW
-# 5544 "kernel.cpp"
+# 13575 "kernel.cpp"
  hls::stream<CinLoadData0Type> fifo_cin_load_0;
 #pragma HLS STREAM variable=&fifo_cin_load_0 depth=128
 
@@ -30025,7 +30047,7 @@ void engine(
  hls::stream<WeightLoadData1Type> fifo_weight_load_1;
 #pragma HLS STREAM variable=&fifo_weight_load_0 depth=64
 #pragma HLS STREAM variable=&fifo_weight_load_1 depth=64
-# 5572 "kernel.cpp"
+# 13603 "kernel.cpp"
  hls::stream<ConvData0Type> fifo_conv_0;
 #pragma HLS STREAM variable=&fifo_conv_0 depth=64
 
@@ -30043,7 +30065,7 @@ void engine(
 
  hls::stream<PoolData0Type> fifo_pool_0;
 #pragma HLS STREAM variable=&fifo_pool_0 depth=64
-# 5622 "kernel.cpp"
+# 13653 "kernel.cpp"
  hls::stream<CinLoadData0Type> fifo_cin_prev_0;
 #pragma HLS STREAM variable=&fifo_cin_prev_0 depth=4096
 
@@ -30091,10 +30113,12 @@ void engine(
 #pragma HLS STREAM variable=&config_data_write depth=16
 
 
+ layer_id++;
 
 
 
 
+ cout << "start" << endl;
 
  cin_load(
    global_cin,
@@ -30102,7 +30126,9 @@ void engine(
    fifo_cin_load_0,
    config_weight_load
  );
-# 5713 "kernel.cpp"
+
+ cout << "passed cin load" << endl;
+# 13746 "kernel.cpp"
  weight_load(
    global_weight, global_bias,
    config_weight_load,
@@ -30111,7 +30137,7 @@ void engine(
    config_conv
  );
 
-
+ cout << "passed weight load" << endl;
 
 
  conv(
@@ -30120,7 +30146,9 @@ void engine(
    fifo_conv_0,
    config_relu
  );
-# 5757 "kernel.cpp"
+
+ cout << "passed conv" << endl;
+# 13792 "kernel.cpp"
  relu(
    fifo_conv_0,
    config_relu,
@@ -30128,7 +30156,9 @@ void engine(
    config_pool,
    fifo_beta_conv, fifo_gamma_conv
  );
-# 5800 "kernel.cpp"
+
+ cout << "passed relu" << endl;
+# 13853 "kernel.cpp"
  pool(
    fifo_relu_0,
    config_pool,
@@ -30136,7 +30166,9 @@ void engine(
    config_data_write
 
  );
-# 5874 "kernel.cpp"
+# 13871 "kernel.cpp"
+ cout << "passed pool" << endl;
+# 13928 "kernel.cpp"
  cout_write(
 
 
@@ -30145,7 +30177,7 @@ void engine(
    global_cout
  );
 
-
+ cout << "passed cout write" << endl;
 
 
 }
@@ -30184,8 +30216,8 @@ extern "C" {
   unsigned int config[32 * 1];
   int cur_layer_batch = 1;
   int nxt_layer_batch = 1;
-  int layer_id = 0;
-  while(layer_id < 5){
+  int layer_id = 10;
+  while(layer_id < 15){
    cur_layer_batch = nxt_layer_batch;
 
 
@@ -30195,7 +30227,13 @@ extern "C" {
    config[26 - 1] = cur_layer_batch;
 
 
-   engine(global_cin, global_prev_cin, global_weight, global_bias, global_cout, config);
+    cout<<"---------------LAYER "<<layer_id+1<<"----------------"<<endl;
+
+   engine(global_cin, global_prev_cin, global_weight, global_bias, global_cout, config
+
+   , layer_id
+
+   );
 
    layer_id += 1;
   }

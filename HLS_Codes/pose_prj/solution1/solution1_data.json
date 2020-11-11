@@ -50,7 +50,7 @@
       "impl\/vhdl\/conv.vhd",
       "impl\/vhdl\/conv_core.vhd",
       "impl\/vhdl\/cout_write.vhd",
-      "impl\/vhdl\/cout_write_cout_bWhU.vhd",
+      "impl\/vhdl\/cout_write_cout_bXh4.vhd",
       "impl\/vhdl\/cout_write_ddr_write.vhd",
       "impl\/vhdl\/cout_write_fifo_read.vhd",
       "impl\/vhdl\/engine.vhd",
@@ -69,7 +69,7 @@
       "impl\/vhdl\/relu.vhd",
       "impl\/vhdl\/relu_beta_buf_0.vhd",
       "impl\/vhdl\/start_for_conv_U0.vhd",
-      "impl\/vhdl\/start_for_cout_wrYie.vhd",
+      "impl\/vhdl\/start_for_cout_wrZio.vhd",
       "impl\/vhdl\/start_for_pool_U0.vhd",
       "impl\/vhdl\/start_for_relu_U0.vhd",
       "impl\/vhdl\/top_kernel_ama_adpcA.vhd",
@@ -86,17 +86,16 @@
       "impl\/vhdl\/top_kernel_gmem1_m_axi.vhd",
       "impl\/vhdl\/top_kernel_gmem2_m_axi.vhd",
       "impl\/vhdl\/top_kernel_mul_13Ee0.vhd",
-      "impl\/vhdl\/top_kernel_mul_13OgC.vhd",
       "impl\/vhdl\/top_kernel_mul_16cud.vhd",
       "impl\/vhdl\/top_kernel_mul_16dEe.vhd",
+      "impl\/vhdl\/top_kernel_mul_19WhU.vhd",
       "impl\/vhdl\/top_kernel_mul_29Ffa.vhd",
-      "impl\/vhdl\/top_kernel_mul_31Shg.vhd",
+      "impl\/vhdl\/top_kernel_mul_31Thq.vhd",
       "impl\/vhdl\/top_kernel_mul_32bkb.vhd",
       "impl\/vhdl\/top_kernel_mul_32eOg.vhd",
       "impl\/vhdl\/top_kernel_mul_32g8j.vhd",
-      "impl\/vhdl\/top_kernel_mul_32Ngs.vhd",
-      "impl\/vhdl\/top_kernel_mul_32PgM.vhd",
-      "impl\/vhdl\/top_kernel_mul_32UhA.vhd",
+      "impl\/vhdl\/top_kernel_mul_32OgC.vhd",
+      "impl\/vhdl\/top_kernel_mul_32VhK.vhd",
       "impl\/vhdl\/top_kernel_mul_34DeQ.vhd",
       "impl\/vhdl\/top_kernel_mul_45Gfk.vhd",
       "impl\/vhdl\/top_kernel_mul_muhbi.vhd",
@@ -104,12 +103,14 @@
       "impl\/vhdl\/top_kernel_mul_muocq.vhd",
       "impl\/vhdl\/top_kernel_mul_muqcK.vhd",
       "impl\/vhdl\/top_kernel_mul_muudo.vhd",
-      "impl\/vhdl\/top_kernel_mul_muVhK.vhd",
       "impl\/vhdl\/top_kernel_mux_83tde.vhd",
+      "impl\/vhdl\/top_kernel_mux_97Rg6.vhd",
       "impl\/vhdl\/top_kernel_udiv_3kbM.vhd",
-      "impl\/vhdl\/top_kernel_udiv_3Thq.vhd",
-      "impl\/vhdl\/top_kernel_urem_2Rg6.vhd",
-      "impl\/vhdl\/top_kernel_urem_3QgW.vhd",
+      "impl\/vhdl\/top_kernel_udiv_3Ngs.vhd",
+      "impl\/vhdl\/top_kernel_udiv_3QgW.vhd",
+      "impl\/vhdl\/top_kernel_udiv_3UhA.vhd",
+      "impl\/vhdl\/top_kernel_urem_3PgM.vhd",
+      "impl\/vhdl\/top_kernel_urem_3Shg.vhd",
       "impl\/vhdl\/top_kernel_urem_5fYi.vhd",
       "impl\/vhdl\/weight_load.vhd",
       "impl\/vhdl\/weight_load_beta_mb6.vhd",
@@ -126,7 +127,7 @@
       "impl\/verilog\/conv.v",
       "impl\/verilog\/conv_core.v",
       "impl\/verilog\/cout_write.v",
-      "impl\/verilog\/cout_write_cout_bWhU.v",
+      "impl\/verilog\/cout_write_cout_bXh4.v",
       "impl\/verilog\/cout_write_ddr_write.v",
       "impl\/verilog\/cout_write_fifo_read.v",
       "impl\/verilog\/engine.v",
@@ -145,7 +146,7 @@
       "impl\/verilog\/relu.v",
       "impl\/verilog\/relu_beta_buf_0.v",
       "impl\/verilog\/start_for_conv_U0.v",
-      "impl\/verilog\/start_for_cout_wrYie.v",
+      "impl\/verilog\/start_for_cout_wrZio.v",
       "impl\/verilog\/start_for_pool_U0.v",
       "impl\/verilog\/start_for_relu_U0.v",
       "impl\/verilog\/top_kernel_ama_adpcA.v",
@@ -162,17 +163,16 @@
       "impl\/verilog\/top_kernel_gmem1_m_axi.v",
       "impl\/verilog\/top_kernel_gmem2_m_axi.v",
       "impl\/verilog\/top_kernel_mul_13Ee0.v",
-      "impl\/verilog\/top_kernel_mul_13OgC.v",
       "impl\/verilog\/top_kernel_mul_16cud.v",
       "impl\/verilog\/top_kernel_mul_16dEe.v",
+      "impl\/verilog\/top_kernel_mul_19WhU.v",
       "impl\/verilog\/top_kernel_mul_29Ffa.v",
-      "impl\/verilog\/top_kernel_mul_31Shg.v",
+      "impl\/verilog\/top_kernel_mul_31Thq.v",
       "impl\/verilog\/top_kernel_mul_32bkb.v",
       "impl\/verilog\/top_kernel_mul_32eOg.v",
       "impl\/verilog\/top_kernel_mul_32g8j.v",
-      "impl\/verilog\/top_kernel_mul_32Ngs.v",
-      "impl\/verilog\/top_kernel_mul_32PgM.v",
-      "impl\/verilog\/top_kernel_mul_32UhA.v",
+      "impl\/verilog\/top_kernel_mul_32OgC.v",
+      "impl\/verilog\/top_kernel_mul_32VhK.v",
       "impl\/verilog\/top_kernel_mul_34DeQ.v",
       "impl\/verilog\/top_kernel_mul_45Gfk.v",
       "impl\/verilog\/top_kernel_mul_muhbi.v",
@@ -180,12 +180,14 @@
       "impl\/verilog\/top_kernel_mul_muocq.v",
       "impl\/verilog\/top_kernel_mul_muqcK.v",
       "impl\/verilog\/top_kernel_mul_muudo.v",
-      "impl\/verilog\/top_kernel_mul_muVhK.v",
       "impl\/verilog\/top_kernel_mux_83tde.v",
+      "impl\/verilog\/top_kernel_mux_97Rg6.v",
       "impl\/verilog\/top_kernel_udiv_3kbM.v",
-      "impl\/verilog\/top_kernel_udiv_3Thq.v",
-      "impl\/verilog\/top_kernel_urem_2Rg6.v",
-      "impl\/verilog\/top_kernel_urem_3QgW.v",
+      "impl\/verilog\/top_kernel_udiv_3Ngs.v",
+      "impl\/verilog\/top_kernel_udiv_3QgW.v",
+      "impl\/verilog\/top_kernel_udiv_3UhA.v",
+      "impl\/verilog\/top_kernel_urem_3PgM.v",
+      "impl\/verilog\/top_kernel_urem_3Shg.v",
       "impl\/verilog\/top_kernel_urem_5fYi.v",
       "impl\/verilog\/weight_load.v",
       "impl\/verilog\/weight_load_beta_mb6.v",
@@ -2316,7 +2318,7 @@
       "ModuleName": "top_kernel",
       "Instances": [{
           "ModuleName": "engine",
-          "InstanceName": "grp_engine_fu_228",
+          "InstanceName": "grp_engine_fu_229",
           "Instances": [
             {
               "ModuleName": "pool",
@@ -2327,22 +2329,22 @@
                 }]
             },
             {
+              "ModuleName": "relu",
+              "InstanceName": "relu_U0"
+            },
+            {
               "ModuleName": "cout_write",
               "InstanceName": "cout_write_U0",
               "Instances": [
                 {
                   "ModuleName": "cout_write_ddr_write",
-                  "InstanceName": "grp_cout_write_ddr_write_fu_371"
+                  "InstanceName": "grp_cout_write_ddr_write_fu_385"
                 },
                 {
                   "ModuleName": "cout_write_fifo_read",
-                  "InstanceName": "grp_cout_write_fifo_read_fu_394"
+                  "InstanceName": "grp_cout_write_fifo_read_fu_410"
                 }
               ]
-            },
-            {
-              "ModuleName": "relu",
-              "InstanceName": "relu_U0"
             },
             {
               "ModuleName": "cin_load13",
@@ -2366,7 +2368,7 @@
                   "InstanceName": "grp_kernel_fu_248",
                   "Instances": [{
                       "ModuleName": "conv_core",
-                      "InstanceName": "grp_conv_core_fu_869"
+                      "InstanceName": "grp_conv_core_fu_866"
                     }]
                 }]
             },
@@ -2432,8 +2434,8 @@
         "Area": {
           "BRAM_18K": "0",
           "DSP48E": "33",
-          "FF": "13622",
-          "LUT": "7770"
+          "FF": "13654",
+          "LUT": "7721"
         }
       },
       "cin_load_fifo_write": {
@@ -2488,9 +2490,9 @@
         "Area": {
           "BRAM_18K": "0",
           "DSP48E": "42",
-          "FF": "20062",
-          "LUT": "12293",
-          "URAM": "16"
+          "FF": "20094",
+          "LUT": "12244",
+          "URAM": "32"
         }
       },
       "weight_load_conv_wei": {
@@ -2683,8 +2685,8 @@
           }],
         "Area": {
           "DSP48E": "7",
-          "FF": "3457",
-          "LUT": "2620",
+          "FF": "3452",
+          "LUT": "3975",
           "BRAM_18K": "0"
         }
       },
@@ -2768,10 +2770,10 @@
             ]
           }],
         "Area": {
-          "BRAM_18K": "384",
+          "BRAM_18K": "640",
           "DSP48E": "17",
-          "FF": "11316",
-          "LUT": "8953"
+          "FF": "11250",
+          "LUT": "10278"
         }
       },
       "conv": {
@@ -2810,10 +2812,10 @@
               }]
           }],
         "Area": {
-          "BRAM_18K": "384",
+          "BRAM_18K": "640",
           "DSP48E": "17",
-          "FF": "12279",
-          "LUT": "10566"
+          "FF": "12213",
+          "LUT": "11891"
         }
       },
       "relu": {
@@ -2862,9 +2864,9 @@
           }],
         "Area": {
           "BRAM_18K": "34",
-          "DSP48E": "128",
-          "FF": "23923",
-          "LUT": "16600"
+          "DSP48E": "144",
+          "FF": "30624",
+          "LUT": "21632"
         }
       },
       "maxpool_w2": {
@@ -2886,13 +2888,13 @@
             "TripCount": "",
             "Latency": "",
             "PipelineII": "1",
-            "PipelineDepth": "41"
+            "PipelineDepth": "111"
           }],
         "Area": {
           "BRAM_18K": "0",
-          "DSP48E": "7",
-          "FF": "26701",
-          "LUT": "10640"
+          "DSP48E": "5",
+          "FF": "45029",
+          "LUT": "20668"
         }
       },
       "pool": {
@@ -2925,9 +2927,9 @@
           }],
         "Area": {
           "BRAM_18K": "0",
-          "DSP48E": "7",
-          "FF": "29221",
-          "LUT": "12919"
+          "DSP48E": "5",
+          "FF": "47549",
+          "LUT": "22947"
         }
       },
       "cout_write_fifo_read": {
@@ -2970,8 +2972,8 @@
         "Area": {
           "BRAM_18K": "0",
           "DSP48E": "15",
-          "FF": "5177",
-          "LUT": "6064"
+          "FF": "5180",
+          "LUT": "6074"
         }
       },
       "cout_write_ddr_write": {
@@ -3063,8 +3065,8 @@
         "Area": {
           "BRAM_18K": "0",
           "DSP48E": "63",
-          "FF": "11242",
-          "LUT": "6809"
+          "FF": "11346",
+          "LUT": "6817"
         }
       },
       "cout_write": {
@@ -3091,9 +3093,9 @@
         "Area": {
           "BRAM_18K": "0",
           "DSP48E": "78",
-          "FF": "20908",
-          "LUT": "14902",
-          "URAM": "16"
+          "FF": "20985",
+          "LUT": "14935",
+          "URAM": "32"
         }
       },
       "engine": {
@@ -3111,11 +3113,11 @@
           "Estimate": "5.349"
         },
         "Area": {
-          "BRAM_18K": "578",
-          "DSP48E": "293",
-          "FF": "122713",
-          "LUT": "74571",
-          "URAM": "56"
+          "BRAM_18K": "834",
+          "DSP48E": "307",
+          "FF": "147785",
+          "LUT": "90940",
+          "URAM": "88"
         }
       },
       "top_kernel": {
@@ -3149,11 +3151,11 @@
               }]
           }],
         "Area": {
-          "BRAM_18K": "586",
-          "DSP48E": "293",
-          "FF": "125322",
-          "LUT": "77566",
-          "URAM": "56"
+          "BRAM_18K": "842",
+          "DSP48E": "307",
+          "FF": "150396",
+          "LUT": "93937",
+          "URAM": "88"
         }
       }
     }
@@ -3168,7 +3170,7 @@
   },
   "GenData": {
     "DataVersion": "0.1",
-    "Time": "2020-11-05 03:56:04 -0600",
+    "Time": "2020-11-10 23:51:17 -0600",
     "ToolName": "vivado_hls",
     "ToolVersion": "2018.3"
   }

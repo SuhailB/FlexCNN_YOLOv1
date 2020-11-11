@@ -3,7 +3,7 @@
 ================================================================
 == Vivado HLS Report for 'weight_load_bias_wri'
 ================================================================
-* Date:           Thu Nov  5 03:53:59 2020
+* Date:           Tue Nov 10 23:49:04 2020
 
 * Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
 * Project:        pose_prj
@@ -100,60 +100,60 @@ IsGatedGlobalClock: 0
 
 State 1 <SV = 0> <Delay = 1.51>
 ST_1 : Operation 8 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecInterface(i256* %fifo_bias_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 8 'specinterface' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 9 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([4 x i512]* %bias_burst_buf_V, [1 x i8]* @p_str112, [11 x i8]* @p_str314, [1 x i8]* @p_str112, i32 -1, [1 x i8]* @p_str112, [1 x i8]* @p_str112, [5 x i8]* @p_str415, [5 x i8]* @p_str516, [1 x i8]* @p_str112)"   --->   Operation 9 'specmemcore' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%in_num_iter_read = call i32 @_ssdm_op_Read.ap_auto.i32(i32 %in_num_iter)" [kernel.cpp:1314]   --->   Operation 10 'read' 'in_num_iter_read' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%inst3_V_read = call i192 @_ssdm_op_Read.ap_auto.i192(i192 %inst3_V)" [kernel.cpp:1314]   --->   Operation 11 'read' 'inst3_V_read' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%inst1_V_read = call i192 @_ssdm_op_Read.ap_auto.i192(i192 %inst1_V)" [kernel.cpp:1314]   --->   Operation 12 'read' 'inst1_V_read' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%LAYER_IN_NUM_V = trunc i192 %inst1_V_read to i32" [kernel.cpp:1331]   --->   Operation 13 'trunc' 'LAYER_IN_NUM_V' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%LAYER_IN_NUM_T_V = call i16 @_ssdm_op_PartSelect.i16.i192.i32.i32(i192 %inst3_V_read, i32 64, i32 79)" [kernel.cpp:1348]   --->   Operation 14 'partselect' 'LAYER_IN_NUM_T_V' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%tmp = call i1 @_ssdm_op_BitSelect.i1.i192.i32(i192 %inst3_V_read, i32 2)" [kernel.cpp:1361]   --->   Operation 15 'bitselect' 'tmp' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 16 [1/1] (0.00ns)   --->   "br i1 %tmp, label %1, label %._crit_edge" [kernel.cpp:1361]   --->   Operation 16 'br' <Predicate = true> <Delay = 0.00>
-ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%lhs_V = zext i32 %in_num_iter_read to i33" [kernel.cpp:1362]   --->   Operation 17 'zext' 'lhs_V' <Predicate = (tmp)> <Delay = 0.00>
-ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%rhs_V = zext i16 %LAYER_IN_NUM_T_V to i33" [kernel.cpp:1362]   --->   Operation 18 'zext' 'rhs_V' <Predicate = (tmp)> <Delay = 0.00>
-ST_1 : Operation 19 [1/1] (1.51ns)   --->   "%ret_V = add i33 %lhs_V, %rhs_V" [kernel.cpp:1362]   --->   Operation 19 'add' 'ret_V' <Predicate = (tmp)> <Delay = 1.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.32> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([4 x i512]* %bias_burst_buf_V, [1 x i8]* @p_str115, [11 x i8]* @p_str317, [1 x i8]* @p_str115, i32 -1, [1 x i8]* @p_str115, [1 x i8]* @p_str115, [5 x i8]* @p_str418, [5 x i8]* @p_str519, [1 x i8]* @p_str115)"   --->   Operation 9 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%in_num_iter_read = call i32 @_ssdm_op_Read.ap_auto.i32(i32 %in_num_iter)" [kernel.cpp:8995]   --->   Operation 10 'read' 'in_num_iter_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%inst3_V_read = call i192 @_ssdm_op_Read.ap_auto.i192(i192 %inst3_V)" [kernel.cpp:8995]   --->   Operation 11 'read' 'inst3_V_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%inst1_V_read = call i192 @_ssdm_op_Read.ap_auto.i192(i192 %inst1_V)" [kernel.cpp:8995]   --->   Operation 12 'read' 'inst1_V_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%LAYER_IN_NUM_V = trunc i192 %inst1_V_read to i32" [kernel.cpp:9012]   --->   Operation 13 'trunc' 'LAYER_IN_NUM_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [1/1] (0.00ns)   --->   "%LAYER_IN_NUM_T_V = call i16 @_ssdm_op_PartSelect.i16.i192.i32.i32(i192 %inst3_V_read, i32 64, i32 79)" [kernel.cpp:9029]   --->   Operation 14 'partselect' 'LAYER_IN_NUM_T_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%tmp = call i1 @_ssdm_op_BitSelect.i1.i192.i32(i192 %inst3_V_read, i32 2)" [kernel.cpp:9042]   --->   Operation 15 'bitselect' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "br i1 %tmp, label %1, label %._crit_edge" [kernel.cpp:9042]   --->   Operation 16 'br' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%lhs_V = zext i32 %in_num_iter_read to i33" [kernel.cpp:9043]   --->   Operation 17 'zext' 'lhs_V' <Predicate = (tmp)> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.00ns)   --->   "%rhs_V = zext i16 %LAYER_IN_NUM_T_V to i33" [kernel.cpp:9043]   --->   Operation 18 'zext' 'rhs_V' <Predicate = (tmp)> <Delay = 0.00>
+ST_1 : Operation 19 [1/1] (1.51ns)   --->   "%ret_V = add i33 %lhs_V, %rhs_V" [kernel.cpp:9043]   --->   Operation 19 'add' 'ret_V' <Predicate = (tmp)> <Delay = 1.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.32> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
 
 State 2 <SV = 1> <Delay = 1.75>
-ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%tmp_s = zext i32 %LAYER_IN_NUM_V to i33" [kernel.cpp:1362]   --->   Operation 20 'zext' 'tmp_s' <Predicate = true> <Delay = 0.00>
-ST_2 : Operation 21 [1/1] (1.26ns)   --->   "%tmp_11 = icmp ult i33 %ret_V, %tmp_s" [kernel.cpp:1362]   --->   Operation 21 'icmp' 'tmp_11' <Predicate = true> <Delay = 1.26> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
-ST_2 : Operation 22 [1/1] (0.00ns)   --->   "br i1 %tmp_11, label %.loopexit, label %2" [kernel.cpp:1362]   --->   Operation 22 'br' <Predicate = true> <Delay = 0.00>
-ST_2 : Operation 23 [1/1] (0.00ns)   --->   "%tmp_12 = call i13 @_ssdm_op_PartSelect.i13.i192.i32.i32(i192 %inst3_V_read, i32 83, i32 95)" [kernel.cpp:1363]   --->   Operation 23 'partselect' 'tmp_12' <Predicate = (!tmp_11)> <Delay = 0.00>
-ST_2 : Operation 24 [1/1] (0.85ns)   --->   "br label %3" [kernel.cpp:1363]   --->   Operation 24 'br' <Predicate = (!tmp_11)> <Delay = 0.85>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%tmp_s = zext i32 %LAYER_IN_NUM_V to i33" [kernel.cpp:9043]   --->   Operation 20 'zext' 'tmp_s' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 21 [1/1] (1.26ns)   --->   "%tmp_11 = icmp ult i33 %ret_V, %tmp_s" [kernel.cpp:9043]   --->   Operation 21 'icmp' 'tmp_11' <Predicate = true> <Delay = 1.26> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 22 [1/1] (0.00ns)   --->   "br i1 %tmp_11, label %.loopexit, label %2" [kernel.cpp:9043]   --->   Operation 22 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 23 [1/1] (0.00ns)   --->   "%tmp_12 = call i13 @_ssdm_op_PartSelect.i13.i192.i32.i32(i192 %inst3_V_read, i32 83, i32 95)" [kernel.cpp:9044]   --->   Operation 23 'partselect' 'tmp_12' <Predicate = (!tmp_11)> <Delay = 0.00>
+ST_2 : Operation 24 [1/1] (0.85ns)   --->   "br label %3" [kernel.cpp:9044]   --->   Operation 24 'br' <Predicate = (!tmp_11)> <Delay = 0.85>
 
 State 3 <SV = 2> <Delay = 2.26>
 ST_3 : Operation 25 [1/1] (0.00ns)   --->   "%i_op_assign = phi i13 [ 0, %2 ], [ %oo, %._crit_edge1 ]"   --->   Operation 25 'phi' 'i_op_assign' <Predicate = true> <Delay = 0.00>
-ST_3 : Operation 26 [1/1] (1.06ns)   --->   "%exitcond = icmp eq i13 %i_op_assign, %tmp_12" [kernel.cpp:1363]   --->   Operation 26 'icmp' 'exitcond' <Predicate = true> <Delay = 1.06> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
-ST_3 : Operation 27 [1/1] (1.32ns)   --->   "%oo = add i13 %i_op_assign, 1" [kernel.cpp:1363]   --->   Operation 27 'add' 'oo' <Predicate = true> <Delay = 1.32> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.32> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
-ST_3 : Operation 28 [1/1] (0.00ns)   --->   "br i1 %exitcond, label %.loopexit.loopexit, label %4" [kernel.cpp:1363]   --->   Operation 28 'br' <Predicate = true> <Delay = 0.00>
-ST_3 : Operation 29 [1/1] (0.00ns)   --->   "%bus_b_offset = trunc i13 %i_op_assign to i1" [kernel.cpp:1363]   --->   Operation 29 'trunc' 'bus_b_offset' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_3 : Operation 30 [1/1] (0.00ns)   --->   "%bus_b_idx = call i12 @_ssdm_op_PartSelect.i12.i13.i32.i32(i13 %i_op_assign, i32 1, i32 12)" [kernel.cpp:1366]   --->   Operation 30 'partselect' 'bus_b_idx' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_3 : Operation 31 [1/1] (0.00ns)   --->   "%tmp_14 = zext i12 %bus_b_idx to i64" [kernel.cpp:1368]   --->   Operation 31 'zext' 'tmp_14' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_3 : Operation 32 [1/1] (0.00ns)   --->   "%bias_burst_buf_V_add = getelementptr [4 x i512]* %bias_burst_buf_V, i64 0, i64 %tmp_14" [kernel.cpp:1368]   --->   Operation 32 'getelementptr' 'bias_burst_buf_V_add' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_3 : Operation 33 [3/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:1368]   --->   Operation 33 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
-ST_3 : Operation 34 [1/1] (0.00ns)   --->   "br i1 %bus_b_offset, label %6, label %5" [kernel.cpp:1377]   --->   Operation 34 'br' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_3 : Operation 26 [1/1] (1.06ns)   --->   "%exitcond = icmp eq i13 %i_op_assign, %tmp_12" [kernel.cpp:9044]   --->   Operation 26 'icmp' 'exitcond' <Predicate = true> <Delay = 1.06> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 1.06> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 27 [1/1] (1.32ns)   --->   "%oo = add i13 %i_op_assign, 1" [kernel.cpp:9044]   --->   Operation 27 'add' 'oo' <Predicate = true> <Delay = 1.32> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.32> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 28 [1/1] (0.00ns)   --->   "br i1 %exitcond, label %.loopexit.loopexit, label %4" [kernel.cpp:9044]   --->   Operation 28 'br' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 29 [1/1] (0.00ns)   --->   "%bus_b_offset = trunc i13 %i_op_assign to i1" [kernel.cpp:9044]   --->   Operation 29 'trunc' 'bus_b_offset' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_3 : Operation 30 [1/1] (0.00ns)   --->   "%bus_b_idx = call i12 @_ssdm_op_PartSelect.i12.i13.i32.i32(i13 %i_op_assign, i32 1, i32 12)" [kernel.cpp:9047]   --->   Operation 30 'partselect' 'bus_b_idx' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_3 : Operation 31 [1/1] (0.00ns)   --->   "%tmp_14 = zext i12 %bus_b_idx to i64" [kernel.cpp:9049]   --->   Operation 31 'zext' 'tmp_14' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_3 : Operation 32 [1/1] (0.00ns)   --->   "%bias_burst_buf_V_add = getelementptr [4 x i512]* %bias_burst_buf_V, i64 0, i64 %tmp_14" [kernel.cpp:9049]   --->   Operation 32 'getelementptr' 'bias_burst_buf_V_add' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_3 : Operation 33 [3/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:9049]   --->   Operation 33 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
+ST_3 : Operation 34 [1/1] (0.00ns)   --->   "br i1 %bus_b_offset, label %6, label %5" [kernel.cpp:9058]   --->   Operation 34 'br' <Predicate = (!exitcond)> <Delay = 0.00>
 
 State 4 <SV = 3> <Delay = 2.26>
-ST_4 : Operation 35 [2/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:1368]   --->   Operation 35 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
+ST_4 : Operation 35 [2/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:9049]   --->   Operation 35 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
 
 State 5 <SV = 4> <Delay = 2.26>
-ST_5 : Operation 36 [1/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:1368]   --->   Operation 36 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
+ST_5 : Operation 36 [1/3] (2.26ns)   --->   "%bus_b_data_V = load i512* %bias_burst_buf_V_add, align 8" [kernel.cpp:9049]   --->   Operation 36 'load' 'bus_b_data_V' <Predicate = (!exitcond)> <Delay = 2.26> <Core = "XPM_MEMORY">   --->   Core 85 'XPM_MEMORY' <Latency = 2> <II = 1> <Delay = 2.26> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 512> <Depth = 4> <RAM>
 
 State 6 <SV = 5> <Delay = 2.16>
-ST_6 : Operation 37 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([16 x i8]* @p_str819) nounwind" [kernel.cpp:1363]   --->   Operation 37 'specloopname' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_6 : Operation 38 [1/1] (0.00ns)   --->   "%tmp_13 = call i32 (...)* @_ssdm_op_SpecRegionBegin([16 x i8]* @p_str819)" [kernel.cpp:1363]   --->   Operation 38 'specregionbegin' 'tmp_13' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_6 : Operation 39 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str112) nounwind" [kernel.cpp:1364]   --->   Operation 39 'specpipeline' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_6 : Operation 40 [1/1] (0.00ns)   --->   "%fifo_b_data_V_1 = trunc i512 %bus_b_data_V to i256" [kernel.cpp:1379]   --->   Operation 40 'trunc' 'fifo_b_data_V_1' <Predicate = (!exitcond & !bus_b_offset)> <Delay = 0.00>
-ST_6 : Operation 41 [1/1] (0.85ns)   --->   "br label %._crit_edge1" [kernel.cpp:1380]   --->   Operation 41 'br' <Predicate = (!exitcond & !bus_b_offset)> <Delay = 0.85>
-ST_6 : Operation 42 [1/1] (0.00ns)   --->   "%fifo_b_data_V = call i256 @_ssdm_op_PartSelect.i256.i512.i32.i32(i512 %bus_b_data_V, i32 256, i32 511)" [kernel.cpp:1382]   --->   Operation 42 'partselect' 'fifo_b_data_V' <Predicate = (!exitcond & bus_b_offset)> <Delay = 0.00>
-ST_6 : Operation 43 [1/1] (0.85ns)   --->   "br label %._crit_edge1" [kernel.cpp:1383]   --->   Operation 43 'br' <Predicate = (!exitcond & bus_b_offset)> <Delay = 0.85>
+ST_6 : Operation 37 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([16 x i8]* @p_str822) nounwind" [kernel.cpp:9044]   --->   Operation 37 'specloopname' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_6 : Operation 38 [1/1] (0.00ns)   --->   "%tmp_13 = call i32 (...)* @_ssdm_op_SpecRegionBegin([16 x i8]* @p_str822)" [kernel.cpp:9044]   --->   Operation 38 'specregionbegin' 'tmp_13' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_6 : Operation 39 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str115) nounwind" [kernel.cpp:9045]   --->   Operation 39 'specpipeline' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_6 : Operation 40 [1/1] (0.00ns)   --->   "%fifo_b_data_V_1 = trunc i512 %bus_b_data_V to i256" [kernel.cpp:9060]   --->   Operation 40 'trunc' 'fifo_b_data_V_1' <Predicate = (!exitcond & !bus_b_offset)> <Delay = 0.00>
+ST_6 : Operation 41 [1/1] (0.85ns)   --->   "br label %._crit_edge1" [kernel.cpp:9061]   --->   Operation 41 'br' <Predicate = (!exitcond & !bus_b_offset)> <Delay = 0.85>
+ST_6 : Operation 42 [1/1] (0.00ns)   --->   "%fifo_b_data_V = call i256 @_ssdm_op_PartSelect.i256.i512.i32.i32(i512 %bus_b_data_V, i32 256, i32 511)" [kernel.cpp:9063]   --->   Operation 42 'partselect' 'fifo_b_data_V' <Predicate = (!exitcond & bus_b_offset)> <Delay = 0.00>
+ST_6 : Operation 43 [1/1] (0.85ns)   --->   "br label %._crit_edge1" [kernel.cpp:9064]   --->   Operation 43 'br' <Predicate = (!exitcond & bus_b_offset)> <Delay = 0.85>
 ST_6 : Operation 44 [1/1] (0.00ns)   --->   "%tmp_V = phi i256 [ %fifo_b_data_V, %6 ], [ %fifo_b_data_V_1, %5 ]"   --->   Operation 44 'phi' 'tmp_V' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_6 : Operation 45 [1/1] (1.31ns)   --->   "call void @_ssdm_op_Write.ap_fifo.volatile.i256P(i256* %fifo_bias_V_V, i256 %tmp_V)" [kernel.cpp:1479]   --->   Operation 45 'write' <Predicate = (!exitcond)> <Delay = 1.31> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.39> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 0> <FIFO>
-ST_6 : Operation 46 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecRegionEnd([16 x i8]* @p_str819, i32 %tmp_13)" [kernel.cpp:1480]   --->   Operation 46 'specregionend' 'empty' <Predicate = (!exitcond)> <Delay = 0.00>
-ST_6 : Operation 47 [1/1] (0.00ns)   --->   "br label %3" [kernel.cpp:1363]   --->   Operation 47 'br' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_6 : Operation 45 [1/1] (1.31ns)   --->   "call void @_ssdm_op_Write.ap_fifo.volatile.i256P(i256* %fifo_bias_V_V, i256 %tmp_V)" [kernel.cpp:9160]   --->   Operation 45 'write' <Predicate = (!exitcond)> <Delay = 1.31> <Core = "FIFO_SRL">   --->   Core 36 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 2.39> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 0> <FIFO>
+ST_6 : Operation 46 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecRegionEnd([16 x i8]* @p_str822, i32 %tmp_13)" [kernel.cpp:9161]   --->   Operation 46 'specregionend' 'empty' <Predicate = (!exitcond)> <Delay = 0.00>
+ST_6 : Operation 47 [1/1] (0.00ns)   --->   "br label %3" [kernel.cpp:9044]   --->   Operation 47 'br' <Predicate = (!exitcond)> <Delay = 0.00>
 
 State 7 <SV = 3> <Delay = 0.00>
 ST_7 : Operation 48 [1/1] (0.00ns)   --->   "br label %.loopexit"   --->   Operation 48 'br' <Predicate = (tmp & !tmp_11)> <Delay = 0.00>
-ST_7 : Operation 49 [1/1] (0.00ns)   --->   "br label %._crit_edge" [kernel.cpp:1482]   --->   Operation 49 'br' <Predicate = (tmp)> <Delay = 0.00>
-ST_7 : Operation 50 [1/1] (0.00ns)   --->   "ret void" [kernel.cpp:1483]   --->   Operation 50 'ret' <Predicate = true> <Delay = 0.00>
+ST_7 : Operation 49 [1/1] (0.00ns)   --->   "br label %._crit_edge" [kernel.cpp:9163]   --->   Operation 49 'br' <Predicate = (tmp)> <Delay = 0.00>
+ST_7 : Operation 50 [1/1] (0.00ns)   --->   "ret void" [kernel.cpp:9164]   --->   Operation 50 'ret' <Predicate = true> <Delay = 0.00>
 
 
 ============================================================
@@ -338,7 +338,7 @@ StgValue_50          (ret            ) [ 00000000]
 <pin id="25" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str112"/></StgValue>
+<StgValue><ssdm name="p_str115"/></StgValue>
 </bind>
 </comp>
 
@@ -347,7 +347,7 @@ StgValue_50          (ret            ) [ 00000000]
 <pin id="27" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str314"/></StgValue>
+<StgValue><ssdm name="p_str317"/></StgValue>
 </bind>
 </comp>
 
@@ -365,7 +365,7 @@ StgValue_50          (ret            ) [ 00000000]
 <pin id="31" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str415"/></StgValue>
+<StgValue><ssdm name="p_str418"/></StgValue>
 </bind>
 </comp>
 
@@ -374,7 +374,7 @@ StgValue_50          (ret            ) [ 00000000]
 <pin id="33" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str516"/></StgValue>
+<StgValue><ssdm name="p_str519"/></StgValue>
 </bind>
 </comp>
 
@@ -527,7 +527,7 @@ StgValue_50          (ret            ) [ 00000000]
 <pin id="67" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str819"/></StgValue>
+<StgValue><ssdm name="p_str822"/></StgValue>
 </bind>
 </comp>
 

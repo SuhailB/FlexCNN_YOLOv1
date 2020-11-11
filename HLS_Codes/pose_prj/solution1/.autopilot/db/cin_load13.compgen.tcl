@@ -101,8 +101,8 @@ set MemName cin_load13_cin_buibs
 set CoreName ap_simcore_mem
 set PortList { 2 3 }
 set DataWd 512
-set AddrRange 3240
-set AddrWd 12
+set AddrRange 5488
+set AddrWd 13
 set ECC_Mode none
 set impl_style uram
 set TrueReset 0

@@ -1,14 +1,14 @@
 # This script segment is generated automatically by AutoPilot
 
 # Memory (RAM/ROM)  definition:
-set ID 348
+set ID 371
 set hasByteEnable 0
-set MemName cout_write_cout_bWhU
+set MemName cout_write_cout_bXh4
 set CoreName ap_simcore_mem
 set PortList { 2 0 }
 set DataWd 512
-set AddrRange 4056
-set AddrWd 12
+set AddrRange 6912
+set AddrWd 13
 set ECC_Mode none
 set impl_style uram
 set TrueReset 0
@@ -98,7 +98,7 @@ if {${::AESL::PGuard_autoexp_gen}} {
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 349 \
+    id 372 \
     name fifo_cout_V_V \
     type fifo \
     dir I \
@@ -113,7 +113,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 350 \
+    id 373 \
     name fifo_config_in_V_V \
     type fifo \
     dir I \
@@ -128,7 +128,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 351 \
+    id 374 \
     name global_cout_V \
     type other \
     dir O \
@@ -143,7 +143,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 352 \
+    id 375 \
     name global_cout_V_offset \
     type fifo \
     dir I \

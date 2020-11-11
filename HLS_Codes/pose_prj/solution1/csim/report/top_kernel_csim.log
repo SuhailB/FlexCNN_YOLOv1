@@ -1,6 +1,138 @@
 INFO: [SIM 2] *************** CSIM start ***************
 INFO: [SIM 4] CSIM will launch GCC as the compiler.
-   Compiling ../../../../tb_pose.cpp in debug mode
-   Compiling ../../../../cnn_sw.cpp in debug mode
-   Compiling ../../../../kernel.cpp in debug mode
-   Generating csim.exe
+make: 'csim.exe' is up to date.
+Your working PATH is: E:/UCLA/FlexCNN_Syn/FlexCNN
+cin_size: 14000000
+bias_size: 5984
+weight_size: 11239040
+Loading instructions...
+Preparing data...
+Loading input...
+Loading weight...
+Loading bias...
+Loading output...
+HW acceleration...
+---------------LAYER 1----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 2----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 3----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 4----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 5----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 6----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 7----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 8----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 9----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 10----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 11----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 12----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 13----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 14----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+---------------LAYER 15----------------
+start
+passed cin load
+passed weight load
+passed conv
+passed relu
+passed pool
+passed cout write
+Results comparison...
+Success!
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

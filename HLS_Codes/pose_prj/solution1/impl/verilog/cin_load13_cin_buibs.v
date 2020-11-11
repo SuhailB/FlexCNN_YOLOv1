@@ -1,5 +1,5 @@
 // ==============================================================
-// File generated on Thu Nov 05 03:55:52 -0600 2020
+// File generated on Tue Nov 10 23:51:04 -0600 2020
 // Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2018.3 (64-bit)
 // SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 // IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
@@ -10,7 +10,7 @@
 module cin_load13_cin_buibs_ram # (
 
   // Common module parameters
-  parameter integer                 MEMORY_SIZE        = 1658880,
+  parameter integer                 MEMORY_SIZE        = 2809856,
   parameter                         MEMORY_PRIMITIVE   = "ultra",
   parameter                         ECC_MODE           = "no_ecc",
   parameter                         MEMORY_INIT_FILE   = "none",
@@ -21,7 +21,7 @@ module cin_load13_cin_buibs_ram # (
   parameter integer                 WRITE_DATA_WIDTH_A = 512,
   parameter integer                 READ_DATA_WIDTH_A  = WRITE_DATA_WIDTH_A,
   parameter integer                 BYTE_WRITE_WIDTH_A = WRITE_DATA_WIDTH_A,
-  parameter integer                 ADDR_WIDTH_A       = 12,
+  parameter integer                 ADDR_WIDTH_A       = 13,
   parameter                         READ_RESET_VALUE_A = "0",
   parameter integer                 READ_LATENCY_A     = 2,
   parameter                         WRITE_MODE_A       = "read_first"
@@ -93,8 +93,8 @@ module cin_load13_cin_buibs(
     q0);
 
 parameter DataWidth = 32'd512;
-parameter AddressRange = 32'd3240;
-parameter AddressWidth = 32'd12;
+parameter AddressRange = 32'd5488;
+parameter AddressWidth = 32'd13;
 input reset;
 input clk;
 input[AddressWidth - 1:0] address0;

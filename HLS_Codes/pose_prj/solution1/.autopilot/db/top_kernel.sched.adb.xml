@@ -283,7 +283,7 @@ burst.rd.end:10  %global_cin_V1 = call i58 @_ssdm_op_PartSelect.i58.i64.i32.i32(
 
 <Node id="22" bw="0" op_0_bw="0" op_1_bw="32">
 <![CDATA[
-burst.rd.end:11  call void (...)* @_ssdm_op_SpecBitsMap(i32* %gcontrol), !map !447
+burst.rd.end:11  call void (...)* @_ssdm_op_SpecBitsMap(i32* %gcontrol), !map !453
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -298,7 +298,7 @@ burst.rd.end:11  call void (...)* @_ssdm_op_SpecBitsMap(i32* %gcontrol), !map !4
 
 <Node id="23" bw="0" op_0_bw="0" op_1_bw="512">
 <![CDATA[
-burst.rd.end:12  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem2), !map !453
+burst.rd.end:12  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem2), !map !459
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -313,7 +313,7 @@ burst.rd.end:12  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem2), !map !453
 
 <Node id="24" bw="0" op_0_bw="0" op_1_bw="512">
 <![CDATA[
-burst.rd.end:13  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem3), !map !462
+burst.rd.end:13  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem3), !map !468
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -328,7 +328,7 @@ burst.rd.end:13  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem3), !map !462
 
 <Node id="25" bw="0" op_0_bw="0" op_1_bw="512">
 <![CDATA[
-burst.rd.end:14  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem1), !map !466
+burst.rd.end:14  call void (...)* @_ssdm_op_SpecBitsMap(i512* %gmem1), !map !472
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -373,7 +373,7 @@ burst.rd.end:16  %config = alloca [32 x i32], align 16
 
 <Node id="28" bw="0" op_0_bw="0" op_1_bw="512" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:17  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem1, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 826274, [6 x i8]* @p_str59, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:17  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem1, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 826274, [6 x i8]* @p_str66, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -388,7 +388,7 @@ burst.rd.end:17  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem1, [6 x i8]
 
 <Node id="29" bw="0" op_0_bw="0" op_1_bw="512" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:18  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem3, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [6 x i8]* @p_str61, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:18  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem3, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [6 x i8]* @p_str68, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -403,7 +403,7 @@ burst.rd.end:18  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem3, [6 x i8]
 
 <Node id="30" bw="0" op_0_bw="0" op_1_bw="512" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:19  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem2, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 34234, [6 x i8]* @p_str62, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:19  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem2, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 34234, [6 x i8]* @p_str69, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -418,7 +418,7 @@ burst.rd.end:19  call void (...)* @_ssdm_op_SpecInterface(i512* %gmem2, [6 x i8]
 
 <Node id="31" bw="0" op_0_bw="0" op_1_bw="32" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:20  call void (...)* @_ssdm_op_SpecInterface(i32* %gcontrol, [6 x i8]* @p_str58, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 2815, [9 x i8]* @p_str63, [6 x i8]* @p_str60, [1 x i8]* @p_str112, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:20  call void (...)* @_ssdm_op_SpecInterface(i32* %gcontrol, [6 x i8]* @p_str65, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 2815, [9 x i8]* @p_str70, [6 x i8]* @p_str67, [1 x i8]* @p_str115, i32 16, i32 16, i32 16, i32 16, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -433,7 +433,7 @@ burst.rd.end:20  call void (...)* @_ssdm_op_SpecInterface(i32* %gcontrol, [6 x i
 
 <Node id="32" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:21  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cin_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:21  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cin_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -448,7 +448,7 @@ burst.rd.end:21  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cin_V, [10
 
 <Node id="33" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:22  call void (...)* @_ssdm_op_SpecInterface(i64 %global_prev_cin_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:22  call void (...)* @_ssdm_op_SpecInterface(i64 %global_prev_cin_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -463,7 +463,7 @@ burst.rd.end:22  call void (...)* @_ssdm_op_SpecInterface(i64 %global_prev_cin_V
 
 <Node id="34" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:23  call void (...)* @_ssdm_op_SpecInterface(i64 %global_weight_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:23  call void (...)* @_ssdm_op_SpecInterface(i64 %global_weight_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -478,7 +478,7 @@ burst.rd.end:23  call void (...)* @_ssdm_op_SpecInterface(i64 %global_weight_V, 
 
 <Node id="35" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:24  call void (...)* @_ssdm_op_SpecInterface(i64 %global_bias_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:24  call void (...)* @_ssdm_op_SpecInterface(i64 %global_bias_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -493,7 +493,7 @@ burst.rd.end:24  call void (...)* @_ssdm_op_SpecInterface(i64 %global_bias_V, [1
 
 <Node id="36" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:25  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cout_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:25  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cout_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -508,7 +508,7 @@ burst.rd.end:25  call void (...)* @_ssdm_op_SpecInterface(i64 %global_cout_V, [1
 
 <Node id="37" bw="0" op_0_bw="0" op_1_bw="64" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:26  call void (...)* @_ssdm_op_SpecInterface(i64 %layer_config_V, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:26  call void (...)* @_ssdm_op_SpecInterface(i64 %layer_config_V, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -523,7 +523,7 @@ burst.rd.end:26  call void (...)* @_ssdm_op_SpecInterface(i64 %layer_config_V, [
 
 <Node id="38" bw="0" op_0_bw="0" op_1_bw="32" op_2_bw="0" op_3_bw="32" op_4_bw="32" op_5_bw="0" op_6_bw="32" op_7_bw="32" op_8_bw="0" op_9_bw="0" op_10_bw="0" op_11_bw="32" op_12_bw="32" op_13_bw="32" op_14_bw="32" op_15_bw="0" op_16_bw="0">
 <![CDATA[
-burst.rd.end:27  call void (...)* @_ssdm_op_SpecInterface(i32 0, [10 x i8]* @p_str64, i32 0, i32 0, [1 x i8]* @p_str112, i32 0, i32 0, [8 x i8]* @p_str65, [1 x i8]* @p_str112, [1 x i8]* @p_str112, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str112, [1 x i8]* @p_str112) nounwind
+burst.rd.end:27  call void (...)* @_ssdm_op_SpecInterface(i32 0, [10 x i8]* @p_str71, i32 0, i32 0, [1 x i8]* @p_str115, i32 0, i32 0, [8 x i8]* @p_str72, [1 x i8]* @p_str115, [1 x i8]* @p_str115, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str115, [1 x i8]* @p_str115) nounwind
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -584,9 +584,9 @@ burst.rd.end:29  br label %0
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="43" bw="3" op_0_bw="3" op_1_bw="0">
+<Node id="43" bw="4" op_0_bw="4" op_1_bw="0">
 <![CDATA[
-:1  %layer_id = phi i3 [ 0, %burst.rd.end ], [ %layer_id_1, %burst.rd.end10 ]
+:1  %layer_id = phi i4 [ -6, %burst.rd.end ], [ %layer_id_1, %burst.rd.end10 ]
 
 ]]></Node>
 <StgValue><ssdm name="layer_id"/></StgValue>
@@ -599,9 +599,9 @@ burst.rd.end:29  br label %0
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="44" bw="1" op_0_bw="3" op_1_bw="3">
+<Node id="44" bw="1" op_0_bw="4" op_1_bw="4">
 <![CDATA[
-:2  %exitcond = icmp eq i3 %layer_id, -3
+:2  %exitcond = icmp eq i4 %layer_id, -1
 
 ]]></Node>
 <StgValue><ssdm name="exitcond"/></StgValue>
@@ -623,33 +623,34 @@ burst.rd.end:29  br label %0
 </operation>
 
 <operation id="50" st_id="2" stage="1" lat="1">
-<core>AddSub</core>
-<MemPortIdVec></MemPortIdVec>
-<condition id="-1">
-<or_exp><and_exp></and_exp></or_exp>
-</condition>
-
-<Node id="46" bw="3" op_0_bw="3" op_1_bw="3">
-<![CDATA[
-:4  %layer_id_1 = add i3 %layer_id, 1
-
-]]></Node>
-<StgValue><ssdm name="layer_id_1"/></StgValue>
-</operation>
-
-<operation id="51" st_id="2" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="47" bw="0" op_0_bw="1" op_1_bw="0" op_2_bw="0">
+<Node id="46" bw="0" op_0_bw="1" op_1_bw="0" op_2_bw="0">
 <![CDATA[
-:5  br i1 %exitcond, label %2, label %1
+:4  br i1 %exitcond, label %2, label %1
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
+</operation>
+
+<operation id="51" st_id="2" stage="1" lat="1">
+<core>NULL</core>
+<MemPortIdVec></MemPortIdVec>
+<condition id="-1">
+<or_exp><and_exp><literal name="exitcond" val="0"/>
+</and_exp></or_exp>
+</condition>
+
+<Node id="48" bw="9" op_0_bw="9" op_1_bw="4" op_2_bw="5">
+<![CDATA[
+:0  %tmp_s = call i9 @_ssdm_op_BitConcatenate.i9.i4.i5(i4 %layer_id, i5 0)
+
+]]></Node>
+<StgValue><ssdm name="tmp_s"/></StgValue>
 </operation>
 
 <operation id="52" st_id="2" stage="1" lat="1">
@@ -660,12 +661,12 @@ burst.rd.end:29  br label %0
 </and_exp></or_exp>
 </condition>
 
-<Node id="49" bw="8" op_0_bw="8" op_1_bw="3" op_2_bw="5">
+<Node id="49" bw="9" op_0_bw="9" op_1_bw="9">
 <![CDATA[
-:0  %tmp_s = call i8 @_ssdm_op_BitConcatenate.i8.i3.i5(i3 %layer_id, i5 0)
+:1  %tmp_15 = or i9 %tmp_s, 5
 
 ]]></Node>
-<StgValue><ssdm name="tmp_s"/></StgValue>
+<StgValue><ssdm name="tmp_15"/></StgValue>
 </operation>
 
 <operation id="53" st_id="2" stage="1" lat="1">
@@ -676,31 +677,15 @@ burst.rd.end:29  br label %0
 </and_exp></or_exp>
 </condition>
 
-<Node id="50" bw="8" op_0_bw="8" op_1_bw="8">
+<Node id="50" bw="63" op_0_bw="9">
 <![CDATA[
-:1  %tmp_15 = or i8 %tmp_s, 5
-
-]]></Node>
-<StgValue><ssdm name="tmp_15"/></StgValue>
-</operation>
-
-<operation id="54" st_id="2" stage="1" lat="1">
-<core>NULL</core>
-<MemPortIdVec></MemPortIdVec>
-<condition id="-1">
-<or_exp><and_exp><literal name="exitcond" val="0"/>
-</and_exp></or_exp>
-</condition>
-
-<Node id="51" bw="63" op_0_bw="8">
-<![CDATA[
-:2  %tmp_60_cast = zext i8 %tmp_15 to i63
+:2  %tmp_60_cast = zext i9 %tmp_15 to i63
 
 ]]></Node>
 <StgValue><ssdm name="tmp_60_cast"/></StgValue>
 </operation>
 
-<operation id="55" st_id="2" stage="1" lat="1">
+<operation id="54" st_id="2" stage="1" lat="1">
 <core>AddSub</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
@@ -708,12 +693,28 @@ burst.rd.end:29  br label %0
 </and_exp></or_exp>
 </condition>
 
-<Node id="52" bw="63" op_0_bw="63" op_1_bw="63">
+<Node id="51" bw="63" op_0_bw="63" op_1_bw="63">
 <![CDATA[
 :3  %layer_config_V12_sum = add i63 %tmp_71_cast, %tmp_60_cast
 
 ]]></Node>
 <StgValue><ssdm name="layer_config_V12_sum"/></StgValue>
+</operation>
+
+<operation id="55" st_id="2" stage="1" lat="1">
+<core>NULL</core>
+<MemPortIdVec></MemPortIdVec>
+<condition id="-1">
+<or_exp><and_exp><literal name="exitcond" val="0"/>
+</and_exp></or_exp>
+</condition>
+
+<Node id="52" bw="64" op_0_bw="63">
+<![CDATA[
+:4  %layer_config_V12_sum_1 = zext i63 %layer_config_V12_sum to i64
+
+]]></Node>
+<StgValue><ssdm name="layer_config_V12_sum_1"/></StgValue>
 </operation>
 
 <operation id="56" st_id="2" stage="1" lat="1">
@@ -724,23 +725,7 @@ burst.rd.end:29  br label %0
 </and_exp></or_exp>
 </condition>
 
-<Node id="53" bw="64" op_0_bw="63">
-<![CDATA[
-:4  %layer_config_V12_sum_1 = zext i63 %layer_config_V12_sum to i64
-
-]]></Node>
-<StgValue><ssdm name="layer_config_V12_sum_1"/></StgValue>
-</operation>
-
-<operation id="57" st_id="2" stage="1" lat="1">
-<core>NULL</core>
-<MemPortIdVec></MemPortIdVec>
-<condition id="-1">
-<or_exp><and_exp><literal name="exitcond" val="0"/>
-</and_exp></or_exp>
-</condition>
-
-<Node id="54" bw="32" op_0_bw="32" op_1_bw="64">
+<Node id="53" bw="32" op_0_bw="32" op_1_bw="64">
 <![CDATA[
 :5  %gcontrol_addr = getelementptr i32* %gcontrol, i64 %layer_config_V12_sum_1
 
@@ -748,7 +733,7 @@ burst.rd.end:29  br label %0
 <StgValue><ssdm name="gcontrol_addr"/></StgValue>
 </operation>
 
-<operation id="58" st_id="2" stage="1" lat="1">
+<operation id="57" st_id="2" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
@@ -767,6 +752,21 @@ burst.rd.end:29  br label %0
 
 <state id="3" st_id="3">
 
+<operation id="58" st_id="3" stage="1" lat="1">
+<core>NULL</core>
+<MemPortIdVec></MemPortIdVec>
+<condition id="-1">
+<or_exp><and_exp></and_exp></or_exp>
+</condition>
+
+<Node id="55" bw="25" op_0_bw="32">
+<![CDATA[
+:7  %tmp_28 = trunc i32 %cur_layer_batch to i25
+
+]]></Node>
+<StgValue><ssdm name="tmp_28"/></StgValue>
+</operation>
+
 <operation id="59" st_id="3" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
@@ -774,12 +774,12 @@ burst.rd.end:29  br label %0
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="56" bw="25" op_0_bw="32">
+<Node id="56" bw="30" op_0_bw="30" op_1_bw="25" op_2_bw="5">
 <![CDATA[
-:7  %tmp_28 = trunc i32 %cur_layer_batch to i25
+:8  %tmp_cast = call i30 @_ssdm_op_BitConcatenate.i30.i25.i5(i25 %tmp_28, i5 0)
 
 ]]></Node>
-<StgValue><ssdm name="tmp_28"/></StgValue>
+<StgValue><ssdm name="tmp_cast"/></StgValue>
 </operation>
 
 <operation id="60" st_id="3" stage="1" lat="1">
@@ -789,22 +789,7 @@ burst.rd.end:29  br label %0
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="57" bw="30" op_0_bw="30" op_1_bw="25" op_2_bw="5">
-<![CDATA[
-:8  %tmp_cast = call i30 @_ssdm_op_BitConcatenate.i30.i25.i5(i25 %tmp_28, i5 0)
-
-]]></Node>
-<StgValue><ssdm name="tmp_cast"/></StgValue>
-</operation>
-
-<operation id="61" st_id="3" stage="1" lat="1">
-<core>NULL</core>
-<MemPortIdVec></MemPortIdVec>
-<condition id="-1">
-<or_exp><and_exp></and_exp></or_exp>
-</condition>
-
-<Node id="58" bw="32" op_0_bw="30">
+<Node id="57" bw="32" op_0_bw="30">
 <![CDATA[
 :9  %tmp_73_add_i32_shr_c = zext i30 %tmp_cast to i32
 
@@ -812,14 +797,14 @@ burst.rd.end:29  br label %0
 <StgValue><ssdm name="tmp_73_add_i32_shr_c"/></StgValue>
 </operation>
 
-<operation id="62" st_id="3" stage="7" lat="7">
+<operation id="61" st_id="3" stage="7" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -830,14 +815,14 @@ burst.rd.end:29  br label %0
 
 <state id="4" st_id="4">
 
-<operation id="63" st_id="4" stage="6" lat="7">
+<operation id="62" st_id="4" stage="6" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -848,14 +833,14 @@ burst.rd.end:29  br label %0
 
 <state id="5" st_id="5">
 
-<operation id="64" st_id="5" stage="5" lat="7">
+<operation id="63" st_id="5" stage="5" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -866,14 +851,14 @@ burst.rd.end:29  br label %0
 
 <state id="6" st_id="6">
 
-<operation id="65" st_id="6" stage="4" lat="7">
+<operation id="64" st_id="6" stage="4" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -884,14 +869,14 @@ burst.rd.end:29  br label %0
 
 <state id="7" st_id="7">
 
-<operation id="66" st_id="7" stage="3" lat="7">
+<operation id="65" st_id="7" stage="3" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -902,14 +887,14 @@ burst.rd.end:29  br label %0
 
 <state id="8" st_id="8">
 
-<operation id="67" st_id="8" stage="2" lat="7">
+<operation id="66" st_id="8" stage="2" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -920,14 +905,14 @@ burst.rd.end:29  br label %0
 
 <state id="9" st_id="9">
 
-<operation id="68" st_id="9" stage="1" lat="1">
+<operation id="67" st_id="9" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="55" bw="32" op_0_bw="32" op_1_bw="32">
+<Node id="54" bw="32" op_0_bw="32" op_1_bw="32">
 <![CDATA[
 :6  %tmp_27 = shl i32 %cur_layer_batch, 5
 
@@ -935,14 +920,14 @@ burst.rd.end:29  br label %0
 <StgValue><ssdm name="tmp_27"/></StgValue>
 </operation>
 
-<operation id="69" st_id="9" stage="1" lat="7">
+<operation id="68" st_id="9" stage="1" lat="7">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="59" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
+<Node id="58" bw="1" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
 :10  %gcontrol_addr_rd_req = call i1 @_ssdm_op_ReadReq.m_axi.i32P(i32* %gcontrol_addr, i32 %tmp_73_add_i32_shr_c)
 
@@ -950,14 +935,14 @@ burst.rd.end:29  br label %0
 <StgValue><ssdm name="gcontrol_addr_rd_req"/></StgValue>
 </operation>
 
-<operation id="70" st_id="9" stage="1" lat="1">
+<operation id="69" st_id="9" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="60" bw="0" op_0_bw="0">
+<Node id="59" bw="0" op_0_bw="0">
 <![CDATA[
 :11  br label %burst.rd.header11
 
@@ -968,14 +953,14 @@ burst.rd.end:29  br label %0
 
 <state id="10" st_id="10">
 
-<operation id="71" st_id="10" stage="1" lat="1">
+<operation id="70" st_id="10" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="62" bw="30" op_0_bw="30" op_1_bw="0">
+<Node id="61" bw="30" op_0_bw="30" op_1_bw="0">
 <![CDATA[
 burst.rd.header11:0  %indvar = phi i30 [ 0, %1 ], [ %indvar_next5, %burst.rd.body12 ]
 
@@ -983,14 +968,14 @@ burst.rd.header11:0  %indvar = phi i30 [ 0, %1 ], [ %indvar_next5, %burst.rd.bod
 <StgValue><ssdm name="indvar"/></StgValue>
 </operation>
 
-<operation id="72" st_id="10" stage="1" lat="1">
+<operation id="71" st_id="10" stage="1" lat="1">
 <core>Cmp</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="63" bw="1" op_0_bw="30" op_1_bw="30">
+<Node id="62" bw="1" op_0_bw="30" op_1_bw="30">
 <![CDATA[
 burst.rd.header11:1  %exitcond6 = icmp eq i30 %indvar, %tmp_cast
 
@@ -998,29 +983,29 @@ burst.rd.header11:1  %exitcond6 = icmp eq i30 %indvar, %tmp_cast
 <StgValue><ssdm name="exitcond6"/></StgValue>
 </operation>
 
-<operation id="73" st_id="10" stage="1" lat="1">
+<operation id="72" st_id="10" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="64" bw="32" op_0_bw="32" op_1_bw="64" op_2_bw="64" op_3_bw="64">
+<Node id="63" bw="32" op_0_bw="32" op_1_bw="64" op_2_bw="64" op_3_bw="64">
 <![CDATA[
-burst.rd.header11:2  %empty_36 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 0, i64 1073741823, i64 0)
+burst.rd.header11:2  %empty_32 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 0, i64 1073741823, i64 0)
 
 ]]></Node>
-<StgValue><ssdm name="empty_36"/></StgValue>
+<StgValue><ssdm name="empty_32"/></StgValue>
 </operation>
 
-<operation id="74" st_id="10" stage="1" lat="1">
+<operation id="73" st_id="10" stage="1" lat="1">
 <core>AddSub</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="65" bw="30" op_0_bw="30" op_1_bw="30">
+<Node id="64" bw="30" op_0_bw="30" op_1_bw="30">
 <![CDATA[
 burst.rd.header11:3  %indvar_next5 = add i30 %indvar, 1
 
@@ -1028,14 +1013,14 @@ burst.rd.header11:3  %indvar_next5 = add i30 %indvar, 1
 <StgValue><ssdm name="indvar_next5"/></StgValue>
 </operation>
 
-<operation id="75" st_id="10" stage="1" lat="1">
+<operation id="74" st_id="10" stage="1" lat="1">
 <core>NULL</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="66" bw="0" op_0_bw="1" op_1_bw="0" op_2_bw="0">
+<Node id="65" bw="0" op_0_bw="1" op_1_bw="0" op_2_bw="0">
 <![CDATA[
 burst.rd.header11:4  br i1 %exitcond6, label %burst.rd.end10, label %burst.rd.body12
 
@@ -1043,7 +1028,7 @@ burst.rd.header11:4  br i1 %exitcond6, label %burst.rd.end10, label %burst.rd.bo
 <StgValue><ssdm name=""/></StgValue>
 </operation>
 
-<operation id="76" st_id="10" stage="1" lat="1">
+<operation id="75" st_id="10" stage="1" lat="1">
 <core>m_axi</core>
 <MemPortIdVec></MemPortIdVec>
 <condition id="-1">
@@ -1051,12 +1036,28 @@ burst.rd.header11:4  br i1 %exitcond6, label %burst.rd.end10, label %burst.rd.bo
 </and_exp></or_exp>
 </condition>
 
-<Node id="71" bw="32" op_0_bw="32" op_1_bw="32">
+<Node id="70" bw="32" op_0_bw="32" op_1_bw="32">
 <![CDATA[
 burst.rd.body12:3  %gcontrol_addr_read = call i32 @_ssdm_op_Read.m_axi.i32P(i32* %gcontrol_addr)
 
 ]]></Node>
 <StgValue><ssdm name="gcontrol_addr_read"/></StgValue>
+</operation>
+
+<operation id="76" st_id="10" stage="1" lat="1">
+<core>AddSub</core>
+<MemPortIdVec></MemPortIdVec>
+<condition id="-1">
+<or_exp><and_exp><literal name="exitcond6" val="1"/>
+</and_exp></or_exp>
+</condition>
+
+<Node id="76" bw="32" op_0_bw="32" op_1_bw="32">
+<![CDATA[
+burst.rd.end10:0  %tmp_16 = add i32 %tmp_27, -7
+
+]]></Node>
+<StgValue><ssdm name="tmp_16"/></StgValue>
 </operation>
 
 <operation id="77" st_id="10" stage="1" lat="1">
@@ -1067,12 +1068,12 @@ burst.rd.body12:3  %gcontrol_addr_read = call i32 @_ssdm_op_Read.m_axi.i32P(i32*
 </and_exp></or_exp>
 </condition>
 
-<Node id="77" bw="32" op_0_bw="32" op_1_bw="32">
+<Node id="81" bw="4" op_0_bw="4" op_1_bw="4">
 <![CDATA[
-burst.rd.end10:0  %tmp_16 = add i32 %tmp_27, -7
+burst.rd.end10:5  %layer_id_1 = add i4 %layer_id, 1
 
 ]]></Node>
-<StgValue><ssdm name="tmp_16"/></StgValue>
+<StgValue><ssdm name="layer_id_1"/></StgValue>
 </operation>
 </state>
 
@@ -1085,7 +1086,7 @@ burst.rd.end10:0  %tmp_16 = add i32 %tmp_27, -7
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="68" bw="32" op_0_bw="32" op_1_bw="0">
+<Node id="67" bw="32" op_0_bw="32" op_1_bw="0">
 <![CDATA[
 burst.rd.body12:0  %burstread_rbegin5 = call i32 (...)* @_ssdm_op_SpecRegionBegin([17 x i8]* @burstread_OC_region_s)
 
@@ -1100,7 +1101,7 @@ burst.rd.body12:0  %burstread_rbegin5 = call i32 (...)* @_ssdm_op_SpecRegionBegi
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="69" bw="0" op_0_bw="0" op_1_bw="0">
+<Node id="68" bw="0" op_0_bw="0" op_1_bw="0">
 <![CDATA[
 burst.rd.body12:1  call void (...)* @_ssdm_op_SpecLoopName([33 x i8]* @memcpy_OC_config_OC_s)
 
@@ -1115,7 +1116,7 @@ burst.rd.body12:1  call void (...)* @_ssdm_op_SpecLoopName([33 x i8]* @memcpy_OC
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="70" bw="64" op_0_bw="30">
+<Node id="69" bw="64" op_0_bw="30">
 <![CDATA[
 burst.rd.body12:2  %indvar1 = zext i30 %indvar to i64
 
@@ -1130,7 +1131,7 @@ burst.rd.body12:2  %indvar1 = zext i30 %indvar to i64
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="72" bw="5" op_0_bw="32" op_1_bw="64" op_2_bw="64">
+<Node id="71" bw="5" op_0_bw="32" op_1_bw="64" op_2_bw="64">
 <![CDATA[
 burst.rd.body12:4  %config_addr_2 = getelementptr [32 x i32]* %config, i64 0, i64 %indvar1
 
@@ -1145,7 +1146,7 @@ burst.rd.body12:4  %config_addr_2 = getelementptr [32 x i32]* %config, i64 0, i6
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="73" bw="0" op_0_bw="32" op_1_bw="5">
+<Node id="72" bw="0" op_0_bw="32" op_1_bw="5">
 <![CDATA[
 burst.rd.body12:5  store i32 %gcontrol_addr_read, i32* %config_addr_2, align 4
 
@@ -1160,7 +1161,7 @@ burst.rd.body12:5  store i32 %gcontrol_addr_read, i32* %config_addr_2, align 4
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="74" bw="32" op_0_bw="32" op_1_bw="0" op_2_bw="32">
+<Node id="73" bw="32" op_0_bw="32" op_1_bw="0" op_2_bw="32">
 <![CDATA[
 burst.rd.body12:6  %burstread_rend23 = call i32 (...)* @_ssdm_op_SpecRegionEnd([17 x i8]* @burstread_OC_region_s, i32 %burstread_rbegin5)
 
@@ -1175,7 +1176,7 @@ burst.rd.body12:6  %burstread_rend23 = call i32 (...)* @_ssdm_op_SpecRegionEnd([
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="75" bw="0" op_0_bw="0">
+<Node id="74" bw="0" op_0_bw="0">
 <![CDATA[
 burst.rd.body12:7  br label %burst.rd.header11
 
@@ -1193,7 +1194,7 @@ burst.rd.body12:7  br label %burst.rd.header11
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="78" bw="64" op_0_bw="32">
+<Node id="77" bw="64" op_0_bw="32">
 <![CDATA[
 burst.rd.end10:1  %tmp_17 = sext i32 %tmp_16 to i64
 
@@ -1208,7 +1209,7 @@ burst.rd.end10:1  %tmp_17 = sext i32 %tmp_16 to i64
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="79" bw="5" op_0_bw="32" op_1_bw="64" op_2_bw="64">
+<Node id="78" bw="5" op_0_bw="32" op_1_bw="64" op_2_bw="64">
 <![CDATA[
 burst.rd.end10:2  %config_addr_1 = getelementptr inbounds [32 x i32]* %config, i64 0, i64 %tmp_17
 
@@ -1223,7 +1224,7 @@ burst.rd.end10:2  %config_addr_1 = getelementptr inbounds [32 x i32]* %config, i
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="80" bw="32" op_0_bw="5">
+<Node id="79" bw="32" op_0_bw="5">
 <![CDATA[
 burst.rd.end10:3  %nxt_layer_batch = load i32* %config_addr_1, align 4
 
@@ -1241,7 +1242,7 @@ burst.rd.end10:3  %nxt_layer_batch = load i32* %config_addr_1, align 4
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="80" bw="32" op_0_bw="5">
+<Node id="79" bw="32" op_0_bw="5">
 <![CDATA[
 burst.rd.end10:3  %nxt_layer_batch = load i32* %config_addr_1, align 4
 
@@ -1256,7 +1257,7 @@ burst.rd.end10:3  %nxt_layer_batch = load i32* %config_addr_1, align 4
 <or_exp><and_exp></and_exp></or_exp>
 </condition>
 
-<Node id="81" bw="0" op_0_bw="32" op_1_bw="5">
+<Node id="80" bw="0" op_0_bw="32" op_1_bw="5">
 <![CDATA[
 burst.rd.end10:4  store i32 %cur_layer_batch, i32* %config_addr, align 4
 
@@ -1276,7 +1277,7 @@ burst.rd.end10:4  store i32 %cur_layer_batch, i32* %config_addr, align 4
 
 <Node id="82" bw="0" op_0_bw="0" op_1_bw="512" op_2_bw="58" op_3_bw="512" op_4_bw="58" op_5_bw="58" op_6_bw="58" op_7_bw="32">
 <![CDATA[
-burst.rd.end10:5  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i512* %gmem2, i58 %global_weight_V7, i58 %global_bias_V9, i58 %global_cout_V5, [32 x i32]* %config)
+burst.rd.end10:6  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i512* %gmem2, i58 %global_weight_V7, i58 %global_bias_V9, i58 %global_cout_V5, [32 x i32]* %config)
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -1294,7 +1295,7 @@ burst.rd.end10:5  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i51
 
 <Node id="82" bw="0" op_0_bw="0" op_1_bw="512" op_2_bw="58" op_3_bw="512" op_4_bw="58" op_5_bw="58" op_6_bw="58" op_7_bw="32">
 <![CDATA[
-burst.rd.end10:5  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i512* %gmem2, i58 %global_weight_V7, i58 %global_bias_V9, i58 %global_cout_V5, [32 x i32]* %config)
+burst.rd.end10:6  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i512* %gmem2, i58 %global_weight_V7, i58 %global_bias_V9, i58 %global_cout_V5, [32 x i32]* %config)
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>
@@ -1309,7 +1310,7 @@ burst.rd.end10:5  call fastcc void @engine(i512* %gmem1, i58 %global_cin_V1, i51
 
 <Node id="83" bw="0" op_0_bw="0">
 <![CDATA[
-burst.rd.end10:6  br label %0
+burst.rd.end10:7  br label %0
 
 ]]></Node>
 <StgValue><ssdm name=""/></StgValue>

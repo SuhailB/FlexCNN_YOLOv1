@@ -67,16 +67,34 @@ int main(){
   
   
 
-  // data_t0 LAYER_out_sw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
-  // data_t0 LAYER_out_hw[STAGE2L_OUT_H][STAGE2L_OUT_W][STAGE2R_OUT_NUM + STAGE2L_OUT_NUM];
+  data_t0 LAYER_out_sw   [L15_OUT_H][L15_OUT_W][L15_OUT_NUM];
+  data_t0 LAYER_out_hw   [L15_OUT_H][L15_OUT_W][L15_OUT_NUM];
   // data_t0 LAYER_out[out_h2][out_w2][out_num2];
 
   
-  mobilenet_preprocess(cin_hw, weight_hw, bias_hw);
+  mobilenet_preprocess(cin_hw, weight_hw, bias_hw, LAYER_out_sw);
 
 
   cout << "HW acceleration..." << endl;
 
+    // FILE *f;
+    // f = fopen("E:/UCLA/FlexCNN_Syn/FlexCNN/data/new/L10_18.dat", "r");
+    // // f1 = fopen("E:/Research/UCLA/FlexCNN_YOLO/data/test/memory5.dat", "w");
+    // float num;
+    // for(int j=6981072; j<6981072+(14*18*256); j++){ 
+    //   fscanf(f, "%f", &num);
+    //   cin_hw[j] = num;
+    // }
+    // fclose(f);
+    // FILE *f;
+    // f = fopen("E:/UCLA/FlexCNN_Syn/FlexCNN/data/new/L12_out.dat", "r");
+    // // f1 = fopen("E:/Research/UCLA/FlexCNN_YOLO/data/test/memory5.dat", "w");
+    // float num;
+    // for(int j=7159952; j<7159952+(14*18*256); j++){  
+    //   fscanf(f, "%f", &num);
+    //   cin_hw[j] = num;
+    // }
+    // fclose(f);
 
   // Hardware acceleration
   top_kernel(
@@ -84,11 +102,38 @@ int main(){
       (bus_t1*)weight_hw, (bus_t2*)bias_hw,
       (bus_t3*)config);
 
+    // FILE *f;
+    // f = fopen("E:/UCLA/FlexCNN_Syn/FlexCNN/data/new/L15_out.dat", "w");
+    // // f1 = fopen("E:/Research/UCLA/FlexCNN_YOLO/data/test/memory5.dat", "w");
+    // // float num;
+    // for(int j=7492560; j<7492560+(12*16*448); j++){ 
+    //   fprintf(f, "%.10g\n", cin_hw[j]);
+    // }
+    // fclose(f);
 
-//   int size = 24*24*32;
   
-  
-  
+    // for(int o=0; o<7; o++){
+    //     for(int h=0; h<13; h++){
+    //         for(int w=0; w<13; w++){
+    //             for(int o_t=0; o_t<64; o_t++){
+    //                 if(o*64+o_t<425) LAYER_out_hw[h][w][o*64+o_t] = cin_hw[8771792 + (13*13*64*o) + (13*64*h) + (64*w) + o_t];
+    //             }
+    //         }
+    //     }
+    // }
+
+    // FILE *f;
+    // float num;
+    // f = fopen("E:/UCLA/FlexCNN_Syn/FlexCNN/data/test/L15_yolo.dat", "r");
+    // for(int o=0; o<425; o++){
+    //     for(int h=0; h<13; h++){
+    //         for(int w=0; w<13; w++){
+    //           fscanf(f, "%f", &num);
+    //           LAYER_out_sw[h][w][o] = num;
+    //         }
+    //     }
+    // }
+    // fclose(f);
 //   for (int h = 0; h < out_h2; h++)
 //     for (int w = 0; w < out_w2; w++)
 //       for (int o = 0; o < out_num2; o++){
@@ -98,36 +143,36 @@ int main(){
   
 
 //   // Extract hardware outputs
-//   openpose_postprocess(cin_hw, LAYER_out_hw);   
+  openpose_postprocess(cin_hw, LAYER_out_hw);   
 
-//   // Results comparison
-//   cout << "Results comparison..." << endl;
-//   int err_cnt = 0;
-//   bool test = true;
-//   if(test){
-//   for (int h = 0; h < STAGE2L_OUT_H; h++)
-//     for (int w = 0; w < STAGE2L_OUT_W; w++)
-//       for (int o = 0; o < STAGE2L_OUT_NUM + STAGE2R_OUT_NUM; o++){
-//         data_t0 sw_result = LAYER_out_sw[h][w][o];
-//         data_t0 hw_result = LAYER_out_hw[h][w][o];
-//         if (abs(sw_result - hw_result) > 0.001){
-//           err_cnt++;
-//           cout << "Mismatch: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
-//         } else {
-// //          cout << "Match: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
-//         }
-//       }
-//   }
-//   delete[] cin_hw;
-//   delete[] weight_hw;
-//   delete[] bias_hw;
-//   delete[] config;
+  // Results comparison
+  cout << "Results comparison..." << endl;
+  int err_cnt = 0;
+  bool test = true;
+  if(test){
+  for (int h = 0; h < L15_OUT_H; h++)
+    for (int w = 0; w < L15_OUT_W; w++)
+      for (int o = 0; o < L15_OUT_NUM; o++){
+        data_t0 sw_result = LAYER_out_sw[h][w][o];
+        data_t0 hw_result = LAYER_out_hw[h][w][o];
+        if (abs(sw_result - hw_result) > 0.001){
+          err_cnt++;
+          cout << "Mismatch: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
+        } else {
+//          cout << "Match: STAGE2(" << o << "," << h << "," << w << ") sw: " << sw_result << " hw: " << hw_result << endl;
+        }
+      }
+  }
+  delete[] cin_hw;
+  delete[] weight_hw;
+  delete[] bias_hw;
+  delete[] config;
 
-//   if (err_cnt > 0){
-//     cout << "Failed! " << err_cnt << " errors!" << endl;
-//     return -1;
-//   } else {
-//     cout << "Success!" << endl;
-//     return 0;
-//   }
+  if (err_cnt > 0){
+    cout << "Failed! " << err_cnt << " errors!" << endl;
+    return -1;
+  } else {
+    cout << "Success!" << endl;
+    return 0;
+  }
 }

@@ -8,21 +8,21 @@ port (
     clk: in std_logic;
     rst: in std_logic;
     ce: in std_logic;
-    a: in std_logic_vector(17 - 1 downto 0);
-    b: in std_logic_vector(17 - 1 downto 0);
-    p: out std_logic_vector(17 - 1 downto 0));
+    a: in std_logic_vector(18 - 1 downto 0);
+    b: in std_logic_vector(18 - 1 downto 0);
+    p: out std_logic_vector(18 - 1 downto 0));
 
 end entity;
 
 architecture behav of top_kernel_mul_muhbi_DSP48_0 is
-    signal a_cvt: signed(17 - 1 downto 0);
-    signal b_cvt: signed(17 - 1 downto 0);
-    signal p_cvt: signed(17 - 1 downto 0);
+    signal a_cvt: signed(18 - 1 downto 0);
+    signal b_cvt: signed(18 - 1 downto 0);
+    signal p_cvt: signed(18 - 1 downto 0);
 
-    signal p_reg: signed(17 - 1 downto 0);
+    signal p_reg: signed(18 - 1 downto 0);
 
-    signal a_reg: signed(17 - 1 downto 0) ; 
-    signal b_reg: signed(17 - 1 downto 0) ; 
+    signal a_reg: signed(18 - 1 downto 0) ; 
+    signal b_reg: signed(18 - 1 downto 0) ; 
 begin
 
     a_cvt <= signed(a);
@@ -39,7 +39,7 @@ begin
         end if;
     end process;
 
-    p_cvt <= signed (resize(unsigned (signed (a_reg) * signed (b_reg)), 17));
+    p_cvt <= signed (resize(unsigned (signed (a_reg) * signed (b_reg)), 18));
     p <= std_logic_vector(p_reg);
 
 end architecture;

@@ -1,0 +1,162 @@
+
+
+================================================================
+== Vivado HLS Report for 'weight_load_bias_wri'
+================================================================
+* Date:           Sat Nov  7 02:44:35 2020
+
+* Version:        2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)
+* Project:        pose_prj
+* Solution:       solution1
+* Product family: virtex7
+* Target device:  xc7vx690tffg1761-2
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   3.00|     2.266|        0.38|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |    ?|    ?|    ?|    ?|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |                   |  Latency  | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     | min | max |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |- bias_write_loop  |    ?|    ?|         4|          1|          1|     ?|    yes   |
+        +-------------------+-----+-----+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+--------+
+|       Name      | BRAM_18K| DSP48E|   FF   |   LUT  |
++-----------------+---------+-------+--------+--------+
+|DSP              |        -|      -|       -|       -|
+|Expression       |        -|      -|       0|     104|
+|FIFO             |        -|      -|       -|       -|
+|Instance         |        -|      -|       -|       -|
+|Memory           |        -|      -|       -|       -|
+|Multiplexer      |        -|      -|       -|      78|
+|Register         |        0|      -|     741|      64|
++-----------------+---------+-------+--------+--------+
+|Total            |        0|      0|     741|     246|
++-----------------+---------+-------+--------+--------+
+|Available        |     2940|   3600|  866400|  433200|
++-----------------+---------+-------+--------+--------+
+|Utilization (%)  |        0|      0|   ~0   |   ~0   |
++-----------------+---------+-------+--------+--------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +----------------------------------+----------+-------+---+----+------------+------------+
+    |           Variable Name          | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +----------------------------------+----------+-------+---+----+------------+------------+
+    |oo_fu_199_p2                      |     +    |      0|  0|  20|          13|           1|
+    |ret_V_fu_171_p2                   |     +    |      0|  0|  40|          33|          33|
+    |ap_block_pp0_stage0_01001         |    and   |      0|  0|   2|           1|           1|
+    |ap_block_state6_pp0_stage0_iter3  |    and   |      0|  0|   2|           1|           1|
+    |ap_condition_49                   |    and   |      0|  0|   2|           1|           1|
+    |exitcond_fu_194_p2                |   icmp   |      0|  0|  13|          13|          13|
+    |tmp_11_fu_180_p2                  |   icmp   |      0|  0|  21|          33|          33|
+    |ap_enable_pp0                     |    xor   |      0|  0|   2|           1|           2|
+    |ap_enable_reg_pp0_iter1           |    xor   |      0|  0|   2|           2|           1|
+    +----------------------------------+----------+-------+---+----+------------+------------+
+    |Total                             |          |      0|  0| 104|          98|          86|
+    +----------------------------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +--------------------------------+----+-----------+-----+-----------+
+    |              Name              | LUT| Input Size| Bits| Total Bits|
+    +--------------------------------+----+-----------+-----+-----------+
+    |ap_NS_fsm                       |  27|          5|    1|          5|
+    |ap_enable_reg_pp0_iter1         |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter3         |   9|          2|    1|          2|
+    |ap_phi_mux_tmp_V_phi_fu_134_p4  |  15|          3|  256|        768|
+    |fifo_bias_V_V_blk_n             |   9|          2|    1|          2|
+    |i_op_assign_reg_120             |   9|          2|   13|         26|
+    +--------------------------------+----+-----------+-----+-----------+
+    |Total                           |  78|         16|  273|        805|
+    +--------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------+-----+----+-----+-----------+
+    |           Name          |  FF | LUT| Bits| Const Bits|
+    +-------------------------+-----+----+-----+-----------+
+    |LAYER_IN_NUM_V_reg_243   |   32|   0|   32|          0|
+    |ap_CS_fsm                |    4|   0|    4|          0|
+    |ap_enable_reg_pp0_iter0  |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1  |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2  |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter3  |    1|   0|    1|          0|
+    |bus_b_data_V_reg_284     |  512|   0|  512|          0|
+    |bus_b_offset_reg_275     |    1|   0|    1|          0|
+    |exitcond_reg_266         |    1|   0|    1|          0|
+    |i_op_assign_reg_120      |   13|   0|   13|          0|
+    |ret_V_reg_252            |   33|   0|   33|          0|
+    |tmp_12_reg_261           |   13|   0|   13|          0|
+    |bus_b_offset_reg_275     |   64|  32|    1|          0|
+    |exitcond_reg_266         |   64|  32|    1|          0|
+    +-------------------------+-----+----+-----+-----------+
+    |Total                    |  741|  64|  615|          0|
+    +-------------------------+-----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------+-----+-----+------------+----------------------+--------------+
+|         RTL Ports         | Dir | Bits|  Protocol  |     Source Object    |    C Type    |
++---------------------------+-----+-----+------------+----------------------+--------------+
+|ap_clk                     |  in |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|ap_rst                     |  in |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|ap_start                   |  in |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|ap_done                    | out |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|ap_idle                    | out |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|ap_ready                   | out |    1| ap_ctrl_hs | weight_load_bias_wri | return value |
+|bias_burst_buf_V_address0  | out |    2|  ap_memory |   bias_burst_buf_V   |     array    |
+|bias_burst_buf_V_ce0       | out |    1|  ap_memory |   bias_burst_buf_V   |     array    |
+|bias_burst_buf_V_q0        |  in |  512|  ap_memory |   bias_burst_buf_V   |     array    |
+|fifo_bias_V_V_din          | out |  256|   ap_fifo  |     fifo_bias_V_V    |    pointer   |
+|fifo_bias_V_V_full_n       |  in |    1|   ap_fifo  |     fifo_bias_V_V    |    pointer   |
+|fifo_bias_V_V_write        | out |    1|   ap_fifo  |     fifo_bias_V_V    |    pointer   |
+|inst1_V                    |  in |  192|   ap_none  |        inst1_V       |    scalar    |
+|inst3_V                    |  in |  192|   ap_none  |        inst3_V       |    scalar    |
+|in_num_iter                |  in |   32|   ap_none  |      in_num_iter     |    scalar    |
++---------------------------+-----+-----+------------+----------------------+--------------+
+

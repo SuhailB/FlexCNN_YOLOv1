@@ -1,7 +1,7 @@
 # This script segment is generated automatically by AutoPilot
 
-set id 303
-set name top_kernel_udiv_3Thq
+set id 325
+set name top_kernel_udiv_3UhA
 set corename simcore_udiv_seq
 set op udiv
 set stage_num 36
@@ -94,8 +94,8 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_div, check your pla
 }
 
 
-set id 313
-set name top_kernel_mul_32UhA
+set id 335
+set name top_kernel_mul_32VhK
 set corename simcore_mul
 set op mul
 set stage_num 7
@@ -179,8 +179,8 @@ puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_multicycle_mul, che
 }
 
 
-set id 323
-set name top_kernel_mul_muVhK
+set id 341
+set name top_kernel_mul_19WhU
 set corename simcore_mul
 set op mul
 set stage_num 3
@@ -190,16 +190,13 @@ set clk_width 1
 set clk_signed 0
 set reset_width 1
 set reset_signed 0
-set in0_width 18
+set in0_width 19
 set in0_signed 1
-set in1_width 18
+set in1_width 19
 set in1_signed 1
 set ce_width 1
 set ce_signed 0
-set out_width 18
-set exp i0*i1
-set arg_lists {i0 {18 1 +} i1 {18 1 +} p {18 1 +} acc {0} }
-set TrueReset 0
+set out_width 19
 if {${::AESL::PGuard_simmodel_gen}} {
 if {[info proc ap_gen_simcore_mul] == "ap_gen_simcore_mul"} {
 eval "ap_gen_simcore_mul { \
@@ -209,7 +206,6 @@ eval "ap_gen_simcore_mul { \
     op ${op} \
     reset_level 1 \
     sync_rst true \
-    true_reset ${TrueReset} \
     stage_num ${stage_num} \
     max_latency ${max_latency} \
     registered_input ${registered_input} \
@@ -224,8 +220,6 @@ eval "ap_gen_simcore_mul { \
     ce_width ${ce_width} \
     ce_signed ${ce_signed} \
     out_width ${out_width} \
-    exp ${exp} \
-    arg_lists {${arg_lists}} \
 }"
 } else {
 puts "@W \[IMPL-100\] Cannot find ap_gen_simcore_mul, check your AutoPilot builtin lib"
@@ -239,17 +233,16 @@ if {${::AESL::PGuard_rtl_comp_handler}} {
 
 
 set op mul
-set corename DSP48
+set corename MulnS
 if {${::AESL::PGuard_autocg_gen} && ${::AESL::PGuard_autocg_ipmgen}} {
-if {[info proc ::AESL_LIB_VIRTEX::xil_gen_dsp48] == "::AESL_LIB_VIRTEX::xil_gen_dsp48"} {
-eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
+if {[info proc ::AESL_LIB_VIRTEX::xil_gen_multicycle_mul] == "::AESL_LIB_VIRTEX::xil_gen_multicycle_mul"} {
+eval "::AESL_LIB_VIRTEX::xil_gen_multicycle_mul { \
     id ${id} \
     name ${name} \
     corename ${corename} \
     op ${op} \
     reset_level 1 \
     sync_rst true \
-    true_reset ${TrueReset} \
     stage_num ${stage_num} \
     max_latency ${max_latency} \
     registered_input ${registered_input} \
@@ -264,11 +257,9 @@ eval "::AESL_LIB_VIRTEX::xil_gen_dsp48 { \
     ce_width ${ce_width} \
     ce_signed ${ce_signed} \
     out_width ${out_width} \
-    exp ${exp} \
-    arg_lists {${arg_lists}} \
 }"
 } else {
-puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_dsp48, check your platform lib"
+puts "@W \[IMPL-101\] Cannot find ::AESL_LIB_VIRTEX::xil_gen_multicycle_mul, check your platform lib"
 }
 }
 
@@ -284,14 +275,14 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
 eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
-    id 329 \
+    id 351 \
     name cout_burst_buf_V \
     reset_level 1 \
     sync_rst true \
     dir I \
     corename cout_burst_buf_V \
     op interface \
-    ports { cout_burst_buf_V_address0 { O 12 vector } cout_burst_buf_V_ce0 { O 1 bit } cout_burst_buf_V_q0 { I 512 vector } } \
+    ports { cout_burst_buf_V_address0 { O 13 vector } cout_burst_buf_V_ce0 { O 1 bit } cout_burst_buf_V_q0 { I 512 vector } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'cout_burst_buf_V'"
@@ -302,7 +293,7 @@ puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored ge
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 330 \
+    id 352 \
     name global_cout_V \
     type other \
     dir O \
@@ -317,7 +308,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 331 \
+    id 353 \
     name global_cout_V_offset \
     type other \
     dir I \
@@ -332,7 +323,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 332 \
+    id 354 \
     name en \
     type other \
     dir I \
@@ -347,7 +338,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 333 \
+    id 355 \
     name up_sample \
     type other \
     dir I \
@@ -362,7 +353,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 334 \
+    id 356 \
     name num_iter \
     type other \
     dir I \
@@ -377,7 +368,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 335 \
+    id 357 \
     name in_h_iter \
     type other \
     dir I \
@@ -392,7 +383,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 336 \
+    id 358 \
     name in_w_iter \
     type other \
     dir I \
@@ -407,7 +398,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 337 \
+    id 359 \
     name LAYER_OUT_NUM_T \
     type other \
     dir I \
@@ -422,7 +413,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 338 \
+    id 360 \
     name LAYER_IN_H_T \
     type other \
     dir I \
@@ -437,7 +428,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 339 \
+    id 361 \
     name LAYER_IN_W_T \
     type other \
     dir I \
@@ -452,7 +443,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 340 \
+    id 362 \
     name LAYER_OUT_H_HW \
     type other \
     dir I \
@@ -467,7 +458,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 341 \
+    id 363 \
     name LAYER_OUT_W_HW \
     type other \
     dir I \
@@ -482,7 +473,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 342 \
+    id 364 \
     name num_tile \
     type other \
     dir I \
@@ -497,7 +488,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 343 \
+    id 365 \
     name ind_w_t \
     type other \
     dir I \
@@ -512,7 +503,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 344 \
+    id 366 \
     name ind_w \
     type other \
     dir I \
@@ -527,7 +518,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 345 \
+    id 367 \
     name cout_offset \
     type other \
     dir I \
@@ -542,7 +533,7 @@ eval "cg_default_interface_gen_dc { \
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {
 eval "cg_default_interface_gen_dc { \
-    id 346 \
+    id 368 \
     name change_layout \
     type other \
     dir I \
@@ -551,6 +542,21 @@ eval "cg_default_interface_gen_dc { \
     corename dc_change_layout \
     op interface \
     ports { change_layout { I 1 bit } } \
+} "
+}
+
+# Direct connection:
+if {${::AESL::PGuard_autoexp_gen}} {
+eval "cg_default_interface_gen_dc { \
+    id 369 \
+    name POOL_ODD \
+    type other \
+    dir I \
+    reset_level 1 \
+    sync_rst true \
+    corename dc_POOL_ODD \
+    op interface \
+    ports { POOL_ODD { I 1 bit } } \
 } "
 }
 

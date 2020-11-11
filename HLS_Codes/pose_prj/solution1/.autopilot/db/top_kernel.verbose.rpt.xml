@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'top_kernel'" level="0">
-<item name = "Date">Thu Nov  5 03:55:47 2020
+<item name = "Date">Tue Nov 10 23:50:59 2020
 </item>
 <item name = "Version">2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)</item>
 <item name = "Project">pose_prj</item>
@@ -31,7 +31,7 @@
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="0">
 <keys size="7">Instance, Module, min, max, min, max, Type</keys>
-<column name="grp_engine_fu_228">engine, ?, ?, ?, ?, dataflow</column>
+<column name="grp_engine_fu_229">engine, ?, ?, ?, ?, dataflow</column>
 </table>
 </item>
 <item name = "Loop"><table name="" hasTotal="0">
@@ -50,21 +50,21 @@
 <item name = "Summary"><table name="" hasTotal="1">
 <keys size="6">Name, BRAM_18K, DSP48E, FF, LUT, URAM</keys>
 <column name="DSP">-, -, -, -, -</column>
-<column name="Expression">-, -, 0, 199, -</column>
+<column name="Expression">-, -, 0, 201, -</column>
 <column name="FIFO">-, -, -, -, -</column>
-<column name="Instance">584, 293, 124705, 77119, 56</column>
+<column name="Instance">840, 307, 149777, 93488, 88</column>
 <column name="Memory">2, -, 0, 0, -</column>
 <column name="Multiplexer">-, -, -, 248, -</column>
-<column name="Register">-, -, 617, -, -</column>
+<column name="Register">-, -, 619, -, -</column>
 <specialColumn name="Available">2940, 3600, 866400, 433200, -</specialColumn>
-<specialColumn name="Utilization (%)">19, 8, 14, 17, -</specialColumn>
+<specialColumn name="Utilization (%)">28, 8, 17, 21, -</specialColumn>
 </table>
 </item>
 <item name = "Detail">
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="1">
 <keys size="6">Instance, Module, BRAM_18K, DSP48E, FF, LUT</keys>
-<column name="grp_engine_fu_228">engine, 578, 293, 122713, 74571</column>
+<column name="grp_engine_fu_229">engine, 834, 307, 147785, 90940</column>
 <column name="top_kernel_control_s_axi_U">top_kernel_control_s_axi, 0, 0, 456, 808</column>
 <column name="top_kernel_gcontrol_m_axi_U">top_kernel_gcontrol_m_axi, 2, 0, 512, 580</column>
 <column name="top_kernel_gmem1_m_axi_U">top_kernel_gmem1_m_axi, 2, 0, 512, 580</column>
@@ -86,16 +86,16 @@
 </item>
 <item name = "Expression"><table name="" hasTotal="1">
 <keys size="7">Variable Name, Operation, DSP48E, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
-<column name="indvar_next5_fu_368_p2">+, 0, 0, 37, 30, 1</column>
-<column name="layer_config_V12_sum_fu_325_p2">+, 0, 0, 70, 63, 63</column>
-<column name="layer_id_1_fu_301_p2">+, 0, 0, 12, 3, 1</column>
-<column name="tmp_16_fu_374_p2">+, 0, 0, 39, 32, 4</column>
+<column name="indvar_next5_fu_363_p2">+, 0, 0, 37, 30, 1</column>
+<column name="layer_config_V12_sum_fu_320_p2">+, 0, 0, 70, 63, 63</column>
+<column name="layer_id_1_fu_374_p2">+, 0, 0, 13, 4, 1</column>
+<column name="tmp_16_fu_369_p2">+, 0, 0, 39, 32, 4</column>
 <column name="ap_block_state10">and, 0, 0, 2, 1, 1</column>
-<column name="exitcond6_fu_363_p2">icmp, 0, 0, 18, 30, 30</column>
-<column name="exitcond_fu_295_p2">icmp, 0, 0, 9, 3, 3</column>
-<column name="ap_sync_grp_engine_fu_228_ap_done">or, 0, 0, 2, 1, 1</column>
-<column name="ap_sync_grp_engine_fu_228_ap_ready">or, 0, 0, 2, 1, 1</column>
-<column name="tmp_15_fu_315_p2">or, 0, 0, 8, 8, 3</column>
+<column name="exitcond6_fu_358_p2">icmp, 0, 0, 18, 30, 30</column>
+<column name="exitcond_fu_296_p2">icmp, 0, 0, 9, 4, 2</column>
+<column name="ap_sync_grp_engine_fu_229_ap_done">or, 0, 0, 2, 1, 1</column>
+<column name="ap_sync_grp_engine_fu_229_ap_ready">or, 0, 0, 2, 1, 1</column>
+<column name="tmp_15_fu_310_p2">or, 0, 0, 9, 9, 3</column>
 </table>
 </item>
 <item name = "Multiplexer"><table name="" hasTotal="1">
@@ -116,33 +116,33 @@
 <column name="gmem1_WVALID">9, 2, 1, 2</column>
 <column name="gmem2_ARVALID">9, 2, 1, 2</column>
 <column name="gmem2_RREADY">9, 2, 1, 2</column>
-<column name="indvar_reg_216">9, 2, 30, 60</column>
-<column name="layer_id_reg_205">9, 2, 3, 6</column>
+<column name="indvar_reg_217">9, 2, 30, 60</column>
+<column name="layer_id_reg_205">9, 2, 4, 8</column>
 </table>
 </item>
 <item name = "Register"><table name="" hasTotal="1">
 <keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
 <column name="ap_CS_fsm">15, 0, 15, 0</column>
 <column name="ap_reg_ioackin_gcontrol_ARREADY">1, 0, 1, 0</column>
-<column name="ap_sync_reg_grp_engine_fu_228_ap_done">1, 0, 1, 0</column>
-<column name="ap_sync_reg_grp_engine_fu_228_ap_ready">1, 0, 1, 0</column>
+<column name="ap_sync_reg_grp_engine_fu_229_ap_done">1, 0, 1, 0</column>
+<column name="ap_sync_reg_grp_engine_fu_229_ap_ready">1, 0, 1, 0</column>
 <column name="cur_layer_batch_reg_192">32, 0, 32, 0</column>
-<column name="gcontrol_addr_read_reg_455">32, 0, 32, 0</column>
-<column name="gcontrol_addr_reg_426">63, 0, 64, 1</column>
-<column name="global_bias_V9_reg_393">58, 0, 58, 0</column>
-<column name="global_cin_V1_reg_408">58, 0, 58, 0</column>
-<column name="global_cout_V5_reg_403">58, 0, 58, 0</column>
-<column name="global_weight_V7_reg_398">58, 0, 58, 0</column>
-<column name="grp_engine_fu_228_ap_start_reg">1, 0, 1, 0</column>
-<column name="indvar_next5_reg_450">30, 0, 30, 0</column>
-<column name="indvar_reg_216">30, 0, 30, 0</column>
-<column name="layer_id_1_reg_421">3, 0, 3, 0</column>
-<column name="layer_id_reg_205">3, 0, 3, 0</column>
-<column name="nxt_layer_batch_reg_470">32, 0, 32, 0</column>
-<column name="tmp_16_reg_460">27, 0, 32, 5</column>
-<column name="tmp_27_reg_442">27, 0, 32, 5</column>
-<column name="tmp_71_cast_reg_388">62, 0, 63, 1</column>
-<column name="tmp_cast_reg_432">25, 0, 30, 5</column>
+<column name="gcontrol_addr_read_reg_451">32, 0, 32, 0</column>
+<column name="gcontrol_addr_reg_422">63, 0, 64, 1</column>
+<column name="global_bias_V9_reg_394">58, 0, 58, 0</column>
+<column name="global_cin_V1_reg_409">58, 0, 58, 0</column>
+<column name="global_cout_V5_reg_404">58, 0, 58, 0</column>
+<column name="global_weight_V7_reg_399">58, 0, 58, 0</column>
+<column name="grp_engine_fu_229_ap_start_reg">1, 0, 1, 0</column>
+<column name="indvar_next5_reg_446">30, 0, 30, 0</column>
+<column name="indvar_reg_217">30, 0, 30, 0</column>
+<column name="layer_id_1_reg_461">4, 0, 4, 0</column>
+<column name="layer_id_reg_205">4, 0, 4, 0</column>
+<column name="nxt_layer_batch_reg_471">32, 0, 32, 0</column>
+<column name="tmp_16_reg_456">27, 0, 32, 5</column>
+<column name="tmp_27_reg_438">27, 0, 32, 5</column>
+<column name="tmp_71_cast_reg_389">62, 0, 63, 1</column>
+<column name="tmp_cast_reg_428">25, 0, 30, 5</column>
 </table>
 </item>
 </section>

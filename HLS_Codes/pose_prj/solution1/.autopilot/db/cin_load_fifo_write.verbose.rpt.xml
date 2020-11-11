@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'cin_load_fifo_write'" level="0">
-<item name = "Date">Thu Nov  5 03:54:56 2020
+<item name = "Date">Tue Nov 10 23:50:05 2020
 </item>
 <item name = "Version">2018.3 (Build 2405991 on Thu Dec 06 23:56:15 MST 2018)</item>
 <item name = "Project">pose_prj</item>
@@ -84,8 +84,8 @@
 <column name="ii_4_fu_238_p2">+, 0, 0, 39, 32, 1</column>
 <column name="local_cin_idx_fu_312_p2">+, 0, 0, 39, 32, 32</column>
 <column name="tmp16_fu_174_p2">+, 0, 0, 39, 32, 2</column>
-<column name="tmp_364_fu_185_p2">+, 0, 0, 39, 32, 32</column>
-<column name="tmp_367_fu_297_p2">+, 0, 0, 39, 32, 32</column>
+<column name="tmp_389_fu_185_p2">+, 0, 0, 39, 32, 32</column>
+<column name="tmp_392_fu_297_p2">+, 0, 0, 39, 32, 32</column>
 <column name="tmp_s_fu_180_p2">+, 0, 0, 39, 32, 32</column>
 <column name="ww_2_fu_204_p2">+, 0, 0, 39, 32, 1</column>
 <column name="ap_block_pp0_stage0_01001">and, 0, 0, 2, 1, 1</column>
@@ -93,9 +93,9 @@
 <column name="ap_condition_50">and, 0, 0, 2, 1, 1</column>
 <column name="done_3_fu_291_p2">and, 0, 0, 2, 1, 1</column>
 <column name="sel_tmp_fu_257_p2">and, 0, 0, 2, 1, 1</column>
-<column name="tmp_371_fu_210_p2">icmp, 0, 0, 18, 32, 32</column>
-<column name="tmp_372_fu_234_p2">icmp, 0, 0, 18, 32, 32</column>
-<column name="tmp_373_fu_244_p2">icmp, 0, 0, 18, 32, 32</column>
+<column name="tmp_396_fu_210_p2">icmp, 0, 0, 18, 32, 32</column>
+<column name="tmp_397_fu_234_p2">icmp, 0, 0, 18, 32, 32</column>
+<column name="tmp_398_fu_244_p2">icmp, 0, 0, 18, 32, 32</column>
 <column name="hh_2_fu_284_p3">select, 0, 0, 32, 1, 32</column>
 <column name="ii_3_fu_270_p3">select, 0, 0, 32, 1, 32</column>
 <column name="p_s_fu_249_p3">select, 0, 0, 32, 1, 1</column>
@@ -155,19 +155,19 @@
 <column name="ii_3_reg_398">32, 0, 32, 0</column>
 <column name="ii_reg_116">32, 0, 32, 0</column>
 <column name="tmp16_reg_353">32, 0, 32, 0</column>
-<column name="tmp_364_reg_370">32, 0, 32, 0</column>
-<column name="tmp_366_reg_413">32, 0, 32, 0</column>
-<column name="tmp_367_reg_418">32, 0, 32, 0</column>
-<column name="tmp_368_reg_423">32, 0, 32, 0</column>
-<column name="tmp_371_reg_380">1, 0, 1, 0</column>
-<column name="tmp_565_reg_433">1, 0, 1, 0</column>
+<column name="tmp_389_reg_370">32, 0, 32, 0</column>
+<column name="tmp_391_reg_413">32, 0, 32, 0</column>
+<column name="tmp_392_reg_418">32, 0, 32, 0</column>
+<column name="tmp_393_reg_423">32, 0, 32, 0</column>
+<column name="tmp_396_reg_380">1, 0, 1, 0</column>
+<column name="tmp_591_reg_433">1, 0, 1, 0</column>
 <column name="tmp_reg_375">29, 0, 32, 3</column>
 <column name="tmp_s_reg_364">32, 0, 32, 0</column>
 <column name="ww_1_reg_393">32, 0, 32, 0</column>
 <column name="ww_reg_140">32, 0, 32, 0</column>
 <column name="done_reg_152">64, 32, 1, 0</column>
 <column name="ii_reg_116">64, 32, 32, 0</column>
-<column name="tmp_565_reg_433">64, 32, 1, 0</column>
+<column name="tmp_591_reg_433">64, 32, 1, 0</column>
 <column name="ww_reg_140">64, 32, 32, 0</column>
 </table>
 </item>
@@ -184,7 +184,7 @@
 <column name="ap_done">out, 1, ap_ctrl_hs, cin_load_fifo_write, return value</column>
 <column name="ap_idle">out, 1, ap_ctrl_hs, cin_load_fifo_write, return value</column>
 <column name="ap_ready">out, 1, ap_ctrl_hs, cin_load_fifo_write, return value</column>
-<column name="cin_burst_buf_V_address0">out, 12, ap_memory, cin_burst_buf_V, array</column>
+<column name="cin_burst_buf_V_address0">out, 13, ap_memory, cin_burst_buf_V, array</column>
 <column name="cin_burst_buf_V_ce0">out, 1, ap_memory, cin_burst_buf_V, array</column>
 <column name="cin_burst_buf_V_q0">in, 512, ap_memory, cin_burst_buf_V, array</column>
 <column name="fifo_cin_V_V_din">out, 256, ap_fifo, fifo_cin_V_V, pointer</column>

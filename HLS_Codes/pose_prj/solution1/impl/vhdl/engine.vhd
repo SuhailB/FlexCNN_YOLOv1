@@ -825,7 +825,7 @@ architecture behav of engine is
     end component;
 
 
-    component start_for_cout_wrYie IS
+    component start_for_cout_wrZio IS
     port (
         clk : IN STD_LOGIC;
         reset : IN STD_LOGIC;
@@ -1384,7 +1384,7 @@ begin
         if_empty_n => start_for_conv_U0_empty_n,
         if_read => conv_U0_ap_ready);
 
-    start_for_cout_wrYie_U : component start_for_cout_wrYie
+    start_for_cout_wrZio_U : component start_for_cout_wrZio
     port map (
         clk => ap_clk,
         reset => ap_rst,
